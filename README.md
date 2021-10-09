@@ -62,5 +62,5 @@ The user may also search a keyword using the Search tool availble in the toolbar
 The users are also allowed to change each node's border color, size, etc. for classification purposes.
 
 # Team 
-[Selbi Ereshova](https://github.com/SelbiEreshova), [Computer Engineering Department](http://www.cs.bilkent.edu.tr) at Bilkent University.
+[Ahmet Hakan Yilmaz](https://github.com/AhmetHakanYilmaz), [Akin Kutlu](https://github.com/AkinKutlu00), [Ebrar Bozkurt](https://github.com/EbrarBozkurt), [Fatma Sena Genc](https://github.com/fatmasenagenc),[Selbi Ereshova](https://github.com/SelbiEreshova), [Zehra Erdem](https://github.com/ZehraErdem) of [Computer Engineering Department](http://www.cs.bilkent.edu.tr) at Bilkent University.
 
