@@ -1,10 +1,10 @@
 # Student CLub Manager
-Willow was originally desinged and implemented as a Bilkent CS Senior Design Project. Later it was improved with new features and bug fixes.
+Student Club Manager is class project for Bilkent CS319.
 
-# Dependencies  
-[Cheerio npm](https://www.npmjs.com/package/cheerio) and [node-fetch npm](https://www.npmjs.com/package/node-fetch)
+# Languages and frameworks(tentative)  
+[C#](https://docs.microsoft.com/en-us/dotnet/csharp/), [ASP.NET](https://dotnet.microsoft.com/apps/aspnet), [SQL](?), [jQuery](https://jquery.com/), [Bootstrap](https://getbootstrap.com/)
 
-# Installation 
+# Main Features  
 
 In order to use this project as an extension to Google Chrome:
   - Download/clone the project from this repository
@@ -21,7 +21,7 @@ After these steps, the extension should be loaded and be ready for use. To see a
 <img width="600" alt="Screen Shot 2021-08-05 at 10 46 15" src="https://user-images.githubusercontent.com/63513562/128313019-f1525839-8c3a-4e1e-bce0-83417e895b16.png">
 </p>
 
-# Usage
+# Additional features
 Once the extension is loaded, the user can browse through the Internet as they please and whevener they want to see the current graph of their browsing, they can click the extension icon on the top right corner. This will present the browse history as an interactive graph, where the nodes correspond to the web pages and the edges represent hyperlinks followed from one page to another. The currently viewable graph belongs to the current browse session. At any time the user has the option to start a new session (empty the graph and start from scratch). They may also export the current session at any time to import back at a later time (or exchange with a friend).
 
 <p align="center">
