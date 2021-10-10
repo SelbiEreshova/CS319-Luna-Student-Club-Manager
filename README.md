@@ -1,4 +1,4 @@
-# Student CLub Manager
+# Student Club Manager
 Student club manager is a web based application project for CS319. This project is designed for students and club managers at university. This project aims at to provide an effective implementation of a club manager for both sides of user, students and clubs and makes it far easier to arrange and attend the club activities and follow a particular club.
 
 # Languages and frameworks(tentative)  
