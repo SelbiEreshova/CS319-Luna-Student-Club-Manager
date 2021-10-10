@@ -5,7 +5,7 @@ Student club manager is a web based application project for CS319. This project 
 [C#](https://docs.microsoft.com/en-us/dotnet/csharp/), [ASP.NET](https://dotnet.microsoft.com/apps/aspnet), [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads), [jQuery](https://jquery.com/), [Bootstrap](https://getbootstrap.com/)
 
 # Main Features  
-The main aim of our project is to allow student club managers of Bilkent University to manage the club members and club events and students to access functionalities regarding clubs. There will be two different accounts, one for students another for club managers 
+The main objective of our project is to allow student club managers of Bilkent University to manage the club members and club events and Bilkent students to access clubs and their activities in a neat and efficient way. There will be two different accounts in the project, student account and club account. Student accounts have the features related to enrolling, following and receiving announcements about activities and clubs. Club accounts have the features to create and arranging activities and specify the roles of their members. Apart from these, this project might provide features and interfaces related to showing activity location on a map, taking attendance for an activity, see activities on a calendar and email reminder for an activity.
 
   ## For student:
   - See active club events (details: club hosting the event, date, time, location, GE points(if any))
