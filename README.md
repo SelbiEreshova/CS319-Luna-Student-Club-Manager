@@ -5,6 +5,21 @@ Student Club Manager is class project for Bilkent CS319.
 [C#](https://docs.microsoft.com/en-us/dotnet/csharp/), [ASP.NET](https://dotnet.microsoft.com/apps/aspnet), [SQL](?), [jQuery](https://jquery.com/), [Bootstrap](https://getbootstrap.com/)
 
 # Main Features  
+The main theme of our project is to allow student club managers of Bilkent University to manage the club members and club events and students to access functionaloties regarding clubs. There will be two different accounts, one for students another for club managers 
+  # # For student:
+  - See active events
+  - See active clubs(and if GE points are given or not)
+  - Enroll in activities
+  - See activities of a certain club
+  - Apply for membership
+  - Show enrolled activities(name, date, Club, location)
+  - Show enrolled activities 
+  - My clubs (status decided by the club manager)
+  - Receive announcement through bilkent email
+  - Chooses reminder options
+
+  # # For Club managers 
+  - 
 
 In order to use this project as an extension to Google Chrome:
   - Download/clone the project from this repository
