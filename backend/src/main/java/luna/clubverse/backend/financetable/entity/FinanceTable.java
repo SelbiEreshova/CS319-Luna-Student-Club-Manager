@@ -21,8 +21,10 @@ public class FinanceTable extends BaseEntity {
 
     // private Club club;
 
-    @OneToMany()
-   private Set<FinanceData> financeData;
+    /**
+    @OneToMany(mappedBy = "financeTable")
+    private Set<FinanceData> financeData;
+    **/
 
 
 }

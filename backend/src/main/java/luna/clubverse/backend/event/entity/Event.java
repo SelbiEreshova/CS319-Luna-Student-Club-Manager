@@ -38,11 +38,12 @@ public class Event extends BaseEntity {
 
     private int numberEvaluation;
 
-    /**
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "finance_data_id")
     private FinanceData financeData;
 
+    /**
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     private Location location;
@@ -51,7 +52,7 @@ public class Event extends BaseEntity {
     protected Event() {
     }
 
-    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalDate endDate, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly) {
+    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalDate endDate, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly, FinanceData financeData) {
         this.name = name;
         this.description = description;
         this.eventStatus = eventStatus;
@@ -65,6 +66,6 @@ public class Event extends BaseEntity {
         this.memberOnly = memberOnly;
         this.totalPoint = 0;
         this.numberEvaluation = 0;
-        //this.financeData = financeData;
+        this.financeData = financeData;
     }
 }

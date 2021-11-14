@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
+import luna.clubverse.backend.financedata.entity.FinanceData;
+import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -35,8 +37,17 @@ public class AddEventRequest {
 
     private boolean memberOnly;
 
+    private double amountOfMoney;
+
+    private String explanation;
+
 
     public Event toEvent() {
-        return new Event(name,description,eventStatus, gePoint, LocalDate.parse(startDate), LocalDate.parse(endDate), LocalDate.parse(registrationDeadline), LocalDate.parse(reviewDeadline), quota, memberOnly);
+        return new Event(name,description,eventStatus, gePoint, LocalDate.parse(startDate), LocalDate.parse(endDate), LocalDate.parse(registrationDeadline), LocalDate.parse(reviewDeadline), quota, memberOnly, toFinanceData());
+
+    }
+
+    public FinanceData toFinanceData() {
+        return new FinanceData(amountOfMoney, FinanceDataStatus.OUTCOME, explanation, LocalDate.now()) ;
     }
 }

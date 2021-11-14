@@ -4,6 +4,7 @@ package luna.clubverse.backend.financedata.entity;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import luna.clubverse.backend.common.entity.BaseEntity;
+import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,7 +22,7 @@ public class FinanceData extends BaseEntity {
     private double amountOfMoney;
 
     @Column(name = "status")
-    private String status;
+    private FinanceDataStatus status;
 
     @Column(name = "explanation")
     private String explanation;
@@ -29,14 +30,16 @@ public class FinanceData extends BaseEntity {
     @Column(name = "date")
     private LocalDate date;
 
+    /**
     @ManyToOne
     @JoinColumn(name = "finance_table_id")
     private FinanceTable financeTable;
+    **/
 
     protected FinanceData() {
     }
 
-    public FinanceData(double amountOfMoney, String status, String explanation, LocalDate date) {
+    public FinanceData(double amountOfMoney, FinanceDataStatus status, String explanation, LocalDate date) {
         this.amountOfMoney = amountOfMoney;
         this.status = status;
         this.explanation = explanation;
