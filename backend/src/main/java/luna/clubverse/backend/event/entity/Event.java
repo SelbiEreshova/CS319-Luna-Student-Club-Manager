@@ -12,4 +12,6 @@ public class Event extends BaseEntity {
     private String description;
 
 
+
+
 }
