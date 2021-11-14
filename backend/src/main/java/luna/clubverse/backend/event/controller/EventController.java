@@ -15,10 +15,18 @@ public class EventController {
     }
 
     @CrossOrigin
-    @PostMapping("/add")
+    @PostMapping("/add") // post yeni şey eklemek için yapılır
     public String addEvent(@RequestBody AddEventRequest addEventRequest) {
         eventService.addEvent(addEventRequest.toEvent());
         return "success";
     }
+
+    //put update etmek için kullanılır
+
+    //delete silmek için kullanılır
+
+    //get query işlmeleri için kullanılır
+
+
 }
 

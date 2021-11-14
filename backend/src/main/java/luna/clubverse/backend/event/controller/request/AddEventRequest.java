@@ -11,7 +11,9 @@ import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
-@RequiredArgsConstructor
+
+// Üstteki ikili requestler için şart
+@RequiredArgsConstructor // her türlü constract oluşturur yazmaya gerek yok
 @Getter
 @ToString
 public class AddEventRequest {

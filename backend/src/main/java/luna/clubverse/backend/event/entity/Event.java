@@ -1,5 +1,8 @@
 package luna.clubverse.backend.event.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
@@ -7,6 +10,7 @@ import luna.clubverse.backend.location.entity.Location;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "event")
@@ -37,6 +41,7 @@ public class Event extends BaseEntity {
     private int totalPoint;
 
     private int numberEvaluation;
+
 
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
