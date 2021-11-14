@@ -1,15 +1,12 @@
 package luna.clubverse.backend.event.entity;
 
 import luna.clubverse.backend.common.entity.BaseEntity;
-import luna.clubverse.backend.event.entity.enumuration.EventStatus;
+import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
+import luna.clubverse.backend.location.entity.Location;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "event")
@@ -41,14 +38,20 @@ public class Event extends BaseEntity {
 
     private int numberEvaluation;
 
-    @OneToOne()
+    /**
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "finance_data_id")
     private FinanceData financeData;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id")
+    private Location location;
+    **/
 
     protected Event() {
     }
 
-    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalDate endDate, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly, FinanceData financeData) {
+    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalDate endDate, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly) {
         this.name = name;
         this.description = description;
         this.eventStatus = eventStatus;
@@ -62,6 +65,6 @@ public class Event extends BaseEntity {
         this.memberOnly = memberOnly;
         this.totalPoint = 0;
         this.numberEvaluation = 0;
-        this.financeData = financeData;
+        //this.financeData = financeData;
     }
 }

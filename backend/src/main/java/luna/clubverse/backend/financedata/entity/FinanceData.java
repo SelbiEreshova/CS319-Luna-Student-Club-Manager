@@ -4,6 +4,7 @@ package luna.clubverse.backend.financedata.entity;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import luna.clubverse.backend.common.entity.BaseEntity;
+import luna.clubverse.backend.financetable.entity.FinanceTable;
 import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
@@ -27,6 +28,10 @@ public class FinanceData extends BaseEntity {
 
     @Column(name = "date")
     private LocalDate date;
+
+    @ManyToOne
+    @JoinColumn(name = "finance_table_id")
+    private FinanceTable financeTable;
 
     protected FinanceData() {
     }

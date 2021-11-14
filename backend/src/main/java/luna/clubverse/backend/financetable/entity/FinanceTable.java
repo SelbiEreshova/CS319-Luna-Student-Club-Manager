@@ -3,9 +3,12 @@ package luna.clubverse.backend.financetable.entity;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import luna.clubverse.backend.common.entity.BaseEntity;
+import luna.clubverse.backend.financedata.entity.FinanceData;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 
 @Entity
@@ -18,7 +21,8 @@ public class FinanceTable extends BaseEntity {
 
     // private Club club;
 
-   // private FinanceData[] financeData = null ;
+    @OneToMany()
+   private Set<FinanceData> financeData;
 
 
 }

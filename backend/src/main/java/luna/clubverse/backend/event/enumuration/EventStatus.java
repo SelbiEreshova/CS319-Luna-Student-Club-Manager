@@ -1,4 +1,4 @@
-package luna.clubverse.backend.event.entity.enumuration;
+package luna.clubverse.backend.event.enumuration;
 
 public enum EventStatus {
     DRAFT, PUBLISHED, CANCELED
