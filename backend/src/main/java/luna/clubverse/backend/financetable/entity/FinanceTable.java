@@ -17,7 +17,8 @@ public class FinanceTable extends BaseEntity {
 
     private boolean totalMoney;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "financeTable")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "finance_data_id")
     private Set<FinanceData> financeData;
 
 }

@@ -2,22 +2,39 @@ package luna.clubverse.backend.event.service;
 
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.repository.EventRepository;
+import luna.clubverse.backend.financedata.entity.FinanceData;
+import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
+import luna.clubverse.backend.financedata.repository.FinanceDataRepository;
+import luna.clubverse.backend.financetable.entity.FinanceTable;
+import luna.clubverse.backend.financetable.repository.FinanceTableRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 
 @Service
 @Transactional
 public class EventService {
 
     private final EventRepository eventRepository;
+    private final FinanceDataRepository financeDataRepository;
+    private final FinanceTableRepository financeTableRepository;
 
-    public EventService(EventRepository eventRepository) {
+    public EventService(EventRepository eventRepository, FinanceDataRepository financeDataRepository, FinanceTableRepository financeTableRepository) {
         this.eventRepository = eventRepository;
+        this.financeDataRepository = financeDataRepository;
+        this.financeTableRepository = financeTableRepository;
     }
 
     public void addEvent(Event event) {
+        FinanceData data = new FinanceData(12L, FinanceDataStatus.INCOME, "jhsgadfjs", LocalDate.now());
+        FinanceTable table = new FinanceTable();
+
+        data.setFinanceTable(table);
+
+        financeTableRepository.save(table);
+        financeDataRepository.save(data);
         eventRepository.save(event);
     }
 

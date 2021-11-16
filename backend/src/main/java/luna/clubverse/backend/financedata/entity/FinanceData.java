@@ -2,6 +2,7 @@ package luna.clubverse.backend.financedata.entity;
 
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @Accessors(fluent = true)
 @Table(name = "finance_data")
 public class FinanceData extends BaseEntity {
@@ -42,5 +44,9 @@ public class FinanceData extends BaseEntity {
         this.status = status;
         this.explanation = explanation;
         this.date = date;
+    }
+
+    public void setFinanceTable(FinanceTable financeTable) {
+        this.financeTable = financeTable;
     }
 }
