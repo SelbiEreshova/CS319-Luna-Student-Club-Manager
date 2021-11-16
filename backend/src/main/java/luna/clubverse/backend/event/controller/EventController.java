@@ -2,6 +2,7 @@ package luna.clubverse.backend.event.controller;
 
 import luna.clubverse.backend.event.controller.reponse.EventQueryResponse;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
+import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
 import luna.clubverse.backend.event.service.EventService;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,12 @@ public class EventController {
         return new EventQueryResponse(eventService.getEvent(id));
     }
 
+    @CrossOrigin
+    @PutMapping("/update") // post yeni şey eklemek için yapılır
+    public String updateEvent(@RequestBody @Valid final UpdateEventRequest updateEventRequest) {
+        eventService.updateEvent(updateEventRequest.toEvent(),updateEventRequest.toEventID());
+        return "success";
+    }
     //put update etmek için kullanılır
 
     //delete silmek için kullanılır
