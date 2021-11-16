@@ -1,6 +1,6 @@
 package luna.clubverse.backend.event.controller;
 
-import luna.clubverse.backend.event.controller.reponse.EventQueryResponse;
+import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
 import luna.clubverse.backend.event.service.EventService;
