@@ -23,8 +23,7 @@ public class EventService {
 
 
     @Transactional
-    public void updateEvent( Event updatedEvent,Long id)
-    {
+    public void updateEvent( Event updatedEvent,Long id) {
         Event eventToUpdate = eventRepository.getById(id);
         eventToUpdate.setEventStatus(updatedEvent.getEventStatus());
         eventToUpdate.setDescription(updatedEvent.getDescription());
@@ -42,7 +41,7 @@ public class EventService {
         eventToUpdate.setReviewDeadline(updatedEvent.getReviewDeadline());
 
         eventRepository.save(eventToUpdate);
-
+    }
     public Event getEvent(Long eventId) {
         Event eventFromDB = eventRepository.findById(eventId)
                 .orElseThrow(()->new EntityNotFoundException("The event with the id " + eventId + " could not be found."));
