@@ -58,6 +58,8 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
+        authorities.stream().map(authority -> {return authority.getClubId();});
+
         return true;
     }
 }

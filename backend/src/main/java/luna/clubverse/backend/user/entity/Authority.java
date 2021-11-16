@@ -25,6 +25,10 @@ public class Authority implements GrantedAuthority {
 
     private Long clubId;
 
+    public Long getClubId() {
+        return clubId;
+    }
+
     @ManyToMany(mappedBy = "authorities")
     private Set<User> users;
 
