@@ -32,6 +32,11 @@ public class Authority implements GrantedAuthority {
     @ManyToMany(mappedBy = "authorities")
     private Set<User> users;
 
+    public Authority(String authority, Long clubId) {
+        this.authority = authority;
+        this.clubId = clubId;
+    }
+
     @Override
     public String getAuthority() {
         return authority;

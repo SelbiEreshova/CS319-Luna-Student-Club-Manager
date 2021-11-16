@@ -30,7 +30,7 @@ public class AuthenticationService {
         try{
             Authentication authenticatedToken = authenticationManager.authenticate(token);
             String jwt = JwtUtil.generateToken(authenticatedToken, key);
-            return jwt;
+            return ("Bearer " + jwt);
         } catch (AuthenticationException ex) {
             return null;
         }

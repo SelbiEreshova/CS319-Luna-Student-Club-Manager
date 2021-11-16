@@ -32,9 +32,6 @@ public class AuthenticationProviderService implements AuthenticationProvider {
         }
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user,user.getPassword(), user.getAuthorities());
 
-        System.out.println(user.getAuthorities());
-        System.out.println(token);
-        System.out.println(token.getAuthorities());
         return new UsernamePasswordAuthenticationToken(user, user.getPassword(),user.getAuthorities());
     }
 
