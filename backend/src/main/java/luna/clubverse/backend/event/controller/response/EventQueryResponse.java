@@ -1,4 +1,4 @@
-package luna.clubverse.backend.event.controller.reponse;
+package luna.clubverse.backend.event.controller.response;
 
 import lombok.Getter;
 import luna.clubverse.backend.event.entity.Event;
