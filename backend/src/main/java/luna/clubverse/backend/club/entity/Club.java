@@ -47,4 +47,11 @@ public class Club extends BaseEntity {
         this.logo = logo;
         this.description = description;
     }
+
+    public void update(Club club){
+        this.name = club.name;
+        this.logo = club.logo;
+        this.description = club.description;
+
+    }
 }

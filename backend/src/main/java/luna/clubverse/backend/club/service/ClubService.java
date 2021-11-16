@@ -22,6 +22,15 @@ public class ClubService {
         cLubRepository.save(club);
     }
 
+    public void updateClub(Long clubId,Club club) {
+
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        clubFromDB.update(club);
+        cLubRepository.save(clubFromDB);
+    }
+
     public Club getEvent(Long clubId) {
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
