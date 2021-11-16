@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
-import luna.clubverse.backend.location.entity.Location;
 
 import javax.persistence.*;
 import java.time.LocalDate;
