@@ -8,28 +8,32 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService {
+public class AuthenticationService {
 
     @Value("${spring.jwt.secret-key}")
     private String key;
 
     private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
 
-
-    public UserService(UserRepository userRepository) {
+    public AuthenticationService(UserRepository userRepository, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
+        this.authenticationManager = authenticationManager;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userRepository.findByUsername(s)
-                .orElseThrow(()-> new UsernameNotFoundException("The user with the given username could not found."));
-    }
+    public String  login(LoginRequest loginRequest) {
+        var token = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
 
+        try{
+            Authentication authenticatedToken = authenticationManager.authenticate(token);
+            String jwt = JwtUtil.generateToken(authenticatedToken, key);
+            return jwt;
+        } catch (AuthenticationException ex) {
+            return null;
+        }
+
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @EnableWebSecurity
@@ -18,9 +19,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final AuthenticationProviderService authenticationProviderService;
+    private final JwtRequestFilter jwtRequestFilter;
 
-    public SecurityConfiguration(AuthenticationProviderService authenticationProviderService) {
+    public SecurityConfiguration(AuthenticationProviderService authenticationProviderService, JwtRequestFilter jwtRequestFilter) {
         this.authenticationProviderService = authenticationProviderService;
+        this.jwtRequestFilter = jwtRequestFilter;
     }
 
 
@@ -31,20 +34,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
-
-        /**
         http
                 .cors()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/event/add").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        */
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin().disable()
+                .csrf().disable();
     }
 
     @Bean
