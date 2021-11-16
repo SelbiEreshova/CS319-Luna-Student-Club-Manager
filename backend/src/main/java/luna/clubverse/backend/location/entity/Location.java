@@ -32,10 +32,12 @@ public class Location extends BaseEntity {
     protected Location() {
     }
 
-    public Location( String building, String description, String classroom,boolean inBilkent) {
+    public Location( boolean inBilkent,String building, String description, String classroom) {
         this.inBilkent = inBilkent;
         this.building = building;
         this.description = description;
         this.classroom = classroom;
     }
+
+
 }

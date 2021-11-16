@@ -26,7 +26,7 @@ public class AddLocationRequest {
     private String classroom;
 
     public Location toLocation() {
-        return new Location( building, description, classroom, inBilkent);
+        return new Location(inBilkent, building, description, classroom );
 
     }
 }

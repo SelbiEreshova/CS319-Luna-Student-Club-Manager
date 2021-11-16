@@ -7,6 +7,7 @@ import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
+import luna.clubverse.backend.location.entity.Location;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotBlank;
@@ -44,13 +45,19 @@ public class UpdateEventRequest {
 
     private boolean memberOnly;
 
+    //finance data
     private double amountOfMoney;
-
     private String explanation;
+
+    //location
+    private String building;
+    private Boolean inBilkent;
+    private String descriptionLocation;
+    private String classroom;
 
 
     public Event toEvent() {
-        return new Event(name,description,eventStatus, gePoint, LocalDate.parse(startDate), LocalDate.parse(endDate), LocalDate.parse(registrationDeadline), LocalDate.parse(reviewDeadline), quota, memberOnly, toFinanceData());
+        return new Event(name,description,eventStatus, gePoint, LocalDate.parse(startDate), LocalDate.parse(endDate), LocalDate.parse(registrationDeadline), LocalDate.parse(reviewDeadline), quota, memberOnly, toFinanceData(),toLocation());
 
     }
     public Long toEventID()
@@ -60,5 +67,9 @@ public class UpdateEventRequest {
 
     public FinanceData toFinanceData() {
         return new FinanceData(amountOfMoney, FinanceDataStatus.OUTCOME, explanation, LocalDate.now()) ;
+    }
+
+    public Location toLocation() {
+        return new Location(inBilkent,building,descriptionLocation,classroom) ;
     }
 }
