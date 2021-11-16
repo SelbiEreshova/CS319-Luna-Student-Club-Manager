@@ -2,6 +2,7 @@ package luna.clubverse.backend.event.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
@@ -50,6 +51,10 @@ public class Event extends BaseEntity {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     private Location location;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "club_id")
+    private Club club;
 
     protected Event() {
     }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import luna.clubverse.backend.club.entity.Club;
+import luna.clubverse.backend.financetable.entity.FinanceTable;
 
 import javax.validation.constraints.NotNull;
 
@@ -19,8 +20,12 @@ public class AddClubRequest {
     private String description;
 
     public Club toClub() {
-        return new Club(name,logo,description);
+        return new Club(name,logo,description, toFinanceTable());
 
+    }
+
+    public FinanceTable toFinanceTable(){
+        return new FinanceTable();
     }
 
 

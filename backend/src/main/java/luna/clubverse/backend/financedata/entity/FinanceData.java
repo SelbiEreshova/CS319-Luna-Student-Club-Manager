@@ -30,14 +30,10 @@ public class FinanceData extends BaseEntity {
     @Column(name = "date")
     private LocalDate date;
 
-
-
-    /**
     @ManyToOne
     @JoinColumn(name = "finance_table_id")
     private FinanceTable financeTable;
-    **/
-
+    
     protected FinanceData() {
     }
 
