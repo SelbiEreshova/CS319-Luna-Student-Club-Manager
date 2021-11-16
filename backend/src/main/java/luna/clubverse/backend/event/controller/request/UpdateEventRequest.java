@@ -10,6 +10,7 @@ import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 
@@ -19,7 +20,7 @@ import java.time.LocalDate;
 @ToString
 public class UpdateEventRequest {
 
-    @NonNull
+    @NotNull
     private Long eventID;
 
     @NotBlank
