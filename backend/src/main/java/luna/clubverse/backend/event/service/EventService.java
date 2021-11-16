@@ -19,4 +19,26 @@ public class EventService {
     public void addEvent(Event event) {
         eventRepository.save(event);
     }
+
+    @Transactional
+    public void updateEvent( Event updatedEvent,Long id)
+    {
+        Event eventToUpdate = eventRepository.getById(id);
+        eventToUpdate.setEventStatus(updatedEvent.getEventStatus());
+        eventToUpdate.setDescription(updatedEvent.getDescription());
+        eventToUpdate.setName(updatedEvent.getName());
+        eventToUpdate.setStartDate(updatedEvent.getStartDate());
+        eventToUpdate.setFinanceData(updatedEvent.getFinanceData());
+        eventToUpdate.setGePoint(updatedEvent.getGePoint());
+        eventToUpdate.setEndDate(updatedEvent.getEndDate());
+        eventToUpdate.setQuota(updatedEvent.getQuota());
+        eventToUpdate.setNumberEvaluation(updatedEvent.getNumberEvaluation());
+        eventToUpdate.setMemberOnly(updatedEvent.isMemberOnly());
+        eventToUpdate.setRegistrationDeadline((updatedEvent.getRegistrationDeadline()));
+        eventToUpdate.setRemainingQuota(updatedEvent.getRemainingQuota());
+        eventToUpdate.setTotalPoint(updatedEvent.getTotalPoint());
+        eventToUpdate.setReviewDeadline(updatedEvent.getReviewDeadline());
+
+        eventRepository.save(eventToUpdate);
+    }
 }
