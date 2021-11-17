@@ -3,6 +3,7 @@ package luna.clubverse.backend.club.service;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
+import luna.clubverse.backend.event.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,8 +15,11 @@ public class ClubService {
 
     private final ClubRepository cLubRepository;
 
-    public ClubService(ClubRepository cLubRepository) {
+    private final EventRepository eventRepository;
+
+    public ClubService(ClubRepository cLubRepository, EventRepository eventRepository) {
         this.cLubRepository = cLubRepository;
+        this.eventRepository = eventRepository;
     }
 
     public void addClub(Club club) {
