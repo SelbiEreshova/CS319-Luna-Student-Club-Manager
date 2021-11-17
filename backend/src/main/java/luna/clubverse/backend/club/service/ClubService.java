@@ -3,11 +3,13 @@ package luna.clubverse.backend.club.service;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
+import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -40,5 +42,12 @@ public class ClubService {
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
 
         return clubFromDB;
+    }
+
+    public List<EventQueryResponse> getEventsOfClub(Long clubId) {
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        return clubFromDB.getEvents().stream().map(EventQueryResponse::new).toList();
     }
 }

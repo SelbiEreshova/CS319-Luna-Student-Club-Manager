@@ -5,9 +5,11 @@ import luna.clubverse.backend.club.controller.request.AddClubRequest;
 import luna.clubverse.backend.club.controller.request.UpdateClubRequest;
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
 import luna.clubverse.backend.club.service.ClubService;
+import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/club")
@@ -35,5 +37,11 @@ public class ClubController {
     @GetMapping("/get/{id}")
     public ClubQueryResponse getClub(@PathVariable Long id) {
         return new ClubQueryResponse(clubService.getClub(id));
+    }
+
+    @CrossOrigin
+    @GetMapping("/getEvents/{id}")
+    public List<EventQueryResponse> getClubEvents(@PathVariable Long id) {
+        return clubService.getEventsOfClub(id);
     }
 }
