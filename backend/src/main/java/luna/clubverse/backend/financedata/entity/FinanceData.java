@@ -7,11 +7,9 @@ import lombok.experimental.Accessors;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
-import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

@@ -3,7 +3,6 @@ package luna.clubverse.backend.club.service;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
-import luna.clubverse.backend.event.entity.Event;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
