@@ -5,9 +5,7 @@ import lombok.experimental.Accessors;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 
@@ -19,13 +17,8 @@ public class FinanceTable extends BaseEntity {
 
     private boolean totalMoney;
 
-    // private Club club;
-
-    /**
-    @OneToMany(mappedBy = "financeTable")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "finance_data_id")
     private Set<FinanceData> financeData;
-
-    **/
-
 
 }

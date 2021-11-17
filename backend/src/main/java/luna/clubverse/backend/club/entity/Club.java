@@ -3,9 +3,11 @@ package luna.clubverse.backend.club.entity;
 
 import lombok.Getter;
 import luna.clubverse.backend.common.entity.BaseEntity;
+import luna.clubverse.backend.event.entity.Event;
+import luna.clubverse.backend.financetable.entity.FinanceTable;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -30,16 +32,24 @@ public class Club extends BaseEntity {
     // ekli değil
     //private Student[] appliedStudents = null;
 
-    // private Event[] events = null;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "club")
+    private Set<Event> events;
 
-    //private FinanceTable financeTable = null;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "finance_table_id")
+    private FinanceTable financeTable;
 
     // ekli değil
     //private EmptyForm applicationForm = null
 
-
-
     protected Club() {
+    }
+
+    public Club(String name, String logo, String description, FinanceTable financeTable) {
+        this.name = name;
+        this.logo = logo;
+        this.description = description;
+        this.financeTable = financeTable;
     }
 
     public Club(String name, String logo, String description) {
@@ -52,6 +62,5 @@ public class Club extends BaseEntity {
         this.name = club.name;
         this.logo = club.logo;
         this.description = club.description;
-
     }
 }
