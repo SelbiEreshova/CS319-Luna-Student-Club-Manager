@@ -1,5 +1,7 @@
 package luna.clubverse.backend.event.service;
 
+import luna.clubverse.backend.club.entity.Club;
+import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.repository.EventRepository;
@@ -18,11 +20,13 @@ import java.time.LocalDate;
 @Transactional
 public class EventService {
 
+    private final ClubRepository cLubRepository;
     private final EventRepository eventRepository;
     private final FinanceDataRepository financeDataRepository;
     private final FinanceTableRepository financeTableRepository;
 
-    public EventService(EventRepository eventRepository, FinanceDataRepository financeDataRepository, FinanceTableRepository financeTableRepository) {
+    public EventService(ClubRepository cLubRepository, EventRepository eventRepository, FinanceDataRepository financeDataRepository, FinanceTableRepository financeTableRepository) {
+        this.cLubRepository = cLubRepository;
         this.eventRepository = eventRepository;
         this.financeDataRepository = financeDataRepository;
         this.financeTableRepository = financeTableRepository;
@@ -74,6 +78,14 @@ public class EventService {
 
         eventRepository.save(eventFromDB);
 
+    }
+
+    public void addEventToClub(Long clubId, Event event) {
+
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+        event.setClub(clubFromDB);
+        eventRepository.save(event);
     }
 
 

@@ -1,17 +1,13 @@
 package luna.clubverse.backend.event.controller;
 
-import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
+import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.service.EventService;
-import luna.clubverse.backend.financedata.entity.FinanceData;
-import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
-import luna.clubverse.backend.financetable.entity.FinanceTable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/event")
@@ -76,6 +72,14 @@ public class EventController {
     //delete silmek için kullanılır
 
     //get query işlmeleri için kullanılır
+
+    @CrossOrigin
+    @PutMapping("/{clubId}/addEvent")
+    public String addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
+        eventService.addEventToClub(clubId,addEventRequest.toEvent());
+        return "success "; // return type will be changed, except from get requests, there will be same type of response
+    }
+
 
 
 }
