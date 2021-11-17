@@ -7,8 +7,7 @@ import luna.clubverse.backend.event.enumuration.EventStatus;
 import java.time.LocalDate;
 
 @Getter
-public class EventQueryResponse {
-
+public class  EventQueryResponse {
 
     private final String name;
     private final String description;
