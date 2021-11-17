@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link src="../nav_bar_club_director.html">
+</head>
+<body>
+    
+    <div class="nav_bar" ></div>
+    
+    <h2 class="d-flex justify-content-center mt-4 pt-6">My Past Events</h2>
+    
+    <div class=" container align-items-center">
+        <div class ="row align-items-center p-5">
+            
+            <input  class="col"type="search" name="search" id="" placeholder="Type name of the event" >
+            <button class="btn search text-light" type="button"  style="background-color: #20b5bd">
+                <span>SEARCH</span>
+            </button>
+        </div>
+    </div>
+
+    
+    <div class="container  m-auto align-items-center table-responsive" >   
+        <table class= "table">
+            <form>
+                <div class="form-row col-12 align-items-center justify-content-center m-auto px-5 py-3" style="background-color: #d4d4d4; width: 900px;">
+                    
+                    <div class="col-sm-2 m-1">
+                        
+                        <label for="select-club" >Club:</label>
+                        <button id="select-club" class="btn btn-primary dropdown-toggle bg-light text-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">select</button>
+                        <div class="dropdown-menu" aria-labelledby="my-dropdown">
+                            <a class="dropdown-item active" href="#">Text</a>
+                        </div>
+                    </div> 
+                    
+                    <div class="col-sm-2 m-1">
+                        <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                        
+                        <label for="select-date">Date:</label>
+                        <button id="select-date" class="btn btn-primary dropdown-toggle bg-light text-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">select</button>
+                        <div class="dropdown-menu" aria-labelledby="my-dropdown">
+                            <a class="dropdown-item active" href="#">Text</a>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="col-sm-2 m-1">
+                        <label for="select-time ">Time:</label>
+                        <button id="select-time" class="btn btn-primary dropdown-toggle bg-light text-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">select</button>
+                        <div class="dropdown-menu" aria-labelledby="my-dropdown">
+                            <a class="dropdown-item active" href="#">Text</a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-2 m-1 ">
+                        <div class="form-check m-auto">
+                            <label class="form-check-label order-1 m-auto" for="autoSizingCheck2">
+                                Ge points
+                            </label>
+                            <input  type="radio" id="autoSizingCheck2">
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="col-1 my-1">
+                        <button type="submit" class="btn bg-dark text-light">Apply filter</button>
+                    </div>
+                </div>
+                
+            </form>
+            
+            <div class="row" >
+                <table class="table table-light">
+                    <thead class="thead-light" >
+                        <tr>
+                            <th scope="col">Club</th>
+                            <th scope="col">Event Name</th>
+                            
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Ge Points</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Details</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>club a</td>
+                            <th>Event x</th>
+                            <td>date</td>
+                            <td>time</td>
+                            <td>ge</td>
+                            <td>loc</td>
+                            <td><button type="button" class="btn" style="background-color: #20b5bd; color: #f1ffc9;">Review the event</button></td>
+                        </tr>
+                    </tbody>
+                    
+                </div>
+            </table>
+        </div>
+        
+        
+    </body>
+    <script src="../../JS/Event%20pages/Student_event_list.js"></script>
+    
+    </html>
