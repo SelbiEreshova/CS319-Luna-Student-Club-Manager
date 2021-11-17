@@ -1,6 +1,7 @@
 package luna.clubverse.backend.event.service;
 
 import luna.clubverse.backend.event.entity.Event;
+import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,6 @@ public class EventService {
     public void addEvent(Event event) {
         eventRepository.save(event);
     }
-
 
     @Transactional
     public void updateEvent( Event updatedEvent,Long id) {
@@ -48,4 +48,16 @@ public class EventService {
 
         return eventFromDB;
     }
+
+    public void changeEventStatus(Long eventId,EventStatus eventStatus){
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(()->new EntityNotFoundException("The event with the id " + eventId + " could not be found."));
+
+        eventFromDB.setEventStatus(eventStatus);
+
+        eventRepository.save(eventFromDB);
+
+    }
+
+
 }

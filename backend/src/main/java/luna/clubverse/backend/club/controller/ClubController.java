@@ -34,6 +34,6 @@ public class ClubController {
     @CrossOrigin
     @GetMapping("/get/{id}")
     public ClubQueryResponse getClub(@PathVariable Long id) {
-        return new ClubQueryResponse(clubService.getEvent(id));
+        return new ClubQueryResponse(clubService.getClub(id));
     }
 }

@@ -3,6 +3,7 @@ package luna.clubverse.backend.event.controller;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
+import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.service.EventService;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +45,27 @@ public class EventController {
         return "success";
     }
     //put update etmek için kullanılır
+
+    @CrossOrigin
+    @PutMapping("/cancel/{id}")
+    public String cancelEvent(@PathVariable Long id) {
+        eventService.changeEventStatus(id, EventStatus.CANCELED);
+        return "success";
+    }
+
+    @CrossOrigin
+    @PutMapping("/publish/{id}")
+    public String publishEvent(@PathVariable Long id) {
+        eventService.changeEventStatus(id, EventStatus.PUBLISHED);
+        return "success";
+    }
+
+    @CrossOrigin
+    @PutMapping("/draft/{id}")
+    public String draftEvent(@PathVariable Long id) {
+        eventService.changeEventStatus(id, EventStatus.DRAFT);
+        return "success";
+    }
 
     //delete silmek için kullanılır
 

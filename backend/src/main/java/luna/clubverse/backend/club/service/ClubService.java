@@ -3,6 +3,7 @@ package luna.clubverse.backend.club.service;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
+import luna.clubverse.backend.event.entity.Event;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -31,7 +32,7 @@ public class ClubService {
         cLubRepository.save(clubFromDB);
     }
 
-    public Club getEvent(Long clubId) {
+    public Club getClub(Long clubId) {
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
 
