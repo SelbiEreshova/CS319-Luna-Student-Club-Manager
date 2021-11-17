@@ -74,7 +74,7 @@ public class EventController {
     //get query işlmeleri için kullanılır
 
     @CrossOrigin
-    @PutMapping("/{clubId}/addEvent")
+    @PutMapping("/{clubId}/addToClub")
     public String addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
         eventService.addEventToClub(clubId,addEventRequest.toEvent());
         return "success "; // return type will be changed, except from get requests, there will be same type of response
