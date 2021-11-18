@@ -27,17 +27,22 @@ public class EventController {
      * When an event is added firsttime should be its status draft? After by pressing a button it can be published?
      * The validation of request should be done according to this decision
      */
+
+    /*
+
+    Example Request
+
     @CrossOrigin
     @PostMapping("/{clubId}/add") // post yeni şey eklemek için yapılır
     @PreAuthorize("hasAuthority('ADMIN')" +
             "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" +
             "or @authorizationLuna.authorize(authentication, 'ADVISOR', #clubId)")
-    public String addEvent(@PathVariable Long clubId ,@RequestBody AddEventRequest addEventRequest) {
+    public String addEvent2(@PathVariable Long clubId ,@RequestBody AddEventRequest addEventRequest) {
         eventService.addEvent(addEventRequest.toEvent());
 
         return "success"; // return type will be changed, except from get requests, there will be same type of response
     }
-
+     */
 
     @CrossOrigin
     @GetMapping("/get/{id}")
@@ -80,6 +85,8 @@ public class EventController {
 
     @CrossOrigin
     @PutMapping("/{clubId}/addToClub")
+    @PreAuthorize("hasAuthority('ADMIN')" +
+            "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
     public String addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
         eventService.addEventToClub(clubId,addEventRequest.toEvent());
         return "success "; // return type will be changed, except from get requests, there will be same type of response
