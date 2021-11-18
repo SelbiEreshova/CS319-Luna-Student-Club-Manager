@@ -33,4 +33,12 @@ public class FormService {
         formRepository.save(form);
 
     }
+
+    public Form getForm(Long clubId)
+    {
+        Form form = formRepository.findById(clubId).
+                orElseThrow(()->new EntityNotFoundException("The form with the id " + clubId + " could not be found."));
+
+        return form;
+    }
 }

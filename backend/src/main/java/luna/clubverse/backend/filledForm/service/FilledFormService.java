@@ -1,5 +1,6 @@
 package luna.clubverse.backend.filledForm.service;
 
+import lombok.Getter;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.event.repository.EventRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+@Getter
 @Transactional
 @Service
 public class FilledFormService {
@@ -36,4 +38,13 @@ public class FilledFormService {
 
     }
 
+
+
+    public FilledForm getFilledForm( Long id  )
+    {
+        FilledForm filledForm = filledFormRepository.findById(id)
+                .orElseThrow(()->new EntityNotFoundException("The form with the id " + id + " could not be found."));
+        return filledForm;
+
+    }
 }
