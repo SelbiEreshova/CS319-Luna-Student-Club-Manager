@@ -5,6 +5,8 @@ import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.service.EventService;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,8 +28,11 @@ public class EventController {
      * The validation of request should be done according to this decision
      */
     @CrossOrigin
-    @PostMapping("/add") // post yeni şey eklemek için yapılır
-    public String addEvent(@RequestBody @Valid final AddEventRequest addEventRequest) {
+    @PostMapping("/{clubId}/add") // post yeni şey eklemek için yapılır
+    @PreAuthorize("hasAuthority('ADMIN')" +
+            "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" +
+            "or @authorizationLuna.authorize(authentication, 'ADVISOR', #clubId)")
+    public String addEvent(@PathVariable Long clubId ,@RequestBody AddEventRequest addEventRequest) {
         eventService.addEvent(addEventRequest.toEvent());
 
         return "success"; // return type will be changed, except from get requests, there will be same type of response
