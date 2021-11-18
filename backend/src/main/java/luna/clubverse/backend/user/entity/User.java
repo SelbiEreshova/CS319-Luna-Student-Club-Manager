@@ -1,13 +1,11 @@
 package luna.clubverse.backend.user.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +16,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "user_table")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type",
+    discriminatorType = DiscriminatorType.STRING)
 public class User implements UserDetails {
 
     @Id
@@ -26,6 +27,10 @@ public class User implements UserDetails {
 
     private String username;
     private String password;
+    private String name;
+
+    @Email
+    private String mail;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
@@ -36,6 +41,15 @@ public class User implements UserDetails {
     private Set<Authority> authorities;
 
 
+    public void addAuthority(String newAuthority,Long clubId){
+        Authority authority = new Authority(newAuthority, clubId);
+        authorities.add(authority);
+    }
+
+    public void addAuthority(String newAuthority){
+        Authority authority = new Authority(newAuthority);
+        authorities.add(authority);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -19,10 +19,10 @@ public class AuthorizationDemo {
         this.userRepository = userRepository;
     }
 
-    public boolean authorize(Authentication authentication) {
+    public boolean authorize(Authentication authentication, String authority, Long clubId ) {
         User user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(()-> new UsernameNotFoundException("The user with the given username could not found."));
 
-        return user.getAuthorities().contains(new Authority("USER",1L));
+        return user.getAuthorities().contains(new Authority(authority,clubId));
     }
 }

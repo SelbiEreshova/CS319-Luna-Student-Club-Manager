@@ -37,6 +37,10 @@ public class Authority implements GrantedAuthority {
         this.clubId = clubId;
     }
 
+    public Authority(String authority) {
+        this.authority = authority;
+    }
+
     @Override
     public String getAuthority() {
         return authority;
