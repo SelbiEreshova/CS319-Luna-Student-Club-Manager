@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Component
-public class AuthorizationDemo {
+public class AuthorizationLuna {
 
     private final UserRepository userRepository;
 
-    public AuthorizationDemo(UserRepository userRepository) {
+    public AuthorizationLuna(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

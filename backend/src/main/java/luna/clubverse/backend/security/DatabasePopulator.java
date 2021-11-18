@@ -26,15 +26,15 @@ public class DatabasePopulator {
             this.passwordEncoder = passwordEncoder;
         }
 
+
         @Bean
         @Transactional
         public void populateDatabase() {
 
-        Authority userAuthority = authorityRepository.save(new Authority(null, "USER",1L, new HashSet<>()));
-        Authority adminAuthority = authorityRepository.save(new Authority(null, "ADMIN",2L, new HashSet<>()));
+        //Authority userAuthority = authorityRepository.save(new Authority(null, "USER",1L, new HashSet<>()));
+        //Authority adminAuthority = authorityRepository.save(new Authority(null, "ADMIN",2L, new HashSet<>()));
 
         User admin = new Admin(null,"admin",passwordEncoder.encode("admin"),"admin", "abc@gmail.com", new HashSet<Authority>() );
-                //null, "admin", passwordEncoder.encode("admin"), new HashSet<Authority>());
         admin.addAuthority("ADMIN");
         userRepository.save(admin);
 

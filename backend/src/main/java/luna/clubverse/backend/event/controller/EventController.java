@@ -19,8 +19,8 @@ public class EventController {
     @CrossOrigin
     @PostMapping("/{clubId}/add") // post yeni şey eklemek için yapılır
     @PreAuthorize("hasAuthority('ADMIN')" +
-            "or @authorizationDemo.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" +
-            "or @authorizationDemo.authorize(authentication, 'ADVISOR', #clubId)")
+            "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" +
+            "or @authorizationLuna.authorize(authentication, 'ADVISOR', #clubId)")
     public String addEvent(@PathVariable Long clubId ,@RequestBody AddEventRequest addEventRequest) {
         eventService.addEvent(addEventRequest.toEvent());
         return "success";
