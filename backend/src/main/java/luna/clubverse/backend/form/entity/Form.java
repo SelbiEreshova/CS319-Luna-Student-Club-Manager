@@ -21,8 +21,30 @@ import java.util.Set;
 public class Form extends BaseEntity{
 
       //  private Long c
+        protected Form()
+        {
+
+        }
+        public Form(List<String> questions)
+        {
+            this.questions = questions;
+        }
         @ElementCollection
         private List<String> questions;
+
+        @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @JoinColumn(name = "club_id")
+        private Club club;
+
+        public void addQuestion( String question )
+        {
+            questions.add(question);
+        }
+
+    public void deleteQuestion( int questionIndex )
+    {
+        questions.remove(questionIndex);
+    }
 }
 
 
