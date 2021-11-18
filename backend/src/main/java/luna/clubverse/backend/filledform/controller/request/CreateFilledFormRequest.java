@@ -1,10 +1,9 @@
-package luna.clubverse.backend.filledForm.controller.request;
+package luna.clubverse.backend.filledform.controller.request;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import luna.clubverse.backend.filledForm.entity.FilledForm;
-import luna.clubverse.backend.form.entity.Form;
+import luna.clubverse.backend.filledform.entity.FilledForm;
 
 import java.util.List;
 @RequiredArgsConstructor // her türlü constract oluşturur yazmaya gerek yok

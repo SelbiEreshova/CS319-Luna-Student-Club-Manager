@@ -1,15 +1,10 @@
-package luna.clubverse.backend.filledForm.service;
+package luna.clubverse.backend.filledform.service;
 
 import lombok.Getter;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
-import luna.clubverse.backend.event.repository.EventRepository;
-import luna.clubverse.backend.filledForm.entity.FilledForm;
-import luna.clubverse.backend.filledForm.repository.FilledFormRepository;
-import luna.clubverse.backend.financedata.repository.FinanceDataRepository;
-import luna.clubverse.backend.financetable.repository.FinanceTableRepository;
-import luna.clubverse.backend.form.entity.Form;
-import luna.clubverse.backend.form.repository.FormRepository;
+import luna.clubverse.backend.filledform.entity.FilledForm;
+import luna.clubverse.backend.filledform.repository.FilledFormRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -29,11 +24,12 @@ public class FilledFormService {
     }
 
 
-    public void createFilledForm( Long clubId ,Long studenId, FilledForm filledForm  )
+    public void createFilledForm( Long clubId ,Long studentId, FilledForm filledForm  )
     {
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
         filledForm.setClub(clubFromDB);
+        filledForm.setStudentId(studentId);
         filledFormRepository.save(filledForm);
 
     }

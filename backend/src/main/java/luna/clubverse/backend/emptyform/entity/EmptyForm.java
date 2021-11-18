@@ -1,31 +1,25 @@
-package luna.clubverse.backend.form.entity;
+package luna.clubverse.backend.emptyform.entity;
 
 import lombok.Getter;
 import lombok.Setter;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.common.entity.BaseEntity;
-import luna.clubverse.backend.event.enumuration.EventStatus;
-import luna.clubverse.backend.financedata.entity.FinanceData;
-import luna.clubverse.backend.location.entity.Location;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "form")
-public class Form extends BaseEntity{
+public class EmptyForm extends BaseEntity{
 
       //  private Long c
-        protected Form()
+        protected EmptyForm()
         {
 
         }
-        public Form(List<String> questions)
+        public EmptyForm(List<String> questions)
         {
             this.questions = questions;
         }
@@ -44,6 +38,12 @@ public class Form extends BaseEntity{
     public void deleteQuestion( int questionIndex )
     {
         questions.remove(questionIndex);
+    }
+
+    public void updateForm(EmptyForm emptyForm)
+    {
+        this.questions = emptyForm.questions;
+        System.out.println(emptyForm.questions);
     }
 }
 

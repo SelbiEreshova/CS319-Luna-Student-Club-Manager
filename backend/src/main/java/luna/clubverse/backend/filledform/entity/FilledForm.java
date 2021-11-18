@@ -1,4 +1,4 @@
-package luna.clubverse.backend.filledForm.entity;
+package luna.clubverse.backend.filledform.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,6 @@ import luna.clubverse.backend.common.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Getter
