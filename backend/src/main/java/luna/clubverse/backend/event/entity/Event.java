@@ -1,8 +1,8 @@
 package luna.clubverse.backend.event.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
@@ -13,6 +13,8 @@ import java.time.LocalDate;
 
 
 @Entity
+@Getter
+@Setter
 @Table(name = "event")
 public class Event extends BaseEntity {
 
@@ -42,22 +44,22 @@ public class Event extends BaseEntity {
 
     private int numberEvaluation;
 
-
-
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "finance_data_id")
     private FinanceData financeData;
 
-    /**
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     private Location location;
-    **/
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "club_id")
+    private Club club;
 
     protected Event() {
     }
 
-    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalDate endDate, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly, FinanceData financeData) {
+    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalDate endDate, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly, FinanceData financeData, Location location) {
         this.name = name;
         this.description = description;
         this.eventStatus = eventStatus;
@@ -72,5 +74,6 @@ public class Event extends BaseEntity {
         this.totalPoint = 0;
         this.numberEvaluation = 0;
         this.financeData = financeData;
+        this.location = location;
     }
 }

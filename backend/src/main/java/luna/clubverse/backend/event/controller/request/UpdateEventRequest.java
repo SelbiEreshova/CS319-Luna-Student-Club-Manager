@@ -9,6 +9,7 @@ import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.location.entity.Location;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -17,22 +18,30 @@ import java.time.LocalDate;
 @RequiredArgsConstructor // her türlü constract oluşturur yazmaya gerek yok
 @Getter
 @ToString
-public class AddEventRequest {
+public class UpdateEventRequest {
 
-    @NotNull(message = "The name of the event cannot be blank")
+    @NotNull
+    private Long eventID;
+
+    @NotBlank
     private String name;
 
     private String description;
 
-    @NotNull(message = "The status of the event cannot be blank")
     private EventStatus eventStatus;
 
     private int gePoint;
+
     private String startDate;
+
     private String endDate;
+
     private String registrationDeadline;
+
     private String reviewDeadline;
+
     private int quota;
+
     private boolean memberOnly;
 
     //finance data
@@ -45,8 +54,14 @@ public class AddEventRequest {
     private String descriptionLocation;
     private String classroom;
 
+
     public Event toEvent() {
         return new Event(name,description,eventStatus, gePoint, LocalDate.parse(startDate), LocalDate.parse(endDate), LocalDate.parse(registrationDeadline), LocalDate.parse(reviewDeadline), quota, memberOnly, toFinanceData(),toLocation());
+
+    }
+    public Long toEventID()
+    {
+        return eventID;
     }
 
     public FinanceData toFinanceData() {
