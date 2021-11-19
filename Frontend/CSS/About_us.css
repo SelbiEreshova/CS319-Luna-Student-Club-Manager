@@ -17,7 +17,7 @@
 }
 
 .card-text {
-    font-family: MerriweatherRegular;
+    font-family: MerriweatherRegular, serif;
     font-size: 22px;
     line-height: initial;
 }
