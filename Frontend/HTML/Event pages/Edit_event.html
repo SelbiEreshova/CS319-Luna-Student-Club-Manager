@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <title>Edit event</title>
+</head>
+<body>
+<div class="nav_bar" ></div>
+<div class="">
+  <h2 class="d-flex justify-content-center pt-6">Edit new event</h2>
+  <form style="width: 50%; margin: auto" class="pb-5">
+    <div class="form-group ">
+      <label for="event_title">Title</label>
+      <input type="text" class="form-control form-control-lg" id="event_title" placeholder="Title">
+    </div>
+    <div class="form-group">
+      <label for="event_description">Description</label>
+      <textarea class="form-control"  rows="5" id="event_description"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group ">
+          <label for="event_date">Date</label>
+          <input type="date" class="form-control " id="event_date">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group ">
+          <label for="event_time">Time</label>
+          <input type="time" class="form-control " id="event_time">
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group ">
+          <label for="event_duration">Duration</label>
+          <input type="number" class="form-control " id="event_duration" >
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group ">
+          <label for="event_min">Unit</label>
+          <select id="event_min" class="form-control">
+            <option selected>hour(s)</option>
+            <option>min</option>
+            <option>day(s)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group ">
+          <div class="form-group ">
+            <label for="event_quota">Quota</label>
+            <input type="number" class="form-control " id="event_quota" >
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group ">
+          <label for="event_point">GE points</label>
+          <input type="number" class="form-control " id="event_point" >
+        </div>
+      </div>
+
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6  ">
+        <div class="form-group ">
+          <label for="event_location">Location</label>
+          <input type="text" class="form-control " id="event_location">
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col ">
+        <div class="form-group ">
+          <label for="event_finance">Finance</label>
+          <input type="text" class="form-control " id="event_finance">
+        </div>
+      </div>
+      <div class="col">
+        <div class="col pt-5">TL</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="event_finance_description">Financial Description</label>
+      <textarea class="form-control"  rows="5" id="event_finance_description"></textarea>
+    </div>
+    <button type="button" class="btn btn-secondary">Cancel</button>
+    <div class="float-right">
+      <button type="button" class="btn">Save</button>
+      <button type="button" class="btn" style="background-color: #20B5BDFF">Publish</button>
+    </div>
+  </form>
+
+</div>
+</div>
+</body>
+<script src="../../JS/Event%20pages/Create_event.js"></script>
+
+</html>
