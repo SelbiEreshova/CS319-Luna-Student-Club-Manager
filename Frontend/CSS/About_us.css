@@ -1,0 +1,23 @@
+.card-wrapper {
+    margin: 5% 0;
+}
+
+/* You can adjust the image size by increasing/decreasing the width, height */
+.custom-circle-image {
+    width: 20vw; /* note i used vw not px for better responsive */
+    height: 20vw;
+}
+
+.custom-circle-image img {
+    object-fit: cover;
+}
+
+.card-title {
+    letter-spacing: 1.1px;
+}
+
+.card-text {
+    font-family: MerriweatherRegular;
+    font-size: 22px;
+    line-height: initial;
+}
