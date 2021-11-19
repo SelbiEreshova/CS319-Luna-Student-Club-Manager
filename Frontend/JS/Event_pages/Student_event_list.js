@@ -1,5 +1,5 @@
 $(function ()
 {
-    $(".nav_bar").load("../../nav_bar_club_director.html");
+    $(".nav_bar").load("../../student.html");
     $("#events_nav").addClass("active");
 });
