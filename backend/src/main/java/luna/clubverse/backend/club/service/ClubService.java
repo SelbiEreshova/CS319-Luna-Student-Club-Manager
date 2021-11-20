@@ -5,6 +5,8 @@ import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
+import luna.clubverse.backend.user.entity.Student;
+import luna.clubverse.backend.user.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -19,9 +21,12 @@ public class ClubService {
 
     private final EventRepository eventRepository;
 
-    public ClubService(ClubRepository cLubRepository, EventRepository eventRepository) {
+    private final StudentRepository studentRepository;
+
+    public ClubService(ClubRepository cLubRepository, EventRepository eventRepository, StudentRepository studentRepository) {
         this.cLubRepository = cLubRepository;
         this.eventRepository = eventRepository;
+        this.studentRepository = studentRepository;
     }
 
     public void addClub(Club club) {
@@ -50,4 +55,40 @@ public class ClubService {
 
         return clubFromDB.getEvents().stream().map(EventQueryResponse::new).toList();
     }
+
+    public void applyToClub(Long clubId, Long studentId) {
+
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        Student studentFromDB = studentRepository.findById(studentId)
+                .orElseThrow(()->new EntityNotFoundException("The student with the id " + studentId + " could not be found."));
+
+        clubFromDB.addAppliedStudents(studentFromDB);
+
+        cLubRepository.save(clubFromDB);
+    }
+
+    public void removeFromAppliedStudent(Long clubId, Long studentId, boolean accept) {
+
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        Student studentFromDB = studentRepository.findById(studentId)
+                .orElseThrow(()->new EntityNotFoundException("The student with the id " + studentId + " could not be found."));
+
+        // result u nası exception yapcam?
+        boolean result = clubFromDB.removeAppliedStudents(studentFromDB);
+
+        if(accept){
+            clubFromDB.addMembers(studentFromDB);
+        }
+
+
+
+        cLubRepository.save(clubFromDB);
+    }
+
+
+
 }

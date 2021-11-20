@@ -73,4 +73,18 @@ public class Club extends BaseEntity {
         this.logo = club.logo;
         this.description = club.description;
     }
+
+    public void addMembers(Student student){
+        members.add(student);
+    }
+
+
+    public void addAppliedStudents(Student student){
+        appliedStudents.add(student);
+    }
+
+    public boolean removeAppliedStudents(Student student){
+        return appliedStudents.remove(student);
+    }
+
 }

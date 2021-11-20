@@ -1,8 +1,6 @@
 package luna.clubverse.backend.user.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.event.entity.Event;
