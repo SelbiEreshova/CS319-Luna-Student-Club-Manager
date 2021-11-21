@@ -44,6 +44,11 @@ public class EventController {
     }
      */
 
+    @GetMapping("/Admin_event_list")
+    public String welcomeDemo() {
+        return "Admin_event_list";
+    }
+
     @CrossOrigin
     @GetMapping("/get/{id}")
     public EventQueryResponse getEvent(@PathVariable Long id) {
