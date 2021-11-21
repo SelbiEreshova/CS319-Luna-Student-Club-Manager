@@ -7,21 +7,26 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link src="../nav_bar_club_director.html">
-    
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-  
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-
 </head>
 <body>
     
     <div class="nav_bar" ></div>
     
-    <h2 class="d-flex justify-content-center mt-4 pt-6">Event List</h2>
+    <h2 class="d-flex justify-content-center mt-4 pt-6">Student List</h2>
     
+    <div class=" container align-items-center">
+        <div class ="row align-items-center p-5">
+            
+            <input  class="col"type="search" name="search" id="" placeholder="Type name of the event" >
+            <button class="btn search text-light" type="button"  style="background-color: #20b5bd">
+                <span>SEARCH</span>
+            </button>
+        </div>
+    </div>
+
     
     <div class="container  m-auto align-items-center table-responsive" >   
-        <table class= "table display table-striped table-bordered">
+        <table class= "table">
             <form>
                 <div class="form-row col-12 align-items-center justify-content-center m-auto px-5 py-3" style="background-color: #d4d4d4; width: 900px;">
                     
@@ -71,9 +76,8 @@
             </form>
             
             <div class="row" >
-                <table class="table table-light  display table-striped table-bordered  my-table" style="width: 100%;">
-                    <thead class="thead text-light" style="background-color: #333
-                    ;" >
+                <table class="table table-light">
+                    <thead class="thead-light" >
                         <tr>
                             <th scope="col">Club</th>
                             <th scope="col">Event Name</th>
@@ -96,84 +100,14 @@
                             <td>loc</td>
                             <td><button type="button" class="btn btn-info text-light">See Details</button></td>
                         </tr>
-
-                        <tr>
-                            <td>club a</td>
-                            <th>Event x</th>
-                            <td>date</td>
-                            <td>time</td>
-                            <td>ge</td>
-                            <td>loc</td>
-                            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
-                        </tr><tr>
-                            <td>club a</td>
-                            <th>Event x</th>
-                            <td>date</td>
-                            <td>time</td>
-                            <td>ge</td>
-                            <td>loc</td>
-                            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
-                        </tr><tr>
-                            <td>club a</td>
-                            <th>Event x</th>
-                            <td>date</td>
-                            <td>time</td>
-                            <td>ge</td>
-                            <td>loc</td>
-                            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
-                        </tr><tr>
-                            <td>club a</td>
-                            <th>Event x</th>
-                            <td>date</td>
-                            <td>time</td>
-                            <td>ge</td>
-                            <td>loc</td>
-                            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
-                        </tr>
-
                     </tbody>
-                    <tfoot></tfoot>
-                </table>
-            </div>
+                    
+                </div>
+            </table>
         </div>
-
+        
         
     </body>
-    <script src="../../JS/Event_pages/Admin_event_list.js"></script>
-    <script>$(document).ready(function() {
-        $('.my-table').DataTable({
-            "ordering": true,               // Allows ordering
-        "searching": true,              // Searchbox
-        "paging": true,                 // Pagination
-        "info": false,                  // Shows 'Showing X of X' information
-        "pagingType": 'simple_numbers', // Shows Previous, page numbers & next buttons only
-        "pageLength": 10,               // Defaults number of rows to display in table
-        "columnDefs": [
-            {
-                "targets": 'dialPlanButtons',
-                "searchable": true,    // Stops search in the fields 
-                "sorting": true,       // Stops sorting
-                "orderable": true      // Stops ordering
-            }
-        ],
-        "dom": '<"top"f>rt<"bottom"lp><"clear">', // Positions table elements
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]], // Sets up the amount of records to display
-        "language": {
-       //     "search": "_INPUT_",            // Removes the 'Search' field label
-            "searchPlaceholder": "Search"   // Placeholder for the search box
-        },
-        "search": {
-            "addClass": 'form-control input-lg col-xs-12'
-        },
-        
-        "fnDrawCallback":function(){
-            $("input[type='search']").attr("id", "searchBox");
-            $('#dialPlanListTable').css('cssText', "margin-top: 0px !important;");
-            $("select[name='dialPlanListTable_length'], #searchBox").removeClass("input-sm");
-            $('#searchBox').css("width", "300px").focus();
-            $('#dialPlanListTable_filter').removeClass('dataTables_filter');
-        }
-        });
-    } );</script>
+    <script src="../../JS/Event_pages/Admin_student_list.js"></script>
     
     </html>
