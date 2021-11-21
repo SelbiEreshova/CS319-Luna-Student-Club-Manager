@@ -44,4 +44,27 @@ public class ClubController {
     public List<EventQueryResponse> getClubEvents(@PathVariable Long id) {
         return clubService.getEventsOfClub(id);
     }
+
+    @CrossOrigin
+    @PutMapping("/{clubId}/applyToClub/{studentId}")
+    public String applyToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
+        clubService.applyToClub(clubId,studentId);
+        return "success";
+    }
+
+    @CrossOrigin
+    @PutMapping("/{clubId}/approveAppliedStudent/{studentId}")
+    public String approveAppliedStudent(@PathVariable Long clubId,@PathVariable Long studentId ) {
+        clubService.removeFromAppliedStudent(clubId,studentId, true);
+        return "success";
+    }
+
+    @CrossOrigin
+    @PutMapping("/{clubId}/disapproveAppliedStudent/{studentId}")
+    public String disapproveFromAppliedStudent(@PathVariable Long clubId,@PathVariable Long studentId ) {
+        clubService.removeFromAppliedStudent(clubId,studentId, false);
+        return "success";
+    }
+
+
 }
