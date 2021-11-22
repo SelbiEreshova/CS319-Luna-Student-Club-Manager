@@ -16,9 +16,9 @@ import java.util.Set;
 @DiscriminatorValue("club_director")
 public class ClubDirector extends User{
 
-    public ClubDirector(Long id, String username, String password, String name, @Email String mail, Set<Authority> authorities) {
-        super(id, username, password, name, mail, authorities);
-    }
+    //public ClubDirector(Long id, String username, String password, String name, @Email String mail, Set<Authority> authorities) {
+    //    super(id, username, password, name, mail, authorities);
+    //}
 
     public ClubDirector() {
 

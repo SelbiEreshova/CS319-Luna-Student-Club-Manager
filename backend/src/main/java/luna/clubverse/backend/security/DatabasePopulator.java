@@ -1,5 +1,6 @@
 package luna.clubverse.backend.security;
 
+/**
 import luna.clubverse.backend.user.entity.*;
 import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
@@ -60,3 +61,4 @@ public class DatabasePopulator {
 
 
 }
+ */

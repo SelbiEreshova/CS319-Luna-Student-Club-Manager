@@ -1,5 +1,6 @@
 package luna.clubverse.backend.security;
 
+/**
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
@@ -50,3 +51,4 @@ public class JwtUtil {
         return claims.getSubject();
     }
 }
+ */

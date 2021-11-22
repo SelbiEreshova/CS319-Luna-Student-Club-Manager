@@ -1,5 +1,6 @@
 package luna.clubverse.backend.security;
 
+/**
 import luna.clubverse.backend.user.service.AuthenticationProviderService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        super.configure(http);
+        /**
         http
                 .cors()
                 .and()
@@ -47,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin().disable()
                 .csrf().disable();
+
     }
 
     @Bean
@@ -55,3 +59,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 }
+*/

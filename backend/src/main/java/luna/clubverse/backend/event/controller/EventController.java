@@ -5,8 +5,8 @@ import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.service.EventService;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -44,9 +44,14 @@ public class EventController {
     }
      */
 
-    @GetMapping("/Admin_event_list")
-    public String welcomeDemo() {
-        return "Admin_event_list";
+    //@GetMapping("/Admin_event_list")
+    //public String welcomeDemo() {
+    //    return "Admin_event_list";
+    //}
+
+    @GetMapping("/event_list")
+    public String welcome() {
+        return "event_list";
     }
 
     @CrossOrigin
@@ -90,8 +95,8 @@ public class EventController {
 
     @CrossOrigin
     @PutMapping("/{clubId}/addToClub")
-    @PreAuthorize("hasAuthority('ADMIN')" +
-            "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
+    //@PreAuthorize("hasAuthority('ADMIN')" +
+    //        "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
     public String addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
         eventService.addEventToClub(clubId,addEventRequest.toEvent());
         return "success "; // return type will be changed, except from get requests, there will be same type of response

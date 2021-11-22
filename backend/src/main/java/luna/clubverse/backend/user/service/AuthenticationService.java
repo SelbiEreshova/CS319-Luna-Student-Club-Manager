@@ -1,5 +1,6 @@
 package luna.clubverse.backend.user.service;
 
+/**
 import luna.clubverse.backend.security.JwtUtil;
 import luna.clubverse.backend.user.controller.request.LoginRequest;
 import luna.clubverse.backend.user.repository.UserRepository;
@@ -37,3 +38,4 @@ public class AuthenticationService {
 
     }
 }
+ */

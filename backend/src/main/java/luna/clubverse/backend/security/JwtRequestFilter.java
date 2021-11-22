@@ -1,5 +1,6 @@
 package luna.clubverse.backend.security;
 
+/**
 import luna.clubverse.backend.user.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -49,3 +50,4 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         filterChain.doFilter(request,response);
     }
 }
+ */

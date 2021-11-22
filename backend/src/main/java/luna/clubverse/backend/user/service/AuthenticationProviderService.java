@@ -1,5 +1,6 @@
 package luna.clubverse.backend.user.service;
 
+/**
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,3 +42,4 @@ public class AuthenticationProviderService implements AuthenticationProvider {
     }
 
 }
+ */

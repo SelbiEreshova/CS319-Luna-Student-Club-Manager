@@ -1,5 +1,6 @@
 package luna.clubverse.backend.user.entity;
 
+/**
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -64,3 +65,4 @@ public class Authority implements GrantedAuthority {
         return ("Authority: " + authority + " ClubID: " + clubId);
     }
 }
+ */

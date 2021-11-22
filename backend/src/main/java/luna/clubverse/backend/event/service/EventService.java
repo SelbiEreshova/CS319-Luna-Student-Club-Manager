@@ -2,6 +2,7 @@ package luna.clubverse.backend.event.service;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
+import luna.clubverse.backend.event.controller.response.EventQueryResponseDemo;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.repository.EventRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Transactional
@@ -86,6 +88,10 @@ public class EventService {
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
         event.setClub(clubFromDB);
         eventRepository.save(event);
+    }
+
+    public List<EventQueryResponseDemo> getAllDemo() {
+        return eventRepository.findAll().stream().map(EventQueryResponseDemo::new).toList();
     }
 
 

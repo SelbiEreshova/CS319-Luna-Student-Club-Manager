@@ -1,5 +1,6 @@
 package luna.clubverse.backend.authentication;
 
+/**
 import luna.clubverse.backend.user.entity.Authority;
 import luna.clubverse.backend.user.entity.User;
 import luna.clubverse.backend.user.repository.UserRepository;
@@ -26,3 +27,4 @@ public class AuthorizationLuna {
         return user.getAuthorities().contains(new Authority(authority,clubId));
     }
 }
+ */

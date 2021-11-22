@@ -1,5 +1,6 @@
 package luna.clubverse.backend.user.controller;
 
+/**
 import luna.clubverse.backend.user.controller.request.LoginRequest;
 import luna.clubverse.backend.user.service.AuthenticationService;
 import luna.clubverse.backend.user.service.UserService;
@@ -25,3 +26,4 @@ public class AuthenticationController {
     }
 
 }
+ */

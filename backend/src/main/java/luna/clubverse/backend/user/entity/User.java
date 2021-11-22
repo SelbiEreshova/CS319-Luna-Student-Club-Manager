@@ -1,8 +1,9 @@
 package luna.clubverse.backend.user.entity;
 
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import luna.clubverse.backend.common.entity.BaseEntity;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -19,7 +20,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type",
     discriminatorType = DiscriminatorType.STRING)
-public class User implements UserDetails {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +33,7 @@ public class User implements UserDetails {
     @Email
     private String mail;
 
+    /**
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_authority",
@@ -46,6 +48,7 @@ public class User implements UserDetails {
         authorities.add(authority);
     }
 
+    /**
     public void addAuthority(String newAuthority){
         Authority authority = new Authority(newAuthority);
         authorities.add(authority);
@@ -77,4 +80,5 @@ public class User implements UserDetails {
 
         return true;
     }
+    */
 }

@@ -1,5 +1,6 @@
 package luna.clubverse.backend.user.service;
 
+/**
 import luna.clubverse.backend.security.JwtUtil;
 import luna.clubverse.backend.user.controller.request.LoginRequest;
 import luna.clubverse.backend.user.repository.UserRepository;
@@ -32,4 +33,6 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(()-> new UsernameNotFoundException("The user with the given username could not found."));
     }
 
+
 }
+*/

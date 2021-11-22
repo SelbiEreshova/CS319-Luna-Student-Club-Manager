@@ -15,9 +15,9 @@ import java.util.Set;
 @Setter
 @DiscriminatorValue("faculty_advisor")
 public class FacultyAdvisor extends User{
-    public FacultyAdvisor(Long id, String username, String password, String name, @Email String mail, Set<Authority> authorities) {
-        super(id, username, password, name, mail, authorities);
-    }
+    //public FacultyAdvisor(Long id, String username, String password, String name, @Email String mail, Set<Authority> authorities) {
+    //    super(id, username, password, name, mail, authorities);
+    //}
 
     public FacultyAdvisor() {
     }
