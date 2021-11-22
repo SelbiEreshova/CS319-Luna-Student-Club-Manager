@@ -6,6 +6,7 @@ import luna.clubverse.backend.club.entity.Club;
 @Getter
 public class ClubQueryResponse {
 
+    private String id;
     private String name;
     private String logo;
     private String description;

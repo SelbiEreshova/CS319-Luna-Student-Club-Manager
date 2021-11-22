@@ -3,9 +3,7 @@ package luna.clubverse.backend;
 import luna.clubverse.backend.event.controller.response.EventQueryResponseDemo;
 import luna.clubverse.backend.event.service.EventService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -29,10 +27,10 @@ public class ControllerDemo {
         return "event_list";
     }
 
-    @RequestMapping("/admin_event_list")
+    @RequestMapping("/admin_event_list_demo")
     public String getAll( Model model) {
         List<EventQueryResponseDemo> events = eventService.getAllDemo();
         model.addAttribute("events", events);
-        return "admin_event_list";
-    } 
+        return "admin_event_list_demo";
+    }
 }
