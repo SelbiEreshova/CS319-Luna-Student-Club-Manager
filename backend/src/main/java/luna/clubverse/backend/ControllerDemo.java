@@ -35,6 +35,6 @@ public class ControllerDemo {
     }
     @RequestMapping("/Create_event")
     public String createEventPage() {
-        return "Create_event";
+        return "Event_manage_pages/Create_event";
     }
 }
