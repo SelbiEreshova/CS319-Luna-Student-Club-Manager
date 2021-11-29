@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link src="../nav_bar_club_director.html">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+</head>
+<body>
+    
+    <div class="nav_bar" ></div>
+    
+    <h2 class="d-flex justify-content-center mt-4 pt-6">Student List</h2>
+
+ 
+    <div class="container table-responsive my-4  p-2">
+        <table class="table display table-striped club-list" id="members">
+            <thead class="bg-dark text-light">
+                <tr>
+                    <th >Id</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Permission</th>
+                </tr>
+               
+            </thead>
+            <thead class="filter">
+              <tr>
+              <th class="filter-here-s"></th>
+              <th class="filter-here-s"></th>
+              <th class="filter-here-s" ></th>
+              <th></th>
+              <th class="filter-here-d"></th>
+              <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr><th>111clbbbbbbbb bbbbbbbbbbbbbbbbbbbb</th>
+                <th>4875emailllllllllllllllllllllll</th>
+                <th>65faaaaaaaaaaaaaaaaaaaaa</th>
+                <th>email</th>
+                <th>Roleee</th>
+                <th><div class="dropdown ml-5 mr-1 justify-content-right">
+                    <button class="btn btn-danger" type="button" id="manage-per" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Manage Permissions
+                    </button>
+                
+                  </div></th></tr>
+               
+                
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="manage">
+        <div class="modal-dialog bg-dark" role="document">
+          <div class="modal-content ">
+            <div class="modal-header bg-info text-light">
+              <h5 class="modal-title">Add Club</h5>
+            
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <form>
+                  <div class="form-group mx-auto ">
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Manage Events</label>
+                  </div>
+                  <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Review Applications</label>
+                  </div>
+                  <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Remove a member</label>
+                  </div>
+                  <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Take Attendance</label>
+                  </div>
+                  <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Edit Finance Table</label>
+                  </div>
+                  </div>
+                <div class="form-group">
+                  <label for="role">Role of this member(optional)</label>
+                  <input  class="form-control" id="role">
+                </div>
+               
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Apply Changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+
+        
+    </body>
+    <script src="../../JS/Event_pages/Admin_event_list.js"></script>
+    <script>$.get('/data.txt',  // url
+        function (data, textStatus, jqXHR) {  // success callback
+            alert('status: ' + textStatus + ', data:' + data);
+      });</script>
+   
+      <script>
+      ///////////////////////////////////////////////////////show dialog
+      $(document).ready(function () {
+
+        // Attach Button click event listener 
+       $("#manage-per").click(function(){
+   
+            // show Modal
+            $('#manage').modal('show');
+       });
+   });</script>
+
+   <script>
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////
+   //////datatable
+   /////////////////////////////////////////////////////////////////////////////////////////////////////
+   $(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#members .filter .filter-here-s').each( function () {
+      var title = $(this).text();
+      $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+  } );
+
+  // DataTable
+  var table = $('#members').DataTable({
+      initComplete: function () {
+          // Apply the search
+          this.api().columns(0).every( function () {
+              var that = this;
+
+              $( 'input', this.footer() ).on( 'keyup change clear', function () {
+                  if ( that.search() !== this.value ) {
+                      that
+                          .search( this.value )
+                          .draw();
+                  }
+              } );
+          } );
+
+          this.api().columns(4).every( function () {
+              var column = this;
+              var select = $('<select><option value=""></option></select>')
+                  .appendTo( $(".filter-here-d").empty() )
+                  .on( 'change', function () {
+                      var val = $.fn.dataTable.util.escapeRegex(
+                          $(this).val()
+                      );
+
+                      column
+                          .search( val ? '^'+val+'$' : '', true, false )
+                          .draw();
+                  } );
+
+              column.data().unique().sort().each( function ( d, j ) {
+                  select.append( '<option value="'+d+'">'+d+'</option>' )
+              } );
+          } );
+
+
+
+      }
+  });
+  });</script>
+    
+    </html>
