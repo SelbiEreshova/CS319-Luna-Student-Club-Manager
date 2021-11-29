@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class EventController {
 
-    @RequestMapping("/Create_eventd")
+    @RequestMapping("/Create_event")
     public String createEventPage() {
         return "Create_event";
     }
