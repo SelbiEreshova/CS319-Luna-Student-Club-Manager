@@ -33,4 +33,8 @@ public class ControllerDemo {
         model.addAttribute("events", events);
         return "admin_event_list_demo";
     }
+    @RequestMapping("/Create_event")
+    public String createEventPage() {
+        return "Create_event";
+    }
 }
