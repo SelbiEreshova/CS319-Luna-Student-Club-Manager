@@ -47,6 +47,7 @@ public class ControllerDemo {
     //@PreAuthorize("hasAuthority('ADMIN')" +
     //        "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
     public String addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
+        System.out.println(addEventRequest);
         eventService.addEventToClub(clubId,addEventRequest.toEvent());
         return "success "; // return type will be changed, except from get requests, there will be same type of response
     }
