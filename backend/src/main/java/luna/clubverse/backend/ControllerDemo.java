@@ -1,15 +1,14 @@
 package luna.clubverse.backend;
 
+import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.response.EventQueryResponseDemo;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.service.EventService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -37,15 +36,20 @@ public class ControllerDemo {
         model.addAttribute("events", events);
         return "admin_event_list_demo";
     }
-    @RequestMapping("/Create_event")
+
+    @RequestMapping(value ="/Create_event")
     public String createEventPage() {
-        return "Event_manage_pages/Create_event";
+        return "Create_event";
     }
 
     @CrossOrigin
-    @PutMapping("/draft/{id}")
-    public String draftEvent(@PathVariable Long id) {
-        eventService.changeEventStatus(id, EventStatus.DRAFT);
-        return "success";
+    @PutMapping("/{clubId}/addToClub")
+    //@PreAuthorize("hasAuthority('ADMIN')" +
+    //        "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
+    public String addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
+        eventService.addEventToClub(clubId,addEventRequest.toEvent());
+        return "success "; // return type will be changed, except from get requests, there will be same type of response
     }
+
+
 }

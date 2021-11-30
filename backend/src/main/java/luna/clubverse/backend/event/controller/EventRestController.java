@@ -82,6 +82,7 @@ public class EventRestController {
         return "success";
     }
 
+
     @CrossOrigin
     @PutMapping("/draft/{id}")
     public String draftEvent(@PathVariable Long id) {
@@ -94,7 +95,7 @@ public class EventRestController {
     //get query işlmeleri için kullanılır
 
     @CrossOrigin
-    @PutMapping("/{clubId}/addToClub")
+    @PutMapping("/{clubId}/addToClub2")
     //@PreAuthorize("hasAuthority('ADMIN')" +
     //        "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
     public String addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {

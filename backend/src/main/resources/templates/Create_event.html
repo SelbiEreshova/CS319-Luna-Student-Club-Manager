@@ -12,7 +12,7 @@
 <div class="nav_bar" ></div>
 <div class="">
   <h2 class="d-flex justify-content-center pt-6">Create a new event</h2>
-  <form style="width: 50%; margin: auto" class="pb-5">
+  <form style="width: 50%; margin: auto" class="pb-5 create_event">
     <div class="form-group ">
       <label for="event_title">Title</label>
       <input type="text" class="form-control form-control-lg" id="event_title" placeholder="Title">
@@ -24,14 +24,28 @@
     <div class="form-row">
       <div class="col">
         <div class="form-group ">
-          <label for="event_date">Date</label>
-          <input type="date" class="form-control " id="event_date">
+          <label for="event_date_start">Start Date</label>
+          <input type="date" class="form-control " id="event_date_start">
         </div>
       </div>
       <div class="col">
         <div class="form-group ">
-          <label for="event_time">Time</label>
-          <input type="time" class="form-control " id="event_time">
+          <label for="event_date_end">End Date</label>
+          <input type="date" class="form-control " id="event_date_end">
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group ">
+          <label for="event_time_start">Start Time</label>
+          <input type="time" class="form-control " id="event_time_start">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group ">
+          <label for="event_time_end">End Time</label>
+          <input type="time" class="form-control " id="event_time_end">
         </div>
       </div>
     </div>
@@ -95,36 +109,57 @@
     </div>
     <button type="button" class="btn btn-secondary">Cancel</button>
     <div class="float-right">
-      <button type="button" class="btn">Save</button>
-      <button type="button" class="btn" style="background-color: #20B5BDFF">Publish</button>
+      <button type="submit" class="btn" id="submit">Save</button>
+      <button type="" class="btn" style="background-color: #20B5BDFF">Publish</button>
     </div>
   </form>
 </div>
 </div>
 </body>
 <script>
-  $(document).ready(function() {
-    $(".nav_bar").load("navbard/club_director.html", function (responseTxt, statusTxt, xhr) {
-      if (statusTxt === "success")
-        alert("External content loaded successfully!");
-      if (statusTxt === "error")
-        alert("Error: " + xhr.status + ": " + xhr.statusText);
-    });
-  });
+  $(document).ready(
+          function() {
 
+            // SUBMIT FORM
+            $(".create_event").submit(function(event) {
+              // Prevent the form from submitting via the browser.
+              alert("save");
+              event.preventDefault();
+              ajaxPost();
+            });
 
-  fetch('http://localhost:8800/login', {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      username: "foo",
-      password: "bar"
-    })
-  });
- // $("#events_nav").addClass("active");
+            function ajaxPost() {
+
+              // PREPARE FORM DATA
+              var formData = {
+                eventTitle : $("#event_time").val(),
+                eventDescription : $("#event_description").val()
+              }
+
+              // DO POST
+              $.ajax({
+                type : "PUT",
+                contentType : "application/json",
+                url : "1/add",
+                data : JSON.stringify(formData),
+                dataType : 'json',
+                success : function(result) {
+                  if (result.status == "success") {
+                    alert("finally");
+                  } else {
+                    alert("oh nooo");
+                  }
+                  console.log(result);
+                },
+                error : function(e) {
+                  alert("Error!")
+                  console.log("ERROR: ", e);
+                }
+              });
+
+            }
+          })
+
 </script>
 
 </html>

@@ -40,10 +40,13 @@ public class AddEventRequest {
     private String explanation;
 
     //location
+   // private String location;
     private String building;
     private Boolean inBilkent;
     private String descriptionLocation;
     private String classroom;
+
+
 
     public Event toEvent() {
         return new Event(name,description,eventStatus, gePoint, LocalDate.parse(startDate), LocalDate.parse(endDate), LocalDate.parse(registrationDeadline), LocalDate.parse(reviewDeadline), quota, memberOnly, toFinanceData(),toLocation());
