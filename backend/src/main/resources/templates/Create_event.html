@@ -203,8 +203,12 @@
               // DO POST
               $.ajax({
                 type : "PUT",
+                headers: {
+                  "Access-Control-Allow-Origin":"*"
+                },
+                crossDomain: true,
                 contentType : "application/json",
-                url : "1/addToClub",
+                url : "http://localhost:8080/event/1/addToClub",
                 data : JSON.stringify(formData),
                 dataType : 'json',
                 success : function(result) {
