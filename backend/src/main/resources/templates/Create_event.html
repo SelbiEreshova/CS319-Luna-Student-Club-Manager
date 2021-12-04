@@ -186,16 +186,16 @@
                 description: $("#event_description").val(),
                 eventStatus:  "DRAFT",
                 gePoint: $("#event_point").val(),
-                startDate: dateConverter($("#event_date_start").val()),
-                endDate:  dateConverter($("#event_date_end").val()),
-                registrationDeadline: timeConverter($("#event_registration").val()),
-                reviewDeadline: timeConverter($("#event_review").val()),
+                startDate: "2021-10-09",
+                endDate:  "2021-10-09",
+                registrationDeadline: "2021-10-09",
+                reviewDeadline: "2021-10-09",
                 quota: $("#event_quota").val(),
                 memberOnly: $("#memberOnly").val(),
                 amountOfMoney: $("#event_finance_").val(),
                  explanation: $("#event_finance_description").val(),
                 building: $("#event_building").val(),
-               inBilkent: $("#inBilkent").val(),
+               inBilkent: false,
                 descriptionLocation: $("#event_location").val(),
                classroom: $("#event_classroom").val(),
               }
@@ -204,7 +204,7 @@
               $.ajax({
                 type : "PUT",
                 headers: {
-                  "Access-Control-Allow-Origin":"*"
+                  "Access-Control-Allow-Origin":"*",
                 },
                 crossDomain: true,
                 contentType : "application/json",

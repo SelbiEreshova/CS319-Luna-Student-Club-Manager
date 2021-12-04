@@ -3,13 +3,18 @@ package luna.clubverse.backend.event.controller;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
+import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.service.EventService;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.core.context.SecurityContextHolder;
+import luna.clubverse.backend.financedata.entity.FinanceData;
+import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
+import luna.clubverse.backend.location.entity.Location;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/event")
@@ -98,9 +103,9 @@ public class EventRestController {
     @PutMapping("/{clubId}/addToClub2")
     //@PreAuthorize("hasAuthority('ADMIN')" +
     //        "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
-    public String addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
+    public EventQueryResponse addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
         eventService.addEventToClub(clubId,addEventRequest.toEvent());
-        return "success "; // return type will be changed, except from get requests, there will be same type of response
+        return new EventQueryResponse(new Event("demo","",EventStatus.DRAFT,10, LocalDate.now(), LocalDate.now(), LocalDate.now(),LocalDate.now(), 12, true, new FinanceData(100, FinanceDataStatus.INCOME,"asd",LocalDate.now()), new Location(true,"a","sgdjsd","khwdks"))); // return type will be changed, except from get requests, there will be same type of response
     }
 
 
