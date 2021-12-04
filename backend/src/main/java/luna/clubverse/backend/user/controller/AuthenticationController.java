@@ -1,23 +1,41 @@
 package luna.clubverse.backend.user.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AuthenticationController {
 
+    // Do not change this function
+    // Do not change the name of index.html in templates folder
+    @RequestMapping("/home")
+    public String welcome() {
+        return "index";
+    }
+
     // Buradaki controllerlar Rest değil sadece Controller
     // Bunların işi html dosyalarını çalıştırmak
+    // Html dosyalarının resources da templates altına ekleneceğini front endciler biliyor ama demiş olayım
+    // Güzel bir dosyalama ile eklerlerse daha güzel olur
+
     // url lerin restle karışmamasına dikkat edin
     // Club ve evente de rest olmayan controller ekledim, eskiden yaptıklarımızı ise isim olarak RestController diye güncelledim başka gerekirse eklersiniz
+
     // Terk düşüncem rest controller ve controller diye ayırmaya gerek var mıydı?
     // Hangilerinin html döndürmek için hangşlerinin data ekleme güncellme vs olduğunu karıştırmamak  için eklemek bana mantıklı geldi farklı fikriniz varsa alırım :P
+
+    // urlyi açtığınızda  (type=Forbidden, status=403) hatası alıyorsanız authentication eklememişsinizdir
+    // authenticationla uğraşma istemezsenin security ->SecurityConfiguration a gidip configure(HttpSecurity http)  fonksiyonun içine
+    //      /login ve /home gibi 8080 den sonrası eşleşecek şekilde url yi yazım .permitAll() derseniz
+    //      o url ye atılan istekler herkes tarfından ulaşılabilir olacaktır
 
     /*
 
     // Bu fonksiyon direkt html gönderiyor (içinde backendden hiçbir biligi eklemiyor)
     @RequestMapping("/event_list")
     public String welcome2() {
-        return "event_list";
+        return "event_list"; // return e yazılan string templates deki html dosyasının isimi ile eşleşmeli (.html uzantısı olmayack)
+                            //      bakınız ilk fonksiyondaki index gibi
     }
     // Bu fonksyion List<EventQueryResponseDemo> yi events adlı modele yükleyerek html dosyasını çalıştırıyor. Html dosyası içinde events. diyerek istenilen kısma ulaşılabilir
     // (örnek için entegration-demo-2 deki htmle bakılabilir)
