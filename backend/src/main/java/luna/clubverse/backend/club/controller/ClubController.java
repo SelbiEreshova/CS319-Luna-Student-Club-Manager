@@ -16,10 +16,10 @@ public class ClubController {
         this.clubService = clubService;
     }
 
-    @RequestMapping("/club_home_page/{clubId}")
+    @RequestMapping("/club_home_page_student/{clubId}")
     public String getClubController( Model model, @PathVariable Long clubId) {
         Club club = clubService.getClub(clubId);
         model.addAttribute("club", club);
-        return "club_home_page";
+        return "club_home_page_student";
     }
 }
