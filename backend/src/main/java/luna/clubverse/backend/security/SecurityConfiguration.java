@@ -40,6 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/home").permitAll()
+                .antMatchers("/club_home_page/{clubId}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
