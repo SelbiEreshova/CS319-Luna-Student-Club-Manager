@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.Email;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,37 +17,37 @@ import java.util.Set;
 @Component
 public class DatabasePopulator {
 
-        private final AuthorityRepository authorityRepository;
-        private final UserRepository userRepository;
-        private final PasswordEncoder passwordEncoder;
+    private final AuthorityRepository authorityRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-        public DatabasePopulator(AuthorityRepository authorityRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
-            this.authorityRepository = authorityRepository;
-            this.userRepository = userRepository;
-            this.passwordEncoder = passwordEncoder;
-        }
+    public DatabasePopulator(AuthorityRepository authorityRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.authorityRepository = authorityRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
 
-        @Bean
-        @Transactional
-        public void populateDatabase() {
+    @Bean
+    @Transactional
+    public void populateDatabase() {
 
         //Authority userAuthority = authorityRepository.save(new Authority(null, "USER",1L, new HashSet<>()));
         //Authority adminAuthority = authorityRepository.save(new Authority(null, "ADMIN",2L, new HashSet<>()));
 
-        User admin = new Admin(null,"admin",passwordEncoder.encode("admin"),"admin", "abc@gmail.com", new HashSet<Authority>() );
+        User admin = new Admin(null, "admin", passwordEncoder.encode("admin"), "admin", "abc@gmail.com", new HashSet<Authority>());
         admin.addAuthority("ADMIN");
         userRepository.save(admin);
 
-        User director = new ClubDirector(null, "director", passwordEncoder.encode("director"),"director","abc@gmail.com", new HashSet<Authority>());
+        User director = new ClubDirector(null, "director", passwordEncoder.encode("director"), "director", "abc@gmail.com", new HashSet<Authority>());
         director.addAuthority("PERMISSION_MANAGEMENT", 1L);
         director.addAuthority("EVENT_MANAGEMENT", 1L);
         director.addAuthority("FINANCE_MANAGEMENT", 1L);
         director.addAuthority("REVIEW_MEMBER_APPLICATION", 1L);
-        director.addAuthority("REMOVE_MEMBER",1L);
+        director.addAuthority("REMOVE_MEMBER", 1L);
         userRepository.save(director);
 
-        User manager1 = new Student(null,"manager1",passwordEncoder.encode("manager1"), "manager", "abc@gmail.com", new HashSet<Authority>(), 11111111);
+        User manager1 = new Student(null, "manager1", passwordEncoder.encode("manager1"), "manager", "abc@gmail.com", new HashSet<Authority>(), 11111111);
         manager1.addAuthority("STUDENT");
         manager1.addAuthority("EVENT_MANAGEMENT", 2L);
         manager1.addAuthority("FINANCE_MANAGEMENT", 1L);
@@ -56,7 +57,12 @@ public class DatabasePopulator {
         advisor.addAuthority("ADVISOR", 1L);
         userRepository.save(advisor);
 
-        }
+
+        Student student1 = new Student(null,"username",passwordEncoder.encode("password") , "name", "abc@gmail.com", new HashSet<Authority>(),21809999);
+        userRepository.save(student1);
+
+
+    }
 
 
 }

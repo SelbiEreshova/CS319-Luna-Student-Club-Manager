@@ -5,6 +5,7 @@ import lombok.Getter;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
+import luna.clubverse.backend.user.entity.Student;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -26,11 +27,20 @@ public class Club extends BaseEntity {
     // ekli değil
     //private FacultyAdvisor facultyAdvisor;
 
-    // ekli değil
-    //private Student[] members = null;
 
-    // ekli değil
-    //private Student[] appliedStudents = null;
+    @ManyToMany
+    @JoinTable(name = "club_member",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "club_id")
+    )
+    private Set<Student> members;
+
+    @ManyToMany
+    @JoinTable(name = "club_applied_student",
+            joinColumns = @JoinColumn(name = "applied_student_id"),
+            inverseJoinColumns = @JoinColumn(name = "club_id")
+    )
+    private Set<Student> appliedStudents;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "club")
     private Set<Event> events;
@@ -63,4 +73,18 @@ public class Club extends BaseEntity {
         this.logo = club.logo;
         this.description = club.description;
     }
+
+    public void addMembers(Student student){
+        members.add(student);
+    }
+
+
+    public void addAppliedStudents(Student student){
+        appliedStudents.add(student);
+    }
+
+    public boolean removeAppliedStudents(Student student){
+        return appliedStudents.remove(student);
+    }
+
 }

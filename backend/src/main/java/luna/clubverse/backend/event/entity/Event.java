@@ -7,9 +7,11 @@ import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.location.entity.Location;
+import luna.clubverse.backend.user.entity.Student;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Entity
@@ -55,6 +57,20 @@ public class Event extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "club_id")
     private Club club;
+
+    @ManyToMany
+    @JoinTable(name = "event_enrolled_student",
+            joinColumns = @JoinColumn(name = "enrolled_student_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private Set<Student> enrolledStudents;
+
+    @ManyToMany
+    @JoinTable(name = "event_attended_student",
+            joinColumns = @JoinColumn(name = "attended_student_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private Set<Student> attendedStudents;
 
     protected Event() {
     }
