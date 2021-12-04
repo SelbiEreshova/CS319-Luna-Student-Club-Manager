@@ -92,6 +92,12 @@ public class EventRestController {
         return "success "; // return type will be changed, except from get requests, there will be same type of response
     }
 
+    @GetMapping("/event_list")
+    public String welcome() {
+        return "event_list";
+    }
+
+
 
 
 }
