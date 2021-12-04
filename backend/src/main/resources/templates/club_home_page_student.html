@@ -15,8 +15,8 @@
 <div class="container py-5">
     <div class="row">
         <div class="col text-center">
-            <h1 class="display-4 font-weight-bold">CLUB NAME</h1>
-            <p class="font-italic text-muted">Description of club.Description of club.Description of clubDescription of clubDescription of clubDescription of clubDescription of club</p>
+            <h1 class="display-4 font-weight-bold" th:text = "${club.name}"> </h1>
+            <p class="font-italic text-muted" th:text = "${club.description}"> </p>
         </div>
         <div class="col">
             <img  src="https://source.unsplash.com/910x592" class="rounded-circle float-right border border-success" alt="Cinque Terre" width="300" height="300" style="margin-top:-30%; float: right; margin-right: 10%">
