@@ -37,10 +37,6 @@
 
             // SUBMIT FORM
             $("#login").on("click", function (event) {
-
-                // Prevent the form from submitting via the browser.
-                console.log("here");
-                alert("save");
                 event.preventDefault();
                 ajaxPost();
             });
@@ -61,12 +57,16 @@
                     },
                     crossDomain: true,
                     contentType: "application/json",
-                    url: "http://localhost:8080/login",
+                    url: "http://localhost:8080/login-request",
                     data: JSON.stringify(formData),
                     dataType: 'json',
                     success: function (result) {
-                        if (result) {
+                        if (result.messageType == "SUCCESS") {
+                            localStorage.setItem("Authorization", result.message);
+                            localStorage.setItem("userId", result.userId);
                             console.log(result);
+                            //window.location.href = `http://localhost:8080/user/${localStorage.getItem('userId')}`
+                            redirect();
                         } else {
                             alert("oh nooo");
                         }
@@ -78,6 +78,27 @@
                 });
 
             }
+
+            function redirect() {
+                window.location.href = `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`
+
+                console.log("in redirect");
+
+                $.ajax({
+                    type: "GET",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Authorization" : `${localStorage.getItem('Authorization')}`
+                    },
+                    crossDomain: true,
+                    contentType: "application/json",
+                    url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
+                    dataType: 'json',
+                });
+
+                console.log("done");
+            }
+
         })
 </script>
 </html>

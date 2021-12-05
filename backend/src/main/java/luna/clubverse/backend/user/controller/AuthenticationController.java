@@ -1,16 +1,45 @@
 package luna.clubverse.backend.user.controller;
 
+import luna.clubverse.backend.user.entity.User;
+import luna.clubverse.backend.user.repository.UserRepository;
+import luna.clubverse.backend.user.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AuthenticationController {
+
+    private final UserService userService;
+    private  final UserRepository userRepository;
+
+    public AuthenticationController(UserService userService, UserRepository userRepository) {
+        this.userService = userService;
+        this.userRepository = userRepository;
+    }
 
     // Do not change this function
     // Do not change the name of index.html in templates folder
     @RequestMapping("/home")
     public String welcome() {
         return "index";
+    }
+
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/studentHomePage/{userId}")
+    public String userHomePage(Model model, @PathVariable Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow();
+
+        model.addAttribute("user", user);
+        return "studentHomePage";
     }
 
     // Buradaki controllerlar Rest değil sadece Controller
