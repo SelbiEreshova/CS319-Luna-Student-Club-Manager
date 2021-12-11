@@ -6,9 +6,7 @@ import luna.clubverse.backend.user.controller.request.LoginRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
 import luna.clubverse.backend.user.service.AuthenticationService;
 import luna.clubverse.backend.user.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,6 +24,12 @@ public class AuthenticationRestController {
 
         return authenticationService.login(loginRequest);
         //return authenticationService.login(loginRequest);
+    }
+
+    @GetMapping("/studentHomePage/{userId}")
+    public MessageResponse getStudent(@PathVariable Long userId) {
+        System.out.println("in get student");
+        return new MessageResponse(MessageType.SUCCESS, "" + userId);
     }
 
 }

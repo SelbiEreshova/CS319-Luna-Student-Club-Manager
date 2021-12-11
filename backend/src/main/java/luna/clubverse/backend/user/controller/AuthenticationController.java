@@ -34,11 +34,17 @@ public class AuthenticationController {
     }
 
     @RequestMapping("/studentHomePage/{userId}")
-    public String userHomePage(Model model, @PathVariable Long userId) {
+    public String studentHomePage(Model model, @PathVariable Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow();
 
         model.addAttribute("user", user);
+        return "studentHomePage";
+    }
+
+    @RequestMapping("/app/STUDENTHomePage")
+    public String userHomePage() {
+        System.out.println("in student Home Page");
         return "studentHomePage";
     }
 

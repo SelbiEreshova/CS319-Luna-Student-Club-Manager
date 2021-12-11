@@ -1,6 +1,7 @@
 package luna.clubverse.backend.user.entity;
 
 import lombok.*;
+import luna.clubverse.backend.user.enums.UserType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,6 +29,9 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String name;
+
+    @Enumerated(value = EnumType.STRING)
+    private UserType usertype;
 
     @Email
     private String mail;
