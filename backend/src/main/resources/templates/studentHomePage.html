@@ -1,27 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <!--<link rel="stylesheet" href="../../CSS/background.css">-->
-  <title>Login</title>
-
 </head>
 <body>
-<section>
-  <h2 class="d-flex justify-content-center">Log In</h2>
-  <form style="width: 25%; margin: auto">
 
-    <h1 class="demo-class" th:text ="${user.username}"></h1>
-    <div class="d-flex justify-content-around">
-      <button style="background-color: #2ED3DB" type="submit" class="btn btn-primary" id="login"><a class="text-dark">Log In</a></button>
-      <button style="background-color: #5FFBF1" type="button" class="btn btn-primary"><a class="text-dark">Go To Main Page</a></button>
-      <button style="background-color: #5FFBF1" type="button" class="btn btn-primary"><a class="text-dark">Forgot Password</a></button>
+<h2 class="d-flex justify-content-center mt-4 pt-6">Welcome!</h2>
+
+<div class=" container align-items-center">
+  <div class ="row align-items-center p-5">
+
+    <input  class="col"type="search" name="search" id="" placeholder="Enter event name, club name, date" >
+    <button class="btn search text-light" type="button"  style="background-color: #20b5bd">
+      <span>SEARCH</span>
+    </button>
+  </div>
+</div>
+
+
+<div class="container  m-auto align-items-center table-responsive" >
+  <table class= "table">
+
+
+    <div class="row" >
+      <table class="table table-light">
+        <thead class="thead-light" >
+        <tr>
+          <th scope="col">Club</th>
+          <th scope="col">Event Name</th>
+
+          <th scope="col">Date</th>
+          <th scope="col">Time</th>
+          <th scope="col">Ge Points</th>
+          <th scope="col">Location</th>
+          <th scope="col"></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>club a</td>
+          <th>Event x</th>
+          <td>date</td>
+          <td>time</td>
+          <td>ge</td>
+          <td>loc</td>
+          <td><button type="button" class="btn btn-info text-light">Go to event page</button></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-  </form>
-</section>
+  </table>
+</div>
+
+<div class="d-flex justify-content-center"><button type="button" class="btn btn-info text-light">Go to All Events</button></div>
+
 </body>
+
+<script>
+  window.onload = function () {
+    console.log("in onload");
+    $.ajax({
+      type: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization : localStorage.getItem('Authorization')
+      },
+      crossDomain: true,
+      contentType: "application/json",
+      url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
+      dataType: 'json',
+      success: function(response) {
+        console.log(response);
+      }
+    });
+  };
+</script>
+</html>
