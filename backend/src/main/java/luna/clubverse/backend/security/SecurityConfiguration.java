@@ -42,6 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login-request").permitAll()
                 //.antMatchers("/studentHomePage/{userId}").permitAll()
                 .antMatchers("/home").permitAll()
+                .antMatchers("/app/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

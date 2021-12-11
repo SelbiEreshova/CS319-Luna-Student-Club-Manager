@@ -38,7 +38,7 @@ public class AuthenticationService {
             User userFromDb = userRepository.findByUsername(loginRequest.getUsername())
                     .orElseThrow();
 
-            return new LoginResponse(MessageType.SUCCESS, "Bearer " + jwt, userFromDb.getId() );
+            return new LoginResponse(MessageType.SUCCESS, "Bearer " + jwt, userFromDb.getId(), userFromDb.getUsertype() );
 
             //return ("Bearer " + jwt);
         } catch (AuthenticationException ex) {

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.event.entity.Event;
+import luna.clubverse.backend.user.enums.UserType;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -32,7 +33,7 @@ public class Student extends User{
     private Set<Event> attendedEvents;
 
     public Student(Long id, String username, String password, String name, @Email String mail, Set<Authority> authorities, int bilkentId) {
-        super(id, username, password, name, mail, authorities);
+        super(id, username, password, name, UserType.STUDENT, mail, authorities);
         this.bilkentId = bilkentId;
     }
 

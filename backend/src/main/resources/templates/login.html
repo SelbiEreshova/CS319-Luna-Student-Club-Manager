@@ -63,10 +63,15 @@
                     success: function (result) {
                         if (result.messageType == "SUCCESS") {
                             localStorage.setItem("Authorization", result.message);
+                            const user = {
+                                userId: result.userId,
+                                userType: result.userType
+                            };
                             localStorage.setItem("userId", result.userId);
+                            localStorage.setItem("userType", result.userType);
+                            localStorage.setItem("user", user);
                             console.log(result);
-                            //window.location.href = `http://localhost:8080/user/${localStorage.getItem('userId')}`
-                            redirect();
+                            window.location.href = `http://localhost:8080/app/${localStorage.getItem("userType")}HomePage`;
                         } else {
                             alert("oh nooo");
                         }
@@ -77,26 +82,6 @@
                     }
                 });
 
-            }
-
-            function redirect() {
-                window.location.href = `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`
-
-                console.log("in redirect");
-
-                $.ajax({
-                    type: "GET",
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        "Authorization" : `${localStorage.getItem('Authorization')}`
-                    },
-                    crossDomain: true,
-                    contentType: "application/json",
-                    url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
-                    dataType: 'json',
-                });
-
-                console.log("done");
             }
 
         })
