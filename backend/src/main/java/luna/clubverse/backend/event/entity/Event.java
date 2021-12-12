@@ -11,6 +11,8 @@ import luna.clubverse.backend.user.entity.Student;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 
@@ -32,9 +34,9 @@ public class Event extends BaseEntity {
 
     private LocalDate endDate;
 
-    private LocalDate registrationDeadline;
+    private LocalTime registrationDeadline;
 
-    private LocalDate reviewDeadline;
+    private LocalTime reviewDeadline;
 
     private int quota;
 
@@ -75,7 +77,7 @@ public class Event extends BaseEntity {
     protected Event() {
     }
 
-    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalDate endDate, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly, FinanceData financeData, Location location) {
+    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalDate endDate, LocalTime registrationDeadline, LocalTime reviewDeadline, int quota, boolean memberOnly, FinanceData financeData, Location location) {
         this.name = name;
         this.description = description;
         this.eventStatus = eventStatus;

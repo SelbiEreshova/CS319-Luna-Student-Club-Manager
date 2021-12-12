@@ -8,10 +8,13 @@ import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.location.entity.Location;
+import org.apache.tomcat.jni.Local;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 // Üstteki ikili requestler için şart
@@ -32,13 +35,13 @@ public class UpdateEventRequest {
 
     private int gePoint;
 
-    private String startDate;
+    private LocalDate startDate;
 
-    private String endDate;
+    private LocalDate endDate;
 
-    private String registrationDeadline;
+    private LocalTime registrationDeadline;
 
-    private String reviewDeadline;
+    private LocalTime reviewDeadline;
 
     private int quota;
 
@@ -56,7 +59,7 @@ public class UpdateEventRequest {
 
 
     public Event toEvent() {
-        return new Event(name,description,eventStatus, gePoint, LocalDate.parse(startDate), LocalDate.parse(endDate), LocalDate.parse(registrationDeadline), LocalDate.parse(reviewDeadline), quota, memberOnly, toFinanceData(),toLocation());
+        return new Event(name,description,eventStatus, gePoint, startDate, endDate, registrationDeadline, reviewDeadline, quota, memberOnly, toFinanceData(),toLocation());
 
     }
     public Long toEventID()

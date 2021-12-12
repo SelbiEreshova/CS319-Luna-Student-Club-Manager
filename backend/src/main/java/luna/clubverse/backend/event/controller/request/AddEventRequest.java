@@ -11,6 +11,8 @@ import luna.clubverse.backend.location.entity.Location;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 // Üstteki ikili requestler için şart
@@ -29,10 +31,10 @@ public class AddEventRequest {
 
     private int gePoint;
     private LocalDate startDate;
-    private LocalDate startTime;
-    private String endDate;
-    private String registrationDeadline;
-    private String reviewDeadline;
+    private LocalDateTime startTime;
+    private LocalDate endDate;
+    private LocalTime registrationDeadline;
+    private LocalTime reviewDeadline;
     private int quota;
     private boolean memberOnly;
 
@@ -48,7 +50,7 @@ public class AddEventRequest {
 
     public Event toEvent() {
         System.out.println("startDate: "+startDate + " startTime: " + startTime);
-        return new Event(name,description,eventStatus, gePoint, startDate, LocalDate.parse(endDate), LocalDate.parse(registrationDeadline), LocalDate.parse(reviewDeadline), quota, memberOnly, toFinanceData(),toLocation());
+        return new Event(name,description,eventStatus, gePoint, startDate, endDate, registrationDeadline, reviewDeadline, quota, memberOnly, toFinanceData(),toLocation());
     }
 
     public FinanceData toFinanceData() {

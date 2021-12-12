@@ -154,21 +154,6 @@
     $(document).ready(
         function() {
 
-            function dateConverter(date){ //12/12/2021 2021-03-12
-                console.log(date);
-                var dd = date.substring(0, 4);
-                var mm = date.substring(5, 7);
-                var yy = date.substring(8);
-                console.log(dd +"/" + mm+"/" + yy);
-                return dd +"/" + mm+"/" + yy;
-            }
-            function timeConverter(time){ //13:45
-                var hour = time.substring(0, 2);
-                var min = time.substring(3);
-                console.log(hour +":" + min);
-                return hour +":" + min;
-            }
-
             // SUBMIT FORM
             $(".create_event").submit(function(event) {
 
@@ -186,16 +171,16 @@
                     description: $("#event_description").val(),
                     eventStatus:  "DRAFT",
                     gePoint: $("#event_point").val(),
-                    startDate: "2021-10-09",
-                    endDate:  "2021-10-09",
-                    registrationDeadline: "2021-10-09",
-                    reviewDeadline: "2021-10-09",
+                    startDate: $("#event_date_start").val(),
+                    endDate:  $("#event_date_end").val(),
+                    registrationDeadline: $("#event_registration").val(),
+                    reviewDeadline: $("#event_review").val(),
                     quota: $("#event_quota").val(),
-                    memberOnly: $("#memberOnly").val(),
+                    memberOnly: $("#memberOnly").is(":checked"),
                     amountOfMoney: $("#event_finance_").val(),
                     explanation: $("#event_finance_description").val(),
                     building: $("#event_building").val(),
-                    inBilkent: false,
+                    inBilkent: $("#inBilkent").is(":checked"),
                     descriptionLocation: $("#event_location").val(),
                     classroom: $("#event_classroom").val(),
                 }
@@ -205,6 +190,7 @@
                     type : "PUT",
                     headers: {
                         "Access-Control-Allow-Origin":"*",
+                        Authorization : localStorage.getItem('Authorization')
                     },
                     crossDomain: true,
                     contentType : "application/json",
@@ -212,8 +198,8 @@
                     data : JSON.stringify(formData),
                     dataType : 'json',
                     success : function(result) {
-                        if (result.status == "success") {
-                            alert("finally");
+                        if (result.messageType == "SUCCESS") {
+                            alert("Event created");
                         } else {
                             alert("oh nooo");
                         }

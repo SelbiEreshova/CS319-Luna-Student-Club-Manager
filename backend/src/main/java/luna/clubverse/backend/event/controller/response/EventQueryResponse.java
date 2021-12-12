@@ -5,6 +5,8 @@ import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 public class  EventQueryResponse {
@@ -15,8 +17,8 @@ public class  EventQueryResponse {
     private final int gePoint;
     private final LocalDate startDate;
     private final LocalDate endDate;
-    private final LocalDate registrationDeadline;
-    private final LocalDate reviewDeadline;
+    private final LocalTime registrationDeadline;
+    private final LocalTime reviewDeadline;
     private final int quota;
     private final int remainingQuota;
     private final boolean memberOnly;
