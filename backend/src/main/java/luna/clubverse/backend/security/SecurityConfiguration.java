@@ -44,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/event/event_list").permitAll()
                 .antMatchers("/club/add").permitAll()
                 .antMatchers("/event/{clubId}/addToClub").permitAll()
+                .antMatchers("/admin_event_list").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

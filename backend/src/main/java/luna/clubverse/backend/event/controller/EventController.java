@@ -19,10 +19,10 @@ public class EventController {
 
 
     //Model kullanımı
-    @RequestMapping("/event_list")
+    @RequestMapping("/admin_event_list")
     public String welcome(Model model) {
         List<EventListQueryResponse> events = eventService.getAllDemo();
         model.addAttribute("events", events);
-        return "event_list";
+        return "admin_event_list";
     }
 }
