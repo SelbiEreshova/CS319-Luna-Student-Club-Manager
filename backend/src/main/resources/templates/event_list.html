@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -65,6 +65,18 @@
                 </button>
 
             </div></td></tr>
+        <tr th:each="event:${events}">
+            <!--/*@thymesVar id="event" type=""*/-->
+            <td th:text="${event.clubName}">Club</td>
+            <td th:text="${event.eventName}">Event Name</td>
+            <td th:text="${event.startDate}">Date</td>
+            <td>Time</td>
+            <td th:text="${event.gePoint}">Ge Points</td>
+            <td>loc</td>
+            <td>quota</td>
+            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
+        </tr>
+
 
 
 
@@ -79,10 +91,6 @@
 <script>
     $(document).ready( function () {
 
-    });
-</script>
-
-<script>
     $.ajax({
         type : "GET",
         headers: {
@@ -90,21 +98,15 @@
         },
         crossDomain: true,
         contentType : "application/json",
-        url : "http://localhost:8080/event_list",
-        dataType : 'json',
+        url : "/event/event_list",
+
         success : function(result) {
+        console.log(" result _>>>" + result)
             if (result.status == "success") {
                 alert("finally");
                 events = jQuery.parseJSON(result);
                 console.table(events);
-                $('.club-list').DataTable(
-                    { language: {
-                            searchPlaceholder: "Search",
-                            search: "",
-                        },
-                        "order": [[ 2, "desc" ]],
 
-                    });
             } else {
                 alert("oh nooo");
             }
@@ -115,6 +117,16 @@
             console.log("ERROR: ", e);
         }
     });
+    $('.club-list').DataTable(
+                    { language: {
+                            searchPlaceholder: "Search",
+                            search: "",
+                        },
+                         });
+    });
+</script>
+
+<script>
 </script>
 
 </html>
