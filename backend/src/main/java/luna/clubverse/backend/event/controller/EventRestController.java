@@ -2,14 +2,17 @@ package luna.clubverse.backend.event.controller;
 
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
+import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.service.EventService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/event")
@@ -85,13 +88,21 @@ public class EventRestController {
 
     @CrossOrigin
     @PutMapping("/{clubId}/addToClub")
-    @PreAuthorize("hasAuthority('ADMIN')" +
-            "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
+   // @PreAuthorize("hasAuthority('ADMIN')" +
+     //       "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
     public String addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
         eventService.addEventToClub(clubId,addEventRequest.toEvent());
         return "success "; // return type will be changed, except from get requests, there will be same type of response
     }
 
+
+
+    @RequestMapping("/event_list")
+    public String getAll( Model model) {
+        List<EventListQueryResponse> events = eventService.getAllDemo();
+        model.addAttribute("events", events);
+        return "event_list";
+    }
 
 
 }
