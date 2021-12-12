@@ -36,8 +36,9 @@ public class UpdateEventRequest {
     private int gePoint;
 
     private LocalDate startDate;
-
+    private LocalTime startTime;
     private LocalDate endDate;
+    private LocalTime endTime;
 
     private LocalTime registrationDeadline;
 
@@ -59,8 +60,7 @@ public class UpdateEventRequest {
 
 
     public Event toEvent() {
-        return new Event(name,description,eventStatus, gePoint, startDate, endDate, registrationDeadline, reviewDeadline, quota, memberOnly, toFinanceData(),toLocation());
-
+       return new Event( name, description, eventStatus, gePoint, startDate,  startTime,  endDate,  endTime,  registrationDeadline,  reviewDeadline,  quota,  memberOnly,  toFinanceData(), toLocation() );
     }
     public Long toEventID()
     {

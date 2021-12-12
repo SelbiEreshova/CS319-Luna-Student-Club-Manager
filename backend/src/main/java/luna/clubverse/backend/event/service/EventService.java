@@ -87,6 +87,9 @@ public class EventService {
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
         event.setClub(clubFromDB);
+
+        System.out.println(event);
+
         eventRepository.save(event);
     }
 

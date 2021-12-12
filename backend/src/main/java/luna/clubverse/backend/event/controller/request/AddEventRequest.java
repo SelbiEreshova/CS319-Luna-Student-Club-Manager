@@ -3,11 +3,13 @@ package luna.clubverse.backend.event.controller.request;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.location.entity.Location;
+import luna.clubverse.backend.user.entity.Student;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -31,8 +33,9 @@ public class AddEventRequest {
 
     private int gePoint;
     private LocalDate startDate;
-    private LocalDateTime startTime;
+    private LocalTime startTime;
     private LocalDate endDate;
+    private LocalTime endTime;
     private LocalTime registrationDeadline;
     private LocalTime reviewDeadline;
     private int quota;
@@ -50,7 +53,8 @@ public class AddEventRequest {
 
     public Event toEvent() {
         System.out.println("startDate: "+startDate + " startTime: " + startTime);
-        return new Event(name,description,eventStatus, gePoint, startDate, endDate, registrationDeadline, reviewDeadline, quota, memberOnly, toFinanceData(),toLocation());
+            return new Event( name, description, eventStatus, gePoint, startDate,  startTime,  endDate,  endTime,  registrationDeadline,  reviewDeadline,  quota,  memberOnly,  toFinanceData(), toLocation() );
+
     }
 
     public FinanceData toFinanceData() {
