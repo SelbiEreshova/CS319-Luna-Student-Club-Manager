@@ -6,60 +6,55 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 </head>
 <body>
 
-<h2 class="d-flex justify-content-center mt-4 pt-6">Welcome,</h2>
+<h2 class="d-flex justify-content-center mt-4 pt-6">Welcome</h2>
 <h2 class="d-flex justify-content-center mt-4 pt-6" id="name"></h2>
-<div class=" container align-items-center">
-  <div class ="row align-items-center p-5">
+<div class="container table-responsive mx-auto my-2 p-3 ">
+  <table class="table display table-striped student-home-table">
+    <thead class="bg-dark text-light">
+    <tr>
+      <th>Event</th>
+      <th>Club</th>
+      <th>Date</th>
+      <th>Home page</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><th>event x</th>
+      <th>club a</th>
+      <th>date (format?)</th>
+      <th><div class="mx-auto"><button class="mx-auto"><i class="fa fa-link"></i></button></div></th>
+      <th><button class="btn btn-info text-light" type="button">Go to Event Page</button>
 
-    <input  class="col"type="search" name="search" id="" placeholder="Enter event name, club name, date" >
-    <button class="btn search text-light" type="button"  style="background-color: #20b5bd">
-      <span>SEARCH</span>
-    </button>
-  </div>
-</div>
-
-
-<div class="container  m-auto align-items-center table-responsive" >
-  <table class= "table">
-
-
-    <div class="row" >
-      <table class="table table-light">
-        <thead class="thead-light" >
-        <tr>
-          <th scope="col">Club</th>
-          <th scope="col">Event Name</th>
-
-          <th scope="col">Date</th>
-          <th scope="col">Time</th>
-          <th scope="col">Ge Points</th>
-          <th scope="col">Location</th>
-          <th scope="col"></th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>club a</td>
-          <th>Event x</th>
-          <td>date</td>
-          <td>time</td>
-          <td>ge</td>
-          <td>loc</td>
-          <td><button type="button" class="btn btn-info text-light">Go to event page</button></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+      </th></tr>
+    </tbody>
   </table>
 </div>
+</body>
 
 <div class="d-flex justify-content-center"><button type="button" class="btn btn-info text-light">Go to All Events</button></div>
 
 </body>
+
+<script>$(document).ready( function () {
+        $('.student-home-table').DataTable(
+          { language: {
+              searchPlaceholder: "Search",
+              search: "",
+            },
+            "order": [[ 2, "desc" ]],
+
+          })
+
+
+      } );</script>
 
 <script>
   window.onload = function () {
