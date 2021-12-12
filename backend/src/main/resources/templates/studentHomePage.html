@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h2 class="d-flex justify-content-center mt-4 pt-6">Welcome!</h2>
+<h2 class="d-flex justify-content-center mt-4 pt-6">Welcome,</h2>
 <h2 class="d-flex justify-content-center mt-4 pt-6" id="name"></h2>
 <div class=" container align-items-center">
   <div class ="row align-items-center p-5">
@@ -75,7 +75,7 @@
       url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
       dataType: 'json',
       success: function(response) {
-        $("#name").text(response);
+        $("#name").text(response.message);
         console.log(response);
       }
     });
