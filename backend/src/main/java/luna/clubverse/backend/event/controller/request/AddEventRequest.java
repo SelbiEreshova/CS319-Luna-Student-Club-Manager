@@ -28,7 +28,8 @@ public class AddEventRequest {
     private EventStatus eventStatus;
 
     private int gePoint;
-    private String startDate;
+    private LocalDate startDate;
+    private LocalDate startTime;
     private String endDate;
     private String registrationDeadline;
     private String reviewDeadline;
@@ -46,7 +47,8 @@ public class AddEventRequest {
     private String classroom;
 
     public Event toEvent() {
-        return new Event(name,description,eventStatus, gePoint, LocalDate.parse(startDate), LocalDate.parse(endDate), LocalDate.parse(registrationDeadline), LocalDate.parse(reviewDeadline), quota, memberOnly, toFinanceData(),toLocation());
+        System.out.println("startDate: "+startDate + " startTime: " + startTime);
+        return new Event(name,description,eventStatus, gePoint, startDate, LocalDate.parse(endDate), LocalDate.parse(registrationDeadline), LocalDate.parse(reviewDeadline), quota, memberOnly, toFinanceData(),toLocation());
     }
 
     public FinanceData toFinanceData() {
