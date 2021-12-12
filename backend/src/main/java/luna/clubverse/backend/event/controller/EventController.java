@@ -34,4 +34,12 @@ public class EventController {
         model.addAttribute("eventsForClub", eventsForClub);
         return "club_event_list";
     }
+
+    @RequestMapping("/app/student_event_list")
+    public String welcome3(Model model) {
+        List<EventListQueryResponse> events = eventService.getAllDemo();
+        model.addAttribute("events", events);
+        return "student_event_list";
+    };
 }
+
