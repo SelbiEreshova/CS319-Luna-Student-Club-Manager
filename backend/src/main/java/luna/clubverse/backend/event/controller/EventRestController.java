@@ -4,14 +4,17 @@ import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
+import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.service.EventService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/event")
@@ -94,6 +97,14 @@ public class EventRestController {
         return  new MessageResponse(MessageType.SUCCESS,"New Event is created successfully"); // return type will be changed, except from get requests, there will be same type of response
     }
 
+
+
+    @RequestMapping("/event_list")
+    public String getAll( Model model) {
+        List<EventListQueryResponse> events = eventService.getAllDemo();
+        model.addAttribute("events", events);
+        return "event_list";
+    }
 
 
 }
