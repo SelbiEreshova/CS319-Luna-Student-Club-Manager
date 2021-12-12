@@ -16,7 +16,7 @@
 <h2 class="d-flex justify-content-center mt-4 pt-6">Welcome</h2>
 <h2 class="d-flex justify-content-center mt-4 pt-6" id="name"></h2>
 <div class="container table-responsive mx-auto my-2 p-3 ">
-  <table class="table display table-striped student-home-table">
+  <table class="table display table-striped student-home-table" id="student-home-table">
     <thead class="bg-dark text-light">
     <tr>
       <th>Event</th>
@@ -43,21 +43,8 @@
 
 </body>
 
-<script>$(document).ready( function () {
-        $('.student-home-table').DataTable(
-          { language: {
-              searchPlaceholder: "Search",
-              search: "",
-            },
-            "order": [[ 2, "desc" ]],
-
-          })
-
-
-      } );</script>
-
 <script>
-  window.onload = function () {
+    window.onload = function () {
     console.log("in onload");
     $.ajax({
       type: "GET",
@@ -74,6 +61,6 @@
         console.log(response);
       }
     });
-  };
 </script>
+
 </html>
