@@ -4,6 +4,7 @@ import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.service.EventService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -24,5 +25,13 @@ public class EventController {
         List<EventListQueryResponse> events = eventService.getAllDemo();
         model.addAttribute("events", events);
         return "admin_event_list";
+    }
+
+
+    @RequestMapping("/app/club_event_list/{id}")
+    public String welcome2(Model model,@PathVariable Long id) {
+        List<EventListQueryResponse> eventsForClub = eventService.getEventsForClub(id);
+        model.addAttribute("eventsForClub", eventsForClub);
+        return "club_event_list";
     }
 }

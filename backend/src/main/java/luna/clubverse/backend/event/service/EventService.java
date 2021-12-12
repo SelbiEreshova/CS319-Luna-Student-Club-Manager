@@ -11,6 +11,7 @@ import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.financedata.repository.FinanceDataRepository;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
 import luna.clubverse.backend.financetable.repository.FinanceTableRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -100,5 +101,12 @@ public class EventService {
     public List<EventListQueryResponse> getAllDemo() {
         return eventRepository.findAll().stream().map(EventListQueryResponse::new).toList();
     }
+
+    public List<EventListQueryResponse> getEventsForClub( Long id) {
+        return eventRepository.findNameById(id).stream().map(EventListQueryResponse::new).toList();
+        //return cLubRepository.findAll().
+    }
+
+
 
 }
