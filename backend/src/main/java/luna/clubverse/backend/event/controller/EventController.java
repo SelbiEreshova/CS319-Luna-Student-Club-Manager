@@ -29,6 +29,7 @@ public class EventController {
         //model.addAttribute("club", club);
         Club club = clubService.getClub(clubId);
         return "create_event";
+    }
 
 
     //Model kullanımı
