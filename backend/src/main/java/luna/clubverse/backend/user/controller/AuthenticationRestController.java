@@ -3,6 +3,7 @@ package luna.clubverse.backend.user.controller;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.user.controller.request.LoginRequest;
+import luna.clubverse.backend.user.controller.request.SignupRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
 import luna.clubverse.backend.user.service.AuthenticationService;
 import luna.clubverse.backend.user.service.UserService;
@@ -24,6 +25,11 @@ public class AuthenticationRestController {
 
         return authenticationService.login(loginRequest);
         //return authenticationService.login(loginRequest);
+    }
+
+    @PutMapping("/signup")
+    public MessageResponse signup(@Valid @RequestBody SignupRequest request) {
+        return  new MessageResponse(MessageType.SUCCESS, "signup request alındı");
     }
 
 }

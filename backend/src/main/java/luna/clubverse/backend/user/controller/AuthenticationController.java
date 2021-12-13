@@ -33,6 +33,11 @@ public class AuthenticationController {
         return "login";
     }
 
+    @RequestMapping("/app/signup")
+    public String signup() {
+        return "student_sign_up";
+    }
+
     @RequestMapping("/studentHomePage/{userId}")
     public String studentHomePage(Model model, @PathVariable Long userId) {
         User user = userRepository.findById(userId)
