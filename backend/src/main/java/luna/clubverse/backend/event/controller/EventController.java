@@ -3,6 +3,7 @@ package luna.clubverse.backend.event.controller;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.service.ClubService;
+import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.service.EventService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,13 +25,21 @@ public class EventController {
     }
 
     @RequestMapping("/app/open_create_event/{clubId}")
-    public String getClubController(Model model, @PathVariable Long clubId) {
+    public String getCreateEvent(@PathVariable Long clubId) {
         //eventService.addEventToClub(clubId,);
         //model.addAttribute("club", club);
         Club club = clubService.getClub(clubId);
         return "create_event";
     }
 
+    @RequestMapping("/app/open_edit_event/{eventId}")
+    public String getEditEvent(Model model, @PathVariable Long eventId) {
+        //eventService.addEventToClub(clubId,);
+        //model.addAttribute("club", club);
+        Event event = eventService.getEvent(eventId);
+        model.addAttribute("club", club);
+        return "edit_event";
+    }
 
     //Model kullanımı
     @RequestMapping("/admin_event_list")

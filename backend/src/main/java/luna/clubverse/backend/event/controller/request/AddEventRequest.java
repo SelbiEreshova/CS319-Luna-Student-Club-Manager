@@ -32,13 +32,29 @@ public class AddEventRequest {
     private EventStatus eventStatus;
 
     private int gePoint;
+
+    @NotNull(message = "The startDate of the event cannot be blank")
     private LocalDate startDate;
+
+    @NotNull(message = "The startTime of the event cannot be blank")
     private LocalTime startTime;
+
+    @NotNull(message = "The endDate of the event cannot be blank")
     private LocalDate endDate;
+
+    @NotNull(message = "The endTime of the event cannot be blank")
     private LocalTime endTime;
+
+    @NotNull(message = "The registrationDeadline of the event cannot be blank")
     private LocalDate registrationDeadline;
+
+    @NotNull(message = "The reviewDeadline of the event cannot be blank")
     private LocalDate reviewDeadline;
+
+
     private int quota;
+
+    @NotNull(message = "The memberOnly of the event cannot be blank")
     private boolean memberOnly;
 
     //finance data
@@ -52,9 +68,7 @@ public class AddEventRequest {
     private String classroom;
 
     public Event toEvent() {
-        System.out.println("startDate: "+startDate + " startTime: " + startTime);
             return new Event( name, description, eventStatus, gePoint, startDate,  startTime,  endDate,  endTime,  registrationDeadline,  reviewDeadline,  quota,  memberOnly,  toFinanceData(), toLocation() );
-
     }
 
     public FinanceData toFinanceData() {
