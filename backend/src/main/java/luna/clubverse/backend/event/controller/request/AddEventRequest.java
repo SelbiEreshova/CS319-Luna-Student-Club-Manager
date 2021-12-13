@@ -36,8 +36,8 @@ public class AddEventRequest {
     private LocalTime startTime;
     private LocalDate endDate;
     private LocalTime endTime;
-    private LocalTime registrationDeadline;
-    private LocalTime reviewDeadline;
+    private LocalDate registrationDeadline;
+    private LocalDate reviewDeadline;
     private int quota;
     private boolean memberOnly;
 

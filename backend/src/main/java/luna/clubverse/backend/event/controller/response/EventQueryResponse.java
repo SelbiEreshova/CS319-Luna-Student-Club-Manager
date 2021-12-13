@@ -17,8 +17,10 @@ public class  EventQueryResponse {
     private final int gePoint;
     private final LocalDate startDate;
     private final LocalDate endDate;
-    private final LocalTime registrationDeadline;
-    private final LocalTime reviewDeadline;
+    private final LocalDate registrationDeadline;
+    private final LocalDate reviewDeadline;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private final int quota;
     private final int remainingQuota;
     private final boolean memberOnly;
@@ -39,5 +41,7 @@ public class  EventQueryResponse {
         this.memberOnly = event.isMemberOnly();
         this.totalPoint = event.getTotalPoint();
         this.numberEvaluation = event.getNumberEvaluation();
+        this.startTime = event.getStartTime();
+        this.endTime = event.getEndTime();
     }
 }

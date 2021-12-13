@@ -66,9 +66,9 @@ public class Event extends BaseEntity {
 
     private LocalTime endTime;
 
-    private LocalTime registrationDeadline;
+    private LocalDate registrationDeadline;
 
-    private LocalTime reviewDeadline;
+    private LocalDate reviewDeadline;
 
     private int quota;
 
@@ -113,7 +113,7 @@ public class Event extends BaseEntity {
 
 
 
-    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, LocalTime registrationDeadline, LocalTime reviewDeadline, int quota, boolean memberOnly, FinanceData financeData, Location location) {
+    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly, FinanceData financeData, Location location) {
         this.name = name;
         this.description = description;
         this.eventStatus = eventStatus;
