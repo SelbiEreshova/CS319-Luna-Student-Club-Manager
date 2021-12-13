@@ -40,9 +40,9 @@ public class UpdateEventRequest {
     private LocalDate endDate;
     private LocalTime endTime;
 
-    private LocalTime registrationDeadline;
+    private LocalDate registrationDeadline;
 
-    private LocalTime reviewDeadline;
+    private LocalDate reviewDeadline;
 
     private int quota;
 
