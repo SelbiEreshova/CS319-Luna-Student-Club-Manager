@@ -30,7 +30,5 @@ public class CustomUserService {
                 .sorted()
                 .map(event -> new EventQueryResponse(event))
                 .toList();
-
-
     }
 }
