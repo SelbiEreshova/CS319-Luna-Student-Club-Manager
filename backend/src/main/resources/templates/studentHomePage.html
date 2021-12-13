@@ -10,7 +10,6 @@
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 </head>
 <body>
@@ -45,28 +44,25 @@
 
 <div class="d-flex justify-content-center"><button type="button" class="btn btn-info text-light">Go to All Events</button></div>
 
-</body>
-
 <script>
-    window.onload = function () {
-    console.log("in onload");
-    oTable = $('#student-home-table').DataTable(
-    );
-    $.ajax({
-      type: "GET",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Authorization : localStorage.getItem('Authorization')
-      },
-      crossDomain: true,
-      contentType: "application/json",
-      url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
-      dataType: 'json',
-      success: function(response) {
+    $(document).ready( function () {
+      $("#student-home-table").DataTable();
 
-        oTable.fnAddData(response);
-        console.log(response);
-      }
+      console.log("in onload");
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          $("#name").text("YAS");
+        }
+      });
     });
 </script>
 
