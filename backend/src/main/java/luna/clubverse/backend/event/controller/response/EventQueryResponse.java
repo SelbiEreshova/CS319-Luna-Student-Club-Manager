@@ -5,6 +5,8 @@ import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 public class  EventQueryResponse {
@@ -17,6 +19,8 @@ public class  EventQueryResponse {
     private final LocalDate endDate;
     private final LocalDate registrationDeadline;
     private final LocalDate reviewDeadline;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private final int quota;
     private final int remainingQuota;
     private final boolean memberOnly;
@@ -37,5 +41,7 @@ public class  EventQueryResponse {
         this.memberOnly = event.isMemberOnly();
         this.totalPoint = event.getTotalPoint();
         this.numberEvaluation = event.getNumberEvaluation();
+        this.startTime = event.getStartTime();
+        this.endTime = event.getEndTime();
     }
 }

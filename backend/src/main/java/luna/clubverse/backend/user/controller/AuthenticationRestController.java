@@ -26,10 +26,4 @@ public class AuthenticationRestController {
         //return authenticationService.login(loginRequest);
     }
 
-    @GetMapping("/studentHomePage/{userId}")
-    public MessageResponse getStudent(@PathVariable Long userId) {
-        System.out.println("in get student");
-        return new MessageResponse(MessageType.SUCCESS, "" + userId);
-    }
-
 }

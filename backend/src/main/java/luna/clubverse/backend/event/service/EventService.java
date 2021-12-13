@@ -2,6 +2,8 @@ package luna.clubverse.backend.event.service;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
+import luna.clubverse.backend.common.MessageResponse;
+import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
@@ -11,7 +13,12 @@ import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.financedata.repository.FinanceDataRepository;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
 import luna.clubverse.backend.financetable.repository.FinanceTableRepository;
+
 import org.springframework.data.domain.Sort;
+
+import luna.clubverse.backend.user.entity.Student;
+import luna.clubverse.backend.user.repository.UserRepository;
+
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -27,12 +34,14 @@ public class EventService {
     private final EventRepository eventRepository;
     private final FinanceDataRepository financeDataRepository;
     private final FinanceTableRepository financeTableRepository;
+    private final UserRepository userRepository;
 
-    public EventService(ClubRepository cLubRepository, EventRepository eventRepository, FinanceDataRepository financeDataRepository, FinanceTableRepository financeTableRepository) {
+    public EventService(ClubRepository cLubRepository, EventRepository eventRepository, FinanceDataRepository financeDataRepository, FinanceTableRepository financeTableRepository, UserRepository userRepository) {
         this.cLubRepository = cLubRepository;
         this.eventRepository = eventRepository;
         this.financeDataRepository = financeDataRepository;
         this.financeTableRepository = financeTableRepository;
+        this.userRepository = userRepository;
     }
 
     public void addEvent(Event event) {
@@ -88,6 +97,9 @@ public class EventService {
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
         event.setClub(clubFromDB);
+
+        System.out.println(event);
+
         eventRepository.save(event);
     }
 
@@ -102,11 +114,27 @@ public class EventService {
         return eventRepository.findAll().stream().map(EventListQueryResponse::new).toList();
     }
 
+
     public List<EventListQueryResponse> getEventsForClub( Long id) {
         return eventRepository.findNameById(id).stream().map(EventListQueryResponse::new).toList();
         //return cLubRepository.findAll().
     }
 
 
+
+
+    public MessageResponse addEnrolledStudent(Long eventId, Long userId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow();
+
+        Student studentFromDB = (Student) userRepository.findById(userId)
+                .orElseThrow();
+
+        eventFromDB.addEnrolledStudent(studentFromDB);
+
+        eventRepository.save(eventFromDB);
+
+        return  new MessageResponse(MessageType.SUCCESS, "You enrolled the event  successfully");
+    }
 
 }

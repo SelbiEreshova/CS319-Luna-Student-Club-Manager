@@ -1,5 +1,8 @@
 package luna.clubverse.backend.event.controller;
 
+import luna.clubverse.backend.common.MessageResponse;
+
+import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
@@ -88,11 +91,11 @@ public class EventRestController {
 
     @CrossOrigin
     @PutMapping("/{clubId}/addToClub")
-   // @PreAuthorize("hasAuthority('ADMIN')" +
-     //       "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
-    public String addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
+    @PreAuthorize("hasAuthority('ADMIN')" +
+            "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
+    public MessageResponse addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
         eventService.addEventToClub(clubId,addEventRequest.toEvent());
-        return "success "; // return type will be changed, except from get requests, there will be same type of response
+        return  new MessageResponse(MessageType.SUCCESS,"New Event is created successfully"); // return type will be changed, except from get requests, there will be same type of response
     }
 
 
@@ -102,6 +105,11 @@ public class EventRestController {
         List<EventListQueryResponse> events = eventService.getAllDemo();
         model.addAttribute("events", events);
         return "event_list";
+    }
+
+    @PutMapping("/{eventId}/addEnrolledStudent/{userId}")
+    public MessageResponse addEnrolledStudent(@PathVariable Long eventId,@PathVariable Long userId) {
+        return eventService.addEnrolledStudent(eventId, userId);
     }
 
 
