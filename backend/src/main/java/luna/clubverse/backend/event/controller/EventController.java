@@ -28,11 +28,11 @@ public class EventController {
     }
 
 
-    @RequestMapping("/app/club_event_list/{id}")
+    @RequestMapping("/app/admin_club_event_list/{id}")
     public String welcome2(Model model,@PathVariable Long id) {
-        List<EventListQueryResponse> eventsForClub = eventService.getEventsForClub(id);
-        model.addAttribute("eventsForClub", eventsForClub);
-        return "club_event_list";
+        List<EventListQueryResponse> events = eventService.getEventsForClub(id);
+        model.addAttribute("events", events);
+        return "admin_club_event_list";
     }
 
     @RequestMapping("/app/student_event_list")
@@ -40,6 +40,13 @@ public class EventController {
         List<EventListQueryResponse> events = eventService.getAllDemo();
         model.addAttribute("events", events);
         return "student_event_list";
-    };
+    }
+
+    @RequestMapping("/app/student_club_event_list/{id}")
+    public String welcome4(Model model,@PathVariable Long id) {
+        List<EventListQueryResponse> eventsForClub = eventService.getEventsForClub(id);
+        model.addAttribute("eventsForClub", eventsForClub);
+        return "student_club_event_list";
+    }
 }
 
