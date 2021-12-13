@@ -53,7 +53,7 @@ public class ClubService {
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
 
-        return clubFromDB.getEvents().stream().map(EventQueryResponse::new).toList();
+        return clubFromDB.getEvents().stream().map(event -> new EventQueryResponse(event)).toList();
     }
 
     public void applyToClub(Long clubId, Long studentId) {

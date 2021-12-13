@@ -220,12 +220,12 @@
                     },
                     crossDomain: true,
                     contentType : "application/json",
-                    url : "http://localhost:8080/event/1/addToClub",
+                    url : "http://localhost:8080/event/update",
                     data : JSON.stringify(formData),
                     dataType : 'json',
                     success : function(result) {
-                        if (result.messageType == "SUCCESS") {
-                            alert("Event created");
+                        if (result.messageType === "SUCCESS") {
+                            alert("Event updated");
                         } else {
                             alert("oh nooo");
                         }
