@@ -1,6 +1,7 @@
 package luna.clubverse.backend.event.controller;
 
 import luna.clubverse.backend.common.MessageResponse;
+
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
@@ -104,6 +105,11 @@ public class EventRestController {
         List<EventListQueryResponse> events = eventService.getAllDemo();
         model.addAttribute("events", events);
         return "event_list";
+    }
+
+    @RequestMapping("/{eventId}/addEnrolledStudent/{userId}")
+    public MessageResponse addEnrolledStudent(@PathVariable Long eventId,@PathVariable Long userId) {
+        return eventService.addEnrolledStudent(eventId, userId);
     }
 
 
