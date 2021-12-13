@@ -3,6 +3,8 @@ package luna.clubverse.backend.event.entity;
 import lombok.Getter;
 import lombok.Setter;
 import luna.clubverse.backend.club.entity.Club;
+import luna.clubverse.backend.common.MessageResponse;
+import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
@@ -91,5 +93,14 @@ public class Event extends BaseEntity {
         this.numberEvaluation = 0;
         this.financeData = financeData;
         this.location = location;
+    }
+
+    public void addEnrolledStudent(Student student){
+
+        if(enrolledStudents.contains(student)){
+           // throws exception
+        }
+
+        enrolledStudents.add(student);
     }
 }
