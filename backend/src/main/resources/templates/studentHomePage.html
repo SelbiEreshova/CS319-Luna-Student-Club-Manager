@@ -25,19 +25,11 @@
       <th>Event</th>
       <th>Club</th>
       <th>Date</th>
-      <th>Home page</th>
+      <th>Time</th>
+      <th>GE Point</th>
       <th></th>
     </tr>
     </thead>
-    <tbody>
-    <tr><th>event x</th>
-      <th>club a</th>
-      <th>date (format?)</th>
-      <th><div class="mx-auto"><button class="mx-auto"><i class="fa fa-link"></i></button></div></th>
-      <th><button class="btn btn-info text-light" type="button">Go to Event Page</button>
-
-      </th></tr>
-    </tbody>
   </table>
 </div>
 </body>
@@ -45,10 +37,8 @@
 <div class="d-flex justify-content-center"><button type="button" class="btn btn-info text-light">Go to All Events</button></div>
 
 <script>
-    $(document).ready( function () {
-      $("#student-home-table").DataTable();
-
-      console.log("in onload");
+    $(document).ready(function () {
+      var table = $("#student-home-table").DataTable();
       $.ajax({
         type: "GET",
         headers: {
@@ -61,6 +51,29 @@
         dataType: 'json',
         success: function(response) {
           $("#name").text("YAS");
+          var dummyResponse = [
+          {eventName: "event 1",
+          clubName: "club 1",
+          gePoint: 15,
+          eventId: 1},
+          {eventName: "event 2",
+          clubName: "club 2",
+          gePoint: 20,
+          eventId: 2}
+          ]
+          function showEvents(r, i){
+              table.row.add([
+                r[i].eventName,
+                r[i].clubName,
+                "date",
+                "time",
+                r[i].gePoint,
+                "<button>Go to event's home page</button>"
+                ]).draw(false);
+            };
+          for (let i = 0; i < dummyResponse.length; i++) {
+            showEvents(dummyResponse, i);
+          }
         }
       });
     });
