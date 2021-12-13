@@ -44,7 +44,6 @@ public class AuthenticationController {
 
     @RequestMapping("/app/STUDENTHomePage")
     public String userHomePage() {
-        System.out.println("in student Home Page");
         return "studentHomePage";
     }
 

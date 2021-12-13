@@ -27,6 +27,8 @@ public class DatabasePopulator {
         this.passwordEncoder = passwordEncoder;
     }
 
+
+    /*
     @Bean
     @Transactional
     public void populateDatabase() {
@@ -62,6 +64,10 @@ public class DatabasePopulator {
 
 
     }
+
+
+     */
+
 
 
 
