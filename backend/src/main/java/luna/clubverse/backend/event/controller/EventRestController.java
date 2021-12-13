@@ -107,7 +107,7 @@ public class EventRestController {
         return "event_list";
     }
 
-    @RequestMapping("/{eventId}/addEnrolledStudent/{userId}")
+    @PutMapping("/{eventId}/addEnrolledStudent/{userId}")
     public MessageResponse addEnrolledStudent(@PathVariable Long eventId,@PathVariable Long userId) {
         return eventService.addEnrolledStudent(eventId, userId);
     }
