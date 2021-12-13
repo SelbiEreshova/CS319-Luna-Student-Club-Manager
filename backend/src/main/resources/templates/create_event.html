@@ -131,13 +131,13 @@
             <div class="col">
                 <div class="form-group ">
                     <label for="event_review">Review Deadline</label>
-                    <input type="time" class="form-control " id="event_review">
+                    <input type="date" class="form-control " id="event_review">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group ">
                     <label for="event_registration">Registration Deadline </label>
-                    <input type="time" class="form-control " id="event_registration">
+                    <input type="date" class="form-control " id="event_registration">
                 </div>
             </div>
         </div>
@@ -172,7 +172,9 @@
                     eventStatus:  "DRAFT",
                     gePoint: $("#event_point").val(),
                     startDate: $("#event_date_start").val(),
+                    startTime: $("#event_time_start").val(),
                     endDate:  $("#event_date_end").val(),
+                    endTime:  $("#event_time_end").val(),
                     registrationDeadline: $("#event_registration").val(),
                     reviewDeadline: $("#event_review").val(),
                     quota: $("#event_quota").val(),
