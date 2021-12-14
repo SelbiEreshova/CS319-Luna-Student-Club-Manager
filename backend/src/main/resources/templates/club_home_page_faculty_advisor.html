@@ -106,9 +106,18 @@
       </div>
     </div>
     <div class="col pt-5 manager_buttons">
-      <button type="button" class="btn btn-primary m-1 for_student">Contact us</button>
+      <button type="button" class="btn btn-primary m-1 for_student" id="events">Events</button>
+      <button type="button" class="btn btn-primary m-1 for_student" id="contactUs">Contact us</button>
     </div>
   </div>
 </div>
 </body>
+<script>
+  $( "#events" ).click(function() {
+    window.location.replace("http://localhost:8080/app/student_club_event_list/1");
+  });
+  $( "#contactUs" ).click(function() {
+    alert( "Handler for .click() called." );
+  });
+</script>
 </html>
