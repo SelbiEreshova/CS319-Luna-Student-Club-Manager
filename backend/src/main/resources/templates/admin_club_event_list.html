@@ -76,13 +76,14 @@
         url : "/event/event_list",
 
         success : function(result) {
-        console.log(" result _>>>" + result)
+
             if (result.status == "success") {
                 alert("finally");
                 events = jQuery.parseJSON(result);
                 console.table(events);
 
-            } else {
+            }
+             else {
                 alert("oh nooo");
             }
             console.log(result);

@@ -13,8 +13,12 @@ import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.financedata.repository.FinanceDataRepository;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
 import luna.clubverse.backend.financetable.repository.FinanceTableRepository;
+
+import org.springframework.data.domain.Sort;
+
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.repository.UserRepository;
+
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -93,6 +97,9 @@ public class EventService {
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
         event.setClub(clubFromDB);
+
+        System.out.println(event);
+
         eventRepository.save(event);
     }
 
@@ -107,6 +114,15 @@ public class EventService {
         return eventRepository.findAll().stream().map(EventListQueryResponse::new).toList();
     }
 
+
+    public List<EventListQueryResponse> getEventsForClub( Long id) {
+        return eventRepository.findNameById(id).stream().map(EventListQueryResponse::new).toList();
+        //return cLubRepository.findAll().
+    }
+
+
+
+
     public MessageResponse addEnrolledStudent(Long eventId, Long userId) {
         Event eventFromDB = eventRepository.findById(eventId)
                 .orElseThrow();
@@ -120,4 +136,5 @@ public class EventService {
 
         return  new MessageResponse(MessageType.SUCCESS, "You enrolled the event  successfully");
     }
+
 }

@@ -23,7 +23,7 @@
 <h2 class="d-flex justify-content-center mt-4 pt-6">Event List of </h2>
 <h2 class="d-flex justify-content-center mt-4 pt-6" id="name"></h2>
 <div class="container table-responsive mx-auto my-2 p-3 ">
-    <table class="table display table-striped club-list">
+    <table class="table display table-striped club-list" id="club-list">
         <thead class="bg-dark text-light">
         <tr>
             <th>Club Name</th>
@@ -106,16 +106,12 @@
       }
     });
   };
-    $('.club-list').DataTable(
-                    { language: {
-                            searchPlaceholder: "Search",
-                            search: "",
-                        },
-                         });
-    });
 </script>
 
 <script>
+    $document.ready(function(){
+    $('#club-list').DataTable();
+    });
 </script>
 
 </html>

@@ -5,6 +5,7 @@ import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 public class  EventQueryResponse {
@@ -17,11 +18,22 @@ public class  EventQueryResponse {
     private final LocalDate endDate;
     private final LocalDate registrationDeadline;
     private final LocalDate reviewDeadline;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private final int quota;
     private final int remainingQuota;
     private final boolean memberOnly;
     private final int totalPoint;
     private final int numberEvaluation;
+
+    private final double amountOfMoney;
+    private final String explanation;
+
+    //location
+    private final String building;
+    private final Boolean inBilkent;
+    private final String descriptionLocation;
+    private final String classroom;
 
     public EventQueryResponse(final Event event) {
         this.name = event.getName();
@@ -37,5 +49,13 @@ public class  EventQueryResponse {
         this.memberOnly = event.isMemberOnly();
         this.totalPoint = event.getTotalPoint();
         this.numberEvaluation = event.getNumberEvaluation();
+        this.startTime = event.getStartTime();
+        this.endTime = event.getEndTime();
+        this.amountOfMoney = event.getFinanceData().amountOfMoney();
+        this.explanation = event.getFinanceData().explanation();
+        this.building = event.getLocation().building();
+        this.inBilkent = event.getLocation().inBilkent();
+        this.descriptionLocation = event.getLocation().description();
+        this.classroom = event.getLocation().classroom();
     }
 }

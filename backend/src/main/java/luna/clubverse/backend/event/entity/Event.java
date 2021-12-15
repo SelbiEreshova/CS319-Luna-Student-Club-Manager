@@ -13,6 +13,8 @@ import luna.clubverse.backend.user.entity.Student;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 
@@ -21,6 +23,32 @@ import java.util.Set;
 @Setter
 @Table(name = "event")
 public class Event extends BaseEntity {
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", eventStatus=" + eventStatus +
+                ", gePoint=" + gePoint +
+                ", startDate=" + startDate +
+                ", startTime=" + startTime +
+                ", endDate=" + endDate +
+                ", endTime=" + endTime +
+                ", registrationDeadline=" + registrationDeadline +
+                ", reviewDeadline=" + reviewDeadline +
+                ", quota=" + quota +
+                ", remainingQuota=" + remainingQuota +
+                ", memberOnly=" + memberOnly +
+                ", totalPoint=" + totalPoint +
+                ", numberEvaluation=" + numberEvaluation +
+                ", financeData=" + financeData +
+                ", location=" + location +
+                ", club=" + club +
+                ", enrolledStudents=" + enrolledStudents +
+                ", attendedStudents=" + attendedStudents +
+                '}';
+    }
 
     private String name;
 
@@ -32,7 +60,11 @@ public class Event extends BaseEntity {
 
     private LocalDate startDate;
 
+    private LocalTime startTime;
+
     private LocalDate endDate;
+
+    private LocalTime endTime;
 
     private LocalDate registrationDeadline;
 
@@ -76,14 +108,20 @@ public class Event extends BaseEntity {
 
     protected Event() {
     }
+    //this.totalPoint = 0;
+    //        this.numberEvaluation = 0;
 
-    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalDate endDate, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly, FinanceData financeData, Location location) {
+
+
+    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly, FinanceData financeData, Location location) {
         this.name = name;
         this.description = description;
         this.eventStatus = eventStatus;
         this.gePoint = gePoint;
         this.startDate = startDate;
+        this.startTime = startTime;
         this.endDate = endDate;
+        this.endTime = endTime;
         this.registrationDeadline = registrationDeadline;
         this.reviewDeadline = reviewDeadline;
         this.quota = quota;
