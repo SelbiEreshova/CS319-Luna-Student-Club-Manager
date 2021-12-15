@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import luna.clubverse.backend.user.entity.Authority;
 import luna.clubverse.backend.user.entity.Student;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.HashSet;
 
 @Getter
@@ -21,8 +18,9 @@ public class SignupRequest {
     @NotBlank(message = "Last name cannot be empty")
     private final String lastname;
 
-    //@NotBlank(message = "Bilkent ID cannot be empty")
-    //@Size(min = 8, max = 8, message = "Bilkent ID has not a valid length.")
+    @NotNull(message = "Bilkent ID cannot be empty")
+    @Min(value = 10000000, message = "Bilkent ID should consist of eight digits")
+    @Max(value = 99999999, message = "Bilkent ID should consist of eight digits")
     private final Integer bilkentId;
 
     @NotBlank(message = "Please enter a username")
