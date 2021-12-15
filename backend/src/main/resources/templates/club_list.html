@@ -32,15 +32,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="event:${events}">
-      <!--/*@thymesVar id="event" type=""*/-->
       <td th:text="${event.clubName}">Club</td>
-      <td th:text="${event.eventName}">Event Name</td>
-      <td th:text="${event.startDate}">Date</td>
-      <td>Time</td>
-      <td th:text="${event.gePoint}">Ge Points</td>
-      <td>loc</td>
-      <td>quota</td>
       <td><button type="button" class="btn btn-info text-light">See Details</button></td>
     </tr>
 
