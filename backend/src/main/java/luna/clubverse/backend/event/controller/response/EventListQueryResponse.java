@@ -27,7 +27,7 @@ public class EventListQueryResponse {
         this.clubName = event.getClub().getName();
         this.gePoint = event.getGePoint();
         this.startDate = event.getStartDate();
-        //this.startTime = event.getStartTime()
+        this.startTime = event.getStartTime();
     }
 
     public EventListQueryResponse(String eventName, String clubName, int gePoint, LocalDate startDate) {

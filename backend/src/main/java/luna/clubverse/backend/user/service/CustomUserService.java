@@ -1,5 +1,6 @@
 package luna.clubverse.backend.user.service;
 
+import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
 import luna.clubverse.backend.user.entity.Student;
@@ -21,14 +22,14 @@ public class CustomUserService {
     }
 
 
-    public List<EventQueryResponse> getFutureEventsOfStudent(Long userId) {
+    public List<EventListQueryResponse> getFutureEventsOfStudent(Long userId) {
         Student studentFromDB = (Student) userRepository.findById(userId)
                 .orElseThrow();
         return studentFromDB.getEnrolledEvents()
                 .stream()
                 .filter(event-> event.getStartDate().compareTo(LocalDate.now()) >= 0)
                 .sorted()
-                .map(event -> new EventQueryResponse(event))
+                .map(event -> new EventListQueryResponse(event))
                 .toList();
     }
 }

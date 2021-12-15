@@ -29,8 +29,11 @@ public class ClubService {
         this.studentRepository = studentRepository;
     }
 
-    public void addClub(Club club) {
+    public Club addClub(Club club) {
+
         cLubRepository.save(club);
+        return club;
+
     }
 
     public void updateClub(Long clubId,Club club) {

@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 @Getter
 @RequiredArgsConstructor
-public class SignupRequest {
+public class SignupStudentRequest {
 
     @NotBlank(message = "First name cannot be empty")
     private final String name;

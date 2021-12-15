@@ -1,5 +1,6 @@
 package luna.clubverse.backend.user.controller;
 
+import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.user.service.CustomUserService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ public class CustomUserRestController {
     }
 
     @GetMapping("/studentHomePage/{userId}")
-    public List<EventQueryResponse> getFutureEventsOfStudent(@PathVariable Long userId) {
+    public List<EventListQueryResponse> getFutureEventsOfStudent(@PathVariable Long userId) {
         return customUserService.getFutureEventsOfStudent(userId);
     }
 }

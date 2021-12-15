@@ -55,6 +55,7 @@
         url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
+          console.log(response);
           $("#name").text("YAS");
           var dummyResponse = [
           {eventName: "event 1",
@@ -78,8 +79,8 @@
                 `<button onclick='goToEvent(${r[i].eventId})' >Go to event's home page</button>`
                 ]).draw(false);
           };
-          for (let i = 0; i < dummyResponse.length; i++) {
-            showEvents(dummyResponse, i);
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
           }
         }
       });

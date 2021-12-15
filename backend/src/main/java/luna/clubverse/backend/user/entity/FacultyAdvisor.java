@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.user.enums.UserType;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import java.util.Set;
 
@@ -16,6 +19,11 @@ import java.util.Set;
 @Setter
 @DiscriminatorValue("faculty_advisor")
 public class FacultyAdvisor extends User{
+
+    @OneToOne
+    @JoinColumn(name = "club_id")
+    private Club club;
+
     public FacultyAdvisor(Long id, String username, String password, String name, @Email String mail, Set<Authority> authorities) {
         super(id, username, password, name, UserType.FACULTY_ADVISOR, mail, authorities);
     }

@@ -52,6 +52,11 @@ public class AuthenticationController {
         return "studentHomePage";
     }
 
+    @RequestMapping("/app/ADMINHomePage")
+    public String adminHomePage() {
+        return "admin_club_list";
+    }
+
     // Buradaki controllerlar Rest değil sadece Controller
     // Bunların işi html dosyalarını çalıştırmak
     // Html dosyalarının resources da templates altına ekleneceğini front endciler biliyor ama demiş olayım

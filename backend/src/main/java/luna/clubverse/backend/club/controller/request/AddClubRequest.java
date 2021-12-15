@@ -6,8 +6,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
+import luna.clubverse.backend.user.entity.Authority;
+import luna.clubverse.backend.user.entity.ClubDirector;
+import luna.clubverse.backend.user.entity.FacultyAdvisor;
 
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 
 @RequiredArgsConstructor
 @Getter
@@ -15,12 +19,22 @@ import javax.validation.constraints.NotNull;
 public class AddClubRequest {
 
     @NotNull(message = "The name of the club cannot be blank")
-    private String name;
+    private String clubName;
     private String logo;
     private String description;
 
+    private String directorName;
+    private String directorSurname;
+    private String clubEmail;
+    private String clubPassword;
+
+    //private String advisorUsername;
+    //private String advisorPassword;
+    //private String advisorName;
+    private String advisorMail;
+
     public Club toClub() {
-        return new Club(name,logo,description, toFinanceTable());
+        return new Club(clubName,logo,description, toFinanceTable());
 
     }
 
@@ -29,5 +43,11 @@ public class AddClubRequest {
     }
 
 
+    public ClubDirector toClubDirector() {
+        return new ClubDirector(null, clubName, clubPassword, directorName, clubEmail, new HashSet<Authority>());
+    }
 
+    //public FacultyAdvisor toFacultyAdvisor() {
+        //return new FacultyAdvisor(null, advisorUsername, advisorPassword, advisorName, advisorMail, new HashSet<Authority>());
+    //}
 }
