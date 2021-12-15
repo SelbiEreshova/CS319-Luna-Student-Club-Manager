@@ -57,9 +57,9 @@ public class EventRestController {
 
     @CrossOrigin
     @PutMapping("/update") // post yeni şey eklemek için yapılır
-    public String updateEvent(@RequestBody @Valid final UpdateEventRequest updateEventRequest) {
+    public MessageResponse updateEvent(@RequestBody @Valid final UpdateEventRequest updateEventRequest) {
         eventService.updateEvent(updateEventRequest.toEvent(),updateEventRequest.toEventID());
-        return "success";
+        return new MessageResponse( MessageType.SUCCESS, "success");
     }
     //put update etmek için kullanılır
 
