@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>find title</title>
+</head>
+<body>
+<div class="row justify-content-around" style="margin-top: 3%">
+    <h2 style="margin-top: 8%" id="title">Event title</h2>
+    <img src="ing-amblem.jpg" alt="Club logo" style="width: 250px">
+</div>
+<div class="row justify-content-around">
+    <table class="table w-50" id="event-info">
+        <tbody>
+        <tr>
+            <th scope="row" style="background-color: #c5c7c7; width: 15%">Description</th>
+            <td style="background-color: #c0efef" id="description"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Start Date</th>
+            <td style="background-color: #eafafa" id="start-date"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">End Date</th>
+            <td style="background-color: #eafafa" id="end-date"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Start Time</th>
+            <td style="background-color: #c0efef" id="start-time"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">End Time</th>
+            <td style="background-color: #c0efef" id="end-time"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Available Quota</th>
+            <td style="background-color: #eafafa" id="available-quota"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">GE Points</th>
+            <td style="background-color: #c0efef" id="ge-points"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Location/Classroom</th>
+            <td style="background-color: #eafafa" id="location-info"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Registration Deadline</th>
+            <td style="background-color: #c0efef" id="reg-deadline"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex flex-column align-self-center" style="margin-right: 10%">
+        <button type="button" class="btn btn-primary" style="width: 200px; background-color: #20B5BDFF; margin-bottom: 20px" id="student-signup"><a class="text-dark font-weight-bold">Enroll</a></button>
+        <button type="button" class="btn btn-secondary" style="width: 200px; background-color: #ccd3d3" id="director-signup"><a class="text-dark">Cancel Enrollment</a></button>
+    </div>
+</div>
+</body>
+
+<script>
+    $(document).ready(
+        function() {
+
+            //Get event
+            $.ajax({
+                type: "GET",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization: localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: "http://localhost:8080/event/get/5",
+                success: function (res) {
+                    console.log(res.name);
+                    $('#title').val(res.name);
+                    $('#description').val(res.description);
+                    $('#start-date').val(res.startDate);
+                    $('#end-date').val(res.endDate);
+                    $('#start-time').val(res.startTime);
+                    $('#end-time').val(res.endTime);
+                    $('#available-quota').val(res.quota);
+                    $('#ge-points').val(res.gePoint);
+                    $('#reg-deadline').val(res.registrationDeadline);
+                    if (res.inBilkent) {
+                        $('#location-info').val(res.classroom);
+                    } else {
+                        $('#location-info').val(res.descriptionLocation);
+                    }
+                },
+                error: function (e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+            });
+        })
+</script>
+</html>
