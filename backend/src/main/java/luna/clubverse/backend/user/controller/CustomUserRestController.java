@@ -1,6 +1,7 @@
 package luna.clubverse.backend.user.controller;
 
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
+import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.service.CustomUserService;
@@ -22,7 +23,7 @@ public class CustomUserRestController {
     }
 
     @GetMapping("/studentHomePage/{userId}")
-    public List<EventQueryResponse> getFutureEventsOfStudent(@PathVariable Long userId) {
+    public List<EventListQueryResponse> getFutureEventsOfStudent(@PathVariable Long userId) {
         return customUserService.getFutureEventsOfStudent(userId);
     }
 
