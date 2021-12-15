@@ -54,14 +54,13 @@
       },
       crossDomain: true,
       contentType : "application/json",
-      url : "/event/event_list",
+      url : "/club/app/getAllClubs",
 
       success : function(result) {
         console.log(" result _>>>" + result)
         if (result.status == "success") {
           alert("finally");
-          events = jQuery.parseJSON(result);
-          console.table(events);
+          //console.table(events);
 
         } else {
           alert("oh nooo");
