@@ -33,7 +33,7 @@ public class AuthenticationController {
         return "login";
     }
 
-    @RequestMapping("/app/signup")
+    @RequestMapping("/app/student_sign_up")
     public String signup() {
         return "student_sign_up";
     }
