@@ -79,12 +79,11 @@
             function signup() {
                 var formData = {
                     name: $("#signUpName").val(),
-                    description: $("#signUpSurname").val(),
-                    gePoint: $("#signUpID").val(),
-                    quota: $("#signUpUsername").val(),
-                    memberOnly: $("#signUpEmail").val(),
-                    amountOfMoney: $("#signUpPassword").val(),
-                    explanation: $("#signUpPasswordRepeat").val(),
+                    lastname: $("#signUpSurname").val(),
+                    bilkentId: $("#signUpID").val(),
+                    username: $("#signUpUsername").val(),
+                    email: $("#signUpEmail").val(),
+                    password: $("#signUpPassword").val()
                 }
 
                 $.ajax({

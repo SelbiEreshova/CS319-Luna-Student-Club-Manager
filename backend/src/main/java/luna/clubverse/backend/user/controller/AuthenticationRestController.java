@@ -28,8 +28,8 @@ public class AuthenticationRestController {
     }
 
     @PutMapping("/signup")
-    public MessageResponse signup(@Valid @RequestBody SignupRequest request) {
-        return  new MessageResponse(MessageType.SUCCESS, "signup request alındı");
+    public MessageResponse signupStudent(@Valid @RequestBody SignupRequest request) {
+        return  authenticationService.signupStudent(request.toStudent());
     }
 
 }
