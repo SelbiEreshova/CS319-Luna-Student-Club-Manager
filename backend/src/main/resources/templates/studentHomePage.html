@@ -39,6 +39,9 @@
 <script>
     $(document).ready(function () {
       var table = $("#student-home-table").DataTable();
+      function goToEvent(id) {
+        href= `http://localhost:8080/app/event/${id}`;
+      }
       $.ajax({
         type: "GET",
         headers: {
@@ -68,9 +71,9 @@
                 "date",
                 "time",
                 r[i].gePoint,
-                "<button>Go to event's home page</button>"
+                "<button onClick= "(r[i].eventId)=> {href= `http://localhost:8080/app/event/${id}`;} (r[i].eventId)" >Go to event's home page</button>"
                 ]).draw(false);
-            };
+          };
           for (let i = 0; i < dummyResponse.length; i++) {
             showEvents(dummyResponse, i);
           }
