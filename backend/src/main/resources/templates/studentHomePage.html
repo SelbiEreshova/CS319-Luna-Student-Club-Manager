@@ -10,7 +10,6 @@
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 </head>
 <body>
@@ -26,47 +25,64 @@
       <th>Event</th>
       <th>Club</th>
       <th>Date</th>
-      <th>Home page</th>
+      <th>Time</th>
+      <th>GE Point</th>
       <th></th>
     </tr>
     </thead>
-    <tbody>
-    <tr><th>event x</th>
-      <th>club a</th>
-      <th>date (format?)</th>
-      <th><div class="mx-auto"><button class="mx-auto"><i class="fa fa-link"></i></button></div></th>
-      <th><button class="btn btn-info text-light" type="button">Go to Event Page</button>
-
-      </th></tr>
-    </tbody>
   </table>
 </div>
 </body>
 
 <div class="d-flex justify-content-center"><button type="button" class="btn btn-info text-light">Go to All Events</button></div>
 
-</body>
-
 <script>
-    window.onload = function () {
-    console.log("in onload");
-    oTable = $('#student-home-table').DataTable(
-    );
-    $.ajax({
-      type: "GET",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Authorization : localStorage.getItem('Authorization')
-      },
-      crossDomain: true,
-      contentType: "application/json",
-      url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
-      dataType: 'json',
-      success: function(response) {
+  function goToEvent(id) {
+    console.log("in go to event");
+    window.location.href= `http://localhost:8080/app/event/${id}`;
+  }
+    $(document).ready(function () {
+      var table = $("#student-home-table").DataTable();
 
-        oTable.fnAddData(response);
-        console.log(response);
-      }
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          $("#name").text("YAS");
+          var dummyResponse = [
+          {eventName: "event 1",
+          clubName: "club 1",
+          startDate: "2021-13-12",
+          gePoint: 15,
+          eventId: 1},
+          {eventName: "event 2",
+          clubName: "club 2",
+          startDate: "2021-11-15",
+          gePoint: 20,
+          eventId: 2}
+          ]
+          function showEvents(r, i){
+              table.row.add([
+                r[i].eventName,
+                r[i].clubName,
+                r[i].startDate,
+                "time",
+                r[i].gePoint,
+                `<button onclick='goToEvent(${r[i].eventId})' >Go to event's home page</button>`
+                ]).draw(false);
+          };
+          for (let i = 0; i < dummyResponse.length; i++) {
+            showEvents(dummyResponse, i);
+          }
+        }
+      });
     });
 </script>
 
