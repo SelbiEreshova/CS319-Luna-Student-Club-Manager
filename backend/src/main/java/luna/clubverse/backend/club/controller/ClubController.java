@@ -26,4 +26,9 @@ public class ClubController {
 
         return url + userType;
     }
+
+    @RequestMapping("/app/open_all_clubs")
+    public String getAllClubs( ) {
+        return "all_club_list";
+    }
 }
