@@ -67,4 +67,11 @@ public class ClubRestController {
     }
 
 
+    @CrossOrigin
+    @GetMapping("/app/getAllClubs")
+    public List<ClubQueryResponse> getAllClubs( ) {
+        return clubService.getAllClub();
+    }
+
+
 }
