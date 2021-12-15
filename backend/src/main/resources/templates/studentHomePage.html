@@ -43,13 +43,7 @@
   }
     $(document).ready(function () {
       var table = $("#student-home-table").DataTable();
-      $('#student-home-table tbody).on('click', 'button', function () {
-            href= `http://localhost:8080/app/event/${id}`;
-      }
-      $('#example tbody').on( 'click', 'button', function () {
-        var data = table.row( $(this).parents('tr') ).data();
-        alert( data[0] +"'s salary is: "+ data[ 5 ] );
-      });
+
       $.ajax({
         type: "GET",
         headers: {
@@ -65,7 +59,7 @@
           var dummyResponse = [
           {eventName: "event 1",
           clubName: "club 1",
-          startDate: "2021-12-13",
+          startDate: "2021-13-12",
           gePoint: 15,
           eventId: 1},
           {eventName: "event 2",
