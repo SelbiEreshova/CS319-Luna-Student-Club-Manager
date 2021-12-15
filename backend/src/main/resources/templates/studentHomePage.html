@@ -37,6 +37,10 @@
 <div class="d-flex justify-content-center"><button type="button" class="btn btn-info text-light">Go to All Events</button></div>
 
 <script>
+  function goToEvent(id) {
+    console.log("in go to event");
+    window.location.href= `http://localhost:8080/app/event/${id}`;
+  }
     $(document).ready(function () {
       var table = $("#student-home-table").DataTable();
       $('#student-home-table tbody).on('click', 'button', function () {
@@ -77,7 +81,7 @@
                 r[i].startDate,
                 "time",
                 r[i].gePoint,
-                "<button onClick= 'goToEvent(r[i].eventId)' >Go to event's home page</button>"
+                `<button onclick='goToEvent(${r[i].eventId})' >Go to event's home page</button>`
                 ]).draw(false);
           };
           for (let i = 0; i < dummyResponse.length; i++) {
