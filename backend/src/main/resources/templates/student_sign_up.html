@@ -7,8 +7,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../CSS/background.css">
     <title>Sign Up(Student)</title>
+    <style>
+        body {
+            background-image: linear-gradient(to right top, #2ed3db, #38dadf, #41e2e4, #4ae9e8, #53f1ec, #5deef3,
+            #6bebf9, #7ae8fc, #97d8f5, #adc9e3, #b7bdcc, #b4b4b4);
+            background-repeat: no-repeat;
+        }
+        section {
+            background-image: inherit;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            top: 0;
+        }
+  </style>
 
 </head>
 <body>
@@ -59,12 +73,16 @@
             <button style="background-color: #2ED3DB" type="button" class="btn btn-primary" id = "signup" ><a class="text-dark">Sign Up</a></button>
         </div>
         <div class="d-flex justify-content-center">
-            <button style="background-color: #5FFBF1" type="button" class="btn btn-primary"><a class="text-dark">Go To Main Page</a></button>
+            <button style="background-color: #5FFBF1" type="button" class="btn btn-primary" id="back-to-main"><a class="text-dark">Go To Main Page</a></button>
         </div>
     </form>
 </section>
 </body>
 <script>
+    document.getElementById("back-to-main").onclick = function() {
+        window.location.href = `http://localhost:8080/login`;
+    };
+    
     $(document).ready(
         function () {
 
