@@ -66,39 +66,7 @@
 <script>
     $(document).ready( function () {
 
-    $.ajax({
-        type : "GET",
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-        },
-        crossDomain: true,
-        contentType : "application/json",
-        url : "/event/event_list",
-
-        success : function(result) {
-
-            if (result.status == "success") {
-                alert("finally");
-                events = jQuery.parseJSON(result);
-                console.table(events);
-
-            }
-             else {
-                alert("oh nooo");
-            }
-            console.log(result);
-        },
-        error : function(e) {
-            alert("Error!")
-            console.log("ERROR: ", e);
-        }
-    });
     $('.club-list').DataTable(
-                    { language: {
-                            searchPlaceholder: "Search",
-                            search: "",
-                        },
-                         });
     });
 </script>
 

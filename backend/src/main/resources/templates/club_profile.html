@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link src="../nav_bar_club_director.html">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="nav_bar" ></div>
+
+<div class="container row m-3 mx-auto">
+
+
+    <div class="card p-4 col-4 m-2" style="background-color: #eee;">
+        <div class="card-body mx-auto">
+            <div class="d-flex flex-column align-items-center text-center">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+
+            </div>
+            <div class="mt-3">
+                <h4 class="pb-3">Club Name</h4>
+                <button class="btn btn-dark text-light col-8 m-2" id="change-password">Change password</button>
+                <button class="btn btn-dark text-light  m-2 col-8" id="edit">Edit profile</button>
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="card p-1 col-7 m-2 align-items-start my-auto" style="background-color: #eee;">
+    <div class="card-body mx-auto ">
+        <div class="d-flex flex-column mx-auto text-left align-items-start">
+            <div class="mt-3 container-fluid table-responsive text-left  align-items-start">
+                <table class="table" id="show">
+                    <tbody>
+                    <tr>
+                        <th>Club Name: </th>
+                        <td>name </td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td>email</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class=" mx-auto" id="show-in-edit">
+            <div class="row"><button class=" btn btn-danger my-2" id="submit">Submit Changes</button></div><div class="row"><button class=" btn btn-dark my-2" id="cancel">Cancel</button></div>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+</body>
+<script >
+    $(document).ready(function() {
+        //alert("buradaaa")
+        $("#username-change").hide()
+        $("#show-in-edit").hide()
+        $("#edit").click(function(){
+  $("#username-change").show();
+  $("#username-show").hide();
+$(this).css("visibility", "hidden");
+$("#show-in-edit").show()
+$("#submit").click(function() {
+    var newUsername = $("#new-username").val()
+    console.log(newUsername)
+
+if(! newUsername || newUsername.length<4 )
+{
+    alert("Username is not valid\nUsername cannot be null\nUsername should be at least 4 characters long")
+}
+else{
+ $("#username-show").text(newUsername);
+$("#username-change").hide();
+  $("#username-show").show();
+
+$("#show-in-edit").hide()
+$("#edit").css("visibility" , "visible")
+var posted = {
+    username : newUsername
+}
+$.ajax(
+{
+                    type : "POST",
+                    headers: {
+                        "Access-Control-Allow-Origin":"*",
+                        Authorization : localStorage.getItem('Authorization')
+                    },
+                    crossDomain: true,
+                    contentType : "application/json",
+                    url : "http://localhost:8080/profile",
+                    data : JSON.stringify(posted),
+                    dataType : 'json',
+                    success : function(result) {
+                        if (result.messageType == "SUCCESS") {
+                            alert("güncellendi");
+                        } else {
+                            alert("hataaa");
+                        }
+                        console.log(result);
+                    },
+                    error : function(e) {
+                        alert("Error!")
+
+                        console.log("ERROR: ", e);
+                    }
+                });
+
+
+    }
+})
+$("#cancel").click(function(){
+
+
+$("#username-change").hide();
+  $("#username-show").show();
+
+$("#show-in-edit").hide()
+$("#edit").css("visibility" , "visible")
+
+
+
+})
+
+
+
+});
+
+        //$("#change-password").on("click" : function(){
+
+
+    })
+</script>
+
+</html>
