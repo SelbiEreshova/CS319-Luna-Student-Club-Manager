@@ -44,6 +44,6 @@ public class SignupStudentRequest {
 
 
     public Student toStudent(){
-        return new Student(null,username,password , name, email, new HashSet<>(),bilkentId);
+        return new Student(null,username,password , name, lastname, email, new HashSet<>(),bilkentId);
     }
 }

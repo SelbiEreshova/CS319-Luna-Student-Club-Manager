@@ -73,13 +73,14 @@ public class ClubRestController {
         return "success";
     }
 
+    //Message Response için dön************************************
     @CrossOrigin
     @PutMapping("/create-club")
     public MessageResponse createClub(@Valid @RequestBody AddClubRequest request) {
         Club club = clubService.addClub(request.toClub() );
         MessageResponse responseFromAccount = authenticationService.createClubDirectorAccount(request.toClubDirector(), club);
         authenticationService.sendClubRequestToAdvisor(request.getAdvisorMail());
-        //authenticationService.createFacultyAdvisorAccount(request.toFacultyAdvisor(), club);
+        authenticationService.createFacultyAdvisorAccount(request.toFacultyAdvisor(), club);
         return responseFromAccount;
         //return new MessageResponse(MessageType.SUCCESS, "Club is created successfully");
     }

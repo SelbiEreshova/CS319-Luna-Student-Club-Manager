@@ -24,8 +24,8 @@ public class FacultyAdvisor extends User{
     @JoinColumn(name = "club_id")
     private Club club;
 
-    public FacultyAdvisor(Long id, String username, String password, String name, @Email String mail, Set<Authority> authorities) {
-        super(id, username, password, name, UserType.FACULTY_ADVISOR, mail, authorities);
+    public FacultyAdvisor(Long id, String username, String password, String name, String surname, @Email String mail, Set<Authority> authorities) {
+        super(id, username, password, name,surname, UserType.FACULTY_ADVISOR, mail, authorities);
     }
 
     public FacultyAdvisor() {

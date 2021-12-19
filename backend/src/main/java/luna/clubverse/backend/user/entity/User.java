@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String name;
-    //private String lastname;
+    private String lastname;
 
     @Enumerated(value = EnumType.STRING)
     private UserType usertype;

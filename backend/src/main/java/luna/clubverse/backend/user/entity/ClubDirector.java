@@ -24,8 +24,8 @@ public class ClubDirector extends User{
     @JoinColumn(name = "club_id")
     private Club club;
 
-    public ClubDirector(Long id, String username, String password, String name, @Email String mail, Set<Authority> authorities) {
-        super(id, username, password, name, UserType.CLUB_DIRECTOR, mail, authorities);
+    public ClubDirector(Long id, String username, String password, String name,String surname, @Email String mail, Set<Authority> authorities) {
+        super(id, username, password, name,surname, UserType.CLUB_DIRECTOR, mail, authorities);
     }
 
     public ClubDirector() {

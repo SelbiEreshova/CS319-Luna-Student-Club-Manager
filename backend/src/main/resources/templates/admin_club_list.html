@@ -90,6 +90,27 @@
                         <input type="password" class="form-control" id="clubPassword">
                     </div>
 
+                    <div class="form-group">
+                        <label for="advisorName">Advisor Name</n></label>
+                        <input type="text" class="form-control" id="advisorName">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorSurname">Advisor Surname</n></label>
+                        <input type="text" class="form-control" id="advisorSurname">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorUsername">Advisor Username</label>
+                        <input type="text" class="form-control" id="advisorUsername">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorMail">Advisor Email</label>
+                        <input type="email" class="form-control" id="advisorMail" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorPassword">Advisor Password</label>
+                        <input type="password" class="form-control" id="advisorPassword">
+                    </div>
+
 
                 </form>
             </div>
@@ -119,18 +140,23 @@
             // Prevent the form from submitting via the browser.
             alert("save");
             //event.preventDefault();
-            signup();
+            createClub();
         });
 
         var tbl = $("#club-list").DataTable();
 
-        function signup() {
+        function createClub() {
             var formData = {
                 directorName: $("#directorName").val(),
                 directorSurname: $("#directorSurname").val(),
                 clubName: $("#clubName").val(),
                 clubEmail: $("#clubEmail").val(),
-                clubPassword: $("#clubPassword").val()
+                clubPassword: $("#clubPassword").val(),
+                advisorUsername: $("#advisorUsername").val(),
+                advisorPassword: $("#advisorPassword").val(),
+                advisorName: $("#advisorName").val(),
+                advisorSurname: $("#advisorSurname").val(),
+                advisorMail: $("#advisorMail").val()
             }
 
             $.ajax({

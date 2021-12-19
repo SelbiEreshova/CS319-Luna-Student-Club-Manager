@@ -28,9 +28,10 @@ public class AddClubRequest {
     private String clubEmail;
     private String clubPassword;
 
-    //private String advisorUsername;
-    //private String advisorPassword;
-    //private String advisorName;
+    private String advisorUsername;
+    private String advisorPassword;
+    private String advisorName;
+    private String advisorSurname;
     private String advisorMail;
 
     public Club toClub() {
@@ -44,10 +45,10 @@ public class AddClubRequest {
 
 
     public ClubDirector toClubDirector() {
-        return new ClubDirector(null, clubName, clubPassword, directorName, clubEmail, new HashSet<Authority>());
+        return new ClubDirector(null, clubName, clubPassword, directorName, directorSurname, clubEmail, new HashSet<Authority>());
     }
 
-    //public FacultyAdvisor toFacultyAdvisor() {
-        //return new FacultyAdvisor(null, advisorUsername, advisorPassword, advisorName, advisorMail, new HashSet<Authority>());
-    //}
+    public FacultyAdvisor toFacultyAdvisor() {
+        return new FacultyAdvisor(null, advisorUsername, advisorPassword, advisorName, advisorSurname,advisorMail, new HashSet<Authority>());
+    }
 }
