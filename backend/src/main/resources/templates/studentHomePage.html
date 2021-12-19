@@ -56,6 +56,7 @@
         url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
+          console.log(response);
           $("#name").text("YAS"); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           var dummyResponse = [
           {eventName: "event 1",

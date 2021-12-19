@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 @Getter
 @RequiredArgsConstructor
-public class SignupRequest {
+public class SignupStudentRequest {
 
     @NotBlank(message = "First name cannot be empty")
     private final String name;
@@ -44,6 +44,6 @@ public class SignupRequest {
 
 
     public Student toStudent(){
-        return new Student(null,username,password , name, email, new HashSet<>(),bilkentId);
+        return new Student(null,username,password , name, lastname, email, new HashSet<>(),bilkentId);
     }
 }
