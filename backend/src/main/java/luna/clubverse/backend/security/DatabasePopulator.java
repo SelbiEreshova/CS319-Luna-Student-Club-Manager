@@ -27,6 +27,7 @@ public class DatabasePopulator {
         this.passwordEncoder = passwordEncoder;
     }
 
+
     /*
     @Bean
     @Transactional
@@ -35,11 +36,12 @@ public class DatabasePopulator {
         //Authority userAuthority = authorityRepository.save(new Authority(null, "USER",1L, new HashSet<>()));
         //Authority adminAuthority = authorityRepository.save(new Authority(null, "ADMIN",2L, new HashSet<>()));
 
-        User admin = new Admin(null, "admin", passwordEncoder.encode("admin"), "admin", "abc@gmail.com", new HashSet<Authority>());
+        User admin = new Admin(null, "admin", passwordEncoder.encode("admin"), "admin", "admin", "abc@gmail.com", new HashSet<Authority>());
         admin.addAuthority("ADMIN");
         userRepository.save(admin);
 
-        User director = new ClubDirector(null, "director", passwordEncoder.encode("director"), "director", "abc@gmail.com", new HashSet<Authority>());
+
+        User director = new ClubDirector(null, "director", passwordEncoder.encode("director"), "director", "director", "abc@gmail.com", new HashSet<Authority>());
         director.addAuthority("PERMISSION_MANAGEMENT", 1L);
         director.addAuthority("EVENT_MANAGEMENT", 1L);
         director.addAuthority("FINANCE_MANAGEMENT", 1L);
@@ -63,7 +65,10 @@ public class DatabasePopulator {
 
 
     }
+
+
      */
+
 
 
 }

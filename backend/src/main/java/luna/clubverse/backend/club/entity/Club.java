@@ -23,11 +23,11 @@ public class Club extends BaseEntity {
 
     private String description;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "club")
     @JoinColumn(name = "club_director_id")
     private ClubDirector clubDirector;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "club")
     @JoinColumn(name = "faculty_advisor_id")
     private FacultyAdvisor facultyAdvisor;
 
