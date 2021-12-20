@@ -21,6 +21,7 @@ public class ClubController {
         Club club = clubService.getClub(clubId);
         model.addAttribute("club", club);
         final String url = "club_home_page_";
+        //userType = userType.toLowerCase();
         return url + userType;
     }
 

@@ -126,7 +126,7 @@
 
 <script>
     function goToClub(id) {
-        window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`
+        window.location.href= `http://localhost:8080/app/club_home_page_admin/${id}`
         //yukarıdaki url club home page açacak şekilde değişecek
     }
 
@@ -141,7 +141,7 @@
             },
             crossDomain: true,
             contentType: "application/json",
-            url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`, <!--değişecek-->
+            url: `http://localhost:8080/club/get_club_list`,
             dataType: 'json',
             success: function(response) {
                 console.log(response);
@@ -165,14 +165,13 @@
                         //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
                     ]).draw(false);
                 };
-                for (let i = 0; i < dummyResponse.length; i++) {
-                    showClubs(dummyResponse, i);
+                for (let i = 0; i < response.length; i++) {
+                    showClubs(response, i);
                 }
             }
         });
 
         $("#createClub").click(function() {
-            console.log("in click");
             // Prevent the form from submitting via the browser.
             alert("save");
             //event.preventDefault();
