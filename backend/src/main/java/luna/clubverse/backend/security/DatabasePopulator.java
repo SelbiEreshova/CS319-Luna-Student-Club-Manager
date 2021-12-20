@@ -27,7 +27,11 @@ public class DatabasePopulator {
         this.passwordEncoder = passwordEncoder;
     }
 
+
+
+
     /*
+
     @Bean
     @Transactional
     public void populateDatabase() {
@@ -35,35 +39,28 @@ public class DatabasePopulator {
         //Authority userAuthority = authorityRepository.save(new Authority(null, "USER",1L, new HashSet<>()));
         //Authority adminAuthority = authorityRepository.save(new Authority(null, "ADMIN",2L, new HashSet<>()));
 
-        User admin = new Admin(null, "admin", passwordEncoder.encode("admin"), "admin", "abc@gmail.com", new HashSet<Authority>());
+
+        User admin = new Admin(null, "admin", passwordEncoder.encode("admin"), "admin", "admin", "abc@gmail.com", new HashSet<Authority>());
         admin.addAuthority("ADMIN");
         userRepository.save(admin);
 
-        User director = new ClubDirector(null, "director", passwordEncoder.encode("director"), "director", "abc@gmail.com", new HashSet<Authority>());
-        director.addAuthority("PERMISSION_MANAGEMENT", 1L);
-        director.addAuthority("EVENT_MANAGEMENT", 1L);
-        director.addAuthority("FINANCE_MANAGEMENT", 1L);
-        director.addAuthority("REVIEW_MEMBER_APPLICATION", 1L);
-        director.addAuthority("REMOVE_MEMBER", 1L);
-        userRepository.save(director);
 
-        User manager1 = new Student(null, "manager1", passwordEncoder.encode("manager1"), "manager", "abc@gmail.com", new HashSet<Authority>(), 11111111);
+
+        User manager1 = new Student(null, "manager1", passwordEncoder.encode("manager1"), "name","lastname", "abc@gmail.com", new HashSet<Authority>(), 11111111);
         manager1.addAuthority("STUDENT");
-        manager1.addAuthority("EVENT_MANAGEMENT", 2L);
-        manager1.addAuthority("FINANCE_MANAGEMENT", 1L);
+
+        //manager1.addAuthority("EVENT_MANAGEMENT", 2L);
+        //manager1.addAuthority("FINANCE_MANAGEMENT", 1L);
         userRepository.save(manager1);
-
-        User advisor = new FacultyAdvisor(null, "advisor", passwordEncoder.encode("advisor"), "advisor", "abc@gmail.com", new HashSet<Authority>());
-        advisor.addAuthority("ADVISOR", 1L);
-        userRepository.save(advisor);
-
-
-        Student student1 = new Student(null,"username",passwordEncoder.encode("password") , "name", "abc@gmail.com", new HashSet<Authority>(),21809999);
-        userRepository.save(student1);
 
 
     }
+
      */
+
+
+
+
 
 
 }

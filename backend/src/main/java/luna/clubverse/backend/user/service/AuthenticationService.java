@@ -18,8 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 @Service
+@Transactional
 public class AuthenticationService {
 
     @Value("${spring.jwt.secret-key}")
@@ -52,7 +54,14 @@ public class AuthenticationService {
             User userFromDb = userRepository.findByUsername(loginRequest.getUsername())
                     .orElseThrow();
 
-            return new LoginResponse(MessageType.SUCCESS, "Bearer " + jwt, userFromDb.getId(), userFromDb.getUsertype() );
+            Long clubId = null;
+            if(userFromDb instanceof ClubDirector) {
+                clubId = ((ClubDirector) userFromDb).getClub().id();
+            }else if (userFromDb instanceof  FacultyAdvisor) {
+                clubId = ((FacultyAdvisor) userFromDb).getClub().id();
+            }
+
+            return new LoginResponse(MessageType.SUCCESS, "Bearer " + jwt, userFromDb.getId(), userFromDb.getUsertype(), clubId );
 
             //return ("Bearer " + jwt);
         } catch (AuthenticationException ex) {

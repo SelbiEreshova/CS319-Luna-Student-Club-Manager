@@ -33,26 +33,17 @@
             <th>Email</th>
             <th class="filtered">Faculty Advisor</th>
             <th>Home page</th>
-            <th>Operation</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr><th>111clbbbbbbbbb</th>
-            <th>4875emaillllllllllllllllllllllllllll</th>
-            <th>65faaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</th>
-            <th><div class="mx-auto"><button class="mx-auto"><i class="fa fa-link"></i></button></div></th>
+    </table>
+
+    <!--<th><div class="mx-auto"><button class="mx-auto"><i class="fa fa-link"></i></button></div></th>
             <th><div class="dropdown ml-5 mr-1 justify-content-right">
                 <button class="btn btn-danger" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Delete Club
-                </button>
-
-            </div></th></tr>
-
-
-
-        </tbody>
-
-    </table>
+                </button>-->
 
 </div>
 <div class="modal" tabindex="-1" role="dialog" id="add_dialog">
@@ -135,17 +126,60 @@
    });</script>
 
 <script>
+    function goToClub(id) {
+        window.location.href= `http://localhost:8080/app/club_home_page_admin/${id}`
+        //yukarıdaki url club home page açacak şekilde değişecek
+    }
+
     $(document).ready(function () {
 
+        var tbl = $("#club-list").DataTable();
+
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/club/get_club_list`,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                var dummyResponse = [
+                    {clubName: "club 1",
+                        clubEmail: "mail1@bilkent",
+                        clubFacultyAdvisor: "Zehra Erdem",
+                        clubId: "1"},
+                    {clubName: "club 2",
+                        clubEmail: "mail2@bilkent",
+                        clubFacultyAdvisor: "Fatma Sena Genç",
+                        clubId: "2"}
+                ]
+                function showClubs(r, i){
+                    tbl.row.add([
+                        r[i].clubName,
+                        r[i].clubEmail,
+                        r[i].clubFacultyAdvisor,
+                        `<button onclick='goToClub(${r[i].clubId})' >Go to club home page</button>`,
+                        "delete button gelecek"
+                        //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
+                    ]).draw(false);
+                };
+                for (let i = 0; i < response.length; i++) {
+                    showClubs(response, i);
+                }
+            }
+        });
+
+
         $("#createClub").click(function() {
-            console.log("in click");
             // Prevent the form from submitting via the browser.
             alert("save");
             //event.preventDefault();
             createClub();
         });
-
-        var tbl = $("#club-list").DataTable();
 
         function createClub() {
             var formData = {
