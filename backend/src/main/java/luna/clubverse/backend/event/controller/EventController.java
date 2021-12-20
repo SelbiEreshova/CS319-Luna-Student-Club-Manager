@@ -70,10 +70,18 @@ public class EventController {
         return "student_club_event_list";
     }
 
+
+
+    @RequestMapping("/admin.html")
+    public String welcome5() {
+
+        return "admin";
+}
     @RequestMapping("/app/STUDENT_event_homepage/{id}")
     public String studentEventPage(Model model,@PathVariable Long id) {
         model.addAttribute("eventId", id);
         return "student_event_homepage";
+
     }
 }
 

@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+    <link src="../nav_bar_club_director.html">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 
@@ -20,11 +20,10 @@
 <!-- This page can add a new club-->
 
 <div class="nav_bar" ></div>
-
-<h2 class="d-flex justify-content-center mt-4 pt-6">Event List</h2>
-
+<h2 class="d-flex justify-content-center mt-4 pt-6">Event List of </h2>
+<h2 class="d-flex justify-content-center mt-4 pt-6" id="name"></h2>
 <div class="container table-responsive mx-auto my-2 p-3 ">
-    <table class="table display table-striped club-list">
+    <table class="table display table-striped club-list" id="club-list">
         <thead class="bg-dark text-light">
         <tr>
             <th>Club Name</th>
@@ -74,7 +73,7 @@
             <td th:text="${event.gePoint}">Ge Points</td>
             <td>loc</td>
             <td>quota</td>
-            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
+            <td><button type="button" class="btn btn-info text-light" id="aaa">See Details</button></td>
         </tr>
 
 
@@ -88,19 +87,41 @@
 
 </body>
 
+
 <script>
-    $(document).ready( function () {
+  /*  $(document).ready(function(){
+   // alert("ffffff")
+   data= [
+   {"clubName": "ii", "event" : "event",    "Date" : "01.01.01",    "Time" : "10.10",    "GePoints": 41,    "Location": "b","Quota" : 52},
+   {"clubName": "klüp1", "event" : "eventg",    "Date" : "01.01.01",    "Time" : "10.10",    "GePoints": 41,    "Location": "b","Quota" : 52},
+   {"clubName": "kk2", "event" : "eventggffr4",    "Date" : "01.01.01",    "Time" : "10.10",    "GePoints": 471,    "Location": "tgb","Quota" : 5264},
+   {"clubName": "kkk3", "event" : "eventefgt",    "Date" : "01.01.01",    "Time" : "10.10",    "GePoints": 78,    "Location": "5rgftb","Quota" : 52657}
+   ];
 
-     $(".nav_bar").load("admin.html");
-       $("#events_nav").addClass("active");
-    $('.club-list').DataTable(
-                    { language: {
-                            searchPlaceholder: "Search",
-                            search: "",
-                        },
-                         });
-    });
+
+
+
+    var t = $('#club-list').DataTable();
+
+for(x=0;x<data.length;x++)
+{
+var obj = data[x];
+//alert(obj)
+      t.row.add( [
+            obj.clubName,
+            obj.event,
+            obj.Date,
+            obj.Time,
+            obj.GePoints,
+            obj.Location,
+            obj.Quota,
+            "<button type=\"button\" class=\"btn btn-info text-light\" id=\"aaa\">See Details</button>"
+        ] ).draw( false );
+
+
+}
+
+    });*/
 </script>
-
 
 </html>
