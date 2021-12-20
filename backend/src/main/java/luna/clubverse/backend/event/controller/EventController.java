@@ -70,5 +70,12 @@ public class EventController {
         model.addAttribute("eventsForClub", eventsForClub);
         return "student_club_event_list";
     }
+
+
+    @RequestMapping("/admin.html")
+    public String welcome5() {
+
+        return "admin";
+    }
 }
 
