@@ -93,4 +93,18 @@ public class AuthenticationController {
         return "admin_event_list_demo";
     }
      */
+
+    @RequestMapping("/student.html")
+    public String nav_bar_Student() {
+        return "student";
+    }
+    @RequestMapping("/club_director.html")
+    public String nav_bar_cd() {
+        return "club_director";
+    }
+    @RequestMapping("/faculty_advisor.html")
+    public String nav_bar_fa() {
+        return "faculty_advisor";
+    }
+
 }
