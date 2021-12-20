@@ -12,4 +12,5 @@ public class LoginResponse {
     private final String message;
     private final Long userId;
     private final UserType userType;
+    private final Long clubId;
 }

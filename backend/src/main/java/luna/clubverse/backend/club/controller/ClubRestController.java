@@ -3,6 +3,7 @@ package luna.clubverse.backend.club.controller;
 
 import luna.clubverse.backend.club.controller.request.AddClubRequest;
 import luna.clubverse.backend.club.controller.request.UpdateClubRequest;
+import luna.clubverse.backend.club.controller.response.ClubListQueryResponse;
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.service.ClubService;
@@ -90,6 +91,12 @@ public class ClubRestController {
     @GetMapping("/getAllClubs")
     public List<ClubQueryResponse> getAllClubs( ) {
         return clubService.getAllClub();
+    }
+
+    @CrossOrigin
+    @GetMapping("/get_club_list")
+    public List<ClubListQueryResponse> getClubList(){
+       return clubService.getClubList();
     }
 
 

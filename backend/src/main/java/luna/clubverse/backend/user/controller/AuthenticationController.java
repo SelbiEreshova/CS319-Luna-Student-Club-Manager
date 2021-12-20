@@ -50,12 +50,12 @@ public class AuthenticationController {
 
      */
 
-    @RequestMapping("/app/STUDENTHomePage")
+    @RequestMapping("/app/student_home_page")
     public String userHomePage() {
         return "studentHomePage";
     }
 
-    @RequestMapping("/app/ADMINHomePage")
+    @RequestMapping("/app/admin_home_page")
     public String adminHomePage() {
         return "admin_club_list";
     }

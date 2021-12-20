@@ -113,6 +113,7 @@
                     data: JSON.stringify(formData),
                     dataType: 'json',
                     success: function (result) {
+                        console.log(result)
                         if (result.messageType == "SUCCESS") {
                             localStorage.setItem("Authorization", result.message);
                             const user = {
@@ -123,11 +124,23 @@
                             localStorage.setItem("userType", result.userType);
                             localStorage.setItem("user", user);
                             console.log(result);
-                            window.location.href = `http://localhost:8080/app/${localStorage.getItem("userType")}HomePage`;
-                        } else {
+                            if(result.userType == "STUDENT")
+                            {
+                                window.location.href = `http://localhost:8080/app/student_home_page`;
+                            } else if (result.userType == "CLUB_DIRECTOR") {
+                                localStorage.setItem("clubId", result.clubId);
+                                window.location.href = `http://localhost:8080/app/club_home_page_director/${result.clubId}`;
+                            } else if(result.userType == "FACULTY_ADVISOR") {
+                                localStorage.setItem("clubId", result.clubId);
+                                window.location.href = `http://localhost:8080/app/club_home_page_faculty_advisor/${result.clubId}`;
+                            }
+                            else {
+                                window.location.href = `http://localhost:8080/app/admin_home_page`;
+                            }
+                            //window.location.href = `http://localhost:8080/app/${localStorage.getItem("userType")}HomePage`;
+                        } else
                             alert("oh nooo");
-                        }
-                    },
+                        },
                     error: function (e) {
                         alert("Error!")
                         console.log("ERROR: ", e);

@@ -1,6 +1,7 @@
 package luna.clubverse.backend.club.service;
 
 
+import luna.clubverse.backend.club.controller.response.ClubListQueryResponse;
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
@@ -100,4 +101,7 @@ public class ClubService {
     }
 
 
+    public List<ClubListQueryResponse> getClubList() {
+        return cLubRepository.findAll().stream().map(ClubListQueryResponse::new).toList();
+    }
 }
