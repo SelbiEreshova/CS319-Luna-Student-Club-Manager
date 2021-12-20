@@ -45,84 +45,105 @@
                 <form>
                     <div class="form-group mx-auto ">
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="check1">
-                            <label class="form-check-label" for="check1">Permission 1</label>
+                            <input type="checkbox" class="form-check-input" id="permission1">
+                            <label class="form-check-label" for="permission1">Permission 1</label>
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="check2">
-                            <label class="form-check-label" for="check2">Permission 2</label>
+                            <input type="checkbox" class="form-check-input" id="permission2">
+                            <label class="form-check-label" for="permission2">Permission 2</label>
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="check3">
-                            <label class="form-check-label" for="check3">Permission 3</label>
+                            <input type="checkbox" class="form-check-input" id="permission3">
+                            <label class="form-check-label" for="permission3">Permission 3</label>
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="check4">
-                            <label class="form-check-label" for="check4">Permission 4</label>
+                            <input type="checkbox" class="form-check-input" id="permission4">
+                            <label class="form-check-label" for="permission4">Permission 4</label>
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="check5">
-                            <label class="form-check-label" for="check5">Permission 5</label>
+                            <input type="checkbox" class="form-check-input" id="permission5">
+                            <label class="form-check-label" for="permission5">Permission 5</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="role">Member Role(optional)</label>
-                        <input class="form-control" id="role">
+                        <label for="member-role">Member Role(optional)</label>
+                        <input class="form-control" id="member-role">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Apply Changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard Changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="apply-button">Apply Changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="discard-button">Discard Changes</button>
             </div>
         </div>
     </div>
 </div>
+
 </body>
 
-<!--<script>
-    //Manage Member Dialog
-    $(document).ready(function () {
-        // Attach Button click event listener
-        $("#manage-per").click(function(){
-            // show Modal
-            $('#manage').modal('show');
-        });
-    });
-</script>-->
-
 <script>
-    function openPermissionPopup(id) {
-        console.log("in open permission popup");
-        console.log(id);
+    function openPermissionPopup(memberId, role, ...permissionList) {
+        $("#apply-button").unbind().click(function() {
+            var formData = {
+                memberId: memberId,
+                memberRole: $("#member-role").val(),
+                memberPermissions: []
+            }
+
+            for (let i = 1; i <= 5; i++) {
+                formData.memberPermissions.push($(`#permission${i}`).is(":checked"));
+            }
+
+            console.log(formData);
+        });
+
+        for (let i = 1; i <= 5; i++) {
+            $(`#permission${i}`).prop( "checked", false );
+        }
+
+        $(`#member-role`).prop("value", role);
+
+        for (let i = 0; i < permissionList.length; i++) {
+            console.log("fordayızzz");
+            $(`#permission${permissionList[i]}`).prop( "checked", true );
+        }
+
         $('#manage').modal('show');
-    }
+    };
+
+
 
     $(document).ready(function() {
         var table = $('#members').DataTable();
 
         var dummyResponse = [
-            {memberId: "member 1",
+            {memberId: 1,
                 memberEmail: "member1@bilkent.edu.tr",
                 memberName: "Eray",
                 memberSurname: "Tüzün",
-                memberRole: "King"},
-            {memberId: "member 2",
+                memberRole: "King",
+                memberPermissions: [3, 4]},
+            {memberId: 2,
                 memberEmail: "member2@bilkent.edu.tr",
                 memberName: "Erdem",
                 memberSurname: "Tuna",
-                memberRole: "TA"}
+                memberRole: "TA",
+                memberPermissions: [2, 4]}
         ]
         function showMembers(r, i){
+            var permissions = r[i].memberPermissions;
+            var memberRole = r[i].memberRole;
+            console.log(permissions);
             table.row.add([
                 r[i].memberId,
                 r[i].memberEmail,
                 r[i].memberName,
                 r[i].memberSurname,
                 r[i].memberRole,
-                `<button onclick= 'openPermissionPopup(${r[i].memberId})'>Manage Permissions</button>`
+                `<button onclick='openPermissionPopup(${r[i].memberId}, "${memberRole}", ${permissions})'>Manage Permissions</button>`
             ]).draw(false);
         };
+
         for (let i = 0; i < dummyResponse.length; i++) {
             showMembers(dummyResponse, i);
         }
