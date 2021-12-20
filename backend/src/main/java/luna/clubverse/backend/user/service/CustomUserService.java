@@ -32,7 +32,6 @@ public class CustomUserService {
         return studentFromDB.getEnrolledEvents()
                 .stream()
                 .filter(event-> event.getStartDate().compareTo(LocalDate.now()) >= 0)
-                .sorted()
                 .map(event -> new EventListQueryResponse(event))
                 .toList();
     }
