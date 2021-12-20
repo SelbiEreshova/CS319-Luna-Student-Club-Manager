@@ -2,6 +2,8 @@ package luna.clubverse.backend.club.controller;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.service.ClubService;
+import luna.clubverse.backend.common.MessageResponse;
+import luna.clubverse.backend.common.MessageType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,4 +36,7 @@ public class ClubController {
     public String openStudentClubs() {
         return "club_list_student";
     }
+
+
+
 }
