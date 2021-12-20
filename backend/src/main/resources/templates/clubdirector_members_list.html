@@ -135,10 +135,10 @@
             var memberRole = r[i].memberRole;
             console.log(permissions);
             table.row.add([
-                r[i].memberId,
-                r[i].memberEmail,
+                r[i].memberId, //bu ID ama student ID olacak, backend'de tutulan ID farklı, onu düzenleriz
                 r[i].memberName,
                 r[i].memberSurname,
+                r[i].memberEmail,
                 r[i].memberRole,
                 `<button onclick='openPermissionPopup(${r[i].memberId}, "${memberRole}", ${permissions})'>Manage Permissions</button>`
             ]).draw(false);
