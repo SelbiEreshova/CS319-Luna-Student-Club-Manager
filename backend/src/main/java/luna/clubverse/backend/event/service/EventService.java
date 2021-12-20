@@ -2,6 +2,7 @@ package luna.clubverse.backend.event.service;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
+import luna.clubverse.backend.common.BooleanResponse;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
@@ -120,9 +121,6 @@ public class EventService {
         //return cLubRepository.findAll().
     }
 
-
-
-
     public MessageResponse addEnrolledStudent(Long eventId, Long userId) {
         Event eventFromDB = eventRepository.findById(eventId)
                 .orElseThrow();
@@ -135,6 +133,31 @@ public class EventService {
         eventRepository.save(eventFromDB);
 
         return  new MessageResponse(MessageType.SUCCESS, "You enrolled the event  successfully");
+    }
+
+    public MessageResponse deleteEnrolledStudent(Long eventId, Long userId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow();
+
+        Student studentFromDB = (Student) userRepository.findById(userId)
+                .orElseThrow();
+        eventFromDB.deleteEnrolledStudent(studentFromDB);
+
+        eventRepository.save(eventFromDB);
+
+        return  new MessageResponse(MessageType.SUCCESS, "You cancelled your enrollment to the event  successfully");
+    }
+
+    public BooleanResponse isEnrolled(Long eventId, Long userId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow();
+
+        Student studentFromDB = (Student) userRepository.findById(userId)
+                .orElseThrow();
+
+        boolean result = eventFromDB.isEnrolled(studentFromDB);
+        return new BooleanResponse(result);
+
     }
 
 }

@@ -15,6 +15,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -131,6 +133,8 @@ public class Event extends BaseEntity {
         this.numberEvaluation = 0;
         this.financeData = financeData;
         this.location = location;
+        this.enrolledStudents = new HashSet<Student>();
+        this.attendedStudents = new HashSet<Student>();
     }
 
     public void addEnrolledStudent(Student student){
@@ -141,4 +145,18 @@ public class Event extends BaseEntity {
 
         enrolledStudents.add(student);
     }
+
+    public void deleteEnrolledStudent(Student student) {
+        if(enrolledStudents.contains(student)) {
+            enrolledStudents.remove(student);
+        } else {
+            // throws exception
+        }
+    }
+
+    public boolean isEnrolled(Student student) {
+        boolean result =  enrolledStudents.contains(student);
+        return result;
+    }
+
 }

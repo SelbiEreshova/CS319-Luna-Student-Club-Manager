@@ -38,6 +38,7 @@ public class AuthenticationController {
         return "student_sign_up";
     }
 
+    /*
     @RequestMapping("/studentHomePage/{userId}")
     public String studentHomePage(Model model, @PathVariable Long userId) {
         User user = userRepository.findById(userId)
@@ -46,6 +47,8 @@ public class AuthenticationController {
         model.addAttribute("user", user);
         return "studentHomePage";
     }
+
+     */
 
     @RequestMapping("/app/STUDENTHomePage")
     public String userHomePage() {

@@ -54,10 +54,9 @@
         </tr>
         </tbody>
     </table>
-
     <div class="d-flex flex-column align-self-center" style="margin-right: 10%">
-        <button type="button" class="btn btn-primary" style="width: 200px; background-color: #20B5BDFF; margin-bottom: 20px" id="student-signup"><a class="text-dark font-weight-bold">Enroll</a></button>
-        <button type="button" class="btn btn-secondary" style="width: 200px; background-color: #ccd3d3" id="director-signup"><a class="text-dark">Cancel Enrollment</a></button>
+        <div id = "enroll" ><button type="button" class="btn btn-primary" style="width: 200px; background-color: #20B5BDFF; margin-bottom: 20px" id="enrollBtn"><a class="text-dark font-weight-bold">Enroll</a></button></div>
+        <div id = "cancelEnrollment" ><button type="button" class="btn btn-secondary" style="width: 200px; background-color: #ccd3d3" id="cancelEnrollmentBtn"><a class="text-dark">Cancel Enrollment</a></button></div>
     </div>
 </div>
 </body>
@@ -65,6 +64,7 @@
 <script>
     $(document).ready(
         function() {
+            var id = [[${eventId}]];
 
             //Get event
             $.ajax({
@@ -75,9 +75,10 @@
                 },
                 crossDomain: true,
                 contentType: "application/json",
-                url: "http://localhost:8080/event/get/5",
+                url: `http://localhost:8080/event/get/${id}`,
                 success: function (res) {
-                    console.log(res.name);
+                    console.log(res);
+                    description = res.description;
                     $('#title').val(res.name);
                     $('#description').val(res.description);
                     $('#start-date').val(res.startDate);
@@ -98,6 +99,94 @@
                     console.log("ERROR: ", e);
                 }
             });
+
+            // get enrollment status
+            $.ajax({
+                type: "GET",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: `http://localhost:8080/event/${id}/isEnrolled/${localStorage.getItem('userId')}`,
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+
+                    if (response.result) {
+                        document.getElementById("enroll").style.visibility="hidden";
+                        document.getElementById("cancelEnrollment").style.visibility="visible";
+                    } else {
+                        document.getElementById("enroll").style.visibility="visible";
+                        document.getElementById("cancelEnrollment").style.visibility="hidden";
+                    }
+
+                    // refresh etmek için bir şey eklenmeli
+                },
+                error: function (e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+            })
+
+            $("#enrollBtn").click(function() {
+                // Prevent the form from submitting via the browser.
+                //event.preventDefault();
+                enroll();
+            });
+
+            function  enroll() {
+                $.ajax({
+                    type: "PUT",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        Authorization : localStorage.getItem('Authorization')
+                    },
+                    crossDomain: true,
+                    contentType: "application/json",
+                    url: `http://localhost:8080/event/${id}/addEnrolledStudent/${localStorage.getItem('userId')}`,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response) {
+                            console.log(response.message);
+                        }
+                    },
+                    error: function (e) {
+                        alert("Error!")
+                        console.log("ERROR: ", e);
+                    }
+                })
+            }
+
+            $("#cancelEnrollmentBtn").click(function() {
+                // Prevent the form from submitting via the browser.
+                //event.preventDefault();
+                cancelEnrollment();
+            });
+
+            function  cancelEnrollment() {
+                $.ajax({
+                    type: "PUT",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        Authorization : localStorage.getItem('Authorization')
+                    },
+                    crossDomain: true,
+                    contentType: "application/json",
+                    url: `http://localhost:8080/event/${id}/deleteEnrolledStudent/${localStorage.getItem('userId')}`,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response) {
+                            console.log(response.message);
+                        }
+                    },
+                    error: function (e) {
+                        alert("Error!")
+                        console.log("ERROR: ", e);
+                    }
+                })
+            }
         })
 </script>
 </html>

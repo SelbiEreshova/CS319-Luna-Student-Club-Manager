@@ -1,5 +1,6 @@
 package luna.clubverse.backend.event.controller;
 
+import luna.clubverse.backend.common.BooleanResponse;
 import luna.clubverse.backend.common.MessageResponse;
 
 import luna.clubverse.backend.common.MessageType;
@@ -110,6 +111,16 @@ public class EventRestController {
     @PutMapping("/{eventId}/addEnrolledStudent/{userId}")
     public MessageResponse addEnrolledStudent(@PathVariable Long eventId,@PathVariable Long userId) {
         return eventService.addEnrolledStudent(eventId, userId);
+    }
+
+    @PutMapping("/{eventId}/deleteEnrolledStudent/{userId}")
+    public MessageResponse deleteEnrolledStudent(@PathVariable Long eventId,@PathVariable Long userId) {
+        return eventService.deleteEnrolledStudent(eventId, userId);
+    }
+
+    @GetMapping("/{eventId}/isEnrolled/{userId}")
+    public BooleanResponse isEnrolled(@PathVariable Long eventId, @PathVariable Long userId) {
+        return eventService.isEnrolled(eventId, userId);
     }
 
 

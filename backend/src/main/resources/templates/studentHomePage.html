@@ -39,8 +39,7 @@
 
 <script>
   function goToEvent(id) {
-    console.log("in go to event");
-    window.location.href= `http://localhost:8080/app/event/${id}`;
+    window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`;
   }
     $(document).ready(function () {
       var table = $("#student-home-table").DataTable();
