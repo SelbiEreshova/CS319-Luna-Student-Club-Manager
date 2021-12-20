@@ -26,7 +26,7 @@
 <div class="justify-content-left mt-2 mx-5"> <button class=" btn-info text-dark  m-2 p-2" id="add"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Add a new club</button></div>
 
 <div class="container table-responsive mx-auto my-2 p-3 ">
-    <table class="table display table-striped club-list">
+    <table class="table display table-striped" id="club-list">
         <thead class="bg-dark text-light">
         <tr>
             <th class="filtered">Club Name</th>
@@ -70,22 +70,52 @@
 
                 <form>
                     <div class="form-group">
+                        <label for="directorName">Club Director Name</n></label>
+                        <input type="text" class="form-control" id="directorName">
+                    </div>
+                    <div class="form-group">
+                        <label for="directorSurname">Club Director Surname</n></label>
+                        <input type="text" class="form-control" id="directorSurname">
+                    </div>
+                    <div class="form-group">
                         <label for="clubName">Club Name</label>
-                        <input type="email" class="form-control" id="clubName" aria-describedby="emailHelp">
+                        <input type="text" class="form-control" id="clubName">
                     </div>
                     <div class="form-group">
                         <label for="clubEmail">Club Email</label>
                         <input type="email" class="form-control" id="clubEmail" aria-describedby="emailHelp">
                     </div>
                     <div class="form-group">
-                        <label for="clubPassword">Club Password</label>
+                        <label for="clubPassword">Password</label>
                         <input type="password" class="form-control" id="clubPassword">
                     </div>
+
+                    <div class="form-group">
+                        <label for="advisorName">Advisor Name</n></label>
+                        <input type="text" class="form-control" id="advisorName">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorSurname">Advisor Surname</n></label>
+                        <input type="text" class="form-control" id="advisorSurname">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorUsername">Advisor Username</label>
+                        <input type="text" class="form-control" id="advisorUsername">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorMail">Advisor Email</label>
+                        <input type="email" class="form-control" id="advisorMail" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorPassword">Advisor Password</label>
+                        <input type="password" class="form-control" id="advisorPassword">
+                    </div>
+
 
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Create Club</button>
+                <button type="button" class="btn btn-primary" id = "createClub">Create Club</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -93,24 +123,6 @@
 </div>
 
 </body>
-<script src="../../JS/Event_pages/Admin_event_list.js"></script>
-<script>$.get('/data.txt',  // url
-        function (data, textStatus, jqXHR) {  // success callback
-            alert('status: ' + textStatus + ', data:' + data);
-      });</script>
-<script>$(document).ready( function () {
-        $('.club-list').DataTable(
-          { language: {
-              searchPlaceholder: "Search",
-              search: "",
-            },
-            "order": [[ 2, "desc" ]],
-
-          })
-
-
-      } );</script>
-
 <script>$(document).ready(function () {
 
         // Attach Button click event listener
@@ -120,5 +132,56 @@
             $('#add_dialog').modal('show');
        });
    });</script>
+
+<script>
+    $(document).ready(function () {
+        $("#createClub").click(function() {
+            console.log("in click");
+            // Prevent the form from submitting via the browser.
+            alert("save");
+            //event.preventDefault();
+            createClub();
+        });
+
+        var tbl = $("#club-list").DataTable();
+
+        function createClub() {
+            var formData = {
+                directorName: $("#directorName").val(),
+                directorSurname: $("#directorSurname").val(),
+                clubName: $("#clubName").val(),
+                clubEmail: $("#clubEmail").val(),
+                clubPassword: $("#clubPassword").val(),
+                advisorUsername: $("#advisorUsername").val(),
+                advisorPassword: $("#advisorPassword").val(),
+                advisorName: $("#advisorName").val(),
+                advisorSurname: $("#advisorSurname").val(),
+                advisorMail: $("#advisorMail").val()
+            }
+
+            $.ajax({
+                type: "PUT",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: "http://localhost:8080/club/create-club",
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        console.log(response.message);
+                    }
+                },
+                error: function (e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+            })
+        }
+    });
+</script>
 
 </html>

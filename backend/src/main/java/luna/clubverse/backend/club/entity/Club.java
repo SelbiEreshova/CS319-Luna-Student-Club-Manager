@@ -5,6 +5,8 @@ import lombok.Getter;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
+import luna.clubverse.backend.user.entity.ClubDirector;
+import luna.clubverse.backend.user.entity.FacultyAdvisor;
 import luna.clubverse.backend.user.entity.Student;
 
 import javax.persistence.*;
@@ -21,11 +23,13 @@ public class Club extends BaseEntity {
 
     private String description;
 
-    // ekli değil
-    // private ClubDirector clubDirector;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "club_director_id")
+    private ClubDirector clubDirector;
 
-    // ekli değil
-    //private FacultyAdvisor facultyAdvisor;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "faculty_advisor_id")
+    private FacultyAdvisor facultyAdvisor;
 
 
     @ManyToMany

@@ -1,13 +1,12 @@
 package luna.clubverse.backend.user.service;
 
+import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.security.JwtUtil;
 import luna.clubverse.backend.user.controller.request.LoginRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
-import luna.clubverse.backend.user.entity.Authority;
-import luna.clubverse.backend.user.entity.Student;
-import luna.clubverse.backend.user.entity.User;
+import luna.clubverse.backend.user.entity.*;
 import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -64,12 +63,9 @@ public class AuthenticationService {
 
     public MessageResponse signupStudent(Student student) {
 
-        if(userRepository.existsByUsername(student.getUsername())) {
-            return new MessageResponse(MessageType.ERROR, USERNAME_ALREADY_EXIST.formatted(student.getUsername()));
-        }
-
-        if(userRepository.existsByMail(student.getMail())) {
-            return new MessageResponse(MessageType.ERROR, EMAIL_ALREADY_EXIST.formatted(student.getMail()));
+        MessageResponse response= isUsernameAndMailUnique(student);
+        if(response.getMessageType().equals(MessageType.ERROR)) {
+            return response;
         }
 
         Authority authorityFromDB = authorityRepository.findByAuthority("STUDENT")
@@ -82,5 +78,55 @@ public class AuthenticationService {
         userRepository.save(student);
 
         return new MessageResponse(MessageType.SUCCESS, "You have signed up successfully");
+    }
+
+    public MessageResponse createClubDirectorAccount(ClubDirector clubDirector, Club club) {
+        MessageResponse response= isUsernameAndMailUnique(clubDirector);
+        if(response.getMessageType().equals(MessageType.ERROR)) {
+            return response;
+        }
+
+        clubDirector.setClub(club);
+        clubDirector.addAuthority("PERMISSION_MANAGEMENT", club.id());
+        clubDirector.addAuthority("EVENT_MANAGEMENT", club.id());
+        clubDirector.addAuthority("FINANCE_MANAGEMENT", club.id());
+        clubDirector.addAuthority("REVIEW_MEMBER_APPLICATION", club.id());
+        clubDirector.addAuthority("REMOVE_MEMBER", club.id());
+
+        clubDirector.setPassword(passwordEncoder.encode(clubDirector.getPassword()));
+
+        userRepository.save(clubDirector);
+
+        return new MessageResponse(MessageType.SUCCESS, "Accounts are created successfully");
+    }
+
+    public MessageResponse createFacultyAdvisorAccount(FacultyAdvisor facultyAdvisor, Club club) {
+        MessageResponse response= isUsernameAndMailUnique(facultyAdvisor);
+        if(response.getMessageType().equals(MessageType.ERROR)) {
+            return response;
+        }
+
+        facultyAdvisor.setClub(club);
+        facultyAdvisor.addAuthority("ADVISOR", club.id());
+        facultyAdvisor.setPassword(passwordEncoder.encode(facultyAdvisor.getPassword()));
+
+        userRepository.save(facultyAdvisor);
+        return new MessageResponse(MessageType.SUCCESS, "Account is created successfully");
+    }
+
+    public MessageResponse isUsernameAndMailUnique(User user) {
+        if(userRepository.existsByUsername(user.getUsername())) {
+            return new MessageResponse(MessageType.ERROR, USERNAME_ALREADY_EXIST.formatted(user.getUsername()));
+        }
+
+        if(userRepository.existsByMail(user.getMail())) {
+            return new MessageResponse(MessageType.ERROR, EMAIL_ALREADY_EXIST.formatted(user.getMail()));
+        }
+
+        return new MessageResponse(MessageType.SUCCESS, "");
+
+    }
+
+    public void sendClubRequestToAdvisor(String advisorMail) {
     }
 }

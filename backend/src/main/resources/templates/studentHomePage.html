@@ -39,8 +39,7 @@
 
 <script>
   function goToEvent(id) {
-    console.log("in go to event");
-    window.location.href= `http://localhost:8080/app/event/${id}`;
+    window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`;
   }
     $(document).ready(function () {
       var table = $("#student-home-table").DataTable();
@@ -56,6 +55,7 @@
         url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
+          console.log(response);
           $("#name").text("YAS"); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           var dummyResponse = [
           {eventName: "event 1",

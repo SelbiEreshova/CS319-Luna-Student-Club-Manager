@@ -32,10 +32,11 @@ public class Student extends User{
     @ManyToMany(mappedBy = "attendedStudents")
     private Set<Event> attendedEvents;
 
-    public Student(Long id, String username, String password, String name, @Email String mail, Set<Authority> authorities, int bilkentId) {
-        super(id, username, password, name, UserType.STUDENT, mail, authorities);
+    public Student(Long id, String username, String password, String name,String surname, @Email String mail, Set<Authority> authorities, int bilkentId) {
+        super(id, username, password, name, surname, UserType.STUDENT, mail, authorities);
         this.bilkentId = bilkentId;
     }
+
 
     public Student() {
 

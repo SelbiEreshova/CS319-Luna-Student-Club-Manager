@@ -69,5 +69,11 @@ public class EventController {
         model.addAttribute("eventsForClub", eventsForClub);
         return "student_club_event_list";
     }
+
+    @RequestMapping("/app/STUDENT_event_homepage/{id}")
+    public String studentEventPage(Model model,@PathVariable Long id) {
+        model.addAttribute("eventId", id);
+        return "student_event_homepage";
+    }
 }
 

@@ -1,12 +1,11 @@
 package luna.clubverse.backend.user.controller;
 
+import luna.clubverse.backend.club.controller.request.AddClubRequest;
 import luna.clubverse.backend.common.MessageResponse;
-import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.user.controller.request.LoginRequest;
-import luna.clubverse.backend.user.controller.request.SignupRequest;
+import luna.clubverse.backend.user.controller.request.SignupStudentRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
 import luna.clubverse.backend.user.service.AuthenticationService;
-import luna.clubverse.backend.user.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,7 +27,7 @@ public class AuthenticationRestController {
     }
 
     @PutMapping("/signup")
-    public MessageResponse signupStudent(@Valid @RequestBody SignupRequest request) {
+    public MessageResponse signupStudent(@Valid @RequestBody SignupStudentRequest request) {
         return  authenticationService.signupStudent(request.toStudent());
     }
 

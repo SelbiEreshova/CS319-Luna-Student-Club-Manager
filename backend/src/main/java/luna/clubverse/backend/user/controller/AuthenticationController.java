@@ -38,6 +38,7 @@ public class AuthenticationController {
         return "student_sign_up";
     }
 
+    /*
     @RequestMapping("/studentHomePage/{userId}")
     public String studentHomePage(Model model, @PathVariable Long userId) {
         User user = userRepository.findById(userId)
@@ -47,9 +48,16 @@ public class AuthenticationController {
         return "studentHomePage";
     }
 
+     */
+
     @RequestMapping("/app/STUDENTHomePage")
     public String userHomePage() {
         return "studentHomePage";
+    }
+
+    @RequestMapping("/app/ADMINHomePage")
+    public String adminHomePage() {
+        return "admin_club_list";
     }
 
     // Buradaki controllerlar Rest değil sadece Controller
