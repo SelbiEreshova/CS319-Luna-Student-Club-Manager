@@ -93,15 +93,41 @@
 
 <script>
     function openPermissionPopup(id) {
+        console.log("in open permission popup");
+        console.log(id);
         $('#manage').modal('show');
     }
 
     $(document).ready(function() {
-
-
         var table = $('#members').DataTable();
 
-        $.ajax({
+        var dummyResponse = [
+            {memberId: "member 1",
+                memberEmail: "member1@bilkent.edu.tr",
+                memberName: "Eray",
+                memberSurname: "Tüzün",
+                memberRole: "King"},
+            {memberId: "member 2",
+                memberEmail: "member2@bilkent.edu.tr",
+                memberName: "Erdem",
+                memberSurname: "Tuna",
+                memberRole: "TA"}
+        ]
+        function showMembers(r, i){
+            table.row.add([
+                r[i].memberId,
+                r[i].memberEmail,
+                r[i].memberName,
+                r[i].memberSurname,
+                r[i].memberRole,
+                `<button onclick= 'openPermissionPopup(${r[i].memberId})'>Manage Permissions</button>`
+            ]).draw(false);
+        };
+        for (let i = 0; i < dummyResponse.length; i++) {
+            showMembers(dummyResponse, i);
+        }
+
+        /*$.ajax({
             type: "GET",
             headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -114,36 +140,9 @@
             dataType: 'json',
             success: function(response) {
                 console.log(response);
-                var dummyResponse = [
-                    {memberId: "member 1",
-                        memberEmail: "member1@bilkent.edu.tr",
-                        memberName: "Eray",
-                        memberSurname: "Tüzün",
-                        memberRole: "King"},
-                    {memberId: "member 2",
-                        memberEmail: "member2@bilkent.edu.tr",
-                        memberName: "Erdem",
-                        memberSurname: "Tuna",
-                        memberRole: "TA"}
-                ]
-                function showMembers(r, i){
-                    table.row.add([
-                        r[i].memberId,
-                        r[i].memberEmail,
-                        r[i].memberName,
-                        r[i].memberSurname,
-                        r[i].memberRole,
-                        //`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
-                        `<button onclick= 'openPermissionPopup(${r[i].memberId})' id="manage-per">
-                            Manage Permissions
-                        </button>`
-                    ]).draw(false);
-                };
-                for (let i = 0; i < dummyResponse.length; i++) {
-                    showMembers(dummyResponse, i);
-                }
+
             }
-        });
+        });*/
     });
 </script>
 </html>
