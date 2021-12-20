@@ -224,8 +224,8 @@
                     data : JSON.stringify(formData),
                     dataType : 'json',
                     success : function(result) {
-                        if (result.messageType == "SUCCESS") {
-                            alert("Event created");
+                        if (result.messageType === "SUCCESS") {
+                            alert("Event creates");
                         } else {
                             alert("oh nooo");
                         }

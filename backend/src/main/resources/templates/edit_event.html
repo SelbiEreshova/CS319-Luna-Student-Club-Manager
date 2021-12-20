@@ -12,7 +12,7 @@
 <div class="nav_bar" ></div>
 <div class="">
     <h2 class="d-flex justify-content-center pt-6">Edit new event</h2>
-    <form style="width: 50%; margin: auto" class="pb-5">
+    <form style="width: 50%; margin: auto" class="pb-5 create_event">
         <div class="form-group ">
             <label for="event_title">Title</label>
             <input type="text" class="form-control form-control-lg" id="event_title" placeholder="Title">
@@ -23,33 +23,30 @@
         </div>
         <div class="form-row">
             <div class="col">
+
                 <div class="form-group ">
-                    <label for="event_date">Date</label>
-                    <input type="date" class="form-control " id="event_date">
+                    <label for="event_date_start">Start Date</label>
+                    <input type="date" class="form-control " id="event_date_start">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group ">
-                    <label for="event_time">Time</label>
-                    <input type="time" class="form-control " id="event_time">
+                    <label for="event_date_end">End Date</label>
+                    <input type="date" class="form-control " id="event_date_end">
                 </div>
             </div>
         </div>
         <div class="form-row">
             <div class="col">
                 <div class="form-group ">
-                    <label for="event_duration">Duration</label>
-                    <input type="number" class="form-control " id="event_duration" >
+                    <label for="event_time_start">Start Time</label>
+                    <input type="time" class="form-control " id="event_time_start">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group ">
-                    <label for="event_min">Unit</label>
-                    <select id="event_min" class="form-control">
-                        <option selected>hour(s)</option>
-                        <option>min</option>
-                        <option>day(s)</option>
-                    </select>
+                    <label for="event_time_end">End Time</label>
+                    <input type="time" class="form-control " id="event_time_end">
                 </div>
             </div>
         </div>
@@ -71,38 +68,224 @@
 
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6  ">
+            <div class="col">
                 <div class="form-group ">
-                    <label for="event_location">Location</label>
-                    <input type="text" class="form-control " id="event_location">
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col ">
-                <div class="form-group ">
-                    <label for="event_finance">Finance</label>
-                    <input type="text" class="form-control " id="event_finance">
+                    <div class="form-group ">
+                        <label for="event_quota">Location Description</label>
+                        <input type="text" class="form-control " id="event_location" >
+                    </div>
                 </div>
             </div>
             <div class="col">
-                <div class="col pt-5">TL</div>
+                <div class="form-check pt-4">
+                    <input class="form-check-input" type="checkbox" value="" id="inBilkent">
+                    <label class="form-check-label" for="inBilkent">
+                        In Bilkent
+                    </label>
+                </div>
             </div>
         </div>
+
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group ">
+                    <div class="form-group ">
+                        <label for="event_building">Building</label>
+                        <input type="text" class="form-control " id="event_building" >
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="event_classroom">Classroom</label>
+                    <input type="text" class="form-control " id="event_classroom" >
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col ">
+                <label for="event_finance_description">Finance</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="event_finance_">
+                    <div class="input-group-append">
+                        <span class="input-group-text">TL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check pt-4">
+                    <input class="form-check-input" type="checkbox" value="" id="memberOnly">
+                    <label class="form-check-label" for="memberOnly">
+                        Member only
+                    </label>
+                </div>
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="event_finance_description">Financial Description</label>
             <textarea class="form-control"  rows="5" id="event_finance_description"></textarea>
         </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_review">Review Deadline</label>
+                    <input type="date" class="form-control " id="event_review">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_registration">Registration Deadline </label>
+                    <input type="date" class="form-control " id="event_registration">
+                </div>
+            </div>
+        </div>
         <button type="button" class="btn btn-secondary">Cancel</button>
         <div class="float-right">
-            <button type="button" class="btn">Save</button>
-            <button type="button" class="btn" style="background-color: #20B5BDFF">Publish</button>
+            <button type="submit" class="btn" value="save" id="save" name="button_1">Save</button>
+            <button type="submit" class="btn" value="publish" name="button_2" id="publish" style="background-color: #20b5bd">Publish</button>
         </div>
     </form>
-
 </div>
 </div>
 </body>
-<script src="../../JS/Event%20pages/Create_event.js"></script>
+<script>
+    $(document).ready(
+        function() {
+
+            //Get event
+            $.ajax({
+                type : "GET",
+                headers: {
+                    "Access-Control-Allow-Origin":"*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType : "application/json",
+                url : "http://localhost:8080/event/get/5",
+                success: function(res) {
+                    console.log(res.name);
+                    $('#event_title').val(res.name);
+                    $('#event_description').val(res.description);
+                    $('#event_date_start').val(res.startDate);
+                    $('#event_date_end').val(res.endDate);
+                    $('#event_time_start').val(res.startTime);
+                    $('#event_time_end').val(res.endTime);
+                    $('#event_quota').val(res.quota);
+                    $('#event_point').val(res.gePoint);
+                    $('#event_location').val(res.descriptionLocation);
+                    if(res.inBilkent)
+                    {
+                        $('#inBilkent').prop('checked', true);
+                    }
+                    $('#event_building').val(res.building);
+                    $('#event_classroom').val(res.classroom);
+                    $('#event_finance_').val(res.amountOfMoney);
+                    $('#event_finance_description').val(res.explanation);
+                    $('#event_review').val(res.reviewDeadline);
+                    $('#event_registration').val(res.registrationDeadline);
+
+
+
+
+                },
+                error : function(e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+            });
+
+            var published;
+
+
+            // SUBMIT FORM
+            $( "#save" ).click(function() {
+
+                published = false;
+            });
+            $( "#publish" ).click(function() {
+
+                published = true;
+            });
+
+
+            $(".create_event").submit(function(event) {
+
+                // Prevent the form from submitting via the browser.
+                alert("clicked");
+                event.preventDefault();
+                ajaxPost(published);
+
+            });
+
+
+
+            function ajaxPost(published) {
+
+                var eventStatus;
+                if(published)
+                {
+                    eventStatus = "PUBLISHED"
+                }
+                else
+                {
+                    eventStatus = "DRAFT"
+                }
+
+                // PREPARE FORM DATA
+                var formData = {
+                    eventID: 5,
+                    name: $("#event_title").val(),
+                    description: $("#event_description").val(),
+                    eventStatus:  eventStatus,
+                    gePoint: $("#event_point").val(),
+                    startDate: $("#event_date_start").val(),
+                    startTime: $("#event_time_start").val(),
+                    endDate:  $("#event_date_end").val(),
+                    endTime:  $("#event_time_end").val(),
+                    registrationDeadline: $("#event_registration").val(),
+                    reviewDeadline: $("#event_review").val(),
+                    quota: $("#event_quota").val(),
+                    memberOnly: $("#memberOnly").is(":checked"),
+                    amountOfMoney: $("#event_finance_").val(),
+                    explanation: $("#event_finance_description").val(),
+                    building: $("#event_building").val(),
+                    inBilkent: $("#inBilkent").is(":checked"),
+                    descriptionLocation: $("#event_location").val(),
+                    classroom: $("#event_classroom").val(),
+                }
+
+                // DO POST
+                $.ajax({
+                    type : "PUT",
+                    headers: {
+                        "Access-Control-Allow-Origin":"*",
+                        Authorization : localStorage.getItem('Authorization')
+                    },
+                    crossDomain: true,
+                    contentType : "application/json",
+                    url : "http://localhost:8080/event/update",
+                    data : JSON.stringify(formData),
+                    dataType : 'json',
+                    success : function(result) {
+                        if (result.messageType === "SUCCESS") {
+                            alert("Event created");
+                        } else {
+                            alert("oh nooo");
+                        }
+                        console.log(result);
+                    },
+                    error : function(e) {
+                        alert("Error!")
+                        console.log("eventStatus", eventStatus);
+                        console.log("ERROR: ", e);
+                    }
+                });
+
+            }
+        })
+
+</script>
 
 </html>

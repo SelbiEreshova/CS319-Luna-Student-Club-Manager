@@ -1,6 +1,7 @@
 package luna.clubverse.backend.club.service;
 
 
+import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
@@ -29,8 +30,11 @@ public class ClubService {
         this.studentRepository = studentRepository;
     }
 
-    public void addClub(Club club) {
+    public Club addClub(Club club) {
+
         cLubRepository.save(club);
+        return club;
+
     }
 
     public void updateClub(Long clubId,Club club) {
@@ -49,11 +53,17 @@ public class ClubService {
         return clubFromDB;
     }
 
+    public List<ClubQueryResponse> getAllClub() {
+        List<ClubQueryResponse> clubFromDB = cLubRepository.findAll().stream().map(ClubQueryResponse::new).toList();
+
+        return clubFromDB;
+    }
+
     public List<EventQueryResponse> getEventsOfClub(Long clubId) {
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
 
-        return clubFromDB.getEvents().stream().map(EventQueryResponse::new).toList();
+        return clubFromDB.getEvents().stream().map(event -> new EventQueryResponse(event)).toList();
     }
 
     public void applyToClub(Long clubId, Long studentId) {
@@ -88,7 +98,6 @@ public class ClubService {
 
         cLubRepository.save(clubFromDB);
     }
-
 
 
 }

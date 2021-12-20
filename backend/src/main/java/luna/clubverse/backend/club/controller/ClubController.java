@@ -16,10 +16,21 @@ public class ClubController {
         this.clubService = clubService;
     }
 
-    @RequestMapping("/club_home_page_student/{clubId}")
-    public String getClubController( Model model, @PathVariable Long clubId) {
+    @RequestMapping("/app/club_home_page_{userType}/{clubId}")
+    public String getClubHomePage( Model model,@PathVariable String userType, @PathVariable Long clubId) {
         Club club = clubService.getClub(clubId);
         model.addAttribute("club", club);
-        return "club_home_page_student";
+        final String url = "club_home_page_";
+        return url + userType;
+    }
+
+    @RequestMapping("/app/open_all_clubs")
+    public String openAllClubs() {
+        return "all_club_list";
+    }
+
+    @RequestMapping("/app/open_clubs_student")
+    public String openStudentClubs() {
+        return "club_list_student";
     }
 }

@@ -3,17 +3,15 @@ package luna.clubverse.backend.event.controller.request;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.event.entity.Event;
+import luna.clubverse.backend.event.entity.EventBuilder;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.location.entity.Location;
-import luna.clubverse.backend.user.entity.Student;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 
@@ -68,14 +66,29 @@ public class AddEventRequest {
     private String classroom;
 
     public Event toEvent() {
-            return new Event( name, description, eventStatus, gePoint, startDate,  startTime,  endDate,  endTime,  registrationDeadline,  reviewDeadline,  quota,  memberOnly,  toFinanceData(), toLocation() );
+        return new EventBuilder()
+                .name(name)
+                .description(description)
+                .eventStatus(eventStatus)
+                .gePoint(gePoint)
+                .startDate(startDate)
+                .startTime(startTime)
+                .endDate(endDate)
+                .endTime(endTime)
+                .registrationDeadline(registrationDeadline)
+                .reviewDeadline(reviewDeadline)
+                .quota(quota)
+                .memberOnly(memberOnly)
+                .financeData(toFinanceData())
+                .location(toLocation())
+                .build();
     }
 
     public FinanceData toFinanceData() {
-        return new FinanceData(amountOfMoney, FinanceDataStatus.OUTCOME, explanation, LocalDate.now()) ;
+        return new FinanceData(amountOfMoney, FinanceDataStatus.OUTCOME, explanation, LocalDate.now());
     }
 
     public Location toLocation() {
-        return new Location(inBilkent,building,descriptionLocation,classroom) ;
+        return new Location(inBilkent, building, descriptionLocation, classroom);
     }
 }

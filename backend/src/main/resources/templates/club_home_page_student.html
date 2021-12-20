@@ -106,11 +106,45 @@
             </div>
         </div>
         <div class="col pt-5 manager_buttons">
-            <button type="button" class="btn btn-primary m-1 for_student">Apply for Membership</button>
-            <button type="button" class="btn btn-primary m-1 for_student">Events</button>
-            <button type="button" class="btn btn-primary m-1 for_student">Contact us</button>
+            <button type="button" class="btn btn-primary m-1 for_student" id="apply">Apply for Membership</button>
+            <button type="button" class="btn btn-primary m-1 for_student" id="events">Events</button>
+            <button type="button" class="btn btn-primary m-1 for_student" id="contactUs">Contact us</button>
         </div>
     </div>
 </div>
 </body>
+<script>
+    //On clicks
+    $( "#apply" ).click(function() {
+        $.ajax({
+            type : "PUT",
+            headers: {
+                "Access-Control-Allow-Origin":"*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType : "application/json",
+            url : "http://localhost:8080/club/1/applyToClub/1",
+            success : function(result) {
+                if (result.messageType === "SUCCESS") {
+                    alert("You are now a member");
+                } else {
+                    alert("oh nooo smthhh");
+                }
+                console.log(result);
+            },
+            error : function(e) {
+                alert("Error!")
+                console.log("ERROR: ", e);
+            }
+        });
+    });
+    $( "#events" ).click(function() {
+        window.location.replace("http://localhost:8080/app/student_club_event_list/1");
+    });
+    $( "#contactUs" ).click(function() {
+        alert( "Handler for .click() called." );
+    });
+
+</script>
 </html>

@@ -7,61 +7,127 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../CSS/background.css">
     <title>Sign Up(Student)</title>
+    <style>
+        body {
+            background-image: linear-gradient(to right top, #2ed3db, #38dadf, #41e2e4, #4ae9e8, #53f1ec, #5deef3,
+            #6bebf9, #7ae8fc, #97d8f5, #adc9e3, #b7bdcc, #b4b4b4);
+            background-repeat: no-repeat;
+        }
+        section {
+            background-image: inherit;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            top: 0;
+        }
+  </style>
 
 </head>
 <body>
 <section>
-    <h2 class="d-flex justify-content-center">Student Sign Up</h2>
-    <form style="width: 30%; margin: auto">
-        <div class="form-row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="signUpName">Name</label>
-                    <input type="name" class="form-control" id="signUpName" placeholder="Enter your name">
+    <div class="d-flex justify-content-center" style="margin-top: 5%">
+        <div class="card w-50">
+            <h2 class="d-flex justify-content-center" style="margin-top: 3%; margin-bottom: 3%">Student Sign Up</h2>
+            <form style="width: 75%; margin: auto">
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="signUpName">Name</label>
+                            <input type="name" class="form-control" id="signUpName" placeholder="Enter your name">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="signUpSurname">Surname</label>
+                            <input type="surname" class="form-control" id="signUpSurname" placeholder="Enter your surname">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="signUpSurname">Surname</label>
-                    <input type="surname" class="form-control" id="signUpSurname" placeholder="Enter your surname">
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="signUpID">Student ID</label>
+                            <input type="number" class="form-control" id="signUpID" placeholder="Enter your student ID">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="signUpUsername">Username</label>
+                            <input type="username" class="form-control" id="signUpUsername" placeholder="Enter your username">
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col">
                 <div class="form-group">
-                    <label for="signUpID">Student ID</label>
-                    <input type="number" class="form-control" id="signUpID" placeholder="Enter your student ID">
+                    <label for="signUpEmail">Email Address</label>
+                    <input type="email" class="form-control" id="signUpEmail" placeholder="Enter your email address">
                 </div>
-            </div>
-            <div class="col">
                 <div class="form-group">
-                    <label for="signUpUsername">Username</label>
-                    <input type="username" class="form-control" id="signUpUsername" placeholder="Enter your username">
+                    <label for="signUpPassword">Password</label>
+                    <input type="password" class="form-control" id="signUpPassword" placeholder="Your password should be at most 10 characters">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="signUpPassword">Password Again</label>
+                    <input type="password" class="form-control" id="signUpPasswordRepeat" placeholder="Enter your password again">
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button style="margin-bottom: 3%; background-color: #2ED3DB" type="button" class="btn btn-primary" id = "signup" ><a class="text-dark">Sign Up</a></button>
+                    <button style="margin-bottom: 3%; background-color: #5FFBF1" type="button" class="btn btn-primary" id="back-to-main"><a class="text-dark">Go To Main Page</a></button>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="signUpEmail">Email Address</label>
-            <input type="email" class="form-control" id="signUpEmail" placeholder="Enter your email address">
-        </div>
-        <div class="form-group">
-            <label for="signUpPassword">Password</label>
-            <input type="password" class="form-control" id="signUpPassword" placeholder="Your password should be at most 10 characters">
-        </div>
-        <div class="form-group">
-            <label for="signUpPassword">Password Again</label>
-            <input type="password" class="form-control" id="signUpPasswordRepeat" placeholder="Enter your password again">
-        </div>
-        <div class="d-flex justify-content-center">
-            <button style="background-color: #2ED3DB" type="button" class="btn btn-primary"><a class="text-dark">Sign Up</a></button>
-        </div>
-        <div class="d-flex justify-content-center">
-            <button style="background-color: #5FFBF1" type="button" class="btn btn-primary"><a class="text-dark">Go To Main Page</a></button>
-        </div>
-    </form>
+
+    </div>
 </section>
 </body>
+<script>
+    document.getElementById("back-to-main").onclick = function() {
+        window.location.href = `http://localhost:8080/login`;
+    };
+    
+    $(document).ready(
+        function () {
+
+            $("#signup").click(function() {
+                // Prevent the form from submitting via the browser.
+                alert("save");
+                //event.preventDefault();
+                signup();
+            });
+
+            function signup() {
+                var formData = {
+                    name: $("#signUpName").val(),
+                    lastname: $("#signUpSurname").val(),
+                    bilkentId: $("#signUpID").val(),
+                    username: $("#signUpUsername").val(),
+                    email: $("#signUpEmail").val(),
+                    password: $("#signUpPassword").val()
+                }
+
+                $.ajax({
+                    type: "PUT",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                    },
+                    crossDomain: true,
+                    contentType: "application/json",
+                    url: "http://localhost:8080/signup",
+                    data: JSON.stringify(formData),
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response) {
+                            console.log(response.message);
+                        }
+                    },
+                    error: function (e) {
+                        alert("Error!")
+                        console.log("ERROR: ", e);
+                    }
+                })
+            }
+        }
+    )
+</script>
 </html>

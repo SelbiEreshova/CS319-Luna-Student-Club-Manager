@@ -29,6 +29,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String name;
+    private String lastname;
 
     @Enumerated(value = EnumType.STRING)
     private UserType usertype;
@@ -52,6 +53,10 @@ public class User implements UserDetails {
 
     public void addAuthority(String newAuthority){
         Authority authority = new Authority(newAuthority);
+        authorities.add(authority);
+    }
+
+    public void addAuthority(Authority authority) {
         authorities.add(authority);
     }
 
