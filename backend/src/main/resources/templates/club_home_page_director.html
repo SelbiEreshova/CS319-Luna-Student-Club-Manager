@@ -106,8 +106,8 @@
       </div>
     </div>
     <div class="col pt-5 manager_buttons">
-      <button type="button" class="btn btn-primary m-1 for_director">Edit description</button>
-      <button type="button" class="btn btn-primary m-1 for_director">Change logo</button>
+      <button type="button" id="edit_description" class="btn btn-primary m-1 for_director">Edit description</button>
+      <button type="button" id="edit_logo" class="btn btn-primary m-1 for_director">Change logo</button>
       <button type="button" class="btn btn-primary m-1 for_director">Change background</button>
       <button type="button" class="btn btn-primary m-1 for_manager">Manage events</button>
       <button type="button" class="btn btn-primary m-1 for_manager">Review applications</button>
@@ -118,4 +118,30 @@
   </div>
 </div>
 </body>
+<script>
+  $( "#edit_logo" ).click(function() {
+    $.ajax({
+      type : "PUT",
+      headers: {
+        "Access-Control-Allow-Origin":"*",
+        Authorization : localStorage.getItem('Authorization')
+      },
+      crossDomain: true,
+      contentType : "application/json",
+      url : "http://localhost:8080/club/1/applyToClub/${localStorage.getItem('userId')}",
+      success : function(result) {
+        if (result.messageType === "SUCCESS") {
+          alert("You are now a member");
+        } else {
+          alert("oh nooo smthhh");
+        }
+        console.log(result);
+      },
+      error : function(e) {
+        alert("Error!")
+        console.log("ERROR: ", e);
+      }
+    });
+  });
+</script>
 </html>
