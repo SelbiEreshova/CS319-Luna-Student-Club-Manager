@@ -28,6 +28,7 @@ public class DatabasePopulator {
     }
 
 
+
     /*
 
     @Bean
@@ -43,6 +44,7 @@ public class DatabasePopulator {
         userRepository.save(admin);
 
 
+
         User director = new ClubDirector(null, "director", passwordEncoder.encode("director"), "director", "director", "abc@gmail.com", new HashSet<Authority>());
         director.addAuthority("PERMISSION_MANAGEMENT", 1L);
         director.addAuthority("EVENT_MANAGEMENT", 1L);
@@ -50,6 +52,7 @@ public class DatabasePopulator {
         director.addAuthority("REVIEW_MEMBER_APPLICATION", 1L);
         director.addAuthority("REMOVE_MEMBER", 1L);
         userRepository.save(director);
+
 
 
         User manager1 = new Student(null, "manager1", passwordEncoder.encode("manager1"), "name","lastname", "abc@gmail.com", new HashSet<Authority>(), 11111111);
@@ -68,9 +71,12 @@ public class DatabasePopulator {
         Student student1 = new Student(null,"username",passwordEncoder.encode("password") , "name", "abc@gmail.com", new HashSet<Authority>(),21809999);
         userRepository.save(student1);
 
-    }
 
+    }
+    
      */
+
+
 
 
 
