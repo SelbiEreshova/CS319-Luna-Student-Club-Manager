@@ -1,5 +1,6 @@
 package luna.clubverse.backend.event.controller;
 
+import jdk.jfr.Event;
 import luna.clubverse.backend.common.BooleanResponse;
 import luna.clubverse.backend.common.MessageResponse;
 
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -57,33 +60,36 @@ public class EventRestController {
     }
 
     @CrossOrigin
-    @PutMapping("/update") // post yeni şey eklemek için yapılır
+    @PutMapping("/update")
     public MessageResponse updateEvent(@RequestBody @Valid final UpdateEventRequest updateEventRequest) {
+
+        String errorMessage = checkEventRequestDates(updateEventRequest.getStartDate(),updateEventRequest.getEndDate(),updateEventRequest.getStartTime(),updateEventRequest.getEndTime(),updateEventRequest.getRegistrationDeadline(),updateEventRequest.getReviewDeadline());
+
+        if(!errorMessage.equals("")){
+            return new MessageResponse(MessageType.ERROR,errorMessage);
+        }
+
         eventService.updateEvent(updateEventRequest.toEvent(),updateEventRequest.toEventID());
         return new MessageResponse( MessageType.SUCCESS, "success");
     }
-    //put update etmek için kullanılır
+
 
     @CrossOrigin
-    @PutMapping("/cancel/{id}")
-    public String cancelEvent(@PathVariable Long id) {
-        eventService.changeEventStatus(id, EventStatus.CANCELED);
+    @PutMapping("/{status}/{id}")
+    public String changeStatusEvent(@PathVariable Long id, @PathVariable String status) throws Exception {
+
+        EventStatus eventStatus;
+
+        switch (status) {
+            case "cancel" -> eventStatus = EventStatus.CANCELED;
+            case "publish" -> eventStatus = EventStatus.PUBLISHED;
+            case "draft" -> eventStatus = EventStatus.DRAFT;
+            default -> throw new Exception("invalid status");
+        }
+        eventService.changeEventStatus(id, eventStatus);
         return "success";
     }
 
-    @CrossOrigin
-    @PutMapping("/publish/{id}")
-    public String publishEvent(@PathVariable Long id) {
-        eventService.changeEventStatus(id, EventStatus.PUBLISHED);
-        return "success";
-    }
-
-    @CrossOrigin
-    @PutMapping("/draft/{id}")
-    public String draftEvent(@PathVariable Long id) {
-        eventService.changeEventStatus(id, EventStatus.DRAFT);
-        return "success";
-    }
 
     //delete silmek için kullanılır
 
@@ -94,8 +100,15 @@ public class EventRestController {
     @PreAuthorize("hasAuthority('ADMIN')" +
             "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
     public MessageResponse addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
+
+        String errorMessage = checkEventRequestDates(addEventRequest.getStartDate(),addEventRequest.getEndDate(),addEventRequest.getStartTime(),addEventRequest.getEndTime(),addEventRequest.getRegistrationDeadline(),addEventRequest.getReviewDeadline());
+
+        if(!errorMessage.equals("")){
+            return new MessageResponse(MessageType.ERROR,errorMessage);
+        }
+
         eventService.addEventToClub(clubId,addEventRequest.toEvent());
-        return  new MessageResponse(MessageType.SUCCESS,"New Event is created successfully"); // return type will be changed, except from get requests, there will be same type of response
+        return new MessageResponse(MessageType.SUCCESS,"New Event is created successfully");
     }
 
 
@@ -113,6 +126,36 @@ public class EventRestController {
         return eventService.addEnrolledStudent(eventId, userId);
     }
 
+    public boolean checkDate(LocalDate smallDate, LocalDate bigDate){
+        return smallDate.compareTo(bigDate) > 0;
+    }
+
+    public String checkEventRequestDates(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, LocalDate registeredDeadline, LocalDate reviewDeadline){
+
+        int startEndDate = startDate.compareTo(endDate);
+
+       if(startEndDate == 0){
+            int startEndTime =  startTime.compareTo(endTime);
+            if(startEndTime >= 0){
+                return "Start Date cannot be before than End Date";
+            }
+        }else if(startEndDate > 0){
+            return "Start Date cannot be before than End Date";
+        }
+
+       // eşit olabilirler mi?
+
+        if( checkDate(registeredDeadline, startDate)){
+            return  "Start Date cannot be before than Registration Deadline";
+        }
+
+        if( checkDate(endDate, reviewDeadline)){
+            return  "End Date cannot be before than Review Deadline";
+        }
+
+        return "";
+    }
+
     @PutMapping("/{eventId}/deleteEnrolledStudent/{userId}")
     public MessageResponse deleteEnrolledStudent(@PathVariable Long eventId,@PathVariable Long userId) {
         return eventService.deleteEnrolledStudent(eventId, userId);
@@ -122,6 +165,7 @@ public class EventRestController {
     public BooleanResponse isEnrolled(@PathVariable Long eventId, @PathVariable Long userId) {
         return eventService.isEnrolled(eventId, userId);
     }
+
 
 
 }
