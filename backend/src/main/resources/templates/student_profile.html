@@ -131,7 +131,37 @@
 
 </body>
 <script >
+
+
     $(document).ready(function() {
+        $.ajax(
+            {
+                type : "GET",
+                headers: {
+                    "Access-Control-Allow-Origin":"*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType : "application/json",
+                url : "http://localhost:8080/profile",
+              //  data : JSON.stringify(newa),
+                dataType : 'json',
+                success : function(result) {
+                    if (result.messageType == "SUCCESS") {
+                        alert("güncellendi");
+                    } else {
+                        alert("hataaa");
+                    }
+                    console.log(result);
+                },
+                error : function(e) {
+                    alert("Error!")
+
+                    console.log("ERROR: ", e);
+                }
+            });
+
+
         //alert("buradaaa")
         $("#username-change").hide()
         $("#show-in-edit").hide()
@@ -155,7 +185,7 @@ $("#username-change").hide();
 
 $("#show-in-edit").hide()
 $("#edit").css("visibility" , "visible")
-var new = {
+var newa = {
     username : newUsername
 }
 $.ajax(
@@ -168,7 +198,7 @@ $.ajax(
                     crossDomain: true,
                     contentType : "application/json",
                     url : "http://localhost:8080/profile",
-                    data : JSON.stringify(new),
+                    data : JSON.stringify(newa),
                     dataType : 'json',
                     success : function(result) {
                         if (result.messageType == "SUCCESS") {
@@ -188,6 +218,13 @@ $.ajax(
 
     }
 })
+
+
+
+
+
+
+
 $("#cancel").click(function(){
 
 
