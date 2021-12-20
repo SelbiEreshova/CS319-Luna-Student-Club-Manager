@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+</head>
+<body>
+
+<h2 class="d-flex justify-content-center mt-4 pt-6">Members</h2>
+
+
+<div class="container table-responsive my-4  p-2">
+    <table class="table display table-striped club-list" id="members">
+        <thead class="bg-dark text-light">
+        <tr>
+            <th >ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Permissions</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="manage">
+    <div class="modal-dialog bg-dark" role="document">
+        <div class="modal-content ">
+            <div class="modal-header bg-info text-light">
+                <h5 class="modal-title">Manage Member Permissions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group mx-auto ">
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="check1">
+                            <label class="form-check-label" for="check1">Permission 1</label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="check2">
+                            <label class="form-check-label" for="check2">Permission 2</label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="check3">
+                            <label class="form-check-label" for="check3">Permission 3</label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="check4">
+                            <label class="form-check-label" for="check4">Permission 4</label>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="check5">
+                            <label class="form-check-label" for="check5">Permission 5</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Member Role(optional)</label>
+                        <input class="form-control" id="role">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Apply Changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!--<script>
+    //Manage Member Dialog
+    $(document).ready(function () {
+        // Attach Button click event listener
+        $("#manage-per").click(function(){
+            // show Modal
+            $('#manage').modal('show');
+        });
+    });
+</script>-->
+
+<script>
+    function openPermissionPopup(id) {
+        $('#manage').modal('show');
+    }
+
+    $(document).ready(function() {
+
+
+        var table = $('#members').DataTable();
+
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
+            //url lazım
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                var dummyResponse = [
+                    {memberId: "member 1",
+                        memberEmail: "member1@bilkent.edu.tr",
+                        memberName: "Eray",
+                        memberSurname: "Tüzün",
+                        memberRole: "King"},
+                    {memberId: "member 2",
+                        memberEmail: "member2@bilkent.edu.tr",
+                        memberName: "Erdem",
+                        memberSurname: "Tuna",
+                        memberRole: "TA"}
+                ]
+                function showMembers(r, i){
+                    table.row.add([
+                        r[i].memberId,
+                        r[i].memberEmail,
+                        r[i].memberName,
+                        r[i].memberSurname,
+                        r[i].memberRole,
+                        //`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                        `<button onclick= 'openPermissionPopup(${r[i].memberId})' id="manage-per">
+                            Manage Permissions
+                        </button>`
+                    ]).draw(false);
+                };
+                for (let i = 0; i < dummyResponse.length; i++) {
+                    showMembers(dummyResponse, i);
+                }
+            }
+        });
+    });
+</script>
+</html>
