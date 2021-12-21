@@ -39,41 +39,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr><td>IEEE</td>
-            <td>film gösterimi</td>
-            <td>13.12.20</td>
-            <td>18:00</td>
-            <td>20</td>
-            <td>BZ08</td>
-            <td>55</td>
-            <td><div class="dropdown ml-5 mr-1 justify-content-right">
-                <button class="btn btn-info details" type="button"  aria-haspopup="true" aria-expanded="false">
-                    See Details
-                </button>
-
-            </div></td></tr>
-        <tr><td>ACM</td>
-            <td>konferans</td>
-            <td>18.12.20</td>
-            <td>17:00</td>
-            <td>30</td>
-            <td>FB309</td>
-            <td>95</td>
-            <td><div class="dropdown ml-5 mr-1 justify-content-right">
-                <button class="btn btn-info details" type="button"  aria-haspopup="true" aria-expanded="false">
-                    See Details
-                </button>
-
-            </div></td></tr>
         <tr th:each="event:${events}">
-            <!--/*@thymesVar id="event" type=""*/-->
-            <td th:text="${event.clubName}">Club</td>
-            <td th:text="${event.eventName}">Event Name</td>
-            <td th:text="${event.startDate}">Date</td>
-            <td>Time</td>
-            <td th:text="${event.gePoint}">Ge Points</td>
-            <td>loc</td>
-            <td>quota</td>
+            <td th:text="${event.clubName}"></td>
+            <td th:text="${event.eventName}"></td>
+            <td th:text="${event.startDate}"></td>
+            <td th:text="${event.time}>Time</td>
+            <td th:text="${event.gePoint}"></td>
+
+            <td th:text="${event.location.details}></td>
             <td><button type="button" class="btn btn-info text-light">See Details</button></td>
         </tr>
 
@@ -91,33 +64,7 @@
 <script>
     $(document).ready( function () {
 $(".nav_bar").load("http://localhost:8080/student.html");
-       $("#events_nav").addClass("active");
-    $.ajax({
-        type : "GET",
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-        },
-        crossDomain: true,
-        contentType : "application/json",
-        url : "/event/event_list",
-
-        success : function(result) {
-        console.log(" result _>>>" + result)
-            if (result.status == "success") {
-                alert("finally");
-                events = jQuery.parseJSON(result);
-                console.table(events);
-
-            } else {
-                alert("oh nooo");
-            }
-            console.log(result);
-        },
-        error : function(e) {
-            alert("Error!")
-            console.log("ERROR: ", e);
-        }
-    });
+    $("#events_nav").addClass("active");
     $('.club-list').DataTable(
                     { language: {
                             searchPlaceholder: "Search",
