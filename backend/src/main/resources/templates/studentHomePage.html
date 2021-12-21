@@ -14,6 +14,8 @@
 </head>
 <body>
 
+<div class="nav_bar"></div>
+
 <div class="row d-flex justify-content-center">
   <h2 class="mt-4 pt-6" style="margin-right: 10px">Welcome,</h2>
   <h2 class="mt-4 pt-6" id="name"></h2>
@@ -38,6 +40,9 @@
 <div class="d-flex justify-content-center"><button type="button" class="btn btn-info text-light">Go to All Events</button></div>
 
 <script>
+  $(".nav_bar").load("http://localhost:8080/student.html");
+  $("#events_nav").addClass("active");
+
   function goToEvent(id) {
     window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`;
   }
@@ -56,27 +61,15 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          $("#name").text("YAS"); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
-          var dummyResponse = [
-          {eventName: "event 1",
-          clubName: "club 1",
-          startDate: "2021-13-12",
-          gePoint: 15,
-          eventId: 1},
-          {eventName: "event 2",
-          clubName: "club 2",
-          startDate: "2021-11-15",
-          gePoint: 20,
-          eventId: 2}
-          ]
+          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
               table.row.add([
                 r[i].eventName,
                 r[i].clubName,
                 r[i].startDate,
-                "time",
+                r[i].startTime,
                 r[i].gePoint,
-                `<button onclick='goToEvent(${r[i].eventId})' >Go to event's home page</button>`
+                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
                 ]).draw(false);
           };
           for (let i = 0; i < response.length; i++) {
