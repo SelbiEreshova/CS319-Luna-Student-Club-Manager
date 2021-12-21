@@ -11,6 +11,7 @@ import java.util.Set;
 @Getter
 public class ClubQueryResponse {
 
+    private Long clubId;
     private String name;
     private String logo;
     private String description;
@@ -26,6 +27,7 @@ public class ClubQueryResponse {
         this.clubDirector = club.getClubDirector();
         this.facultyAdvisor = club.getFacultyAdvisor();
         this.members = club.getMembers();
+        this.clubId = club.id();
 
     }
 }
