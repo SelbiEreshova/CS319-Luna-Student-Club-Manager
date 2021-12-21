@@ -63,6 +63,13 @@ public class ClubRestController {
     }
 
     @CrossOrigin
+    @PutMapping("/{clubId}/directApplicationToClub/{studentId}")
+    public String directApplicationToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
+        clubService.directApplicationToClub(clubId,studentId);
+        return "success";
+    }
+
+    @CrossOrigin
     @PutMapping("/{clubId}/approveAppliedStudent/{studentId}")
     public String approveAppliedStudent(@PathVariable Long clubId,@PathVariable Long studentId ) {
         clubService.removeFromAppliedStudent(clubId,studentId, true);

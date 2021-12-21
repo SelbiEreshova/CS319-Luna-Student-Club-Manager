@@ -128,5 +128,18 @@ public class ClubService {
                     case("MEMBERSHIP_MANAGEMENT"): return 3;
                 }; return 0;})
                 .toList();
+            }
+
+    public void directApplicationToClub(Long clubId, Long studentId) {
+
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        Student studentFromDB = studentRepository.findById(studentId)
+                .orElseThrow(()->new EntityNotFoundException("The student with the id " + studentId + " could not be found."));
+
+        clubFromDB.addMembers(studentFromDB);
+
+        cLubRepository.save(clubFromDB);
     }
 }
