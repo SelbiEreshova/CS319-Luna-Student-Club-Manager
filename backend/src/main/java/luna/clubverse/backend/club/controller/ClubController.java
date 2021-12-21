@@ -1,5 +1,6 @@
 package luna.clubverse.backend.club.controller;
 
+import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.service.ClubService;
 import luna.clubverse.backend.user.entity.Student;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 public class ClubController {
@@ -44,7 +47,10 @@ public class ClubController {
     }
 
     @RequestMapping("/app/open_clubs_student")
-    public String openStudentClubs() {
+    public String openStudentClubs(Model model, @PathVariable Long userId) {
+
+        List<ClubQueryResponse>  clubsOfStudent = customUserService.getClubsOfStudent(userId);
+        model.addAttribute("studentClubList",clubsOfStudent);
         return "club_list_student";
     }
 
