@@ -39,20 +39,6 @@
         </tr>
         </thead>
         <tbody>
-
-        <tr >
-            <td >Event Name</td>
-            <td >Date</td>
-            <td>Time</td>
-            <td>Ge Points</td>
-            <td>loc</td>
-            <td>quota</td>
-            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
-        </tr>
-
-//club_director_event_list
-
-
         </tbody>
 
     </table>
@@ -74,7 +60,7 @@
     window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`;
   }*/
     $(document).ready(function () {
-      var table = $("event-list").DataTable();
+      var table = $(".event-list").DataTable();
       $.ajax({
         type: "GET",
         headers: {
@@ -83,7 +69,7 @@
         },
         crossDomain: true,
         contentType: "application/json",
-        url: `http://localhost:8080/getEvents/${localStorage.getItem('clubId')}`,
+        url: `http://localhost:8080/club/getEvents/${localStorage.getItem('clubId')}`,
         dataType: 'json',
         success: function(response) {
           console.log(response);
@@ -95,8 +81,8 @@
                 r[i].gePoint,
                 r[i].location,
                 r[i].quota,
-                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
-                ]).draw(false);
+                "aa"// `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
+                ]).draw();
           };
           for (let i = 0; i < response.length; i++) {
             showEvents(response, i);

@@ -24,10 +24,11 @@
 <h2 class="d-flex justify-content-center mt-4 pt-6">Student List</h2>
 
 <div class="container table-responsive mx-auto my-2 p-3 ">
-    <table class="table display table-striped club-list">
+    <table class="table display table-striped student-list">
         <thead class="bg-dark text-light">
         <tr>
             <th>Id</th>
+            <th>Username</th>
             <th>Name</th>
             <th>Surname</th>
             <th >Email</th>
@@ -36,30 +37,6 @@
         </thead>
         <tbody>
 
-        <tr>
-            <td>a</td>
-
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-        </tr>
-        <tr>
-            <td>a</td>
-
-            <td>b</td>
-            <td>c</td>
-            <td>d</td>
-            <td>e</td>
-        </tr>
-        <tr th:each="event:${events}">
-            <!--/*@thymesVar id="event" type=""*/-->
-            <td th:text="${event.clubName}"></td>
-            <td th:text="${event.eventName}"></td>
-            <td th:text="${event.startDate}"></td>
-            <td th:text="${event.gePoint}"></td>
-            <td><button type="button" class="btn btn-danger text-light delete" >Delete Student</button></td>
-        </tr>
         </tbody>
     </table>
 </div>
@@ -88,7 +65,37 @@
 
      $(".nav_bar").load("admin.html");
        $("#events_nav").addClass("active");
-       $("#delete").click(function()
+        $(document).ready(function () {
+      var table = $(".student-list").DataTable();
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: "http://localhost:8080/getAllStudents",
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          function showEvents(r, i){
+              table.row.add([
+                r[i].bilkentId,
+                r[i].username,
+                r[i].name,
+                r[i].surname,
+                r[i].email,
+                `<button>Delete</button>`
+                ]).draw();
+          };
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
+    });
+     /* $("#delete").click(function()
             // show Modal
             $('#add_dialog').modal('show');
        });
@@ -104,7 +111,8 @@
 
     var data = row.data();
     // ... do something with data(), or row.node(), etc
-    } );
+*/    } );
+
 </script>
 
 
