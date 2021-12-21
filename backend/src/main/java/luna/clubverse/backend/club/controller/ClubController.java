@@ -30,7 +30,7 @@ public class ClubController {
         if(userType.equals("student")){
             isMember = customUserService.getStudent(userId).getRegisteredClubs().contains(club);
         }
-        model.addAttribute("isMember",isMember);
+        model.addAttribute("checkMember",isMember);
         final String url = "club_home_page_";
 
         //userType = userType.toLowerCase();
