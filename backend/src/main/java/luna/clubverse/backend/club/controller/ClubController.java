@@ -2,8 +2,8 @@ package luna.clubverse.backend.club.controller;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.service.ClubService;
-import luna.clubverse.backend.common.MessageResponse;
-import luna.clubverse.backend.common.MessageType;
+import luna.clubverse.backend.user.entity.Student;
+import luna.clubverse.backend.user.service.CustomUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,18 +13,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ClubController {
 
     private final ClubService clubService;
+    private final CustomUserService customUserService;
 
-    public ClubController(ClubService clubService) {
+    public ClubController(ClubService clubService, CustomUserService customUserService) {
         this.clubService = clubService;
+        this.customUserService = customUserService;
     }
 
-    @RequestMapping("/app/club_home_page_{userType}/{clubId}")
-    public String getClubHomePage( Model model,@PathVariable String userType, @PathVariable Long clubId) {
+    @RequestMapping("/app/club_home_page_{userType}/{clubId}/{userId}")
+    public String getClubHomePage( Model model,@PathVariable String userType, @PathVariable Long clubId, @PathVariable Long userId) {
+
+        boolean isMember = false;
         Club club = clubService.getClub(clubId);
         model.addAttribute("club", club);
+
+        if(userType.equals("student")){
+            isMember = customUserService.getStudent(userId).getRegisteredClubs().contains(club);
+        }
+        model.addAttribute("isMember",isMember);
         final String url = "club_home_page_";
+
         //userType = userType.toLowerCase();
         return url + userType;
+
     }
 
     @RequestMapping("/app/open_all_clubs")

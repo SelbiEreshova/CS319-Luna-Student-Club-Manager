@@ -48,16 +48,11 @@ public class CustomUserService {
                 .toList();
     }
 
-    public boolean studentIsMember(Long userId, Long clubId) {
-        Student userFromDB = (Student) userRepository.findById(userId)
-                .orElseThrow(()->new EntityNotFoundException("The user with the id " + userId + " could not be found."));
+    public Student getStudent(Long studentId) {
+        Student userFromDB = (Student) userRepository.findById(studentId)
+                .orElseThrow(()->new EntityNotFoundException("The student with the id " + studentId + " could not be found."));
 
-        Club clubFromDB =  clubRepository.findById(clubId)
-                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
-
-        //???
-        return userFromDB.getRegisteredClubs().contains(clubFromDB);
-
+        return userFromDB;
     }
 
 }
