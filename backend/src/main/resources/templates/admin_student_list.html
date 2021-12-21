@@ -21,7 +21,7 @@
 
 <div class="nav_bar" ></div>
 
-<h2 class="d-flex justify-content-center mt-4 pt-6">Event List</h2>
+<h2 class="d-flex justify-content-center mt-4 pt-6">Student List</h2>
 
 <div class="container table-responsive mx-auto my-2 p-3 ">
     <table class="table display table-striped club-list">
@@ -30,51 +30,81 @@
             <th>Id</th>
             <th>Name</th>
             <th>Surname</th>
-            <th class="filtered">Time</th>
-            <th>Ge Points</th>
-            <th>Location</th>
-            <th>Quota</th>
-            <th>Details</th>
-
+            <th >Email</th>
+            <th>Operation</th>
         </tr>
         </thead>
         <tbody>
-      
+
+        <tr>
+            <td>a</td>
+
+            <td>b</td>
+            <td>c</td>
+            <td>d</td>
+            <td>e</td>
+        </tr>
+        <tr>
+            <td>a</td>
+
+            <td>b</td>
+            <td>c</td>
+            <td>d</td>
+            <td>e</td>
+        </tr>
         <tr th:each="event:${events}">
             <!--/*@thymesVar id="event" type=""*/-->
-            <td th:text="${event.clubName}">Club</td>
-            <td th:text="${event.eventName}">Event Name</td>
-            <td th:text="${event.startDate}">Date</td>
-            <td>Time</td>
-            <td th:text="${event.gePoint}">Ge Points</td>
-            <td>loc</td>
-            <td>quota</td>
-            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
+            <td th:text="${event.clubName}"></td>
+            <td th:text="${event.eventName}"></td>
+            <td th:text="${event.startDate}"></td>
+            <td th:text="${event.gePoint}"></td>
+            <td><button type="button" class="btn btn-danger text-light delete" >Delete Student</button></td>
         </tr>
-
-
-
-
         </tbody>
-
     </table>
-
 </div>
 
+<div class="modal" tabindex="-1" role="dialog" id="add_dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-light">
+                <h5 class="modal-title">Delete the Student</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id = "createClub">Create Club</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
-
 <script>
     $(document).ready( function () {
 
      $(".nav_bar").load("admin.html");
        $("#events_nav").addClass("active");
-    $('.club-list').DataTable(
+       $("#delete").click(function()
+            // show Modal
+            $('#add_dialog').modal('show');
+       });
+    var table = $('.club-list').DataTable(
                     { language: {
                             searchPlaceholder: "Search",
                             search: "",
                         },
                          });
     });
+    table.rows().eq(0).each( function ( index ) {
+    var row = table.row( index );
+
+    var data = row.data();
+    // ... do something with data(), or row.node(), etc
+    } );
 </script>
 
 
