@@ -106,7 +106,10 @@
             </div>
         </div>
         <div class="col pt-5 manager_buttons">
-            <button type="button" class="btn btn-primary m-1 for_student" id="apply">Apply for Membership</button>
+            <div th:if="${club.isMember}">
+                <button type="button" class="btn btn-primary m-1 for_student" id="apply">Apply for Membership</button>
+
+            </div>
             <button type="button" class="btn btn-primary m-1 for_student" id="events">Events</button>
             <button type="button" class="btn btn-primary m-1 for_student" id="contactUs">Contact us</button>
         </div>
@@ -114,6 +117,12 @@
 </div>
 </body>
 <script>
+    $(document).ready(function () {
+    if( club.isMember)
+    {
+        console.log("yes a member")
+    }
+    });
     //On clicks
     $( "#apply" ).click(function() {
         $.ajax({
