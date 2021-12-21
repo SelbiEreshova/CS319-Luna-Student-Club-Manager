@@ -54,6 +54,13 @@ public class ClubController {
         return "clubdirector_members_list";
     }
 
+    @RequestMapping("/app/club_director_event_list")
+    public String getClubDirectorEventList() {
+        return "club_director_event_list";
+    }
+
+
+
 
 
 }
