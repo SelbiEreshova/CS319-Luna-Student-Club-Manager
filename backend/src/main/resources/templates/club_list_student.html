@@ -13,75 +13,65 @@
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 </head>
 <body>
-<!-- This page requires all clubs including their name email and faculty advisor-->
-<!-- This page directs to club home page for admnis-->
-<!-- This page delete a club-->
-<!-- This page can add a new club-->
+
 
 <div class="nav_bar" ></div>
 
-<h2 class="d-flex justify-content-center mt-4 pt-6">Event List</h2>
+<h2 class="d-flex justify-content-center mt-4 pt-6">My Club List</h2>
 
 <div class="container table-responsive mx-auto my-2 p-3 ">
-  <table class="table display table-striped club-list">
-    <thead class="bg-dark text-light">
-    <tr>
-      <th class="filtered">Club Name</th>
-      <th>Club Home pages</th>
-
-    </tr>
-    </thead>
+  <table class="table display table-striped" id="club-list">
+  <thead class="bg-dark text-light">
+  <tr>
+    <th class="filtered">Club Name</th>
+    <th>Home page</th>
+  </tr>
+  </thead>
     <tbody>
-      <td>Club</td>
-      <td><button type="button" class="btn btn-info text-light">See Details</button></td>
-    </tr>
-
-    </tbody>
-
-  </table>
+</table>
 
 </div>
 
 </body>
 
 <script>
-  $(document).ready( function () {
+  $(document).ready(function () {
+
+    var tbl = $("#club-list").DataTable({
+      columnDefs: [{
+        "defaultContent": "-",
+        "targets": "_all"
+      }]
+    });
 
     $.ajax({
-      type : "GET",
+      type: "GET",
       headers: {
         "Access-Control-Allow-Origin": "*",
+        Authorization: localStorage.getItem('Authorization')
       },
       crossDomain: true,
-      contentType : "application/json",
-      url : "/club/app/getAllClubs",
+      contentType: "application/json",
+      url:"http://localhost:8080/getClubsOfStudent/"+localStorage.getItem('userId'),
+      dataType: 'json',
+      success: function (response) {
+        console.log(response);
+       function showClubs(r, i) {
+         tbl.row.add([
+           r[i].name,
+           `<button onclick='goToClub(${r[i].clubId})' >Go to club home page</button>`,
+           "delete button gelecek"
+           //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
+         ]).draw(false);
+       };
 
-      success : function(result) {
-        console.log(" result _>>>" + result)
-        if (result.status == "success") {
-          alert("finally");
-          //console.table(events);
-
-        } else {
-          alert("oh nooo");
-        }
-        console.log(result);
-      },
-      error : function(e) {
-        alert("Error!")
-        console.log("ERROR: ", e);
+       for (let i = 0; i < response.length; i++) {
+         showClubs(response, i);
+       }
       }
     });
-    $('.club-list').DataTable(
-            { language: {
-                searchPlaceholder: "Search",
-                search: "",
-              },
-            });
-  });
-</script>
 
-<script>
+  });
 </script>
 
 </html>
