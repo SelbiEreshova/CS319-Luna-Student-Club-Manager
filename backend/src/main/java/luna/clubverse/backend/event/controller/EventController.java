@@ -71,12 +71,13 @@ public class EventController {
     }
 
 
-
     @RequestMapping("/admin.html")
     public String welcome5() {
 
         return "admin";
 }
+
+
     @RequestMapping("/app/STUDENT_event_homepage/{id}")
     public String studentEventPage(Model model,@PathVariable Long id) {
         model.addAttribute("eventId", id);

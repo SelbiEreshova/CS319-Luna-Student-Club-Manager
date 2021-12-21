@@ -37,9 +37,11 @@ public class ClubController {
         return "club_list_student";
     }
 
-    @RequestMapping("/photo/{file}")
-    public MessageResponse openStudentClubs(@PathVariable String file) {
-        return new MessageResponse(MessageType.SUCCESS,"success");
+    @RequestMapping("/app/club_director_members")
+    public String clubDirectorMembers() {
+        return "clubdirector_members_list";
     }
+
+
 
 }

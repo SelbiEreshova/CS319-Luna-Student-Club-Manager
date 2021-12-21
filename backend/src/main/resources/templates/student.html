@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.CLOUDFLARE.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
@@ -18,16 +18,19 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item">
-                <a class="nav-link" id="student_list" href="#">Student List</a>
+                <a class="nav-link" id="student_list" href="#">My Clubs</a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" id="club_list" href="http://localhost:8080/app/admin_home_page">Club List<span class="sr-only">(current)</span></a>
+                <a class="nav-link" id="club_list" href="http://localhost:8080/app/ADMINHomePage">My Events<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link"  id="faculty_advisor_list" href="#">Faculty Advisor List</a>
+                <a class="nav-link"  id="faculty_advisor_list" href="#">Events</a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" id="event_list" href="http://localhost:8080/admin_event_list">Event List</a>
+                <a class="nav-link" id="clubs" href="http://localhost:8080/admin_event_list">Clubs</a>
+            </li>
+            <li class="nav-item" >
+                <a class="nav-link" id="my_applications" href="http://localhost:8080/admin_event_list">My Application</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="about_us" href="#">About us</a>
@@ -36,8 +39,8 @@
     </div>
     <div class=" justify-content-left">
         <ul class="navbar-nav mr-auto">
-    <button class="mx-3">   Sign Out  </button>
-            <div class="mx-auto" id="homepage"><button class="mx-3"><img src="nav_bar/user.png" class="rounded float-left " style=" height : 40px "></button></div>
+            <button class="mx-3">   Sign Out  </button>
+            <div class="mx-auto" id="homepage"><button class="mx-3"><img src="user.png" class="rounded float-left " style=" height : 40px "></button></div>
         </ul>
     </div>
 </nav>

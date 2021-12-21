@@ -115,7 +115,8 @@
 
 </body>
 <script>$(document).ready(function () {
-
+ $(".nav_bar").load("http://localhost:8080/admin.html");
+       $("#events_nav").addClass("active");
         // Attach Button click event listener
        $("#add").click(function(){
 
@@ -131,6 +132,7 @@
     }
 
     $(document).ready(function () {
+
         var tbl = $("#club-list").DataTable();
 
         $.ajax({
@@ -170,6 +172,7 @@
                 }
             }
         });
+
 
         $("#createClub").click(function() {
             // Prevent the form from submitting via the browser.

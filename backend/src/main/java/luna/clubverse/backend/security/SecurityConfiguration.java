@@ -45,7 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home").permitAll()
 
                 .antMatchers("/admin.html").permitAll()
-               // .denyAll()
+                .antMatchers("/student.html").permitAll()
+                .antMatchers("/faculty_advisor.html").permitAll()
+                .antMatchers("/club_director.html").permitAll()
                 .antMatchers("/event_list").permitAll()
                 .antMatchers("/event/event_list").permitAll()
                 .antMatchers("/club/add").permitAll()
@@ -53,6 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin_event_list").permitAll()
                 .antMatchers("/club_event_list/**").permitAll()
                 .antMatchers("/event/get/1").permitAll()
+                .antMatchers("/nav_bar/user.png").permitAll()
                 //.antMatchers("/admin.html").permitAll()
                 .antMatchers("/app/**").permitAll()
                 .antMatchers("/club_home_page_student/{clubId}").permitAll()
