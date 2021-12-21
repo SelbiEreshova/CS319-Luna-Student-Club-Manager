@@ -18,16 +18,16 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item">
-                <a class="nav-link" id="student_list" href=`#`>Members</a>
+                <a class="nav-link" id="members_list" href=`#`>Members</a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" id="club_list" href="http://localhost:8080/app/club_director_event_list">Events<span class="sr-only">(current)</span></a>
+                <a class="nav-link" id="events_list" href="#">Events<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link"  id="faculty_advisor_list" href="#">Applications</a>
+                <a class="nav-link"  id="applications_list" href="#">Applications</a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" id="event_list" href="#">Finance</a>
+                <a class="nav-link" id="finance_list" href="#">Finance</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="about_us" href="#">About us</a>
@@ -59,14 +59,14 @@
             document.getElementById("main_page").setAttribute("href",url);
         });
 
-        $("#student_list").click(function() {
+        $("#members_list").click(function() {
             var url = `http://localhost:8080/app/club/${localStorage.getItem('clubId')}/director_members`;
-            document.getElementById("student_list").setAttribute("href",url);
+            document.getElementById("members_list").setAttribute("href",url);
         });
 
-        $("#club_list").click(function() {
+        $("#events_list").click(function() {
             var url = `http://localhost:8080/app/student_club_event_list/${localStorage.getItem('clubId')}`;
-            document.getElementById("club_list").setAttribute("href",url);
+            document.getElementById("events_list").setAttribute("href",url);
         });
 
 </script>
