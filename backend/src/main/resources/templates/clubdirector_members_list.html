@@ -83,7 +83,7 @@
 
 <script>
     function openPermissionPopup(memberId, role, ...permissionList) {
-        $("#apply-button").unbind().click(function() {
+        $("#apply-button").off().click(function() {
             var formData = {
                 memberId: memberId,
                 memberRole: $("#member-role").val(),
