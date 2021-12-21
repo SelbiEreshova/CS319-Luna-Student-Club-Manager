@@ -67,7 +67,7 @@
     document.getElementById("cancelEnrollment").style.visibility="hidden";
 
     $(document).ready(function() {
-            //var id = [[${eventId}]]
+            var id = [[${eventId}]]
             console.log("in doc ready function");
             var dummyEvent1 = {eventId: 1,
                     eventName: "event 1",
@@ -138,6 +138,8 @@
                     console.log("ERROR: ", e);
                 }
             });
+
+                */
 
             // get enrollment status
             $.ajax({
@@ -225,7 +227,7 @@
                         console.log("ERROR: ", e);
                     }
                 })
-            }*/
+            }
         }
     );
 </script>

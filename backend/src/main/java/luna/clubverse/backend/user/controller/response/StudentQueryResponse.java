@@ -1,4 +1,4 @@
-package luna.clubverse.backend.user.controller.request;
+package luna.clubverse.backend.user.controller.response;
 
 import lombok.Getter;
 import luna.clubverse.backend.user.entity.Student;

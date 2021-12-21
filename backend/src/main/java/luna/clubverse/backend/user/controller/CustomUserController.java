@@ -35,6 +35,11 @@ public class CustomUserController {
         //Student student = customUserService.getStudent(studentId);
         return "student_profile";
     }
+
+    @RequestMapping("/app/admin_student_list")
+    public String getStudents() {
+        return "admin_student_list";
+    }
 }
 
 

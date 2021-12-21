@@ -6,7 +6,9 @@ import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
+import luna.clubverse.backend.user.controller.response.StudentQueryResponse;
 import luna.clubverse.backend.user.entity.Student;
+import luna.clubverse.backend.user.enums.UserType;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -55,4 +57,10 @@ public class CustomUserService {
         return userFromDB;
     }
 
+    public List<StudentQueryResponse> getAllStudents() {
+        return userRepository.findAllByUsertypeIs(UserType.STUDENT)
+                .stream()
+                .map(user -> new StudentQueryResponse((Student) user))
+                .toList();
+    }
 }
