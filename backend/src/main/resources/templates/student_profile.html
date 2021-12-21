@@ -158,17 +158,19 @@ $(document).ready(function() {
         {
                 type : "GET",
                 headers: {
-                    "Access-Control-Allow-Origin":"*",
-                    Authorization : localStorage.getItem('Authorization')
+                    'Access-Control-Allow-Origin':'*',
+                    Authorization : localStorage.getItem('Authorization'),
+                    //id: localStorage.getItem('userId')
                 },
                 crossDomain: true,
                 contentType : "application/json",
-                url : "http://localhost:8080/profile",
+                url : `http://localhost:8080/getProfileOfStudent/${localStorage.getItem('userId')}`,
               //  data : JSON.stringify(newa),
                 dataType : 'json',
                 success : function(result) {
                     if (result.messageType == "SUCCESS") {
-                        alert("güncellendi");
+                        alert(result.name);
+                        alert(result.id);
                     } else {
                         alert("hataaa");
                     }
