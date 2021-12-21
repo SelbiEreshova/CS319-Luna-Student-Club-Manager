@@ -61,9 +61,9 @@
 </div>
 </body>
 <script>
-    $(document).ready( function () {
-
-     $(".nav_bar").load("admin.html");
+ $(".nav_bar").load("http://localhost:8080/admin.html");
+       $("#events_nav").addClass("active");
+        // Attach Button click event listener
        $("#events_nav").addClass("active");
         $(document).ready(function () {
       var table = $(".student-list").DataTable();
@@ -95,23 +95,8 @@
         }
       });
     });
-     /* $("#delete").click(function()
-            // show Modal
-            $('#add_dialog').modal('show');
-       });
-    var table = $('.club-list').DataTable(
-                    { language: {
-                            searchPlaceholder: "Search",
-                            search: "",
-                        },
-                         });
-    });
-    table.rows().eq(0).each( function ( index ) {
-    var row = table.row( index );
 
-    var data = row.data();
-    // ... do something with data(), or row.node(), etc
-*/    } );
+
 
 </script>
 

@@ -86,10 +86,10 @@ public class EventController {
     }
 
 
-    @RequestMapping("/app/student_myevent_list")
+    @RequestMapping("/app/student_my_event_list")
     public String studentEventPage() {
        // model.addAttribute("eventId", id);
-        return "student_event_list";
+        return "student_my_event_list";
     }
 
 }

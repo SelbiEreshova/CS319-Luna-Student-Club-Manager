@@ -24,7 +24,7 @@
 <h2 class="d-flex justify-content-center mt-4 pt-6">My Events</h2>
 
 <div class="container table-responsive mx-auto my-2 p-3 ">
-    <table class="table display table-striped club-list">
+    <table class="table display table-striped event-list">
         <thead class="bg-dark text-light">
         <tr>
             <th>Club Name</th>
@@ -39,15 +39,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="event:${events}">
-            <td th:text="${event.clubName}"></td>
-            <td th:text="${event.eventName}"></td>
-            <td th:text="${event.startDate}"></td>
-            <td th:text="${event.time}>Time</td>
-            <td th:text="${event.gePoint}"></td>
 
-            <td th:text="${event.location.details}></td>
-            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
         </tr>
     </tbody>
 
@@ -67,7 +59,37 @@ $(".nav_bar").load("http://localhost:8080/student.html");
                             search: "",
                         },
                          });
+      var table = $(".event-list").DataTable();
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+             Authorization : localStorage.getItem('Authorization'),
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/myEvents/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          function showEvents(r, i){
+              table.row.add([
+                r[i].clubName,
+                r[i].eventName,
+                r[i].startDate,
+                r[i].startTime,
+                r[i].gePoints,
+                r[i].location,
+                `<button>see details</button>`
+                ]).draw();
+          };
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
     });
+
 </script>
 
 <script>
