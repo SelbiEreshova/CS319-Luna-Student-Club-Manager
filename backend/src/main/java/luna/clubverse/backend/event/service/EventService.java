@@ -123,8 +123,11 @@ public class EventService {
     }
 
     public List<EventQueryResponse> getEventsForStudent(Long id) {
-        return eventRepository.findEventsByStudentId(id).stream().map(EventQueryResponse::new).toList();
+        //return eventRepository.findEventsByStudentId(id).stream().map(EventQueryResponse::new).toList();
         //return cLubRepository.findAll().
+        Student student = (Student) userRepository.findById(id).orElseThrow();
+        return student.getEnrolledEvents().stream().map(EventQueryResponse::new).toList();
+
     }
 
     public MessageResponse addEnrolledStudent(Long eventId, Long userId) {
