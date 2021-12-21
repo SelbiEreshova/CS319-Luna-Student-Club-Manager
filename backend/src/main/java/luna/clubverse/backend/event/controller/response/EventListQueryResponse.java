@@ -20,6 +20,9 @@ public class EventListQueryResponse {
     private LocalDate startDate;
     private LocalTime startTime;
 
+    private int quota;
+    private String location;
+
 
     public EventListQueryResponse(Event event) {
         this.eventId = event.id();
@@ -28,6 +31,8 @@ public class EventListQueryResponse {
         this.gePoint = event.getGePoint();
         this.startDate = event.getStartDate();
         this.startTime = event.getStartTime();
+        this.quota = event.getQuota();
+        this.location = event.getLocation().description();
     }
 
     public EventListQueryResponse(String eventName, String clubName, int gePoint, LocalDate startDate) {

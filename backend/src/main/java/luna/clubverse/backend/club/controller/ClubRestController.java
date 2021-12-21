@@ -11,6 +11,7 @@ import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.service.ClubService;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
+import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.user.service.AuthenticationService;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class ClubRestController {
 
     @CrossOrigin
     @GetMapping("/getEvents/{id}")
-    public List<EventQueryResponse> getClubEvents(@PathVariable Long id) {
+    public List<EventListQueryResponse> getClubEvents(@PathVariable Long id) {
         return clubService.getEventsOfClub(id);
     }
 

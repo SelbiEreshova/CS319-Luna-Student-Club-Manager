@@ -39,7 +39,7 @@
     </div>
     <div class=" justify-content-left">
         <ul class="navbar-nav mr-auto">
-            <button class="mx-3">   Sign Out  </button>
+            <button class="mx-3" id = "signOut">   Sign Out  </button>
             <div class="mx-auto" id="homepage"><button class="mx-3" href="http://localhost:8080/app/student_profile"><img src="user.png" class="rounded float-left " style=" height : 40px "></button></div>
         </ul>
     </div>
@@ -61,6 +61,15 @@
         {
             $(".body").load("HTML/Info_pages/About_us.html");
         }
+
+    });
+
+    $("#signOut").on("click", function (event) {
+        event.preventDefault();
+
+        localStorage.setItem("userId", null);
+        localStorage.setItem("userType", null);
+        localStorage.setItem("user", null);
 
     });
     </script>
