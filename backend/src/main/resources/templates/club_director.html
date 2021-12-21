@@ -9,7 +9,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style=" background-color: #20b5bd; z-index: 1030;">
-    <a class="navbar-brand" href="#">Clubverse</a>
+    <a class="navbar-brand" href=`#` id="main-page">Clubverse</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -18,10 +18,10 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item">
-                <a class="nav-link" id="student_list" href="#">Members</a>
+                <a class="nav-link" id="student_list" href=`#`>Members</a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" id="club_list" href="http://localhost:8080/app/ADMINHomePage">Events<span class="sr-only">(current)</span></a>
+                <a class="nav-link" id="club_list" href=`#`>Events<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" >
                 <a class="nav-link"  id="faculty_advisor_list" href="#">Applications</a>
@@ -61,4 +61,19 @@
 
     });
     </script>
+
+<script>
+        $("#main-page").click(function() {
+            window.location.href = `http://localhost:8080/app/club_home_page_director/${localStorage.getItem('clubId')}/${localStorage.getItem('userId')}`;
+        });
+
+        $("#student_list").click(function() {
+            window.location.href = `http://localhost:8080/app/club/${localStorage.getItem('clubId')}/director_members`;
+        });
+
+        $("#club-list").click(function() {
+            window.location.href = `http://localhost:8080/app/student_club_event_list/${localStorage.getItem('clubId')}`;
+        });
+
+</script>
 </html>

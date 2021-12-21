@@ -25,6 +25,8 @@
 
   </script>
 <body>
+<div class="nav_bar"></div>
+
 <div style="height:400px; background: url(https://bootstrapious.com/i/snippets/sn-static-header/background.jpg)" class=" bg-cover text-white">
 </div>
 
@@ -159,6 +161,8 @@
 </div>
 </body>
 <script>
+  $(".nav_bar").load("http://localhost:8080/club_director.html");
+  $("#events_nav").addClass("active");
   //Need to fix this
   $(document).ready(function () {
 

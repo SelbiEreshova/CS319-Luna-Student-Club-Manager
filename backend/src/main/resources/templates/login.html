@@ -129,10 +129,10 @@
                                 window.location.href = `http://localhost:8080/app/student_home_page`;
                             } else if (result.userType == "CLUB_DIRECTOR") {
                                 localStorage.setItem("clubId", result.clubId);
-                                window.location.href = `http://localhost:8080/app/club_home_page_director/${result.clubId}`;
+                                window.location.href = `http://localhost:8080/app/club_home_page_director/${result.clubId}/${result.userId}`;
                             } else if(result.userType == "FACULTY_ADVISOR") {
                                 localStorage.setItem("clubId", result.clubId);
-                                window.location.href = `http://localhost:8080/app/club_home_page_faculty_advisor/${result.clubId}`;
+                                window.location.href = `http://localhost:8080/app/club_home_page_faculty_advisor/${result.clubId}/${result.userId}`;
                             }
                             else {
                                 window.location.href = `http://localhost:8080/app/admin_home_page`;

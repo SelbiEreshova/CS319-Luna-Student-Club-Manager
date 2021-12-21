@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+    <link src="../nav_bar_club_director.html">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 
@@ -21,7 +21,7 @@
 
 <div class="nav_bar" ></div>
 
-<h2 class="d-flex justify-content-center mt-4 pt-6">Event List</h2>
+<h2 class="d-flex justify-content-center mt-4 pt-6">My Events</h2>
 
 <div class="container table-responsive mx-auto my-2 p-3 ">
     <table class="table display table-striped club-list">
@@ -39,23 +39,17 @@
         </tr>
         </thead>
         <tbody>
-
         <tr th:each="event:${events}">
-            <!--/*@thymesVar id="event" type=""*/-->
-            <td th:text="${event.clubName}">Club</td>
-            <td th:text="${event.eventName}">Event Name</td>
-            <td th:text="${event.startDate}">Date</td>
-            <td th:text="${event.startDate}">Time</td>
-            <td th:text="${event.gePoint}">Ge Points</td>
-            <td>loc</td>
-            <td>quota</td>
+            <td th:text="${event.clubName}"></td>
+            <td th:text="${event.eventName}"></td>
+            <td th:text="${event.startDate}"></td>
+            <td th:text="${event.time}>Time</td>
+            <td th:text="${event.gePoint}"></td>
+
+            <td th:text="${event.location.details}></td>
             <td><button type="button" class="btn btn-info text-light">See Details</button></td>
         </tr>
-
-
-
-
-        </tbody>
+    </tbody>
 
     </table>
 
@@ -65,9 +59,8 @@
 
 <script>
     $(document).ready( function () {
-
-     $(".nav_bar").load("admin.html");
-       $("#events_nav").addClass("active");
+$(".nav_bar").load("http://localhost:8080/student.html");
+    $("#events_nav").addClass("active");
     $('.club-list').DataTable(
                     { language: {
                             searchPlaceholder: "Search",
@@ -77,5 +70,7 @@
     });
 </script>
 
+<script>
+</script>
 
 </html>

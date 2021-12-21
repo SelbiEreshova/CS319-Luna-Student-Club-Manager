@@ -26,10 +26,10 @@
     <table class="table display table-striped club-list" id="club-list">
         <thead class="bg-dark text-light">
         <tr>
-            <th>Club Name</th>
-            <th class="filtered">Event Name</th>
+
+            <th>Event Name</th>
             <th>Date</th>
-            <th class="filtered">Time</th>
+            <th>Time</th>
             <th>Ge Points</th>
             <th>Location</th>
             <th>Quota</th>
@@ -38,47 +38,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr><td>IEEE</td>
-            <td>film gösterimi</td>
-            <td>13.12.20</td>
-            <td>18:00</td>
-            <td>20</td>
-            <td>BZ08</td>
-            <td>55</td>
-            <td><div class="dropdown ml-5 mr-1 justify-content-right">
-                <button class="btn btn-info details" type="button"  aria-haspopup="true" aria-expanded="false">
-                    See Details
-                </button>
-
-            </div></td></tr>
-        <tr><td>ACM</td>
-            <td>konferans</td>
-            <td>18.12.20</td>
-            <td>17:00</td>
-            <td>30</td>
-            <td>FB309</td>
-            <td>95</td>
-            <td><div class="dropdown ml-5 mr-1 justify-content-right">
-                <button class="btn btn-info details" type="button"  aria-haspopup="true" aria-expanded="false">
-                    See Details
-                </button>
-
-            </div></td></tr>
         <tr th:each="event:${events}">
-            <!--/*@thymesVar id="event" type=""*/-->
-            <td th:text="${event.clubName}">Club</td>
-            <td th:text="${event.eventName}">Event Name</td>
-            <td th:text="${event.startDate}">Date</td>
-            <td>Time</td>
-            <td th:text="${event.gePoint}">Ge Points</td>
-            <td>loc</td>
-            <td>quota</td>
-            <td><button type="button" class="btn btn-info text-light" id="aaa">See Details</button></td>
+            <td th:text="${event.clubName}"></td>
+            <td th:text="${event.eventName}"></td>
+            <td th:text="${event.startDate}"></td>
+            <td th:text="${event.time}>Time</td>
+            <td th:text="${event.gePoint}"></td>
+
+            <td th:text="${event.location.details}></td>
+            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
         </tr>
-
-
-
-
         </tbody>
 
     </table>
@@ -111,39 +80,16 @@
 
 
 <script>
-/*    $(document).ready(function(){
-   // alert("ffffff")
-   data= [
-   {"clubName": "ii", "event" : "event",    "Date" : "01.01.01",    "Time" : "10.10",    "GePoints": 41,    "Location": "b","Quota" : 52},
-   {"clubName": "klüp1", "event" : "eventg",    "Date" : "01.01.01",    "Time" : "10.10",    "GePoints": 41,    "Location": "b","Quota" : 52},
-   {"clubName": "kk2", "event" : "eventggffr4",    "Date" : "01.01.01",    "Time" : "10.10",    "GePoints": 471,    "Location": "tgb","Quota" : 5264},
-   {"clubName": "kkk3", "event" : "eventefgt",    "Date" : "01.01.01",    "Time" : "10.10",    "GePoints": 78,    "Location": "5rgftb","Quota" : 52657}
-   ];
-
-
-
-
-    var t = $('#club-list').DataTable();
-
-for(x=0;x<data.length;x++)
-{
-var obj = data[x];
-//alert(obj)
-      t.row.add( [
-            obj.clubName,
-            obj.event,
-            obj.Date,
-            obj.Time,
-            obj.GePoints,
-            obj.Location,
-            obj.Quota,
-            "<button type=\"button\" class=\"btn btn-info text-light\" id=\"aaa\">See Details</button>"
-        ] ).draw( false );
-
-
-}
-
-    });*/
+      $(document).ready( function () {
+$(".nav_bar").load("http://localhost:8080/student.html");
+    $("#events_nav").addClass("active");
+    $('.club-list').DataTable(
+                    { language: {
+                            searchPlaceholder: "Search",
+                            search: "",
+                        },
+                         });
+    });
 </script>
 
 </html>
