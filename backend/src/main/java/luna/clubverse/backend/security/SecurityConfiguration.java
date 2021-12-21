@@ -67,8 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin().disable()
-                .csrf().disable()
-                .logout();
+                .csrf().disable();
     }
 
     @Bean
