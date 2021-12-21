@@ -136,7 +136,7 @@
             },
             crossDomain: true,
             contentType : "application/json",
-            url : "http://localhost:8080/1/directApplicationToClub/5",
+            url : "http://localhost:8080/club/1/directApplicationToClub/"+ localStorage.getItem('userId'),
             success : function(result) {
                 if (result.messageType === "SUCCESS") {
                     alert("You are now a member");
