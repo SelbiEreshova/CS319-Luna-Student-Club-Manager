@@ -113,12 +113,23 @@ public class EventRestController {
 
 
 
-    @RequestMapping("/event_list")
-    public String getAll( Model model) {
-        List<EventListQueryResponse> events = eventService.getAllDemo();
-        model.addAttribute("events", events);
-        return "event_list";
+    @GetMapping("/event_list")
+    public List  <EventListQueryResponse> getAll( Model model) {
+        List <EventListQueryResponse> events = eventService.getAllDemo();
+        //model.addAttribute("events", events);
+        return events;
     }
+
+
+
+    @CrossOrigin
+    @GetMapping("/myEvents/{id}")
+    public List<EventQueryResponse> getEventsForStudent(@PathVariable Long id) {
+         List<EventQueryResponse> events = (eventService.getEventsForStudent(id));
+         return events;
+    }
+
+
 
 
     @PutMapping("/{eventId}/addEnrolledStudent/{userId}")

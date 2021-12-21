@@ -6,6 +6,7 @@ import luna.clubverse.backend.common.BooleanResponse;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
+import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.event.repository.EventRepository;
@@ -118,6 +119,11 @@ public class EventService {
 
     public List<EventListQueryResponse> getEventsForClub( Long id) {
         return eventRepository.findNameById(id).stream().map(EventListQueryResponse::new).toList();
+        //return cLubRepository.findAll().
+    }
+
+    public List<EventQueryResponse> getEventsForStudent(Long id) {
+        return eventRepository.findEventsByStudentId(id).stream().map(EventQueryResponse::new).toList();
         //return cLubRepository.findAll().
     }
 

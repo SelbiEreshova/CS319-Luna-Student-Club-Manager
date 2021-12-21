@@ -84,5 +84,13 @@ public class EventController {
         return "student_event_homepage";
 
     }
+
+
+    @RequestMapping("/app/student_myevent_list")
+    public String studentEventPage() {
+       // model.addAttribute("eventId", id);
+        return "student_event_list";
+    }
+
 }
 

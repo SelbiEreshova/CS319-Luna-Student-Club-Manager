@@ -18,4 +18,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findNameById(@Param("id") Long id);
 
 
+    @Query(value = "SELECT * FROM public.event WHERE  public.event.id = ( SELECT public.event_enrolled_student.event_id FROM public.event_enrolled_student WHERE public.event_enrolled_student.enrolled_student_id = :studentId )"  , nativeQuery = true)
+    List<Event> findEventsByStudentId(@Param("studentId") Long studentId);
 }
+
+
+
