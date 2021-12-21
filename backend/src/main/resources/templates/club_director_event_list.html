@@ -24,13 +24,13 @@
 <h2 class="d-flex justify-content-center mt-4 pt-6">Event List</h2>
 
 <div class="container table-responsive mx-auto my-2 p-3 ">
-    <table class="table display table-striped club-list">
+    <table class="table display table-striped event-list">
         <thead class="bg-dark text-light">
         <tr>
 
-            <th class="filtered">Event Name</th>
+            <th>Event Name</th>
             <th>Date</th>
-            <th class="filtered">Time</th>
+            <th>Time</th>
             <th>Ge Points</th>
             <th>Location</th>
             <th>Quota</th>
@@ -40,19 +40,17 @@
         </thead>
         <tbody>
 
-        <tr th:each="event:${eventsForClub}">
-            <!--/*@thymesVar id="event" type=""*/-->
-
-            <td th:text="${event.eventName}">Event Name</td>
-            <td th:text="${event.startDate}">Date</td>
+        <tr >
+            <td >Event Name</td>
+            <td >Date</td>
             <td>Time</td>
-            <td th:text="${event.gePoint}">Ge Points</td>
+            <td>Ge Points</td>
             <td>loc</td>
             <td>quota</td>
             <td><button type="button" class="btn btn-info text-light">See Details</button></td>
         </tr>
 
-
+//club_director_event_list
 
 
         </tbody>
@@ -67,11 +65,45 @@
     $(document).ready( function () {
  $(".nav_bar").load("http://localhost:8080/club_director.html");
        $("#events_nav").addClass("active");
-    $('.club-list').DataTable(
-    });
+});
 </script>
 
 <script>
+  /*
+  function goToEvent(id) {
+    window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`;
+  }*/
+    $(document).ready(function () {
+      var table = $("event-list").DataTable();
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/getEvents/${localStorage.getItem('clubId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          function showEvents(r, i){
+              table.row.add([
+                r[i].eventName,
+                r[i].startDate,
+                r[i].startTime,
+                r[i].gePoint,
+                r[i].location,
+                r[i].quota,
+                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
+                ]).draw(false);
+          };
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
+    });
 </script>
 
 </html>
