@@ -15,18 +15,12 @@ public class ClubQueryResponse {
     private String name;
     private String logo;
     private String description;
-    private ClubDirector clubDirector;
-    private FacultyAdvisor facultyAdvisor;
-    private Set<Student> members;
 
 
     public ClubQueryResponse(final Club club) {
         this.name = club.getName();
         this.logo = club.getLogo();
         this.description = club.getDescription();
-        this.clubDirector = club.getClubDirector();
-        this.facultyAdvisor = club.getFacultyAdvisor();
-        this.members = club.getMembers();
         this.clubId = club.id();
 
     }
