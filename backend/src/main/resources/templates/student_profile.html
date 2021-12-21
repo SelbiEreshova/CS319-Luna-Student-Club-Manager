@@ -114,16 +114,32 @@
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
+
                                     <td>email@ug.bilkent.edu.tr</td>
                                 </tr>
+                            </tbody>
+                        </table>
+                        <table class="table" id="change-pass">
+                            <tbody>
+                            <tr>
+                                <th>Old Password:</th>
+                                <th><input type="password" id="old-pass"></th>
+                            </tr>
+                            <tr>
+                                <th>New Password:</th>
+                                <th><input type="password" id="new-pass"></th>
+                            </tr>
                             </tbody>
                         </table>
 
                     </div>
                 </div>
                  <div class=" mx-auto" id="show-in-edit">
-        <div class="row"><button class=" btn btn-danger my-2" id="submit">Submit Changes</button></div><div class="row"><button class=" btn btn-dark my-2" id="cancel">Cancel</button></div>
+        <div class="row" ><button class=" btn btn-danger my-2" id="submit">Submit Changes</button></div><div class="row"><button class=" btn btn-dark my-2" id="cancel">Cancel</button></div>
     </div>
+                <div class=" mx-auto" id="show-in-c-p">
+                    <div class="row" ><button class=" btn btn-danger my-2" id="change-p">Change Password</button></div><div class="row"><button class=" btn btn-dark my-2" id="cancel-cp">Cancel</button></div>
+                </div>
 
             </div>
         </div>
@@ -131,13 +147,15 @@
 
 </body>
 <script >
-
-
-    $(document).ready(function() {
+$(document).ready(function() {
     $(".nav_bar").load("http://localhost:8080/student.html");
-       $("#events_nav").addClass("active");
-        $.ajax(
-            {
+    $("#events_nav").addClass("active");
+    $("#change-pass").hide();
+    $("#show-in-c-p").hide();
+    $("#username-change").hide()
+    $("#show-in-edit").hide()});
+    $.ajax(
+        {
                 type : "GET",
                 headers: {
                     "Access-Control-Allow-Origin":"*",
@@ -161,73 +179,61 @@
 
                     console.log("ERROR: ", e);
                 }
+        });
+    </script>
+<script>
+$(document).ready(function() {
+    $("#edit").click(function()
+    {
+        $("#username-change").show();
+        $("#username-show").hide();
+        $(this).css("visibility", "hidden");
+        $("#show-in-edit").show()
+        $("#submit").click(function() {
+            var newUsername = $("#new-username").val()
+            console.log(newUsername)
+            if(! newUsername || newUsername.length<4 )
+            {
+                alert("Username is not valid\nUsername cannot be null\nUsername should be at least 4 characters long")
+            }
+            else{
+            $("#username-show").text(newUsername);
+            $("#username-change").hide();
+            $("#username-show").show();
+
+            $("#show-in-edit").hide()
+            $("#edit").css("visibility" , "visible")
+
+            var newa = {
+                username : newUsername
+            }
+            $.ajax(
+            {
+                type : "POST",
+                headers: {
+                    "Access-Control-Allow-Origin":"*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType : "application/json",
+                url : "http://localhost:8080/profile",
+                data : JSON.stringify(newa),
+                dataType : 'json',
+                success : function(result) {
+                if (result.messageType == "SUCCESS") {
+                    alert("güncellendi");
+                } else {
+                    alert("hataaa");
+                }
+                console.log(result);
+                },
+                error : function(e) {
+                    alert("Error!")
+                console.log("ERROR: ", e);
+                }
             });
-
-
-        //alert("buradaaa")
-        $("#username-change").hide()
-        $("#show-in-edit").hide()
-        $("#edit").click(function(){
-  $("#username-change").show();
-  $("#username-show").hide();
-$(this).css("visibility", "hidden");
-$("#show-in-edit").show()
-$("#submit").click(function() {
-    var newUsername = $("#new-username").val()
-    console.log(newUsername)
-
-if(! newUsername || newUsername.length<4 )
-{
-    alert("Username is not valid\nUsername cannot be null\nUsername should be at least 4 characters long")
-}
-else{
- $("#username-show").text(newUsername);
-$("#username-change").hide();
-  $("#username-show").show();
-
-$("#show-in-edit").hide()
-$("#edit").css("visibility" , "visible")
-
-var newa = {
-    username : newUsername
-}
-$.ajax(
-{
-                    type : "POST",
-                    headers: {
-                        "Access-Control-Allow-Origin":"*",
-                        Authorization : localStorage.getItem('Authorization')
-                    },
-                    crossDomain: true,
-                    contentType : "application/json",
-                    url : "http://localhost:8080/profile",
-                    data : JSON.stringify(newa),
-                    dataType : 'json',
-                    success : function(result) {
-                        if (result.messageType == "SUCCESS") {
-                            alert("güncellendi");
-                        } else {
-                            alert("hataaa");
-                        }
-                        console.log(result);
-                    },
-                    error : function(e) {
-                        alert("Error!")
-
-                        console.log("ERROR: ", e);
-                    }
-                });
-
-
-    }
+            }
 })
-
-
-
-
-
-
-
 $("#cancel").click(function(){
 
 
@@ -245,10 +251,55 @@ $("#edit").css("visibility" , "visible")
 
 });
 
-        //$("#change-password").on("click" : function(){
 
-
-    })
+});
+</script>
+<script>
+$(document).ready(function() {
+    $("#change-password").click(function(){
+    $("#edit").css("visibility" , "hidden")
+    $("#change-password").css("visibility" , "hidden")
+        $("#show").hide();
+        $("#change-pass").show();
+        $("#show-in-c-p").show();
+        $("#change-p").click(function(){
+            alert("bakalım")
+            oldPass = $("old-pass").val();
+            newPass = $("new-pass").val();
+            changePass = {"oldPassword":oldPass, "newPassword" : newPass}
+            $.ajax(
+            {
+                type : "POST",
+                headers: {
+                    "Access-Control-Allow-Origin":"*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType : "application/json",
+                url : "http://localhost:8080/change_password",
+                data : JSON.stringify(changePass),
+                dataType : 'json',
+                success : function(result) {
+                    if (result.messageType == "SUCCESS") {
+                        alert("güncellendi");
+                    } else {
+                        alert("hataaa");
+                    }
+                    console.log("şifreeeeeee " + result);
+                },
+                error : function(e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+            });
+        });
+        $("#cancel-cp").click(function(){
+            $("#show").show();
+            $("#change-pass").hide();
+            $("#show-in-c-p").hide();
+        });
+    });
+})
 </script>
 
 </html>

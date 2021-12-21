@@ -2,6 +2,7 @@ package luna.clubverse.backend.user.controller;
 
 import luna.clubverse.backend.club.controller.request.AddClubRequest;
 import luna.clubverse.backend.common.MessageResponse;
+import luna.clubverse.backend.user.controller.request.ChangePasswordRequest;
 import luna.clubverse.backend.user.controller.request.LoginRequest;
 import luna.clubverse.backend.user.controller.request.SignupStudentRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
@@ -29,6 +30,13 @@ public class AuthenticationRestController {
     @PutMapping("/signup")
     public MessageResponse signupStudent(@Valid @RequestBody SignupStudentRequest request) {
         return  authenticationService.signupStudent(request.toStudent());
+    }
+
+    @PostMapping("/change_password")
+    public MessageResponse changePassword(@Valid @RequestBody ChangePasswordRequest request) {
+
+        return authenticationService.changePassword(request);
+        //return authenticationService.login(loginRequest);
     }
 
 }
