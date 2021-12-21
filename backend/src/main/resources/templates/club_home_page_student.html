@@ -106,10 +106,9 @@
             </div>
         </div>
         <div class="col pt-5 manager_buttons">
-            <div th:if="${club.isMember}">
                 <button type="button" class="btn btn-primary m-1 for_student" id="apply">Apply for Membership</button>
 
-            </div>
+
             <button type="button" class="btn btn-primary m-1 for_student" id="events">Events</button>
             <button type="button" class="btn btn-primary m-1 for_student" id="contactUs">Contact us</button>
         </div>
@@ -117,12 +116,16 @@
 </div>
 </body>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function ()
+    {
+        /*
     if( club.isMember)
     {
         console.log("yes a member")
     }
     });
+
+         */
     //On clicks
     $( "#apply" ).click(function() {
         $.ajax({
@@ -133,7 +136,7 @@
             },
             crossDomain: true,
             contentType : "application/json",
-            url : "http://localhost:8080/club/1/applyToClub/"+ localStorage.getItem('userId'),
+            url : "http://localhost:8080/1/directApplicationToClub/5",
             success : function(result) {
                 if (result.messageType === "SUCCESS") {
                     alert("You are now a member");
@@ -153,6 +156,7 @@
     });
     $( "#contactUs" ).click(function() {
         alert( "Handler for .click() called." );
+    });
     });
 
 </script>
