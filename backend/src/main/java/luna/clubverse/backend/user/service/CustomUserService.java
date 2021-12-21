@@ -2,11 +2,11 @@ package luna.clubverse.backend.user.service;
 
 
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
+import luna.clubverse.backend.club.entity.Club;
+import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
-import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
 import luna.clubverse.backend.user.entity.Student;
-import luna.clubverse.backend.user.entity.User;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,12 @@ import java.util.List;
 public class CustomUserService {
 
     private final UserRepository userRepository;
+    private final ClubRepository clubRepository;
     private final EventRepository eventRepository;
 
-    public CustomUserService(UserRepository userRepository, EventRepository eventRepository) {
+    public CustomUserService(UserRepository userRepository, ClubRepository clubRepository, EventRepository eventRepository) {
         this.userRepository = userRepository;
+        this.clubRepository = clubRepository;
         this.eventRepository = eventRepository;
     }
 
@@ -44,6 +46,18 @@ public class CustomUserService {
                 .stream()
                 .map(ClubQueryResponse::new)
                 .toList();
+    }
+
+    public boolean studentIsMember(Long userId, Long clubId) {
+        Student userFromDB = (Student) userRepository.findById(userId)
+                .orElseThrow(()->new EntityNotFoundException("The user with the id " + userId + " could not be found."));
+
+        Club clubFromDB =  clubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        //???
+        return userFromDB.getRegisteredClubs().contains(clubFromDB);
+
     }
 
 }
