@@ -124,8 +124,8 @@ public class EventRestController {
 
     @CrossOrigin
     @GetMapping("/myEvents/{id}")
-    public List<EventQueryResponse> getEventsForStudent(@PathVariable Long id) {
-         List<EventQueryResponse> events = (eventService.getEventsForStudent(id));
+    public List<EventListQueryResponse> getEventsForStudent(@PathVariable Long id) {
+         List<EventListQueryResponse> events = (eventService.getEventsForStudent(id));
          return events;
     }
 
