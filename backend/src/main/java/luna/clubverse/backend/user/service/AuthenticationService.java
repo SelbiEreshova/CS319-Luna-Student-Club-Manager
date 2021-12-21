@@ -173,7 +173,11 @@ public class AuthenticationService {
             authorityRepository.save(authority);
         }
 
-        titleRepository.save(student.updateTitle(request.getClubId(), request.getMemberRole()));
+        Title title = student.updateTitle(request.getClubId(),request.getMemberRole());
+
+        titleRepository.save(title);
+
+        //titleRepository.save(student.updateTitle(request.getClubId(), request.getMemberRole()));
         userRepository.save(student);
 
         return new MessageResponse(MessageType.SUCCESS, "Permissions are updated");

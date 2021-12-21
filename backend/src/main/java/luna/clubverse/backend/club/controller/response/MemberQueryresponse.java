@@ -25,7 +25,7 @@ public class MemberQueryresponse {
         this.memberEmail = student.getMail();
         this.memberName = student.getName();
         this.memberSurname = student.getLastname();
-        this.memberRole = "";
+        this.memberRole = student.titleFoundByClub(clubId).getTitle();
         this.memberPermissions = memberPermissions;
     }
 
