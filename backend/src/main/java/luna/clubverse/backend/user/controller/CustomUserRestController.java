@@ -33,5 +33,11 @@ public class CustomUserRestController {
         return customUserService.getClubsOfStudent(studentId);
     }
 
+    @CrossOrigin
+    @GetMapping("/studentIsMember/{studentId}/{clubId}")
+    public Boolean studentIsMember(@PathVariable Long studentId, @PathVariable Long clubId ) {
+        return customUserService.studentIsMember(studentId,clubId);
+    }
+
 
 }
