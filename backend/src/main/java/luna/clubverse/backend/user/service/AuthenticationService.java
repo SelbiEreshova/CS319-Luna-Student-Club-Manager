@@ -4,6 +4,7 @@ import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.security.JwtUtil;
+import luna.clubverse.backend.user.controller.request.ChangePasswordRequest;
 import luna.clubverse.backend.user.controller.request.LoginRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
 import luna.clubverse.backend.user.entity.*;
@@ -11,9 +12,12 @@ import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +91,22 @@ public class AuthenticationService {
         userRepository.save(student);
 
         return new MessageResponse(MessageType.SUCCESS, "You have signed up successfully");
+    }
+
+    public MessageResponse changePassword(ChangePasswordRequest request) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userRepository.findByUsername((String) authentication.getName())
+                .orElseThrow();
+
+        if(!passwordEncoder.matches(request.getOldPassword(),user.getPassword())) {
+            throw new BadCredentialsException("The wrong password");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
+        return new MessageResponse(MessageType.SUCCESS, "Password has changed successfully");
     }
 
     public MessageResponse createClubDirectorAccount(ClubDirector clubDirector, Club club) {
