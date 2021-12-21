@@ -6,6 +6,7 @@ import luna.clubverse.backend.club.controller.request.UpdateClubRequest;
 import luna.clubverse.backend.club.controller.request.UploadPhotoRequest;
 import luna.clubverse.backend.club.controller.response.ClubListQueryResponse;
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
+import luna.clubverse.backend.club.controller.response.MemberQueryresponse;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.service.ClubService;
 import luna.clubverse.backend.common.MessageResponse;
@@ -105,6 +106,12 @@ public class ClubRestController {
     public MessageResponse uploadPhoto(@Valid @RequestBody UploadPhotoRequest request) {
         System.out.println( request.getFile() );
         return new MessageResponse(MessageType.SUCCESS,"success");
+    }
+
+    @CrossOrigin
+    @GetMapping("/get_club_director_members/{clubId}")
+    public List<MemberQueryresponse> getMemberList(@PathVariable Long clubId){
+        return clubService.getMembers(clubId);
     }
 
 

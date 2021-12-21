@@ -3,11 +3,13 @@ package luna.clubverse.backend.club.service;
 
 import luna.clubverse.backend.club.controller.response.ClubListQueryResponse;
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
+import luna.clubverse.backend.club.controller.response.MemberQueryresponse;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
 import luna.clubverse.backend.user.entity.Student;
+import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +27,13 @@ public class ClubService {
 
     private final StudentRepository studentRepository;
 
-    public ClubService(ClubRepository cLubRepository, EventRepository eventRepository, StudentRepository studentRepository) {
+    private final AuthorityRepository authorityRepository;
+
+    public ClubService(ClubRepository cLubRepository, EventRepository eventRepository, StudentRepository studentRepository, AuthorityRepository authorityRepository) {
         this.cLubRepository = cLubRepository;
         this.eventRepository = eventRepository;
         this.studentRepository = studentRepository;
+        this.authorityRepository = authorityRepository;
     }
 
     public Club addClub(Club club) {
@@ -103,5 +108,25 @@ public class ClubService {
 
     public List<ClubListQueryResponse> getClubList() {
         return cLubRepository.findAll().stream().map(ClubListQueryResponse::new).toList();
+    }
+
+    public List<MemberQueryresponse> getMembers(Long clubId) {
+        return cLubRepository.findById(clubId)
+                .orElseThrow()
+                .getMembers()
+                .stream()
+                .map(member -> new MemberQueryresponse(member, clubId, getPermissionsOfAMember((Student) member,clubId)))
+                .toList();
+    }
+
+    public List<Integer> getPermissionsOfAMember(Student student ,Long clubId) {
+        return authorityRepository.findAllByUsersAndClubId(student, clubId)
+                .stream()
+                .map(authority -> {switch (authority.getAuthority()) {
+                    case("EVENT_MANAGEMENT"): return 1;
+                    case("FINANCE_MANAGEMENT"): return 2;
+                    case("MEMBERSHIP_MANAGEMENT"): return 3;
+                }; return 0;})
+                .toList();
     }
 }

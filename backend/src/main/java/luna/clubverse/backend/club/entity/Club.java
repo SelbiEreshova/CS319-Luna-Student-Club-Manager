@@ -34,15 +34,15 @@ public class Club extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "club_member",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "club_id")
+            joinColumns = @JoinColumn(name = "club_id"),
+            inverseJoinColumns = @JoinColumn(name = "member_id")
     )
     private Set<Student> members;
 
     @ManyToMany
     @JoinTable(name = "club_applied_student",
-            joinColumns = @JoinColumn(name = "applied_student_id"),
-            inverseJoinColumns = @JoinColumn(name = "club_id")
+            joinColumns = @JoinColumn(name = "club_id"),
+            inverseJoinColumns = @JoinColumn(name = "applied_student_id")
     )
     private Set<Student> appliedStudents;
 

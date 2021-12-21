@@ -5,6 +5,7 @@ import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.user.controller.request.ChangePasswordRequest;
 import luna.clubverse.backend.user.controller.request.LoginRequest;
 import luna.clubverse.backend.user.controller.request.SignupStudentRequest;
+import luna.clubverse.backend.user.controller.request.UpdatePermissionRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
 import luna.clubverse.backend.user.service.AuthenticationService;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,13 @@ public class AuthenticationRestController {
     public MessageResponse changePassword(@Valid @RequestBody ChangePasswordRequest request) {
 
         return authenticationService.changePassword(request);
+        //return authenticationService.login(loginRequest);
+    }
+
+    @PutMapping("/student/updatePermission")
+    public MessageResponse updatePermission(@Valid @RequestBody UpdatePermissionRequest request) {
+
+        return authenticationService.updatePermission(request);
         //return authenticationService.login(loginRequest);
     }
 

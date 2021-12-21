@@ -6,9 +6,11 @@ import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.security.JwtUtil;
 import luna.clubverse.backend.user.controller.request.ChangePasswordRequest;
 import luna.clubverse.backend.user.controller.request.LoginRequest;
+import luna.clubverse.backend.user.controller.request.UpdatePermissionRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
 import luna.clubverse.backend.user.entity.*;
 import luna.clubverse.backend.user.repository.AuthorityRepository;
+import luna.clubverse.backend.user.repository.TitleRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,12 +19,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -40,12 +42,14 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final AuthorityRepository authorityRepository;
+    private final TitleRepository titleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationService(UserRepository userRepository, AuthenticationManager authenticationManager, AuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
+    public AuthenticationService(UserRepository userRepository, AuthenticationManager authenticationManager, AuthorityRepository authorityRepository, TitleRepository titleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.authorityRepository = authorityRepository;
+        this.titleRepository = titleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -158,4 +162,24 @@ public class AuthenticationService {
 
     public void sendClubRequestToAdvisor(String advisorMail) {
     }
+
+    public MessageResponse updatePermission(UpdatePermissionRequest request) {
+        Student student = (Student) userRepository.findById(request.getMemberId())
+                .orElseThrow();
+
+        List<Authority> authorities = student.updateAuthority(request.getClubId(), request.getMemberPermissions());
+
+        for(Authority authority : authorities) {
+            authorityRepository.save(authority);
+        }
+
+        titleRepository.save(student.updateTitle(request.getClubId(), request.getMemberRole()));
+        userRepository.save(student);
+
+        return new MessageResponse(MessageType.SUCCESS, "Permissions are updated");
+    }
+
+
+
+
 }

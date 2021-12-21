@@ -60,6 +60,10 @@ public class User implements UserDetails {
         authorities.add(authority);
     }
 
+    public void removeAuthority(Authority authority) {
+        authorities.remove(authority);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

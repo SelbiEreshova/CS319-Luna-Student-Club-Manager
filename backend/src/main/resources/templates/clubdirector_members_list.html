@@ -82,9 +82,12 @@
 </body>
 
 <script>
+    var clubId = [[${clubId}]];
+
     function openPermissionPopup(memberId, role, ...permissionList) {
         $("#apply-button").off().click(function() {
             var formData = {
+                clubId: clubId,
                 memberId: memberId,
                 memberRole: $("#member-role").val(),
                 memberPermissions: []
@@ -95,6 +98,27 @@
             }
 
             console.log(formData);
+
+
+            $.ajax({
+                type: "PUT",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: `http://localhost:8080/student/updatePermission`,
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+
+
+                }
+            });
+
+
         });
 
         for (let i = 1; i <= 5; i++) {
@@ -114,41 +138,10 @@
 
 
     $(document).ready(function() {
+        //var clubId = [[${clubId}]];
         var table = $('#members').DataTable();
 
-        var dummyResponse = [
-            {memberId: 1,
-                memberEmail: "member1@bilkent.edu.tr",
-                memberName: "Eray",
-                memberSurname: "Tüzün",
-                memberRole: "King",
-                memberPermissions: [3, 4]},
-            {memberId: 2,
-                memberEmail: "member2@bilkent.edu.tr",
-                memberName: "Erdem",
-                memberSurname: "Tuna",
-                memberRole: "TA",
-                memberPermissions: [2, 4]}
-        ]
-        function showMembers(r, i){
-            var permissions = r[i].memberPermissions;
-            var memberRole = r[i].memberRole;
-            console.log(permissions);
-            table.row.add([
-                r[i].memberId, //bu ID ama student ID olacak, backend'de tutulan ID farklı, onu düzenleriz
-                r[i].memberName,
-                r[i].memberSurname,
-                r[i].memberEmail,
-                r[i].memberRole,
-                `<button onclick='openPermissionPopup(${r[i].memberId}, "${memberRole}", ${permissions})'>Manage Permissions</button>`
-            ]).draw(false);
-        };
-
-        for (let i = 0; i < dummyResponse.length; i++) {
-            showMembers(dummyResponse, i);
-        }
-
-        /*$.ajax({
+        $.ajax({
             type: "GET",
             headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -156,14 +149,45 @@
             },
             crossDomain: true,
             contentType: "application/json",
-            url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
-            //url lazım
+            url: `http://localhost:8080/club/get_club_director_members/${clubId}`,
             dataType: 'json',
             success: function(response) {
                 console.log(response);
+                var dummyResponse = [
+                    {memberId: 1,
+                        memberEmail: "member1@bilkent.edu.tr",
+                        memberName: "Eray",
+                        memberSurname: "Tüzün",
+                        memberRole: "King",
+                        memberPermissions: [3, 4]},
+                    {memberId: 2,
+                        memberEmail: "member2@bilkent.edu.tr",
+                        memberName: "Erdem",
+                        memberSurname: "Tuna",
+                        memberRole: "TA",
+                        memberPermissions: [2, 4]}
+                ]
+                function showMembers(r, i){
+                    var permissions = r[i].memberPermissions;
+                    var memberRole = r[i].memberRole;
+                    console.log(permissions);
+                    table.row.add([
+                        r[i].memberId, //bu ID ama student ID olacak, backend'de tutulan ID farklı, onu düzenleriz
+                        r[i].memberName,
+                        r[i].memberSurname,
+                        r[i].memberEmail,
+                        r[i].memberRole,
+                        `<button onclick='openPermissionPopup(${r[i].memberId}, "${memberRole}", ${permissions})'>Manage Permissions</button>`
+                    ]).draw(false);
+                };
+
+                for (let i = 0; i < response.length; i++) {
+                    showMembers(response, i);
+                }
+
 
             }
-        });*/
+        });
     });
 </script>
 </html>

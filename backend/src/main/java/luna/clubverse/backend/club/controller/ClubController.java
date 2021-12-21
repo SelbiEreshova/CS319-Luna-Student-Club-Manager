@@ -37,8 +37,9 @@ public class ClubController {
         return "club_list_student";
     }
 
-    @RequestMapping("/app/club_director_members")
-    public String clubDirectorMembers() {
+    @RequestMapping("/app/club/{clubId}/director_members")
+    public String clubDirectorMembers(Model model, @PathVariable Long clubId) {
+        model.addAttribute("clubId", clubId);
         return "clubdirector_members_list";
     }
 
