@@ -42,7 +42,9 @@ public class ClubController {
     }
 
     @RequestMapping("/app/open_all_clubs")
-    public String openAllClubs() {
+    public String openAllClubs(Model model) {
+        List<ClubQueryResponse>  clubsOfStudent = clubService.getAllClub();
+        model.addAttribute("studentClubList",clubsOfStudent);
 
         return "all_club_list";
     }
