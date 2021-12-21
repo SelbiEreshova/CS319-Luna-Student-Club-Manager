@@ -66,12 +66,47 @@
     document.getElementById("enroll").style.visibility="hidden";
     document.getElementById("cancelEnrollment").style.visibility="hidden";
 
-    $(document).ready(
-        function() {
-            var id = [[${eventId}]];
+    $(document).ready(function() {
+            //var id = [[${eventId}]]
+            console.log("in doc ready function");
+            var dummyEvent1 = {eventId: 1,
+                    eventName: "event 1",
+                    eventDescription: "event 1 desc",
+                    eventStartDate: 2021-12-26,
+                    eventEndDate: 2021-12-26,
+                    eventStartTime: 10.00,
+                    eventEndTime: 13.00,
+                    eventTotalQuota: 50,
+                    eventEnrolledCount: 20,
+                    eventGePoints: 15,
+                    eventRegistrationDeadline: 2021-12-25,
+                    eventInBilkent: true,
+                    eventClassroom: "BZ04",
+                    eventLocationDescription: ""
+            }
+            var startDate = new Date(dummyEvent1.eventStartDate);
+
+            console.log("right before assigning values");
+            $('#title').text(dummyEvent1.eventName);
+            $('#description').text(dummyEvent1.eventDescription);
+            //$('#start-date').val(dummyEvent1.eventStartDate);
+            $('#start-date').add(startDate.getDate());
+            /*
+            $('#end-date').add((dummyEvent1.eventEndDate).getDate());
+            $('#start-time').add((dummyEvent1.eventStartTime).getTime());
+            $('#end-time').add((dummyEvent1.eventEndTime).getTime());
+            $('#available-quota').add(dummyEvent1.eventTotalQuota - dummyEvent1.eventEnrolledCount);
+            $('#ge-points').add(dummyEvent1.eventGePoints);
+            $('#reg-deadline').add((dummyEvent1.eventRegistrationDeadline).getTime());
+            */
+            if (dummyEvent1.eventInBilkent) {
+                $('#location-info').text(dummyEvent1.eventClassroom);
+            } else {
+                $('#location-info').text(dummyEvent1.eventLocationDescription);
+            };
 
             //Get event
-            $.ajax({
+            /*$.ajax({
                 type: "GET",
                 headers: {
                     "Access-Control-Allow-Origin": "*",
@@ -190,7 +225,8 @@
                         console.log("ERROR: ", e);
                     }
                 })
-            }
-        })
+            }*/
+        }
+    );
 </script>
 </html>
