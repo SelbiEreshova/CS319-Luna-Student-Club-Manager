@@ -64,15 +64,13 @@
 
     });
 
-    /*
     $("#signOut").on("click", function (event) {
         event.preventDefault();
+        localStorage.removeItem("Authorization");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userType");
 
-        localStorage.setItem("userId", null);
-        localStorage.setItem("userType", null);
-        localStorage.setItem("user", null);
-
+        window.location.href = "http://localhost:8080/login"
     });
-     */
     </script>
 </html>

@@ -269,10 +269,11 @@
                     data : JSON.stringify(formData),
                     dataType : 'json',
                     success : function(result) {
-                        if (result.messageType === "SUCCESS") {
-                            alert("Event created");
-                        } else {
-                            alert("oh nooo");
+                        if (result.messageType == "ERROR") {
+                            alert(result.message)
+                        } else if (result.messageType == "SUCCESS") {
+                            // add href
+                            alert(result.message)
                         }
                         console.log(result);
                     },

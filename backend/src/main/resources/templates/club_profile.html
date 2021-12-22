@@ -101,11 +101,17 @@ $.ajax(
                     data : JSON.stringify(posted),
                     dataType : 'json',
                     success : function(result) {
-                        if (result.messageType == "SUCCESS") {
-                            alert("güncellendi");
-                        } else {
-                            alert("hataaa");
+                        if (result.messageType == "ERROR") {
+                            alert(result.message)
+                        } else if (result.messageType == "SUCCESS") {
+                            // add href
+                            alert(result.message)
                         }
+                        //if (result.messageType == "SUCCESS") {
+                        //    alert("güncellendi");
+                        //} else {
+                        //    alert("hataaa");
+                        //}
                         console.log(result);
                     },
                     error : function(e) {

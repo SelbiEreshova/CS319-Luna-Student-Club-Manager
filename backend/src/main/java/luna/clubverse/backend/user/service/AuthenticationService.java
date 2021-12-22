@@ -60,7 +60,7 @@ public class AuthenticationService {
             String jwt = JwtUtil.generateToken(authenticatedToken, key);
 
             User userFromDb = userRepository.findByUsername(loginRequest.getUsername())
-                    .orElseThrow();
+                    .orElseThrow(() ->new EntityNotFoundException("User with username " + loginRequest.getUsername() + "is not found"));
 
             Long clubId = null;
             if(userFromDb instanceof ClubDirector) {
@@ -102,7 +102,7 @@ public class AuthenticationService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         User user = userRepository.findByUsername((String) authentication.getName())
-                .orElseThrow();
+                .orElseThrow(() ->new EntityNotFoundException("User is not found"));
 
         if(!passwordEncoder.matches(request.getOldPassword(),user.getPassword())) {
             throw new BadCredentialsException("The wrong password");
@@ -165,7 +165,7 @@ public class AuthenticationService {
 
     public MessageResponse updatePermission(UpdatePermissionRequest request) {
         Student student = (Student) userRepository.findById(request.getMemberId())
-                .orElseThrow();
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + request.getMemberId() + "is not found"));
 
         List<Authority> authorities = student.updateAuthority(request.getClubId(), request.getMemberPermissions());
 

@@ -11,6 +11,7 @@ import java.time.LocalTime;
 public class  EventQueryResponse {
 
     private final String name;
+    private final String club;
     private final String description;
     private final EventStatus eventStatus;
     private final int gePoint;
@@ -37,6 +38,7 @@ public class  EventQueryResponse {
 
     public EventQueryResponse(final Event event) {
         this.name = event.getName();
+        this.club = event.getClub().getName();
         this.description = event.getDescription();
         this.eventStatus = event.getEventStatus();
         this.gePoint = event.getGePoint();

@@ -87,8 +87,101 @@
     document.getElementById("enroll").style.visibility="hidden";
     document.getElementById("cancelEnrollment").style.visibility="hidden";
 
+    var id = [[${eventId}]];
+
+    // get enrollment status
+    $.ajax({
+        type: "GET",
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/event/${id}/isEnrolled/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+
+            if (response.result) {
+                document.getElementById("enroll").style.visibility="hidden";
+                document.getElementById("cancelEnrollment").style.visibility="visible";
+            } else {
+                document.getElementById("enroll").style.visibility="visible";
+                document.getElementById("cancelEnrollment").style.visibility="hidden";
+            }
+
+            // refresh etmek için bir şey eklenmeli
+        },
+        error: function (e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
+    })
+
+    $("#enrollBtn").click(function() {
+        // Prevent the form from submitting via the browser.
+        //event.preventDefault();
+        enroll();
+    });
+
+    function  enroll() {
+        $.ajax({
+            type: "PUT",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/${id}/addEnrolledStudent/${localStorage.getItem('userId')}`,
+            dataType: 'json',
+            success: function (response) {
+                if (result.messageType == "ERROR") {
+                    alert(result.message)
+                } else if (result.messageType == "SUCCESS") {
+                    alert(result.message)
+                    // add refresh
+                }
+            },
+            error: function (e) {
+                alert("Error!")
+                console.log("ERROR: ", e);
+            }
+        })
+    }
+
+    $("#cancelEnrollmentBtn").click(function() {
+        // Prevent the form from submitting via the browser.
+        //event.preventDefault();
+        cancelEnrollment();
+    });
+
+    function  cancelEnrollment() {
+        $.ajax({
+            type: "PUT",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/${id}/deleteEnrolledStudent/${localStorage.getItem('userId')}`,
+            dataType: 'json',
+            success: function (response) {
+                if (response.messageType == "ERROR") {
+                    alert(response.message)
+                }
+            },
+            error: function (e) {
+                alert("Error!")
+                console.log("ERROR: ", e);
+            }
+        })
+    }
+
     $(document).ready(function() {
-            var id = [[${eventId}]];
+
             console.log("in doc ready function");
 
             var dummyEvent1 = {eventId: 1,
@@ -109,48 +202,11 @@
                     descriptionLocation: "BZ04 (B building, first floor)"
             };
 
-            console.log("right before assigning values");
-            $('#event-name').text(dummyEvent1.name.toUpperCase());
-            $('#status').text(dummyEvent1.status.toLowerCase());
-            $('#description').text(dummyEvent1.description);
-            $('#club').text(dummyEvent1.club);
 
-            if (dummyEvent1.memberOnly) {
-                $('#member-only').prop("checked", true);
-            } else {
-                $('#member-only').prop("checked", false);
-            }
-
-            var startDate = new Date(dummyEvent1.startDate);
-            $('#start-date').text(startDate.toLocaleDateString());
-
-            var endDate = new Date(dummyEvent1.endDate);
-            $('#end-date').text(endDate.toLocaleDateString());
-
-            var dummyDate = "1111-11-11";
-            var startTime = new Date(dummyDate + " " + dummyEvent1.startTime);
-            $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
-
-            var endTime = new Date(dummyDate + " " + dummyEvent1.endTime);
-            $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
-
-            $('#remaining-quota').text(dummyEvent1.remainingQuota);
-            $('#ge-point').text(dummyEvent1.gePoint);
-
-            if (dummyEvent1.inBilkent) {
-                $('#in-bilkent').prop("checked", true);
-            } else {
-                $('#in-bilkent').prop("checked", false);
-            }
-
-            $('#location-description').text(dummyEvent1.descriptionLocation);
-
-            var regDate = new Date(dummyEvent1.registrationDeadline);
-            $('#reg-deadline').text(regDate.toLocaleDateString());
 
 
             //Get event
-            /*$.ajax({
+            $.ajax({
                 type: "GET",
                 headers: {
                     "Access-Control-Allow-Origin": "*",
@@ -159,105 +215,56 @@
                 crossDomain: true,
                 contentType: "application/json",
                 url: `http://localhost:8080/event/get/${id}`,
-                success: function (res) {
-                    console.log(res);
-                    //buralar yukarıdakinden kopyalanmalı sanıyorum
-                },
-                error: function (e) {
-                    alert("Error!")
-                    console.log("ERROR: ", e);
-                }
-            });
-
-
-
-            // get enrollment status
-            $.ajax({
-                type: "GET",
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    Authorization : localStorage.getItem('Authorization')
-                },
-                crossDomain: true,
-                contentType: "application/json",
-                url: `http://localhost:8080/event/${id}/isEnrolled/${localStorage.getItem('userId')}`,
-                dataType: 'json',
                 success: function (response) {
                     console.log(response);
+                    console.log("right before assigning values");
+                    $('#event-name').text(response.name.toUpperCase());
+                    $('#status').text(response.eventStatus.toLowerCase());
+                    $('#description').text(response.description);
+                    $('#club').text(response.club);
 
-                    if (response.result) {
-                        document.getElementById("enroll").style.visibility="hidden";
-                        document.getElementById("cancelEnrollment").style.visibility="visible";
+                    if (response.memberOnly) {
+                        $('#member-only').prop("checked", true);
                     } else {
-                        document.getElementById("enroll").style.visibility="visible";
-                        document.getElementById("cancelEnrollment").style.visibility="hidden";
+                        $('#member-only').prop("checked", false);
                     }
 
-                    // refresh etmek için bir şey eklenmeli
+                    var startDate = new Date(response.startDate);
+                    $('#start-date').text(startDate.toLocaleDateString());
+
+                    var endDate = new Date(response.endDate);
+                    $('#end-date').text(endDate.toLocaleDateString());
+
+                    var dummyDate = "1111-11-11";
+                    var startTime = new Date(dummyDate + " " + response.startTime);
+                    $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
+
+                    var endTime = new Date(dummyDate + " " + response.endTime);
+                    $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
+
+                    $('#remaining-quota').text(response.remainingQuota);
+                    $('#ge-point').text(response.gePoint);
+
+                    if (response.inBilkent) {
+                        $('#in-bilkent').prop("checked", true);
+                    } else {
+                        $('#in-bilkent').prop("checked", false);
+                    }
+
+                    $('#location-description').text(response.descriptionLocation);
+
+                    var regDate = new Date(response.registrationDeadline);
+                    $('#reg-deadline').text(regDate.toLocaleDateString());
                 },
                 error: function (e) {
                     alert("Error!")
                     console.log("ERROR: ", e);
                 }
-            })
-
-            $("#enrollBtn").click(function() {
-                // Prevent the form from submitting via the browser.
-                //event.preventDefault();
-                enroll();
             });
 
-            function  enroll() {
-                $.ajax({
-                    type: "PUT",
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        Authorization : localStorage.getItem('Authorization')
-                    },
-                    crossDomain: true,
-                    contentType: "application/json",
-                    url: `http://localhost:8080/event/${id}/addEnrolledStudent/${localStorage.getItem('userId')}`,
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response) {
-                            console.log(response.message);
-                        }
-                    },
-                    error: function (e) {
-                        alert("Error!")
-                        console.log("ERROR: ", e);
-                    }
-                })
-            }
 
-            $("#cancelEnrollmentBtn").click(function() {
-                // Prevent the form from submitting via the browser.
-                //event.preventDefault();
-                cancelEnrollment();
-            });
 
-            function  cancelEnrollment() {
-                $.ajax({
-                    type: "PUT",
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        Authorization : localStorage.getItem('Authorization')
-                    },
-                    crossDomain: true,
-                    contentType: "application/json",
-                    url: `http://localhost:8080/event/${id}/deleteEnrolledStudent/${localStorage.getItem('userId')}`,
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response) {
-                            console.log(response.message);
-                        }
-                    },
-                    error: function (e) {
-                        alert("Error!")
-                        console.log("ERROR: ", e);
-                    }
-                })
-            }*/
+
         }
     );
 </script>

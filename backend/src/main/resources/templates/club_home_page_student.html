@@ -138,11 +138,17 @@
             contentType : "application/json",
             url : "http://localhost:8080/club/1/directApplicationToClub/"+ localStorage.getItem('userId'),
             success : function(result) {
-                if (result.messageType === "SUCCESS") {
-                    alert("You are now a member");
-                } else {
-                    alert("oh nooo smthhh");
+                if (result.messageType == "ERROR") {
+                    alert(result.message)
+                } else if (result.messageType == "SUCCESS") {
+                    // add href
+                    alert(result.message)
                 }
+                //if (result.messageType === "SUCCESS") {
+                //    alert("You are now a member");
+                //} else {
+                //    alert("oh nooo smthhh");
+                //}
                 console.log(result);
             },
             error : function(e) {

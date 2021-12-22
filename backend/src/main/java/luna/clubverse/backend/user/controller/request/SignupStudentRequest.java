@@ -18,7 +18,7 @@ public class SignupStudentRequest {
     @NotBlank(message = "Last name cannot be empty")
     private final String lastname;
 
-    @NotNull(message = "Bilkent ID cannot be empty")
+    @NotNull(message = "Bilkent ID needs to be eight digits")
     @Min(value = 10000000, message = "Bilkent ID should consist of eight digits")
     @Max(value = 99999999, message = "Bilkent ID should consist of eight digits")
     private final Integer bilkentId;

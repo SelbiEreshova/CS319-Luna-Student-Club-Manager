@@ -108,7 +108,12 @@
                 data: JSON.stringify(formData),
                 dataType: 'json',
                 success: function(response) {
-                    console.log(response);
+                    if (response.messageType == "ERROR") {
+                        alert(response.message)
+                    } else if (response.messageType == "SUCCESS") {
+                        // add href
+                        alert(response.message)
+                    }
 
 
                 }

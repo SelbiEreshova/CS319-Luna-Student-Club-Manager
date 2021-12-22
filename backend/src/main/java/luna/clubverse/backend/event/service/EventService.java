@@ -125,17 +125,18 @@ public class EventService {
     public List<EventListQueryResponse> getEventsForStudent(Long id) {
         //return eventRepository.findEventsByStudentId(id).stream().map(EventQueryResponse::new).toList();
         //return cLubRepository.findAll().
-        Student student = (Student) userRepository.findById(id).orElseThrow();
+        Student student = (Student) userRepository.findById(id)
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + id + "is not found"));
         return student.getEnrolledEvents().stream().map(EventListQueryResponse::new).toList();
 
     }
 
     public MessageResponse addEnrolledStudent(Long eventId, Long userId) {
         Event eventFromDB = eventRepository.findById(eventId)
-                .orElseThrow();
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
 
         Student studentFromDB = (Student) userRepository.findById(userId)
-                .orElseThrow();
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
 
         eventFromDB.addEnrolledStudent(studentFromDB);
 
@@ -146,10 +147,10 @@ public class EventService {
 
     public MessageResponse deleteEnrolledStudent(Long eventId, Long userId) {
         Event eventFromDB = eventRepository.findById(eventId)
-                .orElseThrow();
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
 
         Student studentFromDB = (Student) userRepository.findById(userId)
-                .orElseThrow();
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
         eventFromDB.deleteEnrolledStudent(studentFromDB);
 
         eventRepository.save(eventFromDB);
@@ -159,10 +160,10 @@ public class EventService {
 
     public BooleanResponse isEnrolled(Long eventId, Long userId) {
         Event eventFromDB = eventRepository.findById(eventId)
-                .orElseThrow();
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
 
         Student studentFromDB = (Student) userRepository.findById(userId)
-                .orElseThrow();
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
 
         boolean result = eventFromDB.isEnrolled(studentFromDB);
         return new BooleanResponse(result);

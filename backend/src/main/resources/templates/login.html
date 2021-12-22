@@ -116,13 +116,8 @@
                         console.log(result)
                         if (result.messageType == "SUCCESS") {
                             localStorage.setItem("Authorization", result.message);
-                            const user = {
-                                userId: result.userId,
-                                userType: result.userType
-                            };
                             localStorage.setItem("userId", result.userId);
                             localStorage.setItem("userType", result.userType);
-                            localStorage.setItem("user", user);
                             console.log(result);
                             if(result.userType == "STUDENT")
                             {
@@ -139,7 +134,9 @@
                             }
                             //window.location.href = `http://localhost:8080/app/${localStorage.getItem("userType")}HomePage`;
                         } else
-                            alert("oh nooo");
+                        if (result.messageType == "ERROR") {
+                            alert(result.message)
+                        }
                         },
                     error: function (e) {
                         alert("Error!")

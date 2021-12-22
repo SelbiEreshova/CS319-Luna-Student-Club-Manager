@@ -113,7 +113,7 @@ public class ClubService {
 
     public List<MemberQueryresponse> getMembers(Long clubId) {
         return cLubRepository.findById(clubId)
-                .orElseThrow()
+                .orElseThrow(()-> new EntityNotFoundException("The club with id " + clubId + " is not found"))
                 .getMembers()
                 .stream()
                 .map(member -> new MemberQueryresponse(member, clubId, getPermissionsOfAMember((Student) member,clubId)))

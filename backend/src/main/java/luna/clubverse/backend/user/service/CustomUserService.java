@@ -32,7 +32,7 @@ public class CustomUserService {
 
     public List<EventListQueryResponse> getFutureEventsOfStudent(Long userId) {
         Student studentFromDB = (Student) userRepository.findById(userId)
-                .orElseThrow();
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
         return studentFromDB.getEnrolledEvents()
                 .stream()
                 .filter(event-> event.getStartDate().compareTo(LocalDate.now()) >= 0)
