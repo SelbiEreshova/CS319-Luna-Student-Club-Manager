@@ -36,6 +36,15 @@ public class CustomUserController {
         return "student_profile";
     }
 
+
+    @RequestMapping("/app/faculty_advisor_profile")
+    public String getFacultyAdvisorProfile() {
+        //eventService.addEventToClub(clubId,);
+        //model.addAttribute("club", club);
+        //Student student = customUserService.getStudent(studentId);
+        return "faculty_profile";
+    }
+
     @RequestMapping("/app/admin_student_list")
     public String getStudents() {
         return "admin_student_list";

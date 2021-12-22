@@ -92,5 +92,11 @@ public class EventController {
         return "student_my_event_list";
     }
 
+    @RequestMapping("/app/facultyAdvisor_event_list")
+    public String facultyAdvisorEventPage() {
+        // model.addAttribute("eventId", id);
+        return "faculty_event_list";
+    }
+
 }
 

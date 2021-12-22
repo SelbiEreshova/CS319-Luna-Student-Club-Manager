@@ -130,6 +130,14 @@ public class EventRestController {
     }
 
 
+    @CrossOrigin
+    @GetMapping("/facultyAdvisorEvents/{id}")
+    public List<EventListQueryResponse> getEventsForFacultyAdvisor(@PathVariable Long id) {
+        List<EventListQueryResponse> events = (eventService.getEventsForClub(id));
+        return events;
+    }
+
+
 
 
     @PutMapping("/{eventId}/addEnrolledStudent/{userId}")
