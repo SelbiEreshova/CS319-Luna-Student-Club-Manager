@@ -102,7 +102,7 @@
         },
         crossDomain: true,
         contentType: "application/json",
-        url: `http://localhost:8080/event/${id}/isEnrolled/${localStorage.getItem('userId')}`,
+        url: `http://localhost:8080/event/${id}/isEnrolledStudent/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function (response) {
             console.log(response);

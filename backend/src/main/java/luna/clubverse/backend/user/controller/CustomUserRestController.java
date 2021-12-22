@@ -22,9 +22,20 @@ public class CustomUserRestController {
         this.customUserService = customUserService;
     }
 
+    //GET MAPPING KOTU
     @GetMapping("/studentHomePage/{userId}")
     public List<EventListQueryResponse> getFutureEventsOfStudent(@PathVariable Long userId) {
         return customUserService.getFutureEventsOfStudent(userId);
+    }
+
+    @GetMapping("/getPastEventsOfStudent/{userId}")
+    public List<EventListQueryResponse> getPastEventsOfStudent(@PathVariable Long userId) {
+        return customUserService.getPastEventsOfStudent(userId);
+    }
+
+    @GetMapping("/getOnGoingEventsOfStudent/{userId}")
+    public List<EventListQueryResponse> getOnGoingEventsOfStudent(@PathVariable Long userId) {
+        return customUserService.getOnGoingEventsOfStudent(userId);
     }
 
     @CrossOrigin

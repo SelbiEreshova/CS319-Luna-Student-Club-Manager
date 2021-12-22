@@ -16,11 +16,16 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
 public class CustomUserService {
 
+    private final String FUTURE = "Future";
+    private final String PAST = "Past";
+    private final String ONGOING = "Ongoing";
     private final UserRepository userRepository;
     private final ClubRepository clubRepository;
     private final EventRepository eventRepository;
@@ -37,10 +42,60 @@ public class CustomUserService {
                 .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
         return studentFromDB.getEnrolledEvents()
                 .stream()
-                .filter(event-> event.getStartDate().compareTo(LocalDate.now()) >= 0)
+                .filter(event-> checkEventInterval(event.getStartDate(), event.getEndDate(), event.getStartTime(), event.getEndTime()).equals(FUTURE))
                 .map(event -> new EventListQueryResponse(event))
                 .toList();
+
     }
+
+    public String checkEventInterval(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime)
+    {
+
+        //LocalDate now = LocalDate.now();
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime start =  LocalDateTime.of(startDate,startTime);
+        LocalDateTime end = LocalDateTime.of(endDate,endTime);
+
+
+        if ( start.compareTo(now) > 0 )
+        {
+            return FUTURE;
+        }
+        if ( end.compareTo(now) < 0 )
+        {
+            return PAST;
+        }
+
+
+        return ONGOING;
+
+    }
+
+    public List<EventListQueryResponse> getPastEventsOfStudent(Long userId) {
+        Student studentFromDB = (Student) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
+        return studentFromDB.getEnrolledEvents()
+                .stream()
+                .filter(event-> checkEventInterval(event.getStartDate(), event.getEndDate(), event.getStartTime(), event.getEndTime()).equals(PAST))
+                .map(event -> new EventListQueryResponse(event))
+                .toList();
+
+    }
+
+
+
+    public List<EventListQueryResponse> getOnGoingEventsOfStudent(Long userId) {
+        Student studentFromDB = (Student) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
+        return studentFromDB.getEnrolledEvents()
+                .stream()
+                .filter(event-> checkEventInterval(event.getStartDate(), event.getEndDate(), event.getStartTime(), event.getEndTime()).equals(ONGOING))
+                .map(event -> new EventListQueryResponse(event))
+                .toList();
+
+    }
+
+
 
     public List<ClubQueryResponse> getClubsOfStudent(Long userId) {
         Student userFromDB = (Student) userRepository.findById(userId)
