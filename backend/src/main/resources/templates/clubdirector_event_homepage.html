@@ -96,17 +96,16 @@
     </table>
 </div>
 <div class="d-flex justify-content-end" id = "edit-attendance"  style="width: 100%; margin-top: 5%">
-    <button type="button" class="btn" style="width: 200px; background-color: #20B5BDFF; margin-right: 3%" id="editAttendanceButton"><a class="text-dark font-weight-bold">Edit Attendance</a></button>
+    <button type="button" class="btn" style="width: 200px; background-color: #20B5BDFF; margin-right: 3%" id="editAttendanceButton"><a>Allow Taking Attendance</a></button>
 </div>
 <div class="d-flex flex-column">
-        <h2  style="align-self: center">Attendee List</h2>
+        <h2 style="align-self: center">Attendee List</h2>
         <ul class="list-group" style="align-self: center" id="attendee-list"></ul>
 </div>
 
 </body>
 
 <script>
-
     document.getElementById("editEventButton").style.visibility="hidden";
     document.getElementById("cancelEventButton").style.visibility="hidden";
     document.getElementById("deleteEventButton").style.visibility="hidden";
@@ -181,12 +180,30 @@
             }
 
             for (let i = 0; i < dummyAttendees.length; i++) {
-                var item = `<div className="form-check" type="checkbox" style="width: 20px; height: 20px">
-                    <input className="form-check-input" type="checkbox">
+                var item = `<div className="form-check" type="checkbox">
+                    <input id='${i}' className="form-check-input" type="checkbox">
                     <label className="form-check-label">${dummyAttendees[i].name_surname} - ${dummyAttendees[i].id}</label>
                 </div>`;
-                $("#attendee-list").append('<li> ' + item + '</li>');
+
+                $("#attendee-list").append(`<li>` + item + `</li>`);
+                $(`#${i}`).prop("disabled", "disabled");
             }
+
+            $("#editAttendanceButton").click(function() {
+                console.log($("#editAttendanceButton").text());
+                if ($("#editAttendanceButton").text() == "Stop Taking Attendance") {
+                    $("#editAttendanceButton").html("Allow Taking Attendance");
+                    for (let i = 0; i < dummyAttendees.length; i++) {
+                        $(`#${i}`).prop("disabled", "disabled");
+                    }
+                }
+                else {
+                    $("#editAttendanceButton").html("Stop Taking Attendance");
+                    for (let i = 0; i < dummyAttendees.length; i++) {
+                        $(`#${i}`).prop("disabled", "");
+                    }
+                }
+            });
 
             //filling out the table
             $('#event-name').text(dummyEvent1.name.toUpperCase());
