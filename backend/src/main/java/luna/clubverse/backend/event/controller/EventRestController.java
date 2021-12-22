@@ -7,6 +7,7 @@ import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
+import luna.clubverse.backend.event.controller.response.EventAndParticipantQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventHomePageResponse;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
@@ -58,6 +59,14 @@ public class EventRestController {
     @GetMapping("/get/{id}")
     public EventQueryResponse getEvent(@PathVariable Long id) {
         return new EventQueryResponse(eventService.getEvent(id));
+    }
+
+    // club id eklenecek
+    @CrossOrigin
+    @GetMapping("/getWithParticipants/{id}")
+    public EventAndParticipantQueryResponse getWithParticipants(@PathVariable Long id) {
+        EventAndParticipantQueryResponse response = new EventAndParticipantQueryResponse(eventService.getEvent(id));
+        return response;
     }
 
     @CrossOrigin
