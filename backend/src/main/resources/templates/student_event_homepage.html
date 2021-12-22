@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="row justify-content-around" style="margin-top: 3%">
-    <h2 style="margin-top: 8%" id="title">Event title</h2>
+    <h2 style="margin-top: 8%" id="event-name">Event name</h2>
     <img src="ing-amblem.jpg" alt="Club logo" style="width: 250px">
 </div>
 <div class="row justify-content-around">
@@ -18,7 +18,12 @@
         <tbody>
         <tr>
             <th scope="row" style="background-color: #c5c7c7; width: 15%">Description</th>
-            <td style="background-color: #c0efef" id="description"></td>
+            <td style="background-color: #eafafa" id="description"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #c5c7c7; width: 15%">Member Exclusive</th>
+            <!--<td style="background-color: #eafafa" id="member-only"></td>-->
+            <td style="background-color: #c0efef"><input style="width: 20px; height: 20px" type="checkbox" class="form-check" disabled="disabled" id="member-only"></td>
         </tr>
         <tr>
             <th scope="row" style="background-color: #C5C7C7FF">Start Date</th>
@@ -42,11 +47,24 @@
         </tr>
         <tr>
             <th scope="row" style="background-color: #C5C7C7FF">GE Points</th>
-            <td style="background-color: #c0efef" id="ge-points"></td>
+            <td style="background-color: #c0efef" id="ge-point"></td>
         </tr>
         <tr>
-            <th scope="row" style="background-color: #C5C7C7FF">Location/Classroom</th>
-            <td style="background-color: #eafafa" id="location-info"></td>
+            <th scope="row" style="background-color: #C5C7C7FF">In Bilkent</th>
+            <!--<td style="background-color: #eafafa" id="in-bilkent"></td>-->
+            <td style="background-color: #eafafa"><input style="width: 20px; height: 20px" type="checkbox" class="form-check" disabled="disabled" id="in-bilkent"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Classroom</th>
+            <td style="background-color: #eafafa" id="classroom"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Building</th>
+            <td style="background-color: #eafafa" id="building"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Location Description</th>
+            <td style="background-color: #eafafa" id="location-description-info"></td>
         </tr>
         <tr>
             <th scope="row" style="background-color: #C5C7C7FF">Registration Deadline</th>
@@ -67,43 +85,66 @@
     document.getElementById("cancelEnrollment").style.visibility="hidden";
 
     $(document).ready(function() {
-            var id = [[${eventId}]]
+            var id = [[${eventId}]];
             console.log("in doc ready function");
+
             var dummyEvent1 = {eventId: 1,
-                    eventName: "event 1",
-                    eventDescription: "event 1 desc",
-                    eventStartDate: 2021-12-26,
-                    eventEndDate: 2021-12-26,
-                    eventStartTime: 10.00,
-                    eventEndTime: 13.00,
-                    eventTotalQuota: 50,
-                    eventEnrolledCount: 20,
-                    eventGePoints: 15,
-                    eventRegistrationDeadline: 2021-12-25,
-                    eventInBilkent: true,
-                    eventClassroom: "BZ04",
-                    eventLocationDescription: ""
-            }
-            var startDate = new Date(dummyEvent1.eventStartDate);
+                    name: "event 1",
+                    description: "event 1 desc",
+                    startDate: "2021-12-26",
+                    endDate:"2021-12-26",
+                    startTime: "10:00:00",
+                    endTime: "13:00:00",
+                    quota: 50,
+                    remainingQuota: 20,
+                    gePoint: 15,
+                    registrationDeadline: "2021-12-25",
+                    inBilkent: true,
+                    memberOnly: false,
+                    classroom: "BZ04",
+                    building: "B building",
+                    descriptionLocation: "first floor"
+            };
 
             console.log("right before assigning values");
-            $('#title').text(dummyEvent1.eventName);
-            $('#description').text(dummyEvent1.eventDescription);
-            //$('#start-date').val(dummyEvent1.eventStartDate);
-            $('#start-date').add(startDate.getDate());
-            /*
-            $('#end-date').add((dummyEvent1.eventEndDate).getDate());
-            $('#start-time').add((dummyEvent1.eventStartTime).getTime());
-            $('#end-time').add((dummyEvent1.eventEndTime).getTime());
-            $('#available-quota').add(dummyEvent1.eventTotalQuota - dummyEvent1.eventEnrolledCount);
-            $('#ge-points').add(dummyEvent1.eventGePoints);
-            $('#reg-deadline').add((dummyEvent1.eventRegistrationDeadline).getTime());
-            */
-            if (dummyEvent1.eventInBilkent) {
-                $('#location-info').text(dummyEvent1.eventClassroom);
+            $('#event-name').text(dummyEvent1.name.toUpperCase());
+            $('#description').text(dummyEvent1.description);
+
+            if (dummyEvent1.memberOnly) {
+                $('#member-only').prop("checked", true);
             } else {
-                $('#location-info').text(dummyEvent1.eventLocationDescription);
-            };
+                $('#member-only').prop("checked", false);
+            }
+
+            var startDate = new Date(dummyEvent1.startDate);
+            $('#start-date').text(startDate.toLocaleDateString());
+
+            var endDate = new Date(dummyEvent1.endDate);
+            $('#end-date').text(endDate.toLocaleDateString());
+
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + dummyEvent1.startTime);
+            $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
+
+            var endTime = new Date(dummyDate + " " + dummyEvent1.endTime);
+            $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
+
+            $('#available-quota').text(dummyEvent1.remainingQuota);
+            $('#ge-point').text(dummyEvent1.gePoint);
+
+            if (dummyEvent1.inBilkent) {
+                $('#in-bilkent').prop("checked", true);
+            } else {
+                $('#in-bilkent').prop("checked", false);
+            }
+
+            $('#classroom').text(dummyEvent1.classroom);
+            $('#building').text(dummyEvent1.building);
+            $('#location-description-info').text(dummyEvent1.descriptionLocation);
+
+            var regDate = new Date(dummyEvent1.registrationDeadline);
+            $('#reg-deadline').text(regDate.toLocaleDateString());
+
 
             //Get event
             /*$.ajax({
@@ -139,7 +180,7 @@
                 }
             });
 
-                */
+
 
             // get enrollment status
             $.ajax({
@@ -227,7 +268,7 @@
                         console.log("ERROR: ", e);
                     }
                 })
-            }
+            }*/
         }
     );
 </script>
