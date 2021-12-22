@@ -199,12 +199,12 @@ public class EventRestController {
         return eventService.deleteEnrolledFacultyAdvisor(eventId, userId);
     }
 
-    @GetMapping("/{eventId}/isEnrolled/{userId}")
+    @GetMapping("/{eventId}/isEnrolledStudent/{userId}")
     public BooleanResponse isEnrolledStudent(@PathVariable Long eventId, @PathVariable Long userId) {
         return eventService.isEnrolledStudent(eventId, userId);
     }
 
-    @GetMapping("/{eventId}/isEnrolled/{userId}")
+    @GetMapping("/{eventId}/isEnrolledFacultyAdvisor/{userId}")
     public BooleanResponse isEnrolledFacultyAdvisor(@PathVariable Long eventId, @PathVariable Long userId) {
         return eventService.isEnrolledFacultyAdvisor(eventId, userId);
     }
