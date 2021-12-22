@@ -96,15 +96,15 @@ public class Event extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "event_enrolled_student",
-            joinColumns = @JoinColumn(name = "enrolled_student_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id")
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "enrolled_student_id")
     )
     private Set<Student> enrolledStudents;
 
     @ManyToMany
     @JoinTable(name = "event_attended_student",
-            joinColumns = @JoinColumn(name = "attended_student_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id")
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "attended_student_id")
     )
     private Set<Student> attendedStudents;
 
