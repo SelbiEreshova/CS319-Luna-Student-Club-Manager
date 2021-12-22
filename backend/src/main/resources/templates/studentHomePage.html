@@ -77,7 +77,70 @@
           }
         }
       });
+
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/getPastEventsOfStudent/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
+          function showEvents(r, i){
+            table.row.add([
+              r[i].eventName,
+              r[i].clubName,
+              r[i].startDate,
+              r[i].startTime,
+              r[i].gePoint,
+              `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
+            ]).draw(false);
+          };
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
+
+
+
+
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/getOnGoingEventsOfStudent/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
+          function showEvents(r, i){
+            table.row.add([
+              r[i].eventName,
+              r[i].clubName,
+              r[i].startDate,
+              r[i].startTime,
+              r[i].gePoint,
+              `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
+            ]).draw(false);
+          };
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
     });
+
+
 </script>
 
 </html>
