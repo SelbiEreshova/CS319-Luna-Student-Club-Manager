@@ -42,18 +42,12 @@ public class ClubController {
     }
 
     @RequestMapping("/app/open_all_clubs")
-    public String openAllClubs(Model model) {
-        List<ClubQueryResponse>  clubsOfStudent = clubService.getAllClub();
-        model.addAttribute("studentClubList",clubsOfStudent);
-
-        return "all_club_list";
+    public String openAllClubs() {
+          return "all_club_list";
     }
 
     @RequestMapping("/app/open_clubs_student/{userId}")
-    public String openStudentClubs(Model model, @PathVariable Long userId) {
-
-        List<ClubQueryResponse>  clubsOfStudent = customUserService.getClubsOfStudent(userId);
-        model.addAttribute("studentClubList",clubsOfStudent);
+    public String openStudentClubs( @PathVariable Long userId) {
         return "club_list_student";
     }
 
