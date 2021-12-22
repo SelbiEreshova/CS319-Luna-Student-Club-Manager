@@ -66,8 +66,16 @@ public class ClubController {
     }
 
     @RequestMapping("/app/finance_table")
-    public String getFinanceTable() {
+    public String openFinanceTable() {
         return "finance_table_director";
     }
+
+    @RequestMapping("/app/finance_table_advisor")
+    public String openFinanceTableForAdvisor() {
+        return "finance_table_faculty_advisor";
+    }
+
+
+
 
 }
