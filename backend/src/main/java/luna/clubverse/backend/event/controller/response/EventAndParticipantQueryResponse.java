@@ -1,5 +1,6 @@
 package luna.clubverse.backend.event.controller.response;
 
+import lombok.Getter;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 
@@ -8,6 +9,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class EventAndParticipantQueryResponse {
 
     private final String name;
