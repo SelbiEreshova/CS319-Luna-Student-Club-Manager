@@ -97,7 +97,7 @@
         },
         crossDomain: true,
         contentType: "application/json",
-        url: `http://localhost:8080/facultyAdvisorEvents/${localStorage.getItem('clubId')}`,
+        url: `http://localhost:8080/event/facultyAdvisorEvents/${localStorage.getItem('clubId')}`,
         dataType: 'json',
         success: function(response) {
             console.log(response);

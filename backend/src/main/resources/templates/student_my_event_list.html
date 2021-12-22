@@ -68,7 +68,7 @@ $(".nav_bar").load("http://localhost:8080/student.html");
         },
         crossDomain: true,
         contentType: "application/json",
-        url: `http://localhost:8080/myEvents/${localStorage.getItem('userId')}`,
+        url: `http://localhost:8080/event/myEvents/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
           console.log(response);
