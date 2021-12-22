@@ -5,6 +5,7 @@ import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.common.BooleanResponse;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
+import luna.clubverse.backend.event.controller.response.EventHomePageResponse;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.entity.Event;
@@ -16,11 +17,16 @@ import luna.clubverse.backend.financedata.repository.FinanceDataRepository;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
 import luna.clubverse.backend.financetable.repository.FinanceTableRepository;
 
+import luna.clubverse.backend.user.entity.ClubDirector;
+import luna.clubverse.backend.user.entity.User;
+import luna.clubverse.backend.user.enums.UserType;
 import org.springframework.data.domain.Sort;
 
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.repository.UserRepository;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -168,6 +174,19 @@ public class EventService {
         boolean result = eventFromDB.isEnrolled(studentFromDB);
         return new BooleanResponse(result);
 
+    }
+
+    public EventHomePageResponse getButtonsStatus(Long eventId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        if(eventFromDB.getEventStatus().equals(EventStatus.DRAFT)) {
+            return new EventHomePageResponse("visible","hidden","visible","visible");
+        } else if (eventFromDB.getEventStatus().equals(EventStatus.PUBLISHED)) {
+            return new EventHomePageResponse("visible","visible","hidden","hidden");
+        } else {
+            return new EventHomePageResponse("hidden","hidden","hidden","hidden");
+        }
     }
 
 }

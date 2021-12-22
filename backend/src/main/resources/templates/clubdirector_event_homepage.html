@@ -94,11 +94,57 @@
         </tbody>
     </table>
 </div>
+
+<ul class="list-group" id="attendee-list">
+    <li class="list-group-item"><div class="form-check" type="checkbox">
+        <input class="form-check-input" type="checkbox">
+        <label class="form-check-label">Default checkbox</label>
+    </div></li>
+
+</ul>
 </body>
 
 <script>
 
     //buton görünme meselesi konabilir
+
+    document.getElementById("editEventButton").style.visibility="hidden";
+    document.getElementById("cancelEventButton").style.visibility="hidden";
+    document.getElementById("deleteEventButton").style.visibility="hidden";
+
+    var id = [[${eventId}]];
+
+    // get button status
+    $.ajax({
+        type: "GET",
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/event/${id}/getButtons`,
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            if (response) {
+                document.getElementById("editEventButton").style.visibility = `${response.editEvent}`;
+                document.getElementById("cancelEventButton").style.visibility = `${response.cancelEvent}`;
+                document.getElementById("deleteEventButton").style.visibility = `${response.publishEvent}`;
+            }
+
+            // refresh etmek için bir şey eklenmeli
+        },
+        error: function (e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
+    })
+
+    function addAttendee(list, input) {
+        list.prepend('<li> ' + input + '</li>');
+    };
+
 
     $(document).ready(function() {
             var id = [[${eventId}]];
@@ -124,7 +170,22 @@
                 descriptionLocation: "BZ04 (B building, first floor)"
             };
 
-            console.log("right before assigning values");
+            var dummyAttendees = [
+                {id: "21212121",
+                 name_surname: "Eray Tüzün"},
+                {id: "22222222",
+                    name_surname: "Erdem Tuna"}
+            ]
+
+            for (let i = 0; i < dummyAttendees.length; i++) {
+                var item = `<div className="form-check" type="checkbox">
+                    <input className="form-check-input" type="checkbox">
+                    <label className="form-check-label">${dummyAttendees[i].id} - ${dummyAttendees[i].name_surname}</label>
+                </div>`;
+                $("#attendee-list").prepend('<li> ' + item + '</li>');
+            }
+
+            //filling out the table
             $('#event-name').text(dummyEvent1.name.toUpperCase());
             $('#status').text(dummyEvent1.status.toLowerCase());
             $('#description').text(dummyEvent1.description);
