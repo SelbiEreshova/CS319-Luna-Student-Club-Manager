@@ -61,6 +61,41 @@
 </div>
 </body>
 <script >
+
+    $.ajax(
+        {
+            type : "GET",
+            headers: {
+                'Access-Control-Allow-Origin':'*',
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType : "application/json",
+            url : `http://localhost:8080/getClubDirector/${localStorage.getItem('userId')}`,
+            dataType : 'json',
+            success : function(result) {
+                if (result.messageType == "SUCCESS") {
+                    alert(result.name);
+                    alert(result.id);
+                } else {
+                    alert("hataaa");
+                }
+                console.log(result);
+                $("#name").html(result.name);
+                $("#surname").html(result.surname);
+                $("#id").html( result.bilkentId);
+                $("#email").html(result.email);
+                $("#username-show").html(result.username);
+                var ns=result.name +" " +result.surname;
+                // $(#ns).val(ns)
+
+            },
+            error : function(e) {
+                alert("Error!")
+
+                console.log("ERROR: ", e);
+            }
+        });
     $(document).ready(function() {
         //alert("buradaaa")
         $("#username-change").hide()
