@@ -7,6 +7,7 @@ import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
+import luna.clubverse.backend.event.controller.response.EventHomePageResponse;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventQueryResponse;
 import luna.clubverse.backend.event.enumuration.EventStatus;
@@ -183,6 +184,11 @@ public class EventRestController {
     @GetMapping("/{eventId}/isEnrolled/{userId}")
     public BooleanResponse isEnrolled(@PathVariable Long eventId, @PathVariable Long userId) {
         return eventService.isEnrolled(eventId, userId);
+    }
+
+    @GetMapping("/{eventId}/getButtons")
+    public EventHomePageResponse getButtons(@PathVariable Long eventId) {
+        return eventService.getButtonsStatus(eventId);
     }
 
 
