@@ -1,6 +1,5 @@
 package luna.clubverse.backend.event.controller;
 
-import jdk.jfr.Event;
 import luna.clubverse.backend.common.BooleanResponse;
 import luna.clubverse.backend.common.MessageResponse;
 
@@ -155,6 +154,11 @@ public class EventRestController {
         return eventService.addEnrolledStudent(eventId, userId);
     }
 
+    @PutMapping("/{eventId}/addFacultyAdvisor/{userId}")
+    public MessageResponse addFacultyAdvisor(@PathVariable Long eventId,@PathVariable Long userId) {
+        return eventService.addEnrolledFacultyAdvisor(eventId, userId);
+    }
+
     public boolean checkDate(LocalDate smallDate, LocalDate bigDate){
         return smallDate.compareTo(bigDate) > 0;
     }
@@ -190,9 +194,19 @@ public class EventRestController {
         return eventService.deleteEnrolledStudent(eventId, userId);
     }
 
+    @PutMapping("/{eventId}/deleteEnrolledFacultyAdvisor/{userId}")
+    public MessageResponse deleteEnrolledFacultyAdvisor(@PathVariable Long eventId,@PathVariable Long userId) {
+        return eventService.deleteEnrolledFacultyAdvisor(eventId, userId);
+    }
+
     @GetMapping("/{eventId}/isEnrolled/{userId}")
-    public BooleanResponse isEnrolled(@PathVariable Long eventId, @PathVariable Long userId) {
-        return eventService.isEnrolled(eventId, userId);
+    public BooleanResponse isEnrolledStudent(@PathVariable Long eventId, @PathVariable Long userId) {
+        return eventService.isEnrolledStudent(eventId, userId);
+    }
+
+    @GetMapping("/{eventId}/isEnrolled/{userId}")
+    public BooleanResponse isEnrolledFacultyAdvisor(@PathVariable Long eventId, @PathVariable Long userId) {
+        return eventService.isEnrolledFacultyAdvisor(eventId, userId);
     }
 
     @GetMapping("/{eventId}/getButtons")
