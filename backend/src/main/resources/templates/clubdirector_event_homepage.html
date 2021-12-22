@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Club director event home page</title>
+</head>
+<body>
+<div class="row justify-content-around" style="margin-top: 3%">
+    <img src="ing-amblem.jpg" alt="Club logo" style="width: 250px; margin-bottom: 3%">
+    <h2 style="margin-top: 8%" id="event-name">Event name</h2>
+    <div class="d-flex flex-column align-self-center">
+        <div id = "edit" ><button type="button" class="btn btn-primary" style="width: 200px; background-color: #20B5BDFF; margin-bottom: 20px" id="editEventButton"><a class="text-dark font-weight-bold">Edit Event</a></button></div>
+        <div id = "cancel" ><button type="button" class="btn btn-secondary" style="width: 200px; background-color: #ccd3d3; margin-bottom: 20px" id="cancelEventButton"><a class="text-dark">Cancel Event</a></button></div>
+        <div id = "delete" ><button type="button" class="btn btn-danger" style="width: 200px" id="deleteEventButton"><a class="text-light">Delete Event</a></button></div>
+    </div>
+</div>
+<div class="row justify-content-around" id="even-info" style="margin-left: 3%; margin-right: 3%">
+    <table class="table w-50" id="event-info-part1">
+        <tbody>
+        <tr>
+            <th scope="row" style="background-color: #c5c7c7; width: 25%">Status</th>
+            <td style="background-color: #c0efef" id="status"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #c5c7c7">Description</th>
+            <td style="background-color: #eafafa" id="description"></td>
+        </tr>
+        <!--<tr>
+            <th scope="row" style="background-color: #c5c7c7; width: 15%">Club</th>
+            <td style="background-color: #eafafa" id="club"></td>
+        </tr>
+        this is not necessary since club director knows their club
+        -->
+        <tr>
+            <th scope="row" style="background-color: #c5c7c7">Member Exclusive</th>
+            <td style="background-color: #c0efef"><input style="width: 20px; height: 20px" type="checkbox" class="form-check" disabled="disabled" id="member-only"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Start Date</th>
+            <td style="background-color: #eafafa" id="start-date"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">End Date</th>
+            <td style="background-color: #eafafa" id="end-date"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Start Time</th>
+            <td style="background-color: #c0efef" id="start-time"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">End Time</th>
+            <td style="background-color: #c0efef" id="end-time"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Total Quota</th>
+            <td style="background-color: #eafafa" id="quota"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Available Quota</th>
+            <td style="background-color: #eafafa" id="remaining-quota"></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table w-50" id="event-info-part2">
+        <tbody>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF; width: 30%">GE Points</th>
+            <td style="background-color: #c0efef" id="ge-point"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">In Bilkent</th>
+            <td style="background-color: #eafafa"><input style="width: 20px; height: 20px" type="checkbox" class="form-check" disabled="disabled" id="in-bilkent"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Location</th>
+            <td style="background-color: #eafafa" id="location-description"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Allocated Money (TL)</th>
+            <td style="background-color: #c0efef" id="allocated-money"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Financial Description</th>
+            <td style="background-color: #c0efef" id="financial-description"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Registration Deadline</th>
+            <td style="background-color: #eafafa" id="reg-deadline"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+<script>
+
+    //buton görünme meselesi konabilir
+
+    $(document).ready(function() {
+            var id = [[${eventId}]];
+            console.log("in doc ready function");
+
+            var dummyEvent1 = {eventId: 1,
+                name: "event 1",
+                status: "PUBLISHED",
+                description: "event 1 desc",
+                //club: "club amazing",
+                startDate: "2021-12-26",
+                endDate:"2021-12-26",
+                startTime: "10:00:00",
+                endTime: "13:00:00",
+                quota: 50,
+                remainingQuota: 20,
+                gePoint: 15,
+                registrationDeadline: "2021-12-25",
+                inBilkent: true,
+                memberOnly: false,
+                amountOfMoney: 100,
+                explanation: "for buying balloons",
+                descriptionLocation: "BZ04 (B building, first floor)"
+            };
+
+            console.log("right before assigning values");
+            $('#event-name').text(dummyEvent1.name.toUpperCase());
+            $('#status').text(dummyEvent1.status.toLowerCase());
+            $('#description').text(dummyEvent1.description);
+            //$('#club').text(dummyEvent1.club);
+
+            if (dummyEvent1.memberOnly) {
+                $('#member-only').prop("checked", true);
+            } else {
+                $('#member-only').prop("checked", false);
+            }
+
+            var startDate = new Date(dummyEvent1.startDate);
+            $('#start-date').text(startDate.toLocaleDateString());
+
+            var endDate = new Date(dummyEvent1.endDate);
+            $('#end-date').text(endDate.toLocaleDateString());
+
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + dummyEvent1.startTime);
+            $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
+
+            var endTime = new Date(dummyDate + " " + dummyEvent1.endTime);
+            $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
+
+            $('#quota').text(dummyEvent1.quota);
+            $('#available-quota').text(dummyEvent1.remainingQuota);
+            $('#ge-point').text(dummyEvent1.gePoint);
+
+            if (dummyEvent1.inBilkent) {
+                $('#in-bilkent').prop("checked", true);
+            } else {
+                $('#in-bilkent').prop("checked", false);
+            }
+
+            $('#location-description').text(dummyEvent1.descriptionLocation);
+
+            $('#allocated-money').text(dummyEvent1.amountOfMoney);
+
+            $('#financial-description').text(dummyEvent1.explanation);
+
+            var regDate = new Date(dummyEvent1.registrationDeadline);
+            $('#reg-deadline').text(regDate.toLocaleDateString());
+        }
+    );
+</script>
+</html>
