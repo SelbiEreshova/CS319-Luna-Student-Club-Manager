@@ -57,7 +57,7 @@
       },
       crossDomain: true,
       contentType: "application/json",
-      url:"http://localhost:8080/financeTable/getFinanceDataList/1",
+      url:"http://localhost:8080/club/finance_table/1",
       dataType: 'json',
       success: function (response) {
         console.log(response);
@@ -72,9 +72,9 @@
           ]).draw(false);
         };
 
-        for (let i = 0; i < response.length; i++)
+        for (let i = 0; i < response.financeData.length; i++)
         {
-          showClubs(response, i);
+          showClubs(response.financeData, i);
         }
 
         tbl.row.add([
