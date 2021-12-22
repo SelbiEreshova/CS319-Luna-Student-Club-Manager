@@ -2,7 +2,7 @@ package luna.clubverse.backend.club.controller.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import luna.clubverse.backend.financedata.entity.FinanceData;
+import luna.clubverse.backend.financedata.controller.response.FinanceDataQueryResponse;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
 
 import java.util.List;
@@ -12,10 +12,12 @@ import java.util.List;
 public class FinanceTableResponse {
 
     private double totalMoney;
-    private List<FinanceData> financeData;
+    private List<FinanceDataQueryResponse> financeData;
 
     public FinanceTableResponse(final FinanceTable financeTable) {
         this.totalMoney = financeTable.totalMoney();
-        this.financeData = financeTable.financeData().stream().toList();
+        this.financeData = financeTable.financeData()
+                .stream().map(FinanceDataQueryResponse::new)
+                .toList();
     }
 }
