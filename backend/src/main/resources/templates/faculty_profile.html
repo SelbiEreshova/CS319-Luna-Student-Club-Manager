@@ -163,7 +163,7 @@ $(document).ready(function() {
                 },
                 crossDomain: true,
                 contentType : "application/json",
-                url : `http://localhost:8080/getProfileOfStudent/${localStorage.getItem('userId')}`,
+                url : `http://localhost:8080/getFacultyAdvisor/${localStorage.getItem('userId')}`,
                 dataType : 'json',
                 success : function(result) {
                     if (result.messageType == "SUCCESS") {
