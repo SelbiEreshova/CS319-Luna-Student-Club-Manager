@@ -144,4 +144,26 @@ public class Event extends BaseEntity {
         return result;
     }
 
+    public void addEnrolledFacultyAdvisor(FacultyAdvisor facultyAdvisor){
+
+        if(enrolledFacultyAdvisors.contains(facultyAdvisor)){
+            // throws exception
+        }
+
+        enrolledFacultyAdvisors.add(facultyAdvisor);
+    }
+
+    public void deleteEnrolledFacultyAdvisor(FacultyAdvisor facultyAdvisor) {
+        if(enrolledFacultyAdvisors.contains(facultyAdvisor)) {
+            enrolledFacultyAdvisors.remove(facultyAdvisor);
+        } else {
+            // throws exception
+        }
+    }
+
+    public boolean isEnrolled(FacultyAdvisor facultyAdvisor) {
+        boolean result =  enrolledFacultyAdvisors.contains(facultyAdvisor);
+        return result;
+    }
+
 }
