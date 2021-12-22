@@ -3,10 +3,12 @@ package luna.clubverse.backend.event.controller.response;
 import lombok.Getter;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.enumuration.EventStatus;
+import luna.clubverse.backend.user.entity.Student;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Getter
@@ -60,8 +62,10 @@ public class EventAndParticipantQueryResponse {
         this.inBilkent = event.getLocation().inBilkent();
         this.descriptionLocation = event.getLocation().description();
 
+        Comparator<Student> compareByName = (Student s1, Student s2) -> s1.getName().compareTo(s1.getName());
         this.participants = event.getEnrolledStudents()
                 .stream()
+                .sorted(compareByName)
                 .map(ParticipantResponse::new)
                 .toList();
 
