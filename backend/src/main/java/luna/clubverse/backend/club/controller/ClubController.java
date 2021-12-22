@@ -62,6 +62,10 @@ public class ClubController {
         return "club_director_event_list";
     }
 
+    @RequestMapping("/app/finance_table/{clubId}")
+    public String getFinanceTable(@PathVariable Long clubId) {
+        return "finance_table_director";
+    }
 
 
 
