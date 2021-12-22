@@ -9,6 +9,7 @@ import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.location.entity.Location;
+import luna.clubverse.backend.user.entity.FacultyAdvisor;
 import luna.clubverse.backend.user.entity.Student;
 
 import javax.persistence.*;
@@ -25,32 +26,6 @@ import java.util.Set;
 @Setter
 @Table(name = "event")
 public class Event extends BaseEntity {
-
-    @Override
-    public String toString() {
-        return "Event{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", eventStatus=" + eventStatus +
-                ", gePoint=" + gePoint +
-                ", startDate=" + startDate +
-                ", startTime=" + startTime +
-                ", endDate=" + endDate +
-                ", endTime=" + endTime +
-                ", registrationDeadline=" + registrationDeadline +
-                ", reviewDeadline=" + reviewDeadline +
-                ", quota=" + quota +
-                ", remainingQuota=" + remainingQuota +
-                ", memberOnly=" + memberOnly +
-                ", totalPoint=" + totalPoint +
-                ", numberEvaluation=" + numberEvaluation +
-                ", financeData=" + financeData +
-                ", location=" + location +
-                ", club=" + club +
-                ", enrolledStudents=" + enrolledStudents +
-                ", attendedStudents=" + attendedStudents +
-                '}';
-    }
 
     private String name;
 
@@ -108,12 +83,22 @@ public class Event extends BaseEntity {
     )
     private Set<Student> attendedStudents;
 
+    @ManyToMany
+    @JoinTable(name = "event_enrolled_fa",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "enrolled_fa_id")
+    )
+    private Set<FacultyAdvisor> enrolledFacultyAdvisors;
+
+    @ManyToMany
+    @JoinTable(name = "event_attended_fa",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "attended_fa_id")
+    )
+    private Set<FacultyAdvisor> attendedFacultyAdvisors;
+
     protected Event() {
     }
-    //this.totalPoint = 0;
-    //        this.numberEvaluation = 0;
-
-
 
     public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly, FinanceData financeData, Location location) {
         this.name = name;
