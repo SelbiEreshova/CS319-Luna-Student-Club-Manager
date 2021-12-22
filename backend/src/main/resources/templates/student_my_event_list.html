@@ -22,7 +22,13 @@
 <div class="nav_bar" ></div>
 
 <h2 class="d-flex justify-content-center mt-4 pt-6">My Events</h2>
-
+<div class=" mx-5 px-3">
+<ul>
+        <button class="btn-outline-dark" id="all-e"><h5>All  Events</h5></button>
+        <button class="btn-outline-dark"id="future-e"><h5>Future events</h5></button>
+        <button class="btn-outline-dark" id="past-e"><h5>Past events</h5></button>
+</ul>
+</div>
 <div class="container table-responsive mx-auto my-2 p-3 ">
     <table class="table display table-striped event-list">
         <thead class="bg-dark text-light">
@@ -51,15 +57,16 @@
 
 <script>
     $(document).ready( function () {
-$(".nav_bar").load("http://localhost:8080/student.html");
-    $("#events_nav").addClass("active");
-    $('.club-list').DataTable(
-                    { language: {
-                            searchPlaceholder: "Search",
-                            search: "",
-                        },
-                         });
+        $(".nav_bar").load("http://localhost:8080/student.html");
+        $("#events_nav").addClass("active");
+        $('.club-list').DataTable(
+          { language: {
+                searchPlaceholder: "Search",
+                search: "",
+          },
+          });
       var table = $(".event-list").DataTable();
+
       $.ajax({
         type: "GET",
         headers: {
@@ -73,26 +80,63 @@ $(".nav_bar").load("http://localhost:8080/student.html");
         success: function(response) {
           console.log(response);
           function showEvents(r, i){
-              table.row.add([
+
+              node = table.row.add([
                 r[i].clubName,
                 r[i].eventName,
                 r[i].startDate,
                 r[i].startTime,
-                r[i].gePoints,
+                r[i].gePoint,
                 r[i].location,
+                "quota",
                 `<button>see details</button>`
                 ]).draw();
+
+                 var now = new Date();
+                newRow = table.row( ':last').node()
+                //console.log("gtfdcsx"+typeof(r[i].startDate))
+                sdate = r[i].startDate.split("-")
+                date = Date(sdate[0],sdate[1],sdate[2])
+                if (date < now) {
+                 alert("Date must be in the future");
+                 $(newRow).addClass("past");
+                   }
+                else{
+                alert("in future")
+                     $(newRow).addClass("future");
+                }
+                //console.log(table.row(this).index())
           };
           for (let i = 0; i < response.length; i++) {
             showEvents(response, i);
           }
+
         }
       });
+
+    $("#all-e").click(function () {
+        $('ul button').removeClass('active');
+        $(this).addClass('active');
+             $(".past").show();
+             $(".future").show();
+
     });
+    $("#past-e").click(function () {
+        $('ul button').removeClass('active');
+        $(this).addClass('active');
 
-</script>
+             $(".past").show();
+             $(".future").hide();
 
-<script>
+    });
+    $("#future-e").click(function () {
+        $('ul button').removeClass('active');
+        $(this).addClass('active');
+              $(".past").hide();
+             $(".future").show();
+
+    });
+    });
 </script>
 
 </html>
