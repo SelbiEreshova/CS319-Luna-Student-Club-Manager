@@ -67,7 +67,4 @@ public class ClubController {
         return "finance_table_director";
     }
 
-
-
-
 }

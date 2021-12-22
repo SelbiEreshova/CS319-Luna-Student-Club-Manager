@@ -63,16 +63,30 @@
         console.log(response);
         function showClubs(r, i) {
           tbl.row.add([
-            r[i].name,
-            `<button onclick='goToClub(${r[i].clubId})' >Go to club home page</button>`,
+            r[i].amountOfMoney,
+            r[i].status,
+            r[i].date,
+            r[i].explanation,
+            `<button onclick='' >See explanation</button>`,
             "delete button gelecek"
             //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
           ]).draw(false);
         };
 
-        for (let i = 0; i < response.length; i++) {
+        for (let i = 0; i < response.length; i++)
+        {
           showClubs(response, i);
         }
+
+        tbl.row.add([
+         "Total Amount:",
+          r[i].totalAmount,
+          "",
+          "",,
+          `<button onclick='' >Add Transaction</button>`,
+          "delete button gelecek"
+          //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
+        ]).draw(false);
       }
     });
 
