@@ -2,6 +2,8 @@ package luna.clubverse.backend.user.controller;
 
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
+import luna.clubverse.backend.user.controller.response.ClubDirectorQueryResponse;
+import luna.clubverse.backend.user.controller.response.FacultyAdvisorQueryResponse;
 import luna.clubverse.backend.user.controller.response.StudentQueryResponse;
 import luna.clubverse.backend.user.service.CustomUserService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,6 +38,21 @@ public class CustomUserRestController {
     public StudentQueryResponse getProfileOfUser(@PathVariable Long studentId ) {
 
         return new StudentQueryResponse(customUserService.getStudent(studentId));
+    }
+
+    @CrossOrigin
+    @GetMapping("/getFacultyAdvisor/{id}")
+    public FacultyAdvisorQueryResponse getProfileOfFacultyAdvisor(@PathVariable Long id ) {
+
+        return new FacultyAdvisorQueryResponse(customUserService.getFacultyAdvisor(id));
+    }
+
+
+    @CrossOrigin
+    @GetMapping("/getClubDirector/{id}")
+    public ClubDirectorQueryResponse getProfileOfClubDirector(@PathVariable Long id ) {
+
+        return new ClubDirectorQueryResponse(customUserService.getClubDirector(id));
     }
 
     @CrossOrigin

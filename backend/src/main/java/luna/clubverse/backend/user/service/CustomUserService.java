@@ -7,6 +7,8 @@ import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
 import luna.clubverse.backend.user.controller.response.StudentQueryResponse;
+import luna.clubverse.backend.user.entity.ClubDirector;
+import luna.clubverse.backend.user.entity.FacultyAdvisor;
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.enums.UserType;
 import luna.clubverse.backend.user.repository.UserRepository;
@@ -53,6 +55,21 @@ public class CustomUserService {
     public Student getStudent(Long studentId) {
         Student userFromDB = (Student) userRepository.findById(studentId)
                 .orElseThrow(()->new EntityNotFoundException("The student with the id " + studentId + " could not be found."));
+
+        return userFromDB;
+    }
+
+    public FacultyAdvisor getFacultyAdvisor(Long id) {
+        FacultyAdvisor userFromDB = (FacultyAdvisor) userRepository.findById(id)
+                .orElseThrow(()->new EntityNotFoundException("The faculty advisor with the id " + id+ " could not be found."));
+
+        return userFromDB;
+    }
+
+
+    public ClubDirector getClubDirector(Long id) {
+        ClubDirector userFromDB = (ClubDirector) userRepository.findById(id)
+                .orElseThrow(()->new EntityNotFoundException("The ClubDirector with the id " + id+ " could not be found."));
 
         return userFromDB;
     }

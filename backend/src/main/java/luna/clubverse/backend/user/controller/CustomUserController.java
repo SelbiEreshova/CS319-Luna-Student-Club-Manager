@@ -49,7 +49,18 @@ public class CustomUserController {
     public String getStudents() {
         return "admin_student_list";
     }
+
+
+    @RequestMapping("/app/club_director_profile")
+    public String getClubDirectorProfile() {
+        //eventService.addEventToClub(clubId,);
+        //model.addAttribute("club", club);
+        //Student student = customUserService.getStudent(studentId);
+        return "club_profile";
+    }
 }
+
+
 
 
 

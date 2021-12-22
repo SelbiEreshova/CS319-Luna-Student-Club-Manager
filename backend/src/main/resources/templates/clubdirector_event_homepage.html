@@ -148,6 +148,82 @@
             var id = [[${eventId}]];
             console.log("in doc ready function");
 
+            /*
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/getWithParticipants/${id}`,
+            success: function (response) {
+                console.log(response);
+                console.log("right before assigning values");
+
+                for (let i = 0; i < response.participants.length; i++) {
+                    var item = `<div className="form-check" type="checkbox">
+                    <input className="form-check-input" type="checkbox">
+                    <label className="form-check-label">${response.participants[i].bilkentId} - ${response.participants[i].name}</label>
+                </div>`;
+                    $("#attendee-list").prepend('<li> ' + item + '</li>');
+                }
+
+
+
+                //filling out the table
+                $('#event-name').text(response.name.toUpperCase());
+                $('#status').text(response.eventStatus.toLowerCase());
+                $('#description').text(response.description);
+                //$('#club').text(dummyEvent1.club);
+
+                if (response.memberOnly) {
+                    $('#member-only').prop("checked", true);
+                } else {
+                    $('#member-only').prop("checked", false);
+                }
+
+                var startDate = new Date(response.startDate);
+                $('#start-date').text(startDate.toLocaleDateString());
+
+                var endDate = new Date(response.endDate);
+                $('#end-date').text(endDate.toLocaleDateString());
+
+                var dummyDate = "1111-11-11";
+                var startTime = new Date(dummyDate + " " + response.startTime);
+                $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
+
+                var endTime = new Date(dummyDate + " " + response.endTime);
+                $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
+
+                $('#quota').text(response.quota);
+                $('#available-quota').text(response.remainingQuota);
+                $('#ge-point').text(response.gePoint);
+
+                if (response.inBilkent) {
+                    $('#in-bilkent').prop("checked", true);
+                } else {
+                    $('#in-bilkent').prop("checked", false);
+                }
+
+                $('#location-description').text(response.descriptionLocation);
+
+                $('#allocated-money').text(response.amountOfMoney);
+
+                $('#financial-description').text(response.explanation);
+
+                var regDate = new Date(response.registrationDeadline);
+                $('#reg-deadline').text(regDate.toLocaleDateString());
+
+            },
+            error: function (e) {
+                alert("Error!")
+                console.log("ERROR: ", e);
+            }
+        });
+        */
+
             var dummyEvent1 = {eventId: 1,
                 name: "event 1",
                 status: "PUBLISHED",
@@ -178,6 +254,7 @@
             if (dummyAttendees.length == 0) {
                 $("#attendee-list").append('<li> ' + "Nobody enrolled yet." + '</li>');
             }
+            
 
             for (let i = 0; i < dummyAttendees.length; i++) {
                 var item = `<div className="form-check" type="checkbox">
@@ -248,6 +325,7 @@
 
             var regDate = new Date(dummyEvent1.registrationDeadline);
             $('#reg-deadline').text(regDate.toLocaleDateString());
+
         }
     );
 </script>
