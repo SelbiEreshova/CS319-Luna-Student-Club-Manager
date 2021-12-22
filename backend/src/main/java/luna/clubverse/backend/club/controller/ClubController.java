@@ -3,6 +3,9 @@ package luna.clubverse.backend.club.controller;
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.service.ClubService;
+import luna.clubverse.backend.financedata.entity.FinanceData;
+import luna.clubverse.backend.financedata.service.FinanceDataService;
+import luna.clubverse.backend.financetable.entity.FinanceTable;
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.service.CustomUserService;
 import org.springframework.stereotype.Controller;
@@ -63,7 +66,9 @@ public class ClubController {
     }
 
     @RequestMapping("/app/finance_table/{clubId}")
-    public String getFinanceTable(@PathVariable Long clubId) {
+    public String getFinanceTable(Model model,@PathVariable Long clubId) {
+        FinanceTable financeTable = clubService.getClub(clubId).getFinanceTable();
+        model.addAttribute("financeTable", financeTable);
         return "finance_table_director";
     }
 

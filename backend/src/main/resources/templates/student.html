@@ -49,6 +49,9 @@
 </div>
 </body>
 <script>
+ $("#profile").click(function(event) {
+        window.location.href = 'http://localhost:8080/app/student_profile';
+        });
     $( ".nav-item" ).click(function(event) {
         $(".nav-item").removeClass("active");
         $(this).addClass("active");

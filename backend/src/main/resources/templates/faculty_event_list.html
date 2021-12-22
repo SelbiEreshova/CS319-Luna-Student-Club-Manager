@@ -38,46 +38,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr><td>IEEE</td>
-            <td>film gösterimi</td>
-            <td>13.12.20</td>
-            <td>18:00</td>
-            <td>20</td>
-            <td>BZ08</td>
-            <td>55</td>
-            <td><div class="dropdown ml-5 mr-1 justify-content-right">
-                <button class="btn btn-info details" type="button"  aria-haspopup="true" aria-expanded="false">
-                    See Details
-                </button>
-
-            </div></td></tr>
-        <tr><td>ACM</td>
-            <td>konferans</td>
-            <td>18.12.20</td>
-            <td>17:00</td>
-            <td>30</td>
-            <td>FB309</td>
-            <td>95</td>
-            <td><div class="dropdown ml-5 mr-1 justify-content-right">
-                <button class="btn btn-info details" type="button"  aria-haspopup="true" aria-expanded="false">
-                    See Details
-                </button>
-
-            </div></td></tr>
-        <tr th:each="event:${events}">
-            <!--/*@thymesVar id="event" type=""*/-->
-            <td th:text="${event.clubName}">Club</td>
-            <td th:text="${event.eventName}">Event Name</td>
-            <td th:text="${event.startDate}">Date</td>
-            <td>Time</td>
-            <td th:text="${event.gePoint}">Ge Points</td>
-            <td>loc</td>
-            <td>quota</td>
-            <td><button type="button" class="btn btn-info text-light" id="aaa">See Details</button></td>
-        </tr>
-
-
-
 
         </tbody>
 
