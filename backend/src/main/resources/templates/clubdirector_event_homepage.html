@@ -109,6 +109,7 @@
     document.getElementById("editEventButton").style.visibility="hidden";
     document.getElementById("cancelEventButton").style.visibility="hidden";
     document.getElementById("deleteEventButton").style.visibility="hidden";
+    document.getElementById("publishEventButton").style.visibility="hidden";
 
     var id = [[${eventId}]];
 
@@ -128,7 +129,8 @@
             if (response) {
                 document.getElementById("editEventButton").style.visibility = `${response.editEvent}`;
                 document.getElementById("cancelEventButton").style.visibility = `${response.cancelEvent}`;
-                document.getElementById("deleteEventButton").style.visibility = `${response.publishEvent}`;
+                document.getElementById("deleteEventButton").style.visibility = `${response.deleteEvent}`;
+                document.getElementById("publishEventButton").style.visibility = `${response.publishEvent}`;
             }
 
             // refresh etmek için bir şey eklenmeli
@@ -148,185 +150,163 @@
             var id = [[${eventId}]];
             console.log("in doc ready function");
 
-            /*
-        $.ajax({
-            type: "GET",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                Authorization: localStorage.getItem('Authorization')
-            },
-            crossDomain: true,
-            contentType: "application/json",
-            url: `http://localhost:8080/event/getWithParticipants/${id}`,
-            success: function (response) {
-                console.log(response);
-                console.log("right before assigning values");
+            $.ajax({
+                type: "GET",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization: localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: `http://localhost:8080/event/getWithParticipants/${id}`,
+                success: function (response) {
+                    var attendees = response.participants;
+                    if (attendees.length == 0) {
+                        $("#attendee-list").append('<li> ' + "Nobody enrolled yet." + '</li>');
+                    }
 
-                for (let i = 0; i < response.participants.length; i++) {
-                    var item = `<div className="form-check" type="checkbox">
-                    <input className="form-check-input" type="checkbox">
-                    <label className="form-check-label">${response.participants[i].bilkentId} - ${response.participants[i].name}</label>
-                </div>`;
-                    $("#attendee-list").prepend('<li> ' + item + '</li>');
-                }
+                    for (let i = 0; i < attendees.length; i++) {
+                        var item = `<div className="form-check" type="checkbox">
+                        <input id='${i}' className="form-check-input" type="checkbox">
+                        <label className="form-check-label">${attendees[i].name_surname} - ${attendees[i].id}</label>
+                    </div>`;
 
-
-
-                //filling out the table
-                $('#event-name').text(response.name.toUpperCase());
-                $('#status').text(response.eventStatus.toLowerCase());
-                $('#description').text(response.description);
-                //$('#club').text(dummyEvent1.club);
-
-                if (response.memberOnly) {
-                    $('#member-only').prop("checked", true);
-                } else {
-                    $('#member-only').prop("checked", false);
-                }
-
-                var startDate = new Date(response.startDate);
-                $('#start-date').text(startDate.toLocaleDateString());
-
-                var endDate = new Date(response.endDate);
-                $('#end-date').text(endDate.toLocaleDateString());
-
-                var dummyDate = "1111-11-11";
-                var startTime = new Date(dummyDate + " " + response.startTime);
-                $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
-
-                var endTime = new Date(dummyDate + " " + response.endTime);
-                $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
-
-                $('#quota').text(response.quota);
-                $('#available-quota').text(response.remainingQuota);
-                $('#ge-point').text(response.gePoint);
-
-                if (response.inBilkent) {
-                    $('#in-bilkent').prop("checked", true);
-                } else {
-                    $('#in-bilkent').prop("checked", false);
-                }
-
-                $('#location-description').text(response.descriptionLocation);
-
-                $('#allocated-money').text(response.amountOfMoney);
-
-                $('#financial-description').text(response.explanation);
-
-                var regDate = new Date(response.registrationDeadline);
-                $('#reg-deadline').text(regDate.toLocaleDateString());
-
-            },
-            error: function (e) {
-                alert("Error!")
-                console.log("ERROR: ", e);
-            }
-        });
-        */
-
-            var dummyEvent1 = {eventId: 1,
-                name: "event 1",
-                status: "PUBLISHED",
-                description: "event 1 desc",
-                //club: "club amazing",
-                startDate: "2021-12-26",
-                endDate:"2021-12-26",
-                startTime: "10:00:00",
-                endTime: "13:00:00",
-                quota: 50,
-                remainingQuota: 20,
-                gePoint: 15,
-                registrationDeadline: "2021-12-25",
-                inBilkent: true,
-                memberOnly: false,
-                amountOfMoney: 100,
-                explanation: "for buying balloons",
-                descriptionLocation: "BZ04 (B building, first floor)"
-            };
-
-            var dummyAttendees = [
-                {id: "21212121",
-                 name_surname: "Eray Tüzün"},
-                {id: "22222222",
-                    name_surname: "Erdem Tuna"}
-            ]
-
-            if (dummyAttendees.length == 0) {
-                $("#attendee-list").append('<li> ' + "Nobody enrolled yet." + '</li>');
-            }
-            
-
-            for (let i = 0; i < dummyAttendees.length; i++) {
-                var item = `<div className="form-check" type="checkbox">
-                    <input id='${i}' className="form-check-input" type="checkbox">
-                    <label className="form-check-label">${dummyAttendees[i].name_surname} - ${dummyAttendees[i].id}</label>
-                </div>`;
-
-                $("#attendee-list").append(`<li>` + item + `</li>`);
-                $(`#${i}`).prop("disabled", "disabled");
-            }
-
-            $("#editAttendanceButton").click(function() {
-                console.log($("#editAttendanceButton").text());
-                if ($("#editAttendanceButton").text() == "Stop Taking Attendance") {
-                    $("#editAttendanceButton").html("Allow Taking Attendance");
-                    for (let i = 0; i < dummyAttendees.length; i++) {
+                        $("#attendee-list").append(`<li>` + item + `</li>`);
                         $(`#${i}`).prop("disabled", "disabled");
                     }
-                }
-                else {
-                    $("#editAttendanceButton").html("Stop Taking Attendance");
-                    for (let i = 0; i < dummyAttendees.length; i++) {
-                        $(`#${i}`).prop("disabled", "");
+
+                    $("#editAttendanceButton").click(function() {
+                        console.log($("#editAttendanceButton").text());
+                        if ($("#editAttendanceButton").text() == "Stop Taking Attendance") {
+                            $("#editAttendanceButton").html("Allow Taking Attendance");
+                            for (let i = 0; i < attendees.length; i++) {
+                                $(`#${i}`).prop("disabled", "disabled");
+                            }
+                        }
+                        else {
+                            $("#editAttendanceButton").html("Stop Taking Attendance");
+                            for (let i = 0; i < attendees.length; i++) {
+                                $(`#${i}`).prop("disabled", "");
+                            }
+                        }
+                    });
+
+                    //filling out the table
+                    $('#event-name').text(response.name.toUpperCase());
+                    $('#status').text(response.eventStatus.toLowerCase());
+                    $('#description').text(response.description);
+
+                    if (response.memberOnly) {
+                        $('#member-only').prop("checked", true);
+                    } else {
+                        $('#member-only').prop("checked", false);
                     }
+
+                    var startDate = new Date(response.startDate);
+                    $('#start-date').text(startDate.toLocaleDateString());
+
+                    var endDate = new Date(response.endDate);
+                    $('#end-date').text(endDate.toLocaleDateString());
+
+                    var dummyDate = "1111-11-11";
+                    var startTime = new Date(dummyDate + " " + response.startTime);
+                    $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
+
+                    var endTime = new Date(dummyDate + " " + response.endTime);
+                    $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
+
+                    $('#quota').text(response.quota);
+                    $('#available-quota').text(response.remainingQuota);
+                    $('#ge-point').text(response.gePoint);
+
+                    if (response.inBilkent) {
+                        $('#in-bilkent').prop("checked", true);
+                    } else {
+                        $('#in-bilkent').prop("checked", false);
+                    }
+
+                    $('#location-description').text(response.descriptionLocation);
+
+                    $('#allocated-money').text(response.amountOfMoney);
+
+                    $('#financial-description').text(response.explanation);
+
+                    var regDate = new Date(response.registrationDeadline);
+                    $('#reg-deadline').text(regDate.toLocaleDateString());
+
+                },
+                error: function (e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
                 }
             });
 
-            //filling out the table
-            $('#event-name').text(dummyEvent1.name.toUpperCase());
-            $('#status').text(dummyEvent1.status.toLowerCase());
-            $('#description').text(dummyEvent1.description);
-            //$('#club').text(dummyEvent1.club);
+        /*
+                    var dummyEvent1 = {eventId: 1,
+                        name: "event 1",
+                        status: "PUBLISHED",
+                        description: "event 1 desc",
+                        //club: "club amazing",
+                        startDate: "2021-12-26",
+                        endDate:"2021-12-26",
+                        startTime: "10:00:00",
+                        endTime: "13:00:00",
+                        quota: 50,
+                        remainingQuota: 20,
+                        gePoint: 15,
+                        registrationDeadline: "2021-12-25",
+                        inBilkent: true,
+                        memberOnly: false,
+                        amountOfMoney: 100,
+                        explanation: "for buying balloons",
+                        descriptionLocation: "BZ04 (B building, first floor)"
+                    };
 
-            if (dummyEvent1.memberOnly) {
-                $('#member-only').prop("checked", true);
-            } else {
-                $('#member-only').prop("checked", false);
-            }
+                    //filling out the table
+                    $('#event-name').text(dummyEvent1.name.toUpperCase());
+                    $('#status').text(dummyEvent1.status.toLowerCase());
+                    $('#description').text(dummyEvent1.description);
+                    //$('#club').text(dummyEvent1.club);
 
-            var startDate = new Date(dummyEvent1.startDate);
-            $('#start-date').text(startDate.toLocaleDateString());
+                    if (dummyEvent1.memberOnly) {
+                        $('#member-only').prop("checked", true);
+                    } else {
+                        $('#member-only').prop("checked", false);
+                    }
 
-            var endDate = new Date(dummyEvent1.endDate);
-            $('#end-date').text(endDate.toLocaleDateString());
+                    var startDate = new Date(dummyEvent1.startDate);
+                    $('#start-date').text(startDate.toLocaleDateString());
 
-            var dummyDate = "1111-11-11";
-            var startTime = new Date(dummyDate + " " + dummyEvent1.startTime);
-            $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
+                    var endDate = new Date(dummyEvent1.endDate);
+                    $('#end-date').text(endDate.toLocaleDateString());
 
-            var endTime = new Date(dummyDate + " " + dummyEvent1.endTime);
-            $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
+                    var dummyDate = "1111-11-11";
+                    var startTime = new Date(dummyDate + " " + dummyEvent1.startTime);
+                    $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
 
-            $('#quota').text(dummyEvent1.quota);
-            $('#available-quota').text(dummyEvent1.remainingQuota);
-            $('#ge-point').text(dummyEvent1.gePoint);
+                    var endTime = new Date(dummyDate + " " + dummyEvent1.endTime);
+                    $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
 
-            if (dummyEvent1.inBilkent) {
-                $('#in-bilkent').prop("checked", true);
-            } else {
-                $('#in-bilkent').prop("checked", false);
-            }
+                    $('#quota').text(dummyEvent1.quota);
+                    $('#available-quota').text(dummyEvent1.remainingQuota);
+                    $('#ge-point').text(dummyEvent1.gePoint);
 
-            $('#location-description').text(dummyEvent1.descriptionLocation);
+                    if (dummyEvent1.inBilkent) {
+                        $('#in-bilkent').prop("checked", true);
+                    } else {
+                        $('#in-bilkent').prop("checked", false);
+                    }
 
-            $('#allocated-money').text(dummyEvent1.amountOfMoney);
+                    $('#location-description').text(dummyEvent1.descriptionLocation);
 
-            $('#financial-description').text(dummyEvent1.explanation);
+                    $('#allocated-money').text(dummyEvent1.amountOfMoney);
 
-            var regDate = new Date(dummyEvent1.registrationDeadline);
-            $('#reg-deadline').text(regDate.toLocaleDateString());
+                    $('#financial-description').text(dummyEvent1.explanation);
 
-        }
+                    var regDate = new Date(dummyEvent1.registrationDeadline);
+                    $('#reg-deadline').text(regDate.toLocaleDateString());
+                    */
+                }
     );
 </script>
 </html>
