@@ -18,9 +18,9 @@ public class FinanceDataController {
     }
 
     @CrossOrigin
-    @PutMapping("/{financeTableId}/addToFinanceTable")
-    public String addFinanceDataToFinanceTable(@PathVariable Long financeTableId, @RequestBody @Valid final AddFinanceDataRequest addFinanceDataRequest) {
-        financeDataService.addDataToFinanceTable(financeTableId,addFinanceDataRequest.toFinanceData());
-        return "success "; // return type will be changed, except from get requests, there will be same type of response
+    @PutMapping("/{clubId}/addToFinanceTable")
+    public String addFinanceDataToFinanceTable(@PathVariable Long clubId, @RequestBody @Valid final AddFinanceDataRequest addFinanceDataRequest) {
+        financeDataService.addDataToFinanceTable(clubId,addFinanceDataRequest.toFinanceData());
+        return "success ";
     }
 }

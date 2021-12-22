@@ -20,10 +20,10 @@ public class AddFinanceDataRequest {
 
     private String explanation;
 
-    private String date;
+    private LocalDate date;
 
     public FinanceData toFinanceData() {
-        return new FinanceData(amountOfMoney,status,explanation, LocalDate.parse(date));
+        return new FinanceData(amountOfMoney,status,explanation, date);
 
     }
 }

@@ -65,10 +65,8 @@ public class ClubController {
         return "club_director_event_list";
     }
 
-    @RequestMapping("/app/finance_table/{clubId}")
-    public String getFinanceTable(Model model,@PathVariable Long clubId) {
-        FinanceTable financeTable = clubService.getClub(clubId).getFinanceTable();
-        model.addAttribute("financeTable", financeTable);
+    @RequestMapping("/app/finance_table")
+    public String getFinanceTable() {
         return "finance_table_director";
     }
 

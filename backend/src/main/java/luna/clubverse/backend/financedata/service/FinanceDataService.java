@@ -1,6 +1,8 @@
 package luna.clubverse.backend.financedata.service;
 
 
+import luna.clubverse.backend.club.entity.Club;
+import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.financedata.repository.FinanceDataRepository;
@@ -16,16 +18,21 @@ import javax.transaction.Transactional;
 public class FinanceDataService {
     private final FinanceDataRepository financeDataRepository;
     private final FinanceTableRepository financeTableRepository;
+    private final ClubRepository clubRepository;
 
-    public FinanceDataService(FinanceDataRepository financeDataRepository, FinanceTableRepository financeTableRepository) {
+    public FinanceDataService(FinanceDataRepository financeDataRepository, FinanceTableRepository financeTableRepository, ClubRepository clubRepository) {
         this.financeDataRepository = financeDataRepository;
         this.financeTableRepository = financeTableRepository;
+        this.clubRepository = clubRepository;
     }
 
-    public void addDataToFinanceTable(Long financeTableId, FinanceData financeData) {
+    public void addDataToFinanceTable(Long clubId, FinanceData financeData) {
 
-        FinanceTable financeTableDB = financeTableRepository.findById(financeTableId)
-                .orElseThrow(()->new EntityNotFoundException("The finance table with the id " + financeTableId + " could not be found."));
+        Club club = clubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The Club with the id " + clubId + " could not be found."));
+
+        FinanceTable financeTableDB =  club.getFinanceTable();
+
         double change = financeData.amountOfMoney();
 
         if(financeData.status()== FinanceDataStatus.OUTCOME){
