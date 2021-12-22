@@ -57,7 +57,11 @@
     <table class="table w-50" id="event-info-part2">
         <tbody>
         <tr>
-            <th scope="row" style="background-color: #C5C7C7FF; width: 30%">Available Quota</th>
+            <th scope="row" style="background-color: #C5C7C7FF; width: 30%">Total Quota</th>
+            <td style="background-color: #eafafa" id="quota"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Available Quota</th>
             <td style="background-color: #eafafa" id="remaining-quota"></td>
         </tr>
         <tr>
@@ -242,6 +246,7 @@
                     var endTime = new Date(dummyDate + " " + response.endTime);
                     $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
 
+                    $('#quota').text(response.quota);
                     $('#remaining-quota').text(response.remainingQuota);
                     $('#ge-point').text(response.gePoint);
 
