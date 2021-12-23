@@ -38,6 +38,11 @@
 
 });</script>
 <script>
+    function goToClub(id)
+    {
+
+            window.location.href = "http://localhost:8080/app/club_home_page_student/"+id;
+    }
     $(document).ready(function () {
 
         var tbl = $("#club-list").DataTable({
@@ -62,7 +67,7 @@
                 function showClubs(r, i) {
                     tbl.row.add([
                         r[i].name,
-                        `<button onclick='goToClub(${r[i].clubId})' >Go to club home page</button>`,
+                        "<button onclick='goToClub("+r[i].clubId+")' >Go to club home page</button>",
                         "delete button gelecek"
                         //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
                     ]).draw(false);

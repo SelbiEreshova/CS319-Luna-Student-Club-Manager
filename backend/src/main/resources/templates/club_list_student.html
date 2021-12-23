@@ -38,6 +38,10 @@
 
 });</script>
 <script>
+  function goToClub2(e)
+  {
+    console.log(e) //Need url here
+  }
   $(document).ready(function () {
 
     var tbl = $("#club-list").DataTable({
@@ -59,20 +63,20 @@
       url:"http://localhost:8080/getClubsOfStudent/"+localStorage.getItem('userId'),
       dataType: 'json',
       success: function (response) {
-        console.log(response);
        function showClubs(r, i) {
-         //${r[i].clubId}
          tbl.row.add([
            r[i].name,
-           `<button onclick="function b(){ console.log(\"button\")}" >Go to club home page</button>`,
+           "<button id='${r[i].clubId}' onclick='goToClub2("+r[i].clubId+")' class='home_page_club'>Go to club home page</button>",
            "delete button gelecek"
            //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
          ]).draw(false);
-       };
+       }
+
 
        for (let i = 0; i < response.length; i++) {
          showClubs(response, i);
        }
+        //$(".home_page_club").addEventListener("click", goToClub)
       }
     });
   });
