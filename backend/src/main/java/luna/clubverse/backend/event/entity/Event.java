@@ -35,17 +35,13 @@ public class Event extends BaseEntity {
 
     private int gePoint;
 
-    private LocalDate startDate;
+    private LocalDateTime startDateTime;
 
-    private LocalTime startTime;
+    private LocalDateTime endDateTime;
 
-    private LocalDate endDate;
+    private LocalDateTime registrationDeadline;
 
-    private LocalTime endTime;
-
-    private LocalDate registrationDeadline;
-
-    private LocalDate reviewDeadline;
+    private LocalDateTime reviewDeadline;
 
     private int quota;
 
@@ -100,15 +96,13 @@ public class Event extends BaseEntity {
     protected Event() {
     }
 
-    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, LocalDate registrationDeadline, LocalDate reviewDeadline, int quota, boolean memberOnly, FinanceData financeData, Location location) {
+    public Event(String name, String description, EventStatus eventStatus, int gePoint, LocalDateTime startDateTime, LocalDateTime endDateTime, LocalDateTime registrationDeadline, LocalDateTime reviewDeadline, int quota, boolean memberOnly, FinanceData financeData, Location location) {
         this.name = name;
         this.description = description;
         this.eventStatus = eventStatus;
         this.gePoint = gePoint;
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         this.registrationDeadline = registrationDeadline;
         this.reviewDeadline = reviewDeadline;
         this.quota = quota;
@@ -121,6 +115,24 @@ public class Event extends BaseEntity {
         this.enrolledStudents = new HashSet<Student>();
         this.attendedStudents = new HashSet<Student>();
     }
+
+    public void update(Event event){
+        this.name = event.name;
+        this.description = event.description;
+        this.eventStatus = event.eventStatus;
+        this.gePoint = event.gePoint;
+        this.startDateTime = event.startDateTime;
+        this.endDateTime = event.endDateTime;
+        this.registrationDeadline = event.registrationDeadline;
+        this.reviewDeadline = event.reviewDeadline;
+        this.quota = event.quota;
+        this.remainingQuota = event.remainingQuota;
+        this.memberOnly = event.memberOnly;
+        this.totalPoint = event.totalPoint;
+        this.numberEvaluation = event.numberEvaluation;
+    }
+
+
 
     public void addEnrolledStudent(Student student){
 

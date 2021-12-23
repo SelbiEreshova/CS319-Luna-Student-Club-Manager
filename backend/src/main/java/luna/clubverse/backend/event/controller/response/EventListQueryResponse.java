@@ -29,8 +29,8 @@ public class EventListQueryResponse {
         this.eventName = event.getName();
         this.clubName = event.getClub().getName();
         this.gePoint = event.getGePoint();
-        this.startDate = event.getStartDate();
-        this.startTime = event.getStartTime();
+        this.startDate = event.getStartDateTime().toLocalDate();
+        this.startTime = event.getStartDateTime().toLocalTime();
         this.quota = event.getQuota();
         this.location = event.getLocation().description();
     }

@@ -42,26 +42,21 @@ public class CustomUserService {
                 .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
         return studentFromDB.getEnrolledEvents()
                 .stream()
-                .filter(event-> checkEventInterval(event.getStartDate(), event.getEndDate(), event.getStartTime(), event.getEndTime()).equals(FUTURE))
+                .filter(event-> checkEventInterval(event.getStartDateTime(), event.getEndDateTime()).equals(FUTURE))
                 .map(event -> new EventListQueryResponse(event))
                 .toList();
 
     }
 
-    public String checkEventInterval(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime)
+    public String checkEventInterval(LocalDateTime startDateTime, LocalDateTime endDateTime)
     {
-
-        //LocalDate now = LocalDate.now();
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime start =  LocalDateTime.of(startDate,startTime);
-        LocalDateTime end = LocalDateTime.of(endDate,endTime);
 
-
-        if ( start.compareTo(now) > 0 )
+        if ( startDateTime.compareTo(now) > 0 )
         {
             return FUTURE;
         }
-        if ( end.compareTo(now) < 0 )
+        if ( endDateTime.compareTo(now) < 0 )
         {
             return PAST;
         }
@@ -76,7 +71,7 @@ public class CustomUserService {
                 .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
         return studentFromDB.getEnrolledEvents()
                 .stream()
-                .filter(event-> checkEventInterval(event.getStartDate(), event.getEndDate(), event.getStartTime(), event.getEndTime()).equals(PAST))
+                .filter(event-> checkEventInterval(event.getStartDateTime(), event.getEndDateTime()).equals(PAST))
                 .map(event -> new EventListQueryResponse(event))
                 .toList();
 
@@ -89,7 +84,7 @@ public class CustomUserService {
                 .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
         return studentFromDB.getEnrolledEvents()
                 .stream()
-                .filter(event-> checkEventInterval(event.getStartDate(), event.getEndDate(), event.getStartTime(), event.getEndTime()).equals(ONGOING))
+                .filter(event-> checkEventInterval(event.getStartDateTime(), event.getEndDateTime()).equals(ONGOING))
                 .map(event -> new EventListQueryResponse(event))
                 .toList();
 

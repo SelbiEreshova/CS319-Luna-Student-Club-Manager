@@ -8,7 +8,10 @@ import luna.clubverse.backend.event.repository.EventRepository;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.location.entity.Location;
+import luna.clubverse.backend.user.entity.Admin;
+import luna.clubverse.backend.user.entity.Authority;
 import luna.clubverse.backend.user.entity.Student;
+import luna.clubverse.backend.user.entity.User;
 import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 
 @Service
 @Component

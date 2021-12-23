@@ -4,20 +4,17 @@ import luna.clubverse.backend.event.enumuration.EventStatus;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.location.entity.Location;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public final class EventBuilder {
     private String name;
     private String description;
     private EventStatus eventStatus;
     private int gePoint;
-    private LocalDate startDate;
-    private LocalTime startTime;
-    private LocalDate endDate;
-    private LocalTime endTime;
-    private LocalDate registrationDeadline;
-    private LocalDate reviewDeadline;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
+    private LocalDateTime registrationDeadline;
+    private LocalDateTime reviewDeadline;
     private int quota;
     private boolean memberOnly;
     private FinanceData financeData;
@@ -47,32 +44,22 @@ public final class EventBuilder {
         return this;
     }
 
-    public EventBuilder startDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public EventBuilder startDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
         return this;
     }
 
-    public EventBuilder startTime(LocalTime startTime) {
-        this.startTime = startTime;
+    public EventBuilder endDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
         return this;
     }
 
-    public EventBuilder endDate(LocalDate endDate) {
-        this.endDate = endDate;
-        return this;
-    }
-
-    public EventBuilder endTime(LocalTime endTime) {
-        this.endTime = endTime;
-        return this;
-    }
-
-    public EventBuilder registrationDeadline(LocalDate registrationDeadline) {
+    public EventBuilder registrationDeadline(LocalDateTime registrationDeadline) {
         this.registrationDeadline = registrationDeadline;
         return this;
     }
 
-    public EventBuilder reviewDeadline(LocalDate reviewDeadline) {
+    public EventBuilder reviewDeadline(LocalDateTime reviewDeadline) {
         this.reviewDeadline = reviewDeadline;
         return this;
     }
@@ -98,6 +85,6 @@ public final class EventBuilder {
     }
 
     public Event build() {
-        return new Event(name, description, eventStatus, gePoint, startDate, startTime, endDate, endTime, registrationDeadline, reviewDeadline, quota, memberOnly, financeData, location);
+        return new Event(name, description, eventStatus, gePoint, startDateTime, endDateTime, registrationDeadline, reviewDeadline, quota, memberOnly, financeData, location);
     }
 }

@@ -13,6 +13,7 @@ import luna.clubverse.backend.location.entity.Location;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 
@@ -64,12 +65,10 @@ public class UpdateEventRequest {
                 .description(description)
                 .eventStatus(eventStatus)
                 .gePoint(gePoint)
-                .startDate(startDate)
-                .startTime(startTime)
-                .endDate(endDate)
-                .endTime(endTime)
-                .registrationDeadline(registrationDeadline)
-                .reviewDeadline(reviewDeadline)
+                .startDateTime(LocalDateTime.of(startDate,startTime))
+                .endDateTime(LocalDateTime.of(endDate,endTime))
+                .registrationDeadline(LocalDateTime.of(registrationDeadline,LocalTime.of(0,0)))
+                .reviewDeadline(LocalDateTime.of(reviewDeadline,LocalTime.of(0,0)))
                 .quota(quota)
                 .memberOnly(memberOnly)
                 .financeData(toFinanceData())

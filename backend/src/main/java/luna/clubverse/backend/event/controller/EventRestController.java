@@ -2,7 +2,6 @@ package luna.clubverse.backend.event.controller;
 
 import luna.clubverse.backend.common.BooleanResponse;
 import luna.clubverse.backend.common.MessageResponse;
-
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
 import luna.clubverse.backend.event.controller.request.Attendance;
@@ -146,9 +145,6 @@ public class EventRestController {
         List<EventListQueryResponse> events = (eventService.getEventsForClub(id));
         return events;
     }
-
-
-
 
     @PutMapping("/{eventId}/addEnrolledStudent/{userId}")
     public MessageResponse addEnrolledStudent(@PathVariable Long eventId,@PathVariable Long userId) {
