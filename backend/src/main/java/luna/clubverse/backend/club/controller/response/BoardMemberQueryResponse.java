@@ -4,11 +4,11 @@ import lombok.Getter;
 
 @Getter
 public class BoardMemberQueryResponse {
-    private String studentFullName;
+    private String userFullName;
     private String title;
-    public BoardMemberQueryResponse(String studentFullName, String title) {
+    public BoardMemberQueryResponse(String userFullName, String title) {
         this.title = title;
-        this.studentFullName = studentFullName;
+        this.userFullName = userFullName;
     }
 
 }
