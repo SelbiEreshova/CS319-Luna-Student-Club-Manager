@@ -109,10 +109,6 @@
                         <td id="username-change"><input type="" name="" placeholder="new Username" id="new-username"> </td>
                     </tr>
                     <tr>
-                        <th>Id:</th>
-                        <td id="id"></td>
-                    </tr>
-                    <tr>
                         <th>Email:</th>
 
                         <td id="email"></td>
@@ -148,7 +144,7 @@
 </body>
 <script >
 $(document).ready(function() {
-    $(".nav_bar").load("http://localhost:8080/student.html");
+    $(".nav_bar").load("http://localhost:8080/faculty_advisor.html");
     $("#events_nav").addClass("active");
     $("#change-pass").hide();
     $("#show-in-c-p").hide();
@@ -175,7 +171,6 @@ $(document).ready(function() {
                     console.log(result);
                     $("#name").html(result.name);
                     $("#surname").html(result.surname);
-                    $("#id").html( result.bilkentId);
                     $("#email").html(result.email);
                     $("#username-show").html(result.username);
                     var ns=result.name +" " +result.surname;
