@@ -1,5 +1,6 @@
 package luna.clubverse.backend.user.repository;
 
+import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.entity.User;
 import luna.clubverse.backend.user.enums.UserType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByMail(String mail);
 
     List<User> findAllByUsertypeIs(UserType userType);
+
 
 }

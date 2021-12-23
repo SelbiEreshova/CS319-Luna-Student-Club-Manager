@@ -5,6 +5,7 @@ import luna.clubverse.backend.common.MessageResponse;
 
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.request.AddEventRequest;
+import luna.clubverse.backend.event.controller.request.Attendance;
 import luna.clubverse.backend.event.controller.request.UpdateEventRequest;
 import luna.clubverse.backend.event.controller.response.EventAndParticipantQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventHomePageResponse;
@@ -215,6 +216,10 @@ public class EventRestController {
     }
 
 
+    @PutMapping("/takeAttendance")
+    public MessageResponse takeAttendance(@RequestBody Attendance attendance) {
+        return eventService.takeAttendance(attendance.getEventId(), attendance.getAttendance());
+    }
 
 
 }

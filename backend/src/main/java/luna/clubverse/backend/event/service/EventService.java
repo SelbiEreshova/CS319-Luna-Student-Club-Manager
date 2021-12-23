@@ -17,13 +17,17 @@ import luna.clubverse.backend.financetable.entity.FinanceTable;
 import luna.clubverse.backend.financetable.repository.FinanceTableRepository;
 import luna.clubverse.backend.user.entity.FacultyAdvisor;
 import luna.clubverse.backend.user.entity.Student;
+import luna.clubverse.backend.user.repository.FacultyAdvisorRepository;
+import luna.clubverse.backend.user.repository.StudentRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -34,13 +38,17 @@ public class EventService {
     private final FinanceDataRepository financeDataRepository;
     private final FinanceTableRepository financeTableRepository;
     private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
+    private final FacultyAdvisorRepository facultyAdvisorRepository;
 
-    public EventService(ClubRepository cLubRepository, EventRepository eventRepository, FinanceDataRepository financeDataRepository, FinanceTableRepository financeTableRepository, UserRepository userRepository) {
+    public EventService(ClubRepository cLubRepository, EventRepository eventRepository, FinanceDataRepository financeDataRepository, FinanceTableRepository financeTableRepository, UserRepository userRepository, StudentRepository studentRepository, FacultyAdvisorRepository facultyAdvisorRepository) {
         this.cLubRepository = cLubRepository;
         this.eventRepository = eventRepository;
         this.financeDataRepository = financeDataRepository;
         this.financeTableRepository = financeTableRepository;
         this.userRepository = userRepository;
+        this.studentRepository = studentRepository;
+        this.facultyAdvisorRepository = facultyAdvisorRepository;
     }
 
     public void addEvent(Event event) {
@@ -219,5 +227,21 @@ public class EventService {
     }
 
 
+    public MessageResponse takeAttendance(Long eventId, List<Long> usersId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
 
+        Set<Student> students = new HashSet<>(studentRepository.findAllByIdIsIn(usersId));
+
+        eventFromDB.setAttendedStudents(students);
+
+        Set<FacultyAdvisor> advisors = new HashSet<>(facultyAdvisorRepository.findAllByIdIsIn(usersId));
+
+        eventFromDB.setAttendedFacultyAdvisors(advisors);
+
+        eventRepository.save(eventFromDB);
+
+        return new MessageResponse(MessageType.SUCCESS, "Attendance is taken successfully");
+
+    }
 }

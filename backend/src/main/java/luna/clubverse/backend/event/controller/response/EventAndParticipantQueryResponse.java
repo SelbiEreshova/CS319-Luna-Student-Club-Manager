@@ -66,7 +66,7 @@ public class EventAndParticipantQueryResponse {
         this.participants = event.getEnrolledStudents()
                 .stream()
                 .sorted(compareByName)
-                .map(ParticipantResponse::new)
+                .map(student -> new ParticipantResponse(student, event))
                 .toList();
 
 

@@ -147,9 +147,10 @@
 
 
     $(document).ready(function() {
+
             function sendAttandence(fd) {
                 console.log(fd);
-                /*
+
                 $.ajax({
                     type: "PUT",
                     headers: {
@@ -158,20 +159,17 @@
                     },
                     crossDomain: true,
                     contentType: "application/json",
-                    url: `DEĞİŞECEK`,
+                    url: `http://localhost:8080/event/takeAttendance`,
                     data: JSON.stringify(fd),
                     dataType: 'json',
                     success: function(response) {
                         if (response.messageType == "ERROR") {
                             alert(response.message)
-                        } else if (response.messageType == "SUCCESS") {
-                            // add href
-                            alert(response.message)
                         }
 
 
                     }
-                });*/
+                });
             }
 
             $.ajax({
@@ -199,6 +197,10 @@
                         $("#attendee-list").append(`<li>` + item + `</li>`);
                         //$(`#${i}`).prop("checked", attendees[i].present);
                         $(`#${i}`).prop("disabled", "disabled");
+                        if(attendees[i].attended) {
+                            console.log("here")
+                            $(`#${i}`).prop("checked", "checked");
+                        }
                     }
 
                     $("#editAttendanceButton").click(function() {
@@ -212,7 +214,7 @@
                             }
                             for (let i = 0; i < attendees.length; i++) {
                                 $(`#${i}`).prop("disabled", "disabled");
-                                if ($(`#${i}`).prop("checked", true)) {
+                                if ($(`#${i}`).is(":checked")) {
                                     formData.attendance.push(attendees[i].userId);
                                 }
                             }
