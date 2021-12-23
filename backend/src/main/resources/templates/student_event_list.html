@@ -43,17 +43,13 @@
             <td th:text="${event.clubName}"></td>
             <td th:text="${event.eventName}"></td>
             <td th:text="${event.startDate}"></td>
-            <td >Time</td>
+            <td th:text="${event.startTime}"></td>
             <td th:text="${event.gePoint}"></td>
-            <td>loc</td>
+            <td th:text="${event.location}"></td>
             <td th:text="${event.quota}"></td>
             <td><button type="button" class="btn btn-info text-light details" th:id="${event.eventId}">See Details</button></td>
         </tr>
 
-
-<button class="details" id="x"></button>
-<button class="details" id="y"></button>
-<button class="details" id="z"></button>
 
         </tbody>
 
