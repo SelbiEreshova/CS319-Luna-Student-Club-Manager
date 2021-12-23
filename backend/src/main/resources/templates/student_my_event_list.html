@@ -11,7 +11,21 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-
+   <!--- <style>
+    body {
+        background-color: aquamarine;
+        margin : 0px;
+    }
+    .fa-star {
+        font-size : 50px;
+        align-content: center;
+    }
+    .container {
+        height: 100px;
+        width: 600px;
+        margin: auto;
+    }
+    </style>-->
 </head>
 <body>
 <!-- This page requires all clubs including their name email and faculty advisor-->
@@ -27,6 +41,7 @@
         <button class="btn-outline-dark" id="all-e"><h5>All  Events</h5></button>
         <button class="btn-outline-dark"id="future-e"><h5>Future events</h5></button>
         <button class="btn-outline-dark" id="past-e"><h5>Past events</h5></button>
+        <button class="btn-outline-dark" id="ongoing-e"><h5>Ongoing events</h5></button>
 </ul>
 </div>
 <div class="container table-responsive mx-auto my-2 p-3 ">
@@ -34,13 +49,14 @@
         <thead class="bg-dark text-light">
         <tr>
             <th>Club Name</th>
-            <th class="filtered">Event Name</th>
+            <th>Event Name</th>
             <th>Date</th>
-            <th class="filtered">Time</th>
+            <th>Time</th>
             <th>Ge Points</th>
             <th>Location</th>
             <th>Quota</th>
             <th>Details</th>
+            <th>Review</th>
 
         </tr>
         </thead>
@@ -53,10 +69,45 @@
 
 </div>
 
+<div class="modal" tabindex="-1" role="dialog" id="review-open">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-light">
+                <h5 class="modal-title">Add Club</h5>
+
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class = "container">
+                    <h2 style="margin-top: 50px;">jQuery simple star rating example</h2>
+                    <div class = "con">
+                        <h3 style = "margin-top : 80px; color: green;">Rate our product :-</h3>
+                        <i class = "fa fa-star" aria-hidden = "true" id = "st1"></i>
+                        <i class = "fa fa-star" aria-hidden = "true" id = "st2"></i>
+                        <i class = "fa fa-star" aria-hidden = "true" id = "st3"></i>
+                        <i class = "fa fa-star" aria-hidden = "true" id = "st4"></i>
+                        <i class = "fa fa-star" aria-hidden = "true" id = "st5"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id = "createClub">Review</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 
 <script>
     $(document).ready( function () {
+ //   $("#review-open").show();
+   // $('#rateMe3').mdbRate();
+         function goToReview(){
+      }
+
         $(".nav_bar").load("http://localhost:8080/student.html");
         $("#events_nav").addClass("active");
         $('.club-list').DataTable(
@@ -66,81 +117,210 @@
           },
           });
       var table = $(".event-list").DataTable();
+              function goToEvent(id) {
+                window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
+              }
+               table.row.add([
+              1,2,3,4,5,6,7,
+              `<button class=\"\" onclick='goToEvent(1)'>Go to event's home page</button>`,
+              "<p></p>"
+            ]).draw(false);
+             newRow = table.row( ':last').node()
+             $(newRow).addClass("future");
 
       $.ajax({
         type: "GET",
         headers: {
           "Access-Control-Allow-Origin": "*",
-             Authorization : localStorage.getItem('Authorization'),
+          Authorization : localStorage.getItem('Authorization')
         },
         crossDomain: true,
         contentType: "application/json",
-        url: `http://localhost:8080/event/myEvents/${localStorage.getItem('userId')}`,
+        url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
           console.log(response);
+          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
-
-              node = table.row.add([
-                r[i].clubName,
+              table.row.add([
                 r[i].eventName,
+                r[i].clubName,
                 r[i].startDate,
                 r[i].startTime,
                 r[i].gePoint,
-                r[i].location,
-                r[i].quota,
-                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
-                ]).draw();
+              r[i].location,
+              r[i].quota,
+                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                "<p></p>"
 
-                 var now = new Date();
-                newRow = table.row( ':last').node()
-                //console.log("gtfdcsx"+typeof(r[i].startDate))
-                sdate = r[i].startDate.split("-")
-                date = Date(sdate[0],sdate[1],sdate[2])
-                if (date < now) {
-                 alert("Date must be in the future");
-                 $(newRow).addClass("past");
-                   }
-                else{
-                alert("in future")
-                     $(newRow).addClass("future");
-                }
-                //console.log(table.row(this).index())
+                ]).draw(false);
           };
+           newRow = table.row( ':last').node()
+             $(newRow).addClass("future");
           for (let i = 0; i < response.length; i++) {
             showEvents(response, i);
           }
-
         }
       });
-        function goToEvent(id) {
-                window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
-              }
-              $('.x').click(function(){
-                  var id = $(this).attr('id');
-                  goToEvent(id)
-              });
 
-    $("#all-e").click(function () {
-        $('ul button').removeClass('active');
-        $(this).addClass('active');
-             $(".past").show();
-             $(".future").show();
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/getPastEventsOfStudent/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
+          function showEvents(r, i){
+            table.row.add([
+              r[i].eventName,
+              r[i].clubName,
+              r[i].startDate,
+              r[i].startTime,
+              r[i].gePoint,
+              r[i].location,
+              r[i].quota,
+            `<button onclick=\"goToEvent(${r[i].eventId})\">Go to event's home page</button>`,
+            `<button class=\"review-b\" onclick=\'goToReview()\'>Review</button>`
+            ]).draw(false);
+          };
+             newRow = table.row( ':last').node()
+             $(newRow).addClass("past");
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
 
+
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/getOnGoingEventsOfStudent/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
+          function showEvents(r, i){
+            table.row.add([
+              r[i].eventName,
+              r[i].clubName,
+              r[i].startDate,
+              r[i].startTime,
+              r[i].gePoint,
+              r[i].location,
+              r[i].quota,
+              `<button class=\"\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+              "<p></p>"
+            ]).draw(false);
+          };
+             newRow = table.row( ':last').node()
+             $(newRow).addClass("ongoing");
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
+
+              var clicked =0;
+              $("all-e").addClass("active");
+                  $("#all-e").click(function () {
+                  selectAll();
     });
+function selectAll(){
+
+            $('ul button').removeClass('active');
+            $("#all-e").addClass('active');
+            $(".past").show();
+            $(".future").show();
+            $(".ongoing").show();
+            clicked = 4;
+    }
+
     $("#past-e").click(function () {
-        $('ul button').removeClass('active');
-        $(this).addClass('active');
-
-             $(".past").show();
+    console.log("1 ----> "+clicked)
+     if($(this).hasClass("active")){
+        $(this).removeClass('active');
+            $(".past").hide();/////
+            clicked--;
+            if(clicked==0)
+                selectAll()
+            console.log("1 ----> "+clicked)
+        }
+       else{
+        if(clicked==4){
+            clicked=0
              $(".future").hide();
+             $(".ongoing").hide();
+             $("#all-e").removeClass("active");
+               console.log("1 ----> "+clicked)
+        }
+        $(this).addClass('active');
+        $(".past").show();
+        clicked++;
+        console.log("1 ----> "+clicked)
+        }
 
     });
+
     $("#future-e").click(function () {
-        $('ul button').removeClass('active');
+    console.log("1 ----> "+clicked)
+     if($(this).hasClass("active")){
+        $(this).removeClass('active');
+            $(".future").hide();
+            clicked--;
+            if(clicked==0)
+                selectAll()
+            console.log("1 ----> "+clicked)
+        }
+       else{
+        if(clicked==4){
+            clicked=0
+             $(".past").hide();
+             $(".ongoing").hide();
+             $("#all-e").removeClass("active");
+               console.log("1 ----> "+clicked)
+        }
         $(this).addClass('active');
-              $(".past").hide();
-             $(".future").show();
+        $(".future").show();
+        clicked++;
+        console.log("1 ----> "+clicked)
+        }
+
+    });
+    $("#ongoing-e").click(function () {
+    console.log("1 ----> "+clicked)
+     if($(this).hasClass("active")){
+        $(this).removeClass('active');
+            $(".ongoing").hide();
+            clicked--;
+            if(clicked==0)
+                selectAll()
+            console.log("1 ----> "+clicked)
+        }
+       else{
+        if(clicked==4){
+            clicked=0
+             $(".future").hide();
+             $(".past").hide();
+             $("#all-e").removeClass("active");
+               console.log("1 ----> "+clicked)
+        }
+        $(this).addClass('active');
+        $(".ongoing").show();
+        clicked++;
+        console.log("1 ----> "+clicked)
+        }
 
     });
     });

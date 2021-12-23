@@ -18,7 +18,7 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item">
-                <a class="nav-link" id="student_list" href="#">My Clubs</a>
+                <a class="nav-link" id="student_list" href="http://localhost:8080/app/open_clubs_student">My Clubs</a>
             </li>
             <li class="nav-item" >
                 <a class="nav-link" id="club_list" href="http://localhost:8080/app/student_my_event_list">My Events<span class="sr-only">(current)</span></a>
@@ -27,7 +27,7 @@
                 <a class="nav-link"  id="faculty_advisor_list" href="http://localhost:8080/app/student_event_list">Events</a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" id="clubs" href="http://localhost:8080/app/open_clubs_student">Clubs</a>
+                <a class="nav-link" id="clubs" href="http://localhost:8080/app/open_all_clubs">Clubs</a>
             </li>
             <li class="nav-item" >
                 <a class="nav-link" id="my_applications" href="#">My Applications</a>
@@ -59,6 +59,10 @@
         if(id === 'event_list')
         {
             $(".body").load("HTML/Event_pages/Student_event-list.html");
+        }
+        else if(id === 'about_us')
+        {
+            $(".body").load("HTML/Info_pages/About_us.html");
         }
         else if(id === 'about_us')
         {

@@ -47,6 +47,7 @@
       }]
     });
 
+
     $.ajax({
       type: "GET",
       headers: {
@@ -60,9 +61,10 @@
       success: function (response) {
         console.log(response);
        function showClubs(r, i) {
+         //${r[i].clubId}
          tbl.row.add([
            r[i].name,
-           `<button onclick='goToClub(${r[i].clubId})' >Go to club home page</button>`,
+           `<button onclick="function b(){ console.log(\"button\")}" >Go to club home page</button>`,
            "delete button gelecek"
            //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
          ]).draw(false);
@@ -73,7 +75,6 @@
        }
       }
     });
-
   });
 </script>
 
