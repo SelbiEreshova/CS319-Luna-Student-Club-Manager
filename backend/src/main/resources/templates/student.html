@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark" style=" background-color: #20b5bd; z-index: 1030;">
+    <a class="navbar-brand" href="http://localhost:8080/app/student_home_page">Clubverse</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" id="student_list" href="#">My Clubs</a>
+            </li>
+            <li class="nav-item" >
+                <a class="nav-link" id="club_list" href="http://localhost:8080/app/student_my_event_list">My Events<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" >
+                <a class="nav-link"  id="faculty_advisor_list" href="http://localhost:8080/app/student_event_list">Events</a>
+            </li>
+            <li class="nav-item" >
+                <a class="nav-link" id="clubs" href="http://localhost:8080/app/open_clubs_student">Clubs</a>
+            </li>
+            <li class="nav-item" >
+                <a class="nav-link" id="my_applications" href="#">My Applications</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="about_us" href="#">About us</a>
+            </li>
+        </ul>
+    </div>
+    <div class=" justify-content-left">
+        <ul class="navbar-nav mr-auto">
+            <button class="mx-3" id = "signOut">   Sign Out  </button>
+            <div class="mx-auto" id="homepage"><button class="mx-3" id="profile"><img src="user.png" class="rounded float-left " style=" height : 40px "></button></div>
+        </ul>
+    </div>
+</nav>
+<div class="body">
+
+</div>
+</body>
+<script>
+ $("#profile").click(function(event) {
+        window.location.href = 'http://localhost:8080/app/student_profile';
+        });
+    $( ".nav-item" ).click(function(event) {
+        $(".nav-item").removeClass("active");
+        $(this).addClass("active");
+        let id = event.target.id;
+        if(id === 'event_list')
+        {
+            $(".body").load("HTML/Event_pages/Student_event-list.html");
+        }
+        else if(id === 'about_us')
+        {
+            $(".body").load("HTML/Info_pages/About_us.html");
+        }
+
+    });
+
+    $("#signOut").on("click", function (event) {
+        event.preventDefault();
+        localStorage.removeItem("Authorization");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userType");
+
+        window.location.href = "http://localhost:8080/login"
+    });
+    </script>
+</html>

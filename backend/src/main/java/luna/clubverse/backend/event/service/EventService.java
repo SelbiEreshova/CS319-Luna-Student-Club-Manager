@@ -1,0 +1,235 @@
+package luna.clubverse.backend.event.service;
+
+import luna.clubverse.backend.club.entity.Club;
+import luna.clubverse.backend.club.repository.ClubRepository;
+import luna.clubverse.backend.common.BooleanResponse;
+import luna.clubverse.backend.common.MessageResponse;
+import luna.clubverse.backend.common.MessageType;
+import luna.clubverse.backend.event.controller.response.EventHomePageResponse;
+import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
+import luna.clubverse.backend.event.entity.Event;
+import luna.clubverse.backend.event.enumuration.EventStatus;
+import luna.clubverse.backend.event.repository.EventRepository;
+import luna.clubverse.backend.financedata.entity.FinanceData;
+import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
+import luna.clubverse.backend.financedata.repository.FinanceDataRepository;
+import luna.clubverse.backend.financetable.entity.FinanceTable;
+import luna.clubverse.backend.financetable.repository.FinanceTableRepository;
+import luna.clubverse.backend.user.entity.FacultyAdvisor;
+import luna.clubverse.backend.user.entity.Student;
+import luna.clubverse.backend.user.repository.FacultyAdvisorRepository;
+import luna.clubverse.backend.user.repository.StudentRepository;
+import luna.clubverse.backend.user.repository.UserRepository;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Service
+@Transactional
+public class EventService {
+
+    private final ClubRepository cLubRepository;
+    private final EventRepository eventRepository;
+    private final FinanceDataRepository financeDataRepository;
+    private final FinanceTableRepository financeTableRepository;
+    private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
+    private final FacultyAdvisorRepository facultyAdvisorRepository;
+
+    public EventService(ClubRepository cLubRepository, EventRepository eventRepository, FinanceDataRepository financeDataRepository, FinanceTableRepository financeTableRepository, UserRepository userRepository, StudentRepository studentRepository, FacultyAdvisorRepository facultyAdvisorRepository) {
+        this.cLubRepository = cLubRepository;
+        this.eventRepository = eventRepository;
+        this.financeDataRepository = financeDataRepository;
+        this.financeTableRepository = financeTableRepository;
+        this.userRepository = userRepository;
+        this.studentRepository = studentRepository;
+        this.facultyAdvisorRepository = facultyAdvisorRepository;
+    }
+
+    public void addEvent(Event event) {
+        FinanceData data = new FinanceData(12L, FinanceDataStatus.INCOME, "jhsgadfjs", LocalDate.now());
+        FinanceTable table = new FinanceTable();
+
+        data.setFinanceTable(table);
+
+        financeTableRepository.save(table);
+        financeDataRepository.save(data);
+        eventRepository.save(event);
+    }
+
+    @Transactional
+    public void updateEvent( Event updatedEvent,Long id) {
+        Event eventToUpdate = eventRepository.findById(id)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + id + " could not be found."));
+
+        eventToUpdate.update(updatedEvent);
+        eventRepository.save(eventToUpdate);
+    }
+    public Event getEvent(Long eventId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(()->new EntityNotFoundException("The event with the id " + eventId + " could not be found."));
+
+        return eventFromDB;
+    }
+
+    public void changeEventStatus(Long eventId,EventStatus eventStatus){
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(()->new EntityNotFoundException("The event with the id " + eventId + " could not be found."));
+
+        eventFromDB.setEventStatus(eventStatus);
+
+        eventRepository.save(eventFromDB);
+
+    }
+
+    public void addEventToClub(Long clubId, Event event) {
+
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+        event.setClub(clubFromDB);
+
+        eventRepository.save(event);
+    }
+
+
+    //public List<Event> getEventList()
+    //{
+   //     return eventRepository.findAllEvents();
+    //}
+
+
+    public List<EventListQueryResponse> getAllDemo() {
+        return eventRepository.findAll().stream().map(EventListQueryResponse::new).toList();
+    }
+
+
+    public List<EventListQueryResponse> getEventsForClub( Long id) {
+        return eventRepository.findNameById(id).stream().map(EventListQueryResponse::new).toList();
+        //return cLubRepository.findAll().
+    }
+
+    public List<EventListQueryResponse> getEventsForStudent(Long id) {
+        //return eventRepository.findEventsByStudentId(id).stream().map(EventQueryResponse::new).toList();
+        //return cLubRepository.findAll().
+        Student student = (Student) userRepository.findById(id)
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + id + "is not found"));
+        return student.getEnrolledEvents().stream().map(EventListQueryResponse::new).toList();
+
+    }
+
+    public MessageResponse addEnrolledStudent(Long eventId, Long userId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        Student studentFromDB = (Student) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
+
+        eventFromDB.addEnrolledStudent(studentFromDB);
+
+        eventRepository.save(eventFromDB);
+
+        return  new MessageResponse(MessageType.SUCCESS, "You enrolled the event  successfully");
+    }
+
+    public MessageResponse deleteEnrolledStudent(Long eventId, Long userId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        Student studentFromDB = (Student) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
+        eventFromDB.deleteEnrolledStudent(studentFromDB);
+
+        eventRepository.save(eventFromDB);
+
+        return  new MessageResponse(MessageType.SUCCESS, "You cancelled your enrollment to the event  successfully");
+    }
+
+    public BooleanResponse isEnrolledStudent(Long eventId, Long userId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        Student studentFromDB = (Student) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
+
+        boolean result = eventFromDB.isEnrolled(studentFromDB);
+        return new BooleanResponse(result);
+
+    }
+
+    public EventHomePageResponse getButtonsStatus(Long eventId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        if(eventFromDB.getEventStatus().equals(EventStatus.DRAFT)) {
+            return new EventHomePageResponse("visible","hidden","visible","visible");
+        } else if (eventFromDB.getEventStatus().equals(EventStatus.PUBLISHED)) {
+            return new EventHomePageResponse("visible","visible","hidden","hidden");
+        } else {
+            return new EventHomePageResponse("hidden","hidden","hidden","hidden");
+        }
+    }
+
+
+    public MessageResponse addEnrolledFacultyAdvisor(Long eventId, Long userId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        FacultyAdvisor faFromDB = (FacultyAdvisor) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("FacultyAdvisor with id " + userId + "is not found"));
+
+        eventFromDB.addEnrolledFacultyAdvisor(faFromDB);
+
+        eventRepository.save(eventFromDB);
+
+        return  new MessageResponse(MessageType.SUCCESS, "You enrolled the event successfully");
+    }
+
+    public MessageResponse deleteEnrolledFacultyAdvisor(Long eventId, Long userId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        FacultyAdvisor faFromDB= (FacultyAdvisor) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("FacultyAdvisor with id " + userId + "is not found"));
+        eventFromDB.deleteEnrolledFacultyAdvisor(faFromDB);
+
+        eventRepository.save(eventFromDB);
+
+        return  new MessageResponse(MessageType.SUCCESS, "You cancelled your enrollment to the event  successfully");
+    }
+
+    public BooleanResponse isEnrolledFacultyAdvisor(Long eventId, Long userId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        FacultyAdvisor faFromDB= (FacultyAdvisor) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
+
+        boolean result = eventFromDB.isEnrolled(faFromDB);
+        return new BooleanResponse(result);
+
+    }
+
+
+    public MessageResponse takeAttendance(Long eventId, List<Long> usersId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        Set<Student> students = new HashSet<>(studentRepository.findAllByIdIsIn(usersId));
+
+        eventFromDB.setAttendedStudents(students);
+
+        Set<FacultyAdvisor> advisors = new HashSet<>(facultyAdvisorRepository.findAllByIdIsIn(usersId));
+
+        eventFromDB.setAttendedFacultyAdvisors(advisors);
+
+        eventRepository.save(eventFromDB);
+
+        return new MessageResponse(MessageType.SUCCESS, "Attendance is taken successfully");
+
+    }
+}
