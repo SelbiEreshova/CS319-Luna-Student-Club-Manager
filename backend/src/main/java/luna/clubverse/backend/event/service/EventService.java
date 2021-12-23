@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -166,11 +167,16 @@ public class EventService {
                 .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
 
         if(eventFromDB.getEventStatus().equals(EventStatus.DRAFT)) {
-            return new EventHomePageResponse("visible","hidden","visible","visible");
+            return new EventHomePageResponse("visible","hidden","visible","visible", "hidden");
         } else if (eventFromDB.getEventStatus().equals(EventStatus.PUBLISHED)) {
-            return new EventHomePageResponse("visible","visible","hidden","hidden");
+            if(eventFromDB.getEndDateTime().compareTo(LocalDateTime.now()) < 0) {
+                return new EventHomePageResponse("hidden","hidden","hidden","hidden", "visible");
+            } else if (eventFromDB.getStartDateTime().compareTo(LocalDateTime.now()) <= 0) {
+                return new EventHomePageResponse("visible","hidden","hidden","hidden", "visible");
+            }
+            return new EventHomePageResponse("visible","visible","hidden","hidden", "hidden");
         } else {
-            return new EventHomePageResponse("hidden","hidden","hidden","hidden");
+            return new EventHomePageResponse("hidden","hidden","hidden","hidden", "visible");
         }
     }
 

@@ -25,9 +25,10 @@ public class EventController {
     }
 
     @RequestMapping("/app/open_create_event/{clubId}")
-    public String getCreateEvent(@PathVariable Long clubId) {
+    public String getCreateEvent(Model model,@PathVariable Long clubId) {
         //eventService.addEventToClub(clubId,);
         //model.addAttribute("club", club);
+        model.addAttribute("clubId", clubId);
         Club club = clubService.getClub(clubId);
         return "create_event";
     }

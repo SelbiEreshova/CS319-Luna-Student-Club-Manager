@@ -110,6 +110,7 @@
     document.getElementById("cancelEventButton").style.visibility="hidden";
     document.getElementById("deleteEventButton").style.visibility="hidden";
     document.getElementById("publishEventButton").style.visibility="hidden";
+    document.getElementById("editAttendanceButton").style.visibility="hidden";
 
     var id = [[${eventId}]];
 
@@ -131,6 +132,7 @@
                 document.getElementById("cancelEventButton").style.visibility = `${response.cancelEvent}`;
                 document.getElementById("deleteEventButton").style.visibility = `${response.deleteEvent}`;
                 document.getElementById("publishEventButton").style.visibility = `${response.publishEvent}`;
+                document.getElementById("editAttendanceButton").style.visibility = `${response.editAttendance}`;
             }
 
             // refresh etmek için bir şey eklenmeli
