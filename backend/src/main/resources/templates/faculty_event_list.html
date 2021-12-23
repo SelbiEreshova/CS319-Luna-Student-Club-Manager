@@ -69,9 +69,18 @@
                     r[i].startTime,
                     r[i].gePoints,
                     r[i].location,
-                    `<button>see details</button>`
+                    r[i].quota
+                      `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
                 ]).draw();
             };
+             function goToEvent(id) {
+                window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
+              }
+              $('.details').click(function(){
+                  var id = $(this).attr('id');
+                  goToEvent(id)
+              });
+
             for (let i = 0; i < response.length; i++) {
                 showEvents(response, i);
             }

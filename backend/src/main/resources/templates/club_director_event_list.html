@@ -24,7 +24,7 @@
 <h2 class="d-flex justify-content-center mt-4 pt-6">Event List</h2>
 
 <div class="justify-content-left mt-2 mx-5"> <button class=" btn-info text-dark  m-2 p-2" id="create"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Create Event</button></div>
-
+<div class="ax">frghbnj</div>
 <div class="container table-responsive mx-auto my-2 p-3 ">
     <table class="table display table-striped event-list">
         <thead class="bg-dark text-light">
@@ -57,15 +57,20 @@
 </script>
 
 <script>
-  /*
-  function goToEvent(id) {
-    window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`;
-  }*/
+
     $(document).ready(function () {
       var table = $(".event-list").DataTable();
       $("#create").click(function(){
         window.location.href = `http://localhost:8080/app/open_create_event/${localStorage.getItem('clubId')}`;
-      })
+      });
+      v=5;
+ var detailsButton = `<button  class=\"details\" id=${v}>see details</button>`
+table.row.add([
+                1,2,3,4,5,6,
+                detailsButton
+
+                ]).draw();
+  $(".ax").html(detailsButton);
       $.ajax({
         type: "GET",
         headers: {
@@ -79,6 +84,9 @@
         success: function(response) {
           console.log(response);
           function showEvents(r, i){
+                var detailsButton = `<button  class=\"details\" id=${i} >see details</button>`
+                 $(".ax").html(detailsButton);
+
               table.row.add([
                 r[i].eventName,
                 r[i].startDate,
@@ -86,14 +94,27 @@
                 r[i].gePoint,
                 r[i].location,
                 r[i].quota,
-                "aa"// `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
-                ]).draw();
+                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
+                ]).draw(false);
           };
           for (let i = 0; i < response.length; i++) {
             showEvents(response, i);
           }
+
         }
       });
+          function goToEvent(id) {
+                window.location.href= `http://localhost:8080/app/clubdirector_event_homepage/${id}`;
+              }
+              $(".a").click(function(){
+              alert("class çalışıyorr")
+             })
+              $(".details").click(function(){
+              alert("aaaaaaaaaaaa")
+                  var id = $(this).attr('id');
+                  alert(id)
+                  goToEvent(id)
+              });
     });
 </script>
 

@@ -21,7 +21,7 @@
                 <a class="nav-link" id="members_list" href=`#`>Members</a>
             </li>
             <li class="nav-item" >
-                <a class="nav-link" id="events_list" href="#">Events<span class="sr-only">(current)</span></a>
+                <a class="nav-link" id="events_list" href="http://localhost:8080/app/club_director_event_list">Events<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" >
                 <a class="nav-link"  id="applications_list" href="#">Applications</a>
@@ -67,10 +67,6 @@
             document.getElementById("members_list").setAttribute("href",url);
         });
 
-        $("#events_list").click(function() {
-            var url = `http://localhost:8080/app/student_club_event_list/${localStorage.getItem('clubId')}`;
-            document.getElementById("events_list").setAttribute("href",url);
-        });
 
         $("#signOut").on("click", function (event) {
             event.preventDefault();

@@ -46,11 +46,14 @@
             <td >Time</td>
             <td th:text="${event.gePoint}"></td>
             <td>loc</td>
-            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
+            <td th:text="${event.quota}"></td>
+            <td><button type="button" class="btn btn-info text-light details" th:id="${event.eventId}">See Details</button></td>
         </tr>
 
 
-
+<button class="details" id="x"></button>
+<button class="details" id="y"></button>
+<button class="details" id="z"></button>
 
         </tbody>
 
@@ -66,8 +69,12 @@
     $("#events_nav").addClass("active");
 
     function goToEvent(id) {
-        window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`;
+        window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
       }
+      $('.details').click(function(){
+          var id = $(this).attr('id');
+          goToEvent(id)
+      });
 
     var table = $('.club-list').DataTable(
                     { language: {
@@ -76,9 +83,8 @@
                         },
                          });
     });
-    $('.club-list tbody').on( 'click', 'td', function () {
-        alert( 'Clicked on cell in visible column: '+table.cell( this ).index().columnVisible );
-    } );
+
+
 
 
 </script>

@@ -88,8 +88,8 @@
                 r[i].startTime,
                 r[i].gePoint,
                 r[i].location,
-                "quota",
-                `<button>see details</button>`
+                r[i].quota,
+                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
                 ]).draw();
 
                  var now = new Date();
@@ -113,6 +113,13 @@
 
         }
       });
+        function goToEvent(id) {
+                window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
+              }
+              $('.x').click(function(){
+                  var id = $(this).attr('id');
+                  goToEvent(id)
+              });
 
     $("#all-e").click(function () {
         $('ul button').removeClass('active');
