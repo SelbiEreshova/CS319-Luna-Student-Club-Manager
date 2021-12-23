@@ -58,7 +58,7 @@
             window.location.href = "http://localhost:8080/app/club_director_profile";
         })
         $("#main_page").click(function() {
-            var url = `http://localhost:8080/app/club_home_page_director/${localStorage.getItem('clubId')}/${localStorage.getItem('userId')}`;
+            var url = `http://localhost:8080/app/club_home_page_director/${localStorage.getItem('clubId')}`;
             document.getElementById("main_page").setAttribute("href",url);
         });
 

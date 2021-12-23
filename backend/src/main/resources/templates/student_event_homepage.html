@@ -143,10 +143,8 @@
             success: function (response) {
                 if (response.messageType == "ERROR") {
                     alert(response.message)
-                } else if (response.messageType == "SUCCESS") {
-                    alert(response.message)
-                    // add refresh
                 }
+                    // add refresh
             },
             error: function (e) {
                 alert("Error!")
