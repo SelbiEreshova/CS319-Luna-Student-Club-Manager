@@ -14,5 +14,6 @@ public class EventHomePageResponse {
     private String cancelEvent;
     private String publishEvent;
     private String deleteEvent;
+    private String editAttendance;
 
 }
