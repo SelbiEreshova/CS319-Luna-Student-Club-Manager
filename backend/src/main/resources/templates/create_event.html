@@ -151,6 +151,9 @@
 </div>
 </body>
 <script>
+
+    var clubId = [[${clubId}]];
+
     $(document).ready(
         function() {
 
@@ -220,7 +223,7 @@
                     },
                     crossDomain: true,
                     contentType : "application/json",
-                    url : "http://localhost:8080/event/1/addToClub",
+                    url : `http://localhost:8080/event/${clubId}/addToClub`,
                     data : JSON.stringify(formData),
                     dataType : 'json',
                     success : function(result) {
