@@ -29,6 +29,9 @@ public class ClubController {
     @RequestMapping("/app/club_home_page_{userType}/{clubId}/{userId}")
     public String getClubHomePage( Model model,@PathVariable String userType, @PathVariable Long clubId, @PathVariable Long userId) {
 
+        final String url = "club_home_page_";
+        /*
+
         boolean isMember = false;
         Club club = clubService.getClub(clubId);
         model.addAttribute("club", club);
@@ -37,9 +40,10 @@ public class ClubController {
             isMember = customUserService.getStudent(userId).getRegisteredClubs().contains(club);
         }
         model.addAttribute("checkMember",isMember);
-        final String url = "club_home_page_";
 
         //userType = userType.toLowerCase();
+
+         */
         return url + userType;
 
     }
