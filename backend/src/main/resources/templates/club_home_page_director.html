@@ -33,8 +33,8 @@
 <div class="container py-5">
   <div class="row">
     <div class="col text-center">
-      <h1 class="display-4 font-weight-bold">CLUB NAME</h1>
-      <p class="font-italic text-muted">Description of club.Description of club.Description of clubDescription of clubDescription of clubDescription of clubDescription of club</p>
+      <h1 class="display-4 font-weight-bold" id="club_name"></h1>
+      <p class="font-italic text-muted" id="club_description"></p>
     </div>
     <div class="col">
       <img  src="https://source.unsplash.com/910x592" class="rounded-circle float-right border border-success" alt="Cinque Terre" width="300" height="300" style="margin-top:-30%; float: right; margin-right: 10%">
@@ -47,78 +47,9 @@
         <div class="col-lg-10 mb-4">
           <h3 class="">Our Board Members</h3>
           <div class="row">
-            <div class="col-sm-4 card-wrapper">
-              <div class="card border-0">
-                <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image" style="height: 200px; width: 200px">
-                  <img class="w-100 h-100 rounded-circle" src="https://source.unsplash.com/592x592" alt="Card image cap">
-                </div>
-                <div class="card-body text-center mt-4">
-                  <h3 class="text-uppercase card-title">Name surname </h3>
-                  <p class="card-text">Role</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4 card-wrapper">
-              <div class="card border-0">
-                <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image" style="height: 200px; width: 200px">
-                  <img class="w-100 h-100 rounded-circle" src="https://source.unsplash.com/802x802" alt="Card image cap">
-                </div>
-                <div class="card-body text-center mt-4">
-                  <h3 class="text-uppercase card-title">Name surname </h3>
-                  <p class="card-text">Role</p>
-                </div>
-              </div>
-            </div>
+                <div id="list_members">
 
-            <div class="col-sm-4 card-wrapper">
-              <div class="card border-0">
-                <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image" style="height: 200px; width: 200px">
-                  <img class="w-100 h-100 rounded-circle" src="https://source.unsplash.com/794x794" alt="Card image cap">
                 </div>
-                <div class="card-body text-center mt-4">
-                  <h3 class="text-uppercase card-title">Name surname </h3>
-                  <p class="card-text">Role</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="row pt-5">
-            <div class="col-sm-4 card-wrapper">
-              <div class="card border-0">
-                <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image" style="height: 200px; width: 200px">
-                  <img class="w-100 h-100 rounded-circle" src="https://source.unsplash.com/592x592" alt="Card image cap">
-                </div>
-                <div class="card-body text-center mt-4">
-                  <h3 class="text-uppercase card-title">Name surname </h3>
-                  <p class="card-text">Role</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4 card-wrapper">
-              <div class="card border-0">
-                <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image" style="height: 200px; width: 200px">
-                  <img class="w-100 h-100 rounded-circle" src="https://source.unsplash.com/802x802" alt="Card image cap">
-                </div>
-                <div class="card-body text-center mt-4">
-                  <h3 class="text-uppercase card-title">Name surname </h3>
-                  <p class="card-text">Role</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-4 card-wrapper">
-              <div class="card border-0">
-                <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image" style="height: 200px; width: 200px">
-                  <img class="w-100 h-100 rounded-circle" src="https://source.unsplash.com/794x794" style="height: 100px; width: 100px" alt="Card image cap">
-                </div>
-                <div class="card-body text-center mt-4">
-                  <h3 class="text-uppercase card-title">Name surname </h3>
-                  <p class="card-text">Role</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -165,6 +96,78 @@
   $("#events_nav").addClass("active");
   //Need to fix this
   $(document).ready(function () {
+
+
+    //get method
+    clubId =  [[${clubId}]]
+    $.ajax({
+      type: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization: localStorage.getItem('Authorization')
+      },
+      crossDomain: true,
+      contentType: "application/json",
+      url:"http://localhost:8080/club/get/"+clubId,
+      dataType: 'json',
+      success: function (response) {
+        console.log(response);
+        $("#club_name").text(response.name);
+        $("#club_discription").text(response.description);
+
+
+        for(let i = 0; i < response.boardMembers.length; i++)
+        {
+          showMember(response.boardMembers, i)
+        }
+
+      }
+    });
+
+    function showMember(mem, i)
+    {
+      $("#list_members").append("<div class=\"card border-0\">\n" +
+              "                                <div class=\"position-relative rounded-circle overflow-hidden mx-auto custom-circle-image\" style=\"height: 200px; width: 200px\">\n" +
+              "                                    <img class=\"w-100 h-100 rounded-circle\" src=\"https://source.unsplash.com/794x794\" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
+              "                                </div>\n" +
+              "                                <div class=\"card-body text-center mt-4\">\n" +
+              "                                    <h3 class=\"text-uppercase card-title\">"+ mem[i].userFullName +"</h3>\n" +
+              "                                    <p class=\"card-text\">"+ mem[i].title +"</p>\n" +
+              "                                </div>\n" +
+              "                            </div>")
+
+    }
+    //On clicks
+    $( "#apply" ).click(function() {
+      $.ajax({
+        type : "PUT",
+        headers: {
+          "Access-Control-Allow-Origin":"*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType : "application/json",
+        url : "http://localhost:8080/club/1/directApplicationToClub/"+ localStorage.getItem('userId'),
+        success : function(result) {
+          if (result.messageType == "ERROR") {
+            alert(result.message)
+          } else if (result.messageType == "SUCCESS") {
+            // add href
+            alert(result.message)
+          }
+          //if (result.messageType === "SUCCESS") {
+          //    alert("You are now a member");
+          //} else {
+          //    alert("oh nooo smthhh");
+          //}
+          console.log(result);
+        },
+        error : function(e) {
+          alert("Error!")
+          console.log("ERROR: ", e);
+        }
+      });
+    });
 
     //Dialog for changing logo
     $("#edit_logo").click(function(){

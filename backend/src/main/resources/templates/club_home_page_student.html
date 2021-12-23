@@ -52,7 +52,7 @@
     });
 
          */
-
+    clubId =  [[${clubId}]]
     $.ajax({
         type: "GET",
         headers: {
@@ -61,7 +61,7 @@
         },
         crossDomain: true,
         contentType: "application/json",
-        url:"http://localhost:8080/club/get/1",
+        url:"http://localhost:8080/club/get/"+clubId,
         dataType: 'json',
         success: function (response) {
             console.log(response);
