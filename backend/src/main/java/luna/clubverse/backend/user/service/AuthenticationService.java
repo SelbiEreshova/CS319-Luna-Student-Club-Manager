@@ -10,6 +10,7 @@ import luna.clubverse.backend.user.controller.request.UpdatePermissionRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
 import luna.clubverse.backend.user.entity.*;
 import luna.clubverse.backend.user.repository.AuthorityRepository;
+import luna.clubverse.backend.user.repository.StudentRepository;
 import luna.clubverse.backend.user.repository.TitleRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,13 +41,16 @@ public class AuthenticationService {
 
 
     private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
     private final AuthenticationManager authenticationManager;
     private final AuthorityRepository authorityRepository;
     private final TitleRepository titleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationService(UserRepository userRepository, AuthenticationManager authenticationManager, AuthorityRepository authorityRepository, TitleRepository titleRepository, PasswordEncoder passwordEncoder) {
+
+    public AuthenticationService(UserRepository userRepository, StudentRepository studentRepository, AuthenticationManager authenticationManager, AuthorityRepository authorityRepository, TitleRepository titleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.studentRepository = studentRepository;
         this.authenticationManager = authenticationManager;
         this.authorityRepository = authorityRepository;
         this.titleRepository = titleRepository;
@@ -83,6 +87,10 @@ public class AuthenticationService {
         MessageResponse response= isUsernameAndMailUnique(student);
         if(response.getMessageType().equals(MessageType.ERROR)) {
             return response;
+        }
+
+        if (studentRepository.existsByBilkentId(student.getBilkentId())) {
+            return new MessageResponse(MessageType.ERROR, "A user with Bilkent ID " + student.getBilkentId() +" is registered already.");
         }
 
         Authority authorityFromDB = authorityRepository.findByAuthority("STUDENT")
