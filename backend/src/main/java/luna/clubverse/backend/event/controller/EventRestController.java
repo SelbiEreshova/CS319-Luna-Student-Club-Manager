@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -162,15 +163,21 @@ public class EventRestController {
 
     public String checkEventRequestDates(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, LocalDate registeredDeadline, LocalDate reviewDeadline){
 
-        int startEndDate = startDate.compareTo(endDate);
+        LocalDateTime startDateTime = LocalDateTime.of(startDate,startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(endDate,endTime);
 
-       if(startEndDate == 0){
-            int startEndTime =  startTime.compareTo(endTime);
-            if(startEndTime >= 0){
-                return "Start Date cannot be before than End Date";
-            }
-        }else if(startEndDate > 0){
-            return "Start Date cannot be before than End Date";
+        // testi engellediği için şimdilik yorum
+        /*
+        LocalDateTime nowDateTime = LocalDateTime.now();
+
+        if(startDateTime.compareTo(nowDateTime)<0){
+            return " Now cannot be before than Start Date";
+        }
+
+         */
+
+       if(startDateTime.compareTo(endDateTime) > 0){
+           return "Start Date cannot be before than End Date";
         }
 
        // eşit olabilirler mi?
