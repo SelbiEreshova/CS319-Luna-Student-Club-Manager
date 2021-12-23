@@ -2,8 +2,6 @@ package luna.clubverse.backend.club.controller.response;
 
 import lombok.Getter;
 import luna.clubverse.backend.club.entity.Club;
-import luna.clubverse.backend.user.entity.ClubDirector;
-import luna.clubverse.backend.user.entity.FacultyAdvisor;
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.entity.Title;
 
@@ -19,8 +17,6 @@ public class ClubQueryResponse {
     private String name;
     private String logo;
     private String description;
-    private String facultyAdvisorFullName;
-    private String clubDirectorFullName;
     private List<BoardMemberQueryResponse> boardMembers;
 
     public ClubQueryResponse(final Club club) {
@@ -28,12 +24,20 @@ public class ClubQueryResponse {
         this.logo = club.getLogo();
         this.description = club.getDescription();
         this.clubId = club.id();
-        this.facultyAdvisorFullName = club.getFacultyAdvisor().getName() + " " + club.getFacultyAdvisor().getLastname();
-        this.clubDirectorFullName = club.getClubDirector().getName() + " " + club.getClubDirector().getLastname();
-
-        List<Student> boardMembersStudentList = club.getMembers().stream().toList();
 
         List<BoardMemberQueryResponse> boardMembersStudent = new ArrayList<>();
+
+        if(club.getClubDirector() != null){
+            String clubDirectorFullName = club.getClubDirector().getName() + " " + club.getClubDirector().getLastname();
+            boardMembersStudent.add(new BoardMemberQueryResponse(clubDirectorFullName,"Club Director"));
+        }
+
+        if(club.getFacultyAdvisor() != null){
+            String facultyAdvisorFullName =  club.getFacultyAdvisor().getName() + " " + club.getFacultyAdvisor().getLastname();
+            boardMembersStudent.add(new BoardMemberQueryResponse(facultyAdvisorFullName,"Faculty Advisor"));
+        }
+
+        List<Student> boardMembersStudentList = club.getMembers().stream().toList();
 
         for (Student student: boardMembersStudentList){
             BoardMemberQueryResponse current = boardMemberCustomFilter(student,clubId);
