@@ -126,7 +126,22 @@
     });
 
          */
-    //On clicks
+
+    $.ajax({
+        type: "GET",
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            Authorization: localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url:"http://localhost:8080/club/get/1",
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+        }
+    });
+                    //On clicks
     $( "#apply" ).click(function() {
         $.ajax({
             type : "PUT",
