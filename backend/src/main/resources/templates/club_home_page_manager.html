@@ -25,15 +25,12 @@
 
     <div class="row">
        <div class="col pt-5" >
-           <div class="list_members">
+           <div id="list_members">
            </div>
        </div>
         <div class="col pt-5 manager_buttons">
             <button type="button" class="btn btn-primary m-1 for_student">Events</button>
             <button type="button" class="btn btn-primary m-1 for_student">Contact us</button>
-            <button type="button" class="btn btn-primary m-1 for_manager">Manage events</button>
-            <button type="button" class="btn btn-primary m-1 for_manager">Manage finance</button>
-            <button type="button" class="btn btn-primary m-1 for_manager">Manage members</button>
             <button type="button" class="btn btn-danger m-1 for_manager">Cancel membership</button>
         </div>
     </div>
@@ -69,9 +66,27 @@
                 $("#club_name").text(response.name);
                 $("#club_description").text(response.description);
 
-
-                for (let i = 0; i < response.boardMembers.length; i++) {
+                console.log(response.boardMembers);
+                for(let i = 0; i < response.boardMembers.length; i++)
+                {
                     showMember(response.boardMembers, i)
+                }
+
+                //Add permission buttons
+                for (let i= 0; i < response.permissions.length; i++)
+                {
+                    if(response.permissions[i] === 1)
+                    {
+                        $(".manager_buttons").append("        <button type=\"button\" href=\"\"class=\"btn btn-primary m-1 for_manager\">Manage events</button>")
+                    }
+                    else if(response.permissions[i] === 2)
+                    {
+                        $(".manager_buttons").append("            <button type=\"button\" class=\"btn btn-primary m-1 for_manager\">Manage finance</button>\n")
+                    }
+                    else if( response.permissions[i] === 3)
+                    {
+                        $(".manager_buttons").append("            <button type=\"button\" class=\"btn btn-primary m-1 for_manager\">Manage members</button>\n")
+                    }
                 }
 
             }

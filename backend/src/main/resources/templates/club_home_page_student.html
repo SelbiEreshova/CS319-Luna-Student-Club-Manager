@@ -37,7 +37,6 @@
             </div>
         </div>
         <div class="col pt-5 manager_buttons">
-            <button type="button" class="btn btn-primary m-1 for_student" id="apply">Apply for Membership</button>
             <button type="button" class="btn btn-primary m-1 for_student" id="events">Events</button>
             <button type="button" class="btn btn-primary m-1 for_student" id="contactUs">Contact us</button>
         </div>
@@ -67,7 +66,7 @@
         },
         crossDomain: true,
         contentType: "application/json",
-        url:"http://localhost:8080/club/get/"+clubId,
+        url:"http://localhost:8080/club/getForStudent/"+clubId+"/"+ localStorage.getItem("userId"),
         dataType: 'json',
         success: function (response) {
             console.log(response);
@@ -78,6 +77,16 @@
             for(let i = 0; i < response.boardMembers.length; i++)
             {
                 showMember(response.boardMembers, i)
+            }
+
+            //SHow cancel or apply button
+            if( response.member === true)
+            {
+                $(".manager_buttons").append("            <button type=\"button\" class=\"btn btn-danger m-1 for_manager\">Cancel membership</button>\n")
+            }
+            else
+            {
+                $(".manager_buttons").append("            <button type=\"button\" class=\"btn btn-primary m-1 for_student\" id=\"apply\">Apply for Membership</button>\n")
             }
 
         }
@@ -120,6 +129,7 @@
                 //    alert("oh nooo smthhh");
                 //}
                 console.log(result);
+                alert("Now you are a member! Hurray!")
             },
             error : function(e) {
                 alert("Error!")
