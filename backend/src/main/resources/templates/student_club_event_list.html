@@ -55,6 +55,28 @@
 
 
 
+<script>
+    window.onload = function () {
+    console.log("in onload");
+    $.ajax({
+      type: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization : localStorage.getItem('Authorization')
+      },
+      crossDomain: true,
+      contentType: "application/json",
+      url: `http://localhost:8080/${localStorage.getItem('clubId')}/event_list`,
+      dataType: 'json',
+      success: function(response) {
+        $("#name").text(response.message);
+        console.log(response);
+      }
+    });
+  };
+</script>
+
+
 
 <script>
       $(document).ready( function () {
