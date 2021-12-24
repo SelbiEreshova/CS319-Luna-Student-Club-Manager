@@ -170,7 +170,7 @@ public class EventRestController {
         return eventService.addEnrolledStudent(eventId, userId);
     }
 
-    @PutMapping("/{eventId}/addFacultyAdvisor/{userId}")
+    @PutMapping("/{eventId}/addEnrolledFacultyAdvisor/{userId}")
     public MessageResponse addFacultyAdvisor(@PathVariable Long eventId,@PathVariable Long userId) {
         return eventService.addEnrolledFacultyAdvisor(eventId, userId);
     }
