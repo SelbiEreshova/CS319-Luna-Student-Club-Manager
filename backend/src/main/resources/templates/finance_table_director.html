@@ -51,8 +51,8 @@
                 <input type="date" class="form-control " id="date">
               </div>
               <div class="form-group">
-                <label >Explanation</label>
-                <div class="select">
+                <label >Status</label>
+                <div class="select" id="status">
                   <select>
                     <option>INCOME</option>
                     <option>OUTCOME</option>
@@ -80,7 +80,16 @@
 
 });</script>
 <script>
+
+  //Add transaction
   $("#addTransaction").click( function () {
+    console.log($("#status").find(":selected").text())
+    formData = {
+      amountOfMoney: $("#amount").val(),
+      status:  $("#status").find(":selected").text(),
+      explanation: $("#explanation").val(),
+      date: $("#date").val()
+    }
     $.ajax({
       type: "PUT",
       headers: {
@@ -89,14 +98,16 @@
       },
       crossDomain: true,
       contentType: "application/json",
-      url: "http://localhost:8080/club/create-club",
+      url: "http://localhost:8080/financeData/"+localStorage.getItem("clubId")+"/addToFinanceTable",
       data: JSON.stringify(formData),
       dataType: 'json',
       success: function (response) {
         if (response.messageType == "ERROR") {
           alert(response.message)
         } else if (response.messageType == "SUCCESS") {
+          alert("yesss")
           window.location.href = window.location.href;
+
         }
       },
       error: function (e) {
@@ -128,7 +139,7 @@
       },
       crossDomain: true,
       contentType: "application/json",
-      url:"http://localhost:8080/club/finance_table/1",
+      url:"http://localhost:8080/club/finance_table/"+localStorage.getItem("clubId"),
       dataType: 'json',
       success: function (response) {
         console.log(response);
