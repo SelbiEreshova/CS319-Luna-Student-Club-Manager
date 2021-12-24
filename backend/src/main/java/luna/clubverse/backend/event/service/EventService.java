@@ -178,7 +178,7 @@ public class EventService {
         if(event.getEventStatus().equals(EventStatus.CANCELED)){
             return "Event is Cancelled";
         }
-        if(event.getRegistrationDeadline().compareTo(LocalDateTime.now()) > 0){
+        if(event.getRegistrationDeadline().compareTo(LocalDateTime.now()) < 0){
             return "Registration Deadline is passed";
         }
         if(event.isMemberOnly() &&  !student.getRegisteredClubs().contains(event.getClub())){
@@ -191,7 +191,7 @@ public class EventService {
         if(event.getEventStatus().equals(EventStatus.CANCELED)){
             return "Event is Cancelled";
         }
-        if(event.getRegistrationDeadline().compareTo(LocalDateTime.now()) > 0){
+        if(event.getRegistrationDeadline().compareTo(LocalDateTime.now()) < 0){
             return "Registration Deadline is passed";
         }
         if(event.isMemberOnly() &&  !facultyAdvisor.getClub().equals(event.getClub())){
