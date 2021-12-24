@@ -57,11 +57,7 @@ public class ClubRestController {
     @GetMapping("/getWithPermissions/{clubId}/{studentId}")
     public ClubManagerClubQueryResponse getClubWithPermissions(@PathVariable Long clubId, @PathVariable Long studentId) {
 
-        ClubManagerClubQueryResponse club = clubService.getClubWithPermissions(clubId,studentId);
-
-        System.out.println(club);
-
-        return club;
+        return clubService.getClubWithPermissions(clubId,studentId);
     }
 
     @CrossOrigin
