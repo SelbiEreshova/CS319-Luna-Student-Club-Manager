@@ -138,11 +138,11 @@ public class EventService {
         Student studentFromDB = (Student) userRepository.findById(userId)
                 .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
 
-        eventFromDB.addEnrolledStudent(studentFromDB);
+        MessageResponse mr =  eventFromDB.addEnrolledStudent(studentFromDB);
 
         eventRepository.save(eventFromDB);
 
-        return  new MessageResponse(MessageType.SUCCESS, "You enrolled the event  successfully");
+        return  mr;
     }
 
     public MessageResponse deleteEnrolledStudent(Long eventId, Long userId) {
@@ -165,9 +165,43 @@ public class EventService {
         Student studentFromDB = (Student) userRepository.findById(userId)
                 .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
 
-        boolean result = eventFromDB.isEnrolled(studentFromDB);
-        return new BooleanResponse(result);
+        //event canceled sa
+        // member only ise ve member kayıtlı değilse
+        // reg deadline geçtiyse
 
+        boolean result = eventFromDB.isEnrolled(studentFromDB);
+
+        String errorReason = checkErrorEventStudent(eventFromDB,studentFromDB);
+        boolean error = !errorReason.equals("");
+
+        return new BooleanResponse(result,error,errorReason);
+
+    }
+
+    public String checkErrorEventStudent(Event event, Student student){
+        if(event.getEventStatus().equals(EventStatus.CANCELED)){
+            return "Event is Cancelled";
+        }
+        if(event.getRegistrationDeadline().compareTo(LocalDateTime.now()) > 0){
+            return "Registration Deadline is passed";
+        }
+        if(event.isMemberOnly() &&  !student.getRegisteredClubs().contains(event.getClub())){
+            return "Event is Member Only";
+        }
+        return "";
+    }
+
+    public String checkErrorEventFA(Event event, FacultyAdvisor facultyAdvisor){
+        if(event.getEventStatus().equals(EventStatus.CANCELED)){
+            return "Event is Cancelled";
+        }
+        if(event.getRegistrationDeadline().compareTo(LocalDateTime.now()) > 0){
+            return "Registration Deadline is passed";
+        }
+        if(event.isMemberOnly() &&  !facultyAdvisor.getClub().equals(event.getClub())){
+            return "Event is Member Only";
+        }
+        return "";
     }
 
 
@@ -206,7 +240,11 @@ public class EventService {
                 .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
 
         boolean result = eventFromDB.isEnrolled(faFromDB);
-        return new BooleanResponse(result);
+
+        String errorReason = checkErrorEventFA(eventFromDB,faFromDB);
+        boolean error = !errorReason.equals("");
+
+        return new BooleanResponse(result,error,errorReason);
 
     }
 

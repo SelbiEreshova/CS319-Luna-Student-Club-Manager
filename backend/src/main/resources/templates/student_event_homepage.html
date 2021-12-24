@@ -113,18 +113,21 @@
             url: `http://localhost:8080/event/${id}/addEnrolledStudent/${localStorage.getItem('userId')}`,
             dataType: 'json',
             success: function (response) {
+                console.log("here")
+                console.log(response)
                 if (response.messageType == "ERROR") {
                     alert(response.message)
                 }
+                setTimeout(() => {
+                        window.location.href = window.location.href; }
+                    , 1000);
             },
             error: function (e) {
                 alert("Error!")
                 console.log("ERROR: ", e);
             }
         })
-        setTimeout(() => {
-                window.location.href = window.location.href; }
-            , 1000);
+
     });
 
     $("#cancelEnrollmentBtn").click(function() {

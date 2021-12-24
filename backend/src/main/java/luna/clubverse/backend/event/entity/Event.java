@@ -136,18 +136,21 @@ public class Event extends BaseEntity {
 
 
 
-    public void addEnrolledStudent(Student student)  {
+    public MessageResponse addEnrolledStudent(Student student)  {
         if(isAvailable()){
-            remainingQuota = remainingQuota -1;
+            remainingQuota--;
 
             if(enrolledStudents.contains(student)){
                 // throws exception
+                return new MessageResponse(MessageType.ERROR,"Already enrolled");
             }
 
             enrolledStudents.add(student);
         }else{
             // throws exception
+            return new MessageResponse(MessageType.ERROR,"No empty quota");
         }
+        return new MessageResponse(MessageType.SUCCESS,"Success");
 
 
     }
@@ -155,7 +158,7 @@ public class Event extends BaseEntity {
     public void deleteEnrolledStudent(Student student) {
         if(enrolledStudents.contains(student)) {
             enrolledStudents.remove(student);
-            remainingQuota = remainingQuota +1;
+            remainingQuota++;
         } else {
             // throws exception
         }
@@ -166,18 +169,28 @@ public class Event extends BaseEntity {
         return result;
     }
 
-    public void addEnrolledFacultyAdvisor(FacultyAdvisor facultyAdvisor){
+    public MessageResponse addEnrolledFacultyAdvisor(FacultyAdvisor facultyAdvisor){
 
-        if(enrolledFacultyAdvisors.contains(facultyAdvisor)){
+        if(isAvailable()){
+            remainingQuota--;
+
+            if(enrolledFacultyAdvisors.contains(facultyAdvisor)){
+                // throws exception
+                return new MessageResponse(MessageType.ERROR,"Already enrolled");
+            }
+            enrolledFacultyAdvisors.add(facultyAdvisor);
+        }else{
             // throws exception
+            return new MessageResponse(MessageType.ERROR,"No empty quota");
         }
 
-        enrolledFacultyAdvisors.add(facultyAdvisor);
+        return new MessageResponse(MessageType.SUCCESS,"Success");
     }
 
     public void deleteEnrolledFacultyAdvisor(FacultyAdvisor facultyAdvisor) {
         if(enrolledFacultyAdvisors.contains(facultyAdvisor)) {
             enrolledFacultyAdvisors.remove(facultyAdvisor);
+            remainingQuota++;
         } else {
             // throws exception
         }
