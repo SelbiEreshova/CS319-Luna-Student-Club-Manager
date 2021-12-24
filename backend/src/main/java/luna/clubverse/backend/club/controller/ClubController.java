@@ -46,6 +46,12 @@ public class ClubController {
         return "finance_table_faculty_advisor";
     }
 
+    @RequestMapping("/app/finance_table_manager/{clubId}")
+    public String openFinanceTableForManager(Model model, @PathVariable Long clubId) {
+        model.addAttribute("clubId", clubId);
+        return "finance_table_manager";
+    }
+
 
 
 
