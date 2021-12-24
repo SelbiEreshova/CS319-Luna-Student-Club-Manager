@@ -85,7 +85,7 @@ public class EventRestController {
 
 
     @CrossOrigin
-    @PutMapping("/{status}/{id}")
+    @PutMapping("/status/{status}/{id}")
     public String changeStatusEvent(@PathVariable Long id, @PathVariable String status) throws Exception {
 
         EventStatus eventStatus;
@@ -99,6 +99,15 @@ public class EventRestController {
         eventService.changeEventStatus(id, eventStatus);
         return "success";
     }
+
+    @CrossOrigin
+    @PutMapping("/cancelEvent/{id}")
+    public String cancelEvent(@PathVariable Long id) throws Exception {
+
+        //eventService.cancelEvent(id);
+        return "success";
+    }
+
 
 
     //delete silmek için kullanılır

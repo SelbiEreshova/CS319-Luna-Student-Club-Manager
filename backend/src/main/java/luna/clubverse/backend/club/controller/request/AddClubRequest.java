@@ -22,9 +22,8 @@ public class AddClubRequest {
 
     @NotBlank(message = "The name of the club cannot be blank")
     private String clubName;
-    @NotBlank
+
     private String logo;
-    @NotBlank
     private String description;
 
     @NotBlank
