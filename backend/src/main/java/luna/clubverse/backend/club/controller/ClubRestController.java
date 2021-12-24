@@ -4,17 +4,12 @@ package luna.clubverse.backend.club.controller;
 import luna.clubverse.backend.club.controller.request.AddClubRequest;
 import luna.clubverse.backend.club.controller.request.UpdateClubRequest;
 import luna.clubverse.backend.club.controller.request.UploadPhotoRequest;
-import luna.clubverse.backend.club.controller.response.ClubListQueryResponse;
-import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
-import luna.clubverse.backend.club.controller.response.FinanceTableResponse;
-import luna.clubverse.backend.club.controller.response.MemberQueryresponse;
+import luna.clubverse.backend.club.controller.response.*;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.service.ClubService;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
-import luna.clubverse.backend.event.controller.response.EventQueryResponse;
-import luna.clubverse.backend.financetable.entity.FinanceTable;
 import luna.clubverse.backend.user.service.AuthenticationService;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,6 +51,13 @@ public class ClubRestController {
     @GetMapping("/get/{id}")
     public ClubQueryResponse getClub(@PathVariable Long id) {
         return new ClubQueryResponse(clubService.getClub(id));
+    }
+
+    @CrossOrigin
+    @GetMapping("/getWithPermissions/{clubId}/{studentId}")
+    public ClubManagerClubQueryResponse getClubWithPermissions(@PathVariable Long clubId, @PathVariable Long studentId) {
+
+        return clubService.getClubWithPermissions(clubId,studentId);
     }
 
     @CrossOrigin

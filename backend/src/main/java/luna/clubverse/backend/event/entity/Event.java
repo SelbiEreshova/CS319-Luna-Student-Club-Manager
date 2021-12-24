@@ -136,18 +136,26 @@ public class Event extends BaseEntity {
 
 
 
-    public void addEnrolledStudent(Student student){
+    public void addEnrolledStudent(Student student)  {
+        if(isAvailable()){
+            remainingQuota = remainingQuota -1;
 
-        if(enrolledStudents.contains(student)){
-           // throws exception
+            if(enrolledStudents.contains(student)){
+                // throws exception
+            }
+
+            enrolledStudents.add(student);
+        }else{
+            // throws exception
         }
 
-        enrolledStudents.add(student);
+
     }
 
     public void deleteEnrolledStudent(Student student) {
         if(enrolledStudents.contains(student)) {
             enrolledStudents.remove(student);
+            remainingQuota = remainingQuota +1;
         } else {
             // throws exception
         }
@@ -178,6 +186,10 @@ public class Event extends BaseEntity {
     public boolean isEnrolled(FacultyAdvisor facultyAdvisor) {
         boolean result =  enrolledFacultyAdvisors.contains(facultyAdvisor);
         return result;
+    }
+
+    public boolean isAvailable(){
+        return remainingQuota>0;
     }
 
 }

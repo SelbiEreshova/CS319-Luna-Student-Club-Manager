@@ -29,12 +29,12 @@ public class ClubQueryResponse {
 
         if(club.getClubDirector() != null){
             String clubDirectorFullName = club.getClubDirector().getName() + " " + club.getClubDirector().getLastname();
-            boardMemberList.add(new BoardMemberQueryResponse(clubDirectorFullName,"Club Director"));
+            boardMemberList.add(new BoardMemberQueryResponse(clubDirectorFullName,"Club Director", club.getClubDirector().getId()));
         }
 
         if(club.getFacultyAdvisor() != null){
             String facultyAdvisorFullName =  club.getFacultyAdvisor().getName() + " " + club.getFacultyAdvisor().getLastname();
-            boardMemberList.add(new BoardMemberQueryResponse(facultyAdvisorFullName,"Faculty Advisor"));
+            boardMemberList.add(new BoardMemberQueryResponse(facultyAdvisorFullName,"Faculty Advisor", club.getFacultyAdvisor().getId()));
         }
 
         List<Student> boardMembersStudentList = club.getMembers().stream().toList();
@@ -56,7 +56,7 @@ public class ClubQueryResponse {
         for(Title title : titles){
             if( !title.getTitle().equals("") && Objects.equals(title.getClubId(), clubId)){
                 String fullname = student.getName() + " "+student.getLastname();
-                return new BoardMemberQueryResponse(fullname,title.getTitle());
+                return new BoardMemberQueryResponse(fullname,title.getTitle(),student.getId());
             }
         }
         return null;

@@ -62,7 +62,7 @@
             },
             crossDomain: true,
             contentType: "application/json",
-            url: "http://localhost:8080/club/get/" + clubId,
+            url: "http://localhost:8080/club/getWithPermissions/" + clubId +"/"+localStorage.getItem('userId'),
             dataType: 'json',
             success: function (response) {
                 console.log(response);

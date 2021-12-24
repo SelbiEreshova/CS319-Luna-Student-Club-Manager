@@ -44,6 +44,7 @@
   function goToEvent(id) {
     window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`;
   }
+
     $(document).ready(function () {
       var table = $("#student-home-table").DataTable();
 
@@ -61,11 +62,15 @@
           console.log(response);
           $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
+              var startDate = new Date(r[i].startDate);
+              var dummyDate = "1111-11-11";
+              var startTime = new Date(dummyDate + " " + r[i].startTime);
+
               table.row.add([
                 r[i].eventName,
                 r[i].clubName,
-                r[i].startDate,
-                r[i].startTime,
+                startDate.toLocaleDateString(),
+                (startTime.toLocaleTimeString()).substr(0,5),
                 r[i].gePoint,
                 `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
                 ]).draw(false);
@@ -90,11 +95,15 @@
           console.log(response);
           $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
+            var startDate = new Date(r[i].startDate);
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + r[i].startTime);
+
             table.row.add([
               r[i].eventName,
               r[i].clubName,
-              r[i].startDate,
-              r[i].startTime,
+              startDate.toLocaleDateString(),
+              (startTime.toLocaleTimeString()).substr(0,5),
               r[i].gePoint,
               `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
             ]).draw(false);
@@ -122,11 +131,15 @@
           console.log(response);
           $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
+            var startDate = new Date(r[i].startDate);
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + r[i].startTime);
+
             table.row.add([
               r[i].eventName,
               r[i].clubName,
-              r[i].startDate,
-              r[i].startTime,
+              startDate.toLocaleDateString(),
+              (startTime.toLocaleTimeString()).substr(0,5),
               r[i].gePoint,
               `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
             ]).draw(false);
