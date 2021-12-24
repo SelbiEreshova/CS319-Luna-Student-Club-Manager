@@ -1,7 +1,6 @@
 package luna.clubverse.backend.user.controller;
 
 import luna.clubverse.backend.club.controller.response.ClubManagerCheckQueryResponse;
-import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.user.controller.response.ClubDirectorQueryResponse;
 import luna.clubverse.backend.user.controller.response.FacultyAdvisorQueryResponse;

@@ -2,8 +2,6 @@ package luna.clubverse.backend.user.service;
 
 
 import luna.clubverse.backend.club.controller.response.ClubManagerCheckQueryResponse;
-import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
-import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
@@ -12,13 +10,12 @@ import luna.clubverse.backend.user.entity.ClubDirector;
 import luna.clubverse.backend.user.entity.FacultyAdvisor;
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.enums.UserType;
+import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -90,8 +87,6 @@ public class CustomUserService {
                 .toList();
 
     }
-
-
 
     public List<ClubManagerCheckQueryResponse> getClubsOfStudent(Long userId) {
         Student userFromDB = (Student) userRepository.findById(userId)

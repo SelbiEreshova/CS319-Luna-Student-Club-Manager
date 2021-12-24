@@ -2,6 +2,7 @@ package luna.clubverse.backend.club.service;
 
 
 import luna.clubverse.backend.club.controller.response.ClubListQueryResponse;
+import luna.clubverse.backend.club.controller.response.ClubManagerClubQueryResponse;
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
 import luna.clubverse.backend.club.controller.response.MemberQueryresponse;
 import luna.clubverse.backend.club.entity.Club;
@@ -144,7 +145,7 @@ public class ClubService {
                     case("MEMBERSHIP_MANAGEMENT"): return 3;
                 }; return 0;})
                 .toList();
-            }
+    }
 
     public void directApplicationToClub(Long clubId, Long studentId) {
 
@@ -157,5 +158,13 @@ public class ClubService {
         clubFromDB.addMembers(studentFromDB);
 
         cLubRepository.save(clubFromDB);
+    }
+
+    public ClubManagerClubQueryResponse getClubWithPermissions(Long clubId, Long studentId){
+
+        Student studentFromDB = studentRepository.findById(studentId)
+                .orElseThrow(()->new EntityNotFoundException("The student with the id " + studentId + " could not be found."));
+
+        return new ClubManagerClubQueryResponse(getClub(clubId),getPermissionsOfAMember(studentFromDB,clubId));
     }
 }

@@ -2,13 +2,8 @@ package luna.clubverse.backend.club.controller.response;
 
 import lombok.Getter;
 import luna.clubverse.backend.club.entity.Club;
-import luna.clubverse.backend.user.entity.Student;
-import luna.clubverse.backend.user.entity.Title;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 public class ClubManagerCheckQueryResponse extends ClubQueryResponse {
@@ -25,6 +20,4 @@ public class ClubManagerCheckQueryResponse extends ClubQueryResponse {
            }
         }
     }
-
-
 }
