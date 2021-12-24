@@ -42,6 +42,8 @@
         <button class="btn-outline-dark"id="future-e"><h5>Future events</h5></button>
         <button class="btn-outline-dark" id="past-e"><h5>Past events</h5></button>
         <button class="btn-outline-dark" id="ongoing-e"><h5>Ongoing events</h5></button>
+
+
 </ul>
 </div>
 <div class="container table-responsive mx-auto my-2 p-3 ">
@@ -69,44 +71,95 @@
 
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="review-open">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-info text-light">
-                <h5 class="modal-title">Add Club</h5>
+<div class="modal review-m" tabindex="-1" role="dialog" id="open">
 
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class = "container">
-                    <h2 style="margin-top: 50px;">jQuery simple star rating example</h2>
-                    <div class = "con">
-                        <h3 style = "margin-top : 80px; color: green;">Rate our product :-</h3>
-                        <i class = "fa fa-star" aria-hidden = "true" id = "st1"></i>
-                        <i class = "fa fa-star" aria-hidden = "true" id = "st2"></i>
-                        <i class = "fa fa-star" aria-hidden = "true" id = "st3"></i>
-                        <i class = "fa fa-star" aria-hidden = "true" id = "st4"></i>
-                        <i class = "fa fa-star" aria-hidden = "true" id = "st5"></i>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id = "createClub">Review</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
+    <div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header bg-info text-light"><h5 class="modal-title">Add Club</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class = "container rating"><h2 style="margin-top: 50px;">Review</h2><div class = "con"><h3 style = "margin-top : 80px; color: green;">Rate our product :-</h3><i class = "fa fa-star" aria-hidden = "true" id = "st1"></i><i class = "fa fa-star" aria-hidden = "true" id = "st2"></i> <i class = "fa fa-star" aria-hidden = "true" id = "st3"></i><i class = "fa fa-star" aria-hidden = "true" id = "st4"></i> <i class = "fa fa-star" aria-hidden = "true" id = "st5"></i> </div> </div>    <div class="modal-footer"> <button type="button" class="btn btn-primary rev" id = "createClub">Review</button> <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>         </div>        </div>  </div></div>
 </div>
 
 
 </div></body>
 
 <script>
+function goToEvent(id) {
+                window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
+              }
+         function goToReview(id)
+         {
+
+            $(".review-m").modal('show');
+            $(".review-m").attr("id", `${id}`)
+            rating = -1;
+         }
     $(document).ready( function () {
- //   $("#review-open").show();
-   // $('#rateMe3').mdbRate();
-         function goToReview(){
-      }
+    var rating = -1
+             $("#st1").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1").css("color", "yellow");
+              rating = 1;
+          });
+
+          $("#st2").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1, #st2").css("color", "yellow");
+              rating = 2;
+          });
+          $("#st3").click(function() {
+              $(".fa-star").css("color", "black")
+              $("#st1, #st2, #st3").css("color", "yellow");
+              rating = 3;
+          });
+          $("#st4").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1, #st2, #st3, #st4").css("color", "yellow");
+              rating = 4;
+          });
+          $("#st5").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1, #st2, #st3, #st4, #st5").css("color", "yellow");
+              rating = 5;
+          });
+          $(".rev").click(function(){
+            id = $(".review-m").attr("id");
+
+            point = `${rating}`
+            alert("zz"+point+" - " + id)
+            if(rating >0)
+            {
+            $(".fa-star").css("color", "black");
+
+                var posted = {
+                    eventId : id,
+                    userId : localStorage.getItem('userId'),
+                    point : point
+                }
+                $.ajax({
+                    type : "POST",
+                    headers: {
+                        "Access-Control-Allow-Origin":"*",
+                        Authorization : localStorage.getItem('Authorization')
+                    },
+                    crossDomain: true,
+                    contentType : "application/json",
+                    url : `http://localhost:8080/app/eventEvaluation/add/${id}/student/${localStorage.getItem('userId')}`,
+                    data : JSON.stringify(posted),
+                    dataType : 'json',
+                    success : function(result) {
+                        if (result.messageType == "ERROR") {
+                            alert(result.message)
+                        } else if (result.messageType == "SUCCESS") {
+                            $("#review-open").hide();
+                        }
+                        console.log(result);
+                    },
+                    error : function(e) {
+                    //    alert("Error!")
+                        console.log("eventStatus", eventStatus);
+                        console.log("ERROR: ", e);
+                    }
+                });
+
+            }
+          })
 
         $(".nav_bar").load("http://localhost:8080/student.html");
         $("#events_nav").addClass("active");
@@ -117,16 +170,7 @@
           },
           });
       var table = $(".event-list").DataTable();
-              function goToEvent(id) {
-                window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
-              }
-               table.row.add([
-              1,2,3,4,5,6,7,
-              `<button class=\"\" onclick='goToEvent(1)'>Go to event's home page</button>`,
-              "<p></p>"
-            ]).draw(false);
-             newRow = table.row( ':last').node()
-             $(newRow).addClass("future");
+
 
       $.ajax({
         type: "GET",
@@ -140,8 +184,7 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
-          function showEvents(r, i){
+                function showEvents(r, i){
               table.row.add([
                 r[i].eventName,
                 r[i].clubName,
@@ -150,13 +193,14 @@
                 r[i].gePoint,
               r[i].location,
               r[i].quota,
-                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+              `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                 "<p></p>"
+                ]).draw();
 
-                ]).draw(false);
+              $(table.row( 'last').node()).addClass('future');
+             //,  alert($(newRow).hasClass("future") + "+++++");
           };
-           newRow = table.row( ':last').node()
-             $(newRow).addClass("future");
+
           for (let i = 0; i < response.length; i++) {
             showEvents(response, i);
           }
@@ -175,8 +219,8 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
-          function showEvents(r, i){
+      //    $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
+          function showEventsP(r, i){
             table.row.add([
               r[i].eventName,
               r[i].clubName,
@@ -185,14 +229,14 @@
               r[i].gePoint,
               r[i].location,
               r[i].quota,
-            `<button onclick=\"goToEvent(${r[i].eventId})\">Go to event's home page</button>`,
-            `<button class=\"review-b\" onclick=\'goToReview()\'>Review</button>`
-            ]).draw(false);
+`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+            `<button class=\"review-b\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
+            ]).draw();
+              $(table.row( 'last').node()).addClass('past');
           };
-             newRow = table.row( ':last').node()
-             $(newRow).addClass("past");
+
           for (let i = 0; i < response.length; i++) {
-            showEvents(response, i);
+            showEventsP(response, i);
           }
         }
       });
@@ -210,8 +254,7 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
-          function showEvents(r, i){
+          function showEventsO(r, i){
             table.row.add([
               r[i].eventName,
               r[i].clubName,
@@ -220,22 +263,30 @@
               r[i].gePoint,
               r[i].location,
               r[i].quota,
-              `<button class=\"\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
               "<p></p>"
             ]).draw(false);
+              $(table.row( 'last').node()).addClass('ongoing');
           };
-             newRow = table.row( ':last').node()
-             $(newRow).addClass("ongoing");
+
           for (let i = 0; i < response.length; i++) {
-            showEvents(response, i);
+            showEventsO(response, i);
           }
         }
       });
 
-              var clicked =0;
+              var clicked =4;
               $("all-e").addClass("active");
                   $("#all-e").click(function () {
+
+    });
                   selectAll();
+                  table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+    var data = this.data();
+    node=this.node()
+    // ... do something with data(), or this.node(), etc
+    console.log($(this).hasClass("future"))
+} );
     });
 function selectAll(){
 
@@ -311,7 +362,7 @@ function selectAll(){
        else{
         if(clicked==4){
             clicked=0
-             $(".future").hide();
+             $(".future").hide();///çslışmıyot
              $(".past").hide();
              $("#all-e").removeClass("active");
                console.log("1 ----> "+clicked)
@@ -323,7 +374,10 @@ function selectAll(){
         }
 
     });
-    });
+
 </script>
 
+<script>
+
+</script>
 </html>

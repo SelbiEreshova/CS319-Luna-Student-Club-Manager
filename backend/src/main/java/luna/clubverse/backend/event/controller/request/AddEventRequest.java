@@ -30,6 +30,7 @@ public class AddEventRequest {
     @NotNull(message = "The status of the event cannot be blank")
     private EventStatus eventStatus;
 
+    @NotNull(message = "The gePoint of the event cannot be blank")
     private int gePoint;
 
     @NotNull(message = "The startDate of the event cannot be blank")
@@ -51,12 +52,14 @@ public class AddEventRequest {
     private LocalDate reviewDeadline;
 
 
+    @NotNull(message = "The quota of the event cannot be blank")
     private int quota;
 
     @NotNull(message = "The memberOnly of the event cannot be blank")
     private boolean memberOnly;
 
     //finance data
+    @NotNull(message = "The amountOfMoney of the event cannot be blank")
     private double amountOfMoney;
     private String explanation;
 
