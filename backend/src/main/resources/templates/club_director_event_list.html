@@ -58,6 +58,10 @@
 
 <script>
 
+    function goToEvent(id) {
+        window.location.href= `http://localhost:8080/app/club_director_event_homepage/${id}`;
+    }
+
     $(document).ready(function () {
       var table = $(".event-list").DataTable();
       $("#create").click(function(){
@@ -71,6 +75,7 @@ table.row.add([
 
                 ]).draw();
   $(".ax").html(detailsButton);
+
       $.ajax({
         type: "GET",
         headers: {
@@ -103,9 +108,8 @@ table.row.add([
 
         }
       });
-          function goToEvent(id) {
-                window.location.href= `http://localhost:8080/app/clubdirector_event_homepage/${id}`;
-              }
+
+
               $(".a").click(function(){
               alert("class çalışıyorr")
              })

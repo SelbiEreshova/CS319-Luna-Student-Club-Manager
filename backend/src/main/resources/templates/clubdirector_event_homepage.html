@@ -106,13 +106,42 @@
 </body>
 
 <script>
+    var id = [[${eventId}]];
+
+
     document.getElementById("editEventButton").style.visibility="hidden";
     document.getElementById("cancelEventButton").style.visibility="hidden";
     document.getElementById("deleteEventButton").style.visibility="hidden";
     document.getElementById("publishEventButton").style.visibility="hidden";
     document.getElementById("editAttendanceButton").style.visibility="hidden";
 
-    var id = [[${eventId}]];
+    $("#editEventButton").on("click", function (event) {
+        window.location.href = `http://localhost:8080/app/open_edit_event/${id}`
+    });
+
+    $("#cancelEventButton").on("click", function (event) {
+
+        $.ajax({
+            type: "PUT",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/takeAttendance`,
+            data: JSON.stringify(fd),
+            dataType: 'json',
+            success: function(response) {
+                if (response.messageType == "ERROR") {
+                    alert(response.message)
+                }
+
+                // refresh eklenecek
+            }
+        });
+
+    });
 
     // get button status
     $.ajax({
@@ -168,8 +197,6 @@
                         if (response.messageType == "ERROR") {
                             alert(response.message)
                         }
-
-
                     }
                 });
             }

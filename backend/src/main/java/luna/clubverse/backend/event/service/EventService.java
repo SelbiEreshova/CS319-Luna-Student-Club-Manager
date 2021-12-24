@@ -88,13 +88,21 @@ public class EventService {
 
     }
 
-    public void addEventToClub(Long clubId, Event event) {
+    public MessageResponse addEventToClub(Long clubId, Event event) {
 
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
         event.setClub(clubFromDB);
 
-        eventRepository.save(event);
+        if (clubFromDB.getFinanceTable().addTransaction(event.getFinanceData()))
+        {
+            event.getFinanceData().setFinanceTable(clubFromDB.getFinanceTable());
+            financeDataRepository.save(event.getFinanceData());
+            eventRepository.save(event);
+            return new MessageResponse(MessageType.SUCCESS, "Event with name "  + event.getName() +" is created successfully");
+        }
+
+        return new MessageResponse(MessageType.ERROR, "Event could not be created");
     }
 
 
@@ -236,6 +244,15 @@ public class EventService {
         eventRepository.save(eventFromDB);
 
         return new MessageResponse(MessageType.SUCCESS, "Attendance is taken successfully");
+
+    }
+
+    public void cancelEvent(Long eventId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        eventFromDB.setEventStatus(EventStatus.CANCELED);
+        //eventFromDB.
 
     }
 }

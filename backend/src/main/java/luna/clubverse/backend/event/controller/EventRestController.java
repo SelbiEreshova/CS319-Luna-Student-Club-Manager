@@ -85,7 +85,7 @@ public class EventRestController {
 
 
     @CrossOrigin
-    @PutMapping("/{status}/{id}")
+    @PutMapping("/status/{status}/{id}")
     public String changeStatusEvent(@PathVariable Long id, @PathVariable String status) throws Exception {
 
         EventStatus eventStatus;
@@ -99,6 +99,15 @@ public class EventRestController {
         eventService.changeEventStatus(id, eventStatus);
         return "success";
     }
+
+    @CrossOrigin
+    @PutMapping("/cancelEvent/{eventId}")
+    public String cancelEvent(@PathVariable Long eventId) throws Exception {
+
+        eventService.cancelEvent(eventId);
+        return "success";
+    }
+
 
 
     //delete silmek için kullanılır
@@ -117,8 +126,7 @@ public class EventRestController {
             return new MessageResponse(MessageType.ERROR,errorMessage);
         }
 
-        eventService.addEventToClub(clubId,addEventRequest.toEvent());
-        return new MessageResponse(MessageType.SUCCESS,"New Event is created successfully");
+        return  eventService.addEventToClub(clubId,addEventRequest.toEvent());
     }
 
 
