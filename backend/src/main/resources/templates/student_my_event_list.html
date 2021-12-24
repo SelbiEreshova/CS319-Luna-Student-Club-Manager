@@ -138,6 +138,7 @@ function goToEvent(id) {
                         "Access-Control-Allow-Origin":"*",
                         Authorization : localStorage.getItem('Authorization')
                     },
+
                     crossDomain: true,
                     contentType : "application/json",
                     url : `http://localhost:8080/app/eventEvaluation/add/${id}/student/${localStorage.getItem('userId')}`,
@@ -153,7 +154,7 @@ function goToEvent(id) {
                     },
                     error : function(e) {
                     //    alert("Error!")
-                        console.log("eventStatus", eventStatus);
+                        //console.log("eventStatus", eventStatus);
                         console.log("ERROR: ", e);
                     }
                 });
