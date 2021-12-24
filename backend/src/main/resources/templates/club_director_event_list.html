@@ -67,14 +67,8 @@
       $("#create").click(function(){
         window.location.href = `http://localhost:8080/app/open_create_event/${localStorage.getItem('clubId')}`;
       });
-      v=5;
  var detailsButton = `<button  class=\"details\" id=${v}>see details</button>`
-table.row.add([
-                1,2,3,4,5,6,
-                detailsButton
 
-                ]).draw();
-  $(".ax").html(detailsButton);
 
       $.ajax({
         type: "GET",
@@ -109,13 +103,8 @@ table.row.add([
       });
 
 
-              $(".a").click(function(){
-              alert("class çalışıyorr")
-             })
               $(".details").click(function(){
-              alert("aaaaaaaaaaaa")
-                  var id = $(this).attr('id');
-                  alert(id)
+
                   goToEvent(id)
               });
     });

@@ -85,12 +85,11 @@ function goToEvent(id) {
               }
          function goToReview(id)
          {
+
+            $(".review-m").modal('show');
             $(".review-m").attr("id", `${id}`)
             rating = -1;
-            $(".review-m").modal('show');
-          //  $("#review-open").html(`<div class=\"modal-dialog\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-header bg-info text-light\"><h5 class=\"modal-title\">Add Club</h5><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><div class = \"container rating\"><h2 style=\"margin-top: 50px;\">Review</h2><div class = \"con\"><h3 style = \"margin-top : 80px; color: green;\">Rate our product :-</h3><i class = \"fa fa-star\" aria-hidden = \"true\" id = \"st1\"></i><i class = \"fa fa-star\" aria-hidden = \"true\" id = \"st2\"></i> <i class = \"fa fa-star\" aria-hidden = \"true\" id = \"st3\"></i><i class = \"fa fa-star\" aria-hidden = \"true\" id = \"st4\"></i> <i class = \"fa fa-star\" aria-hidden = \"true\" id = \"st5\"></i> </div> </div>    <div class=\"modal-footer\"> <button type=\"button\" class=\"btn btn-primary rev\" id = \"${id}\"}>Review</button> <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancel</button>         </div>        </div>  </div>`);
          }
-        // goToReview(1);
     $(document).ready( function () {
     var rating = -1
              $("#st1").click(function() {
@@ -141,7 +140,7 @@ function goToEvent(id) {
                     },
                     crossDomain: true,
                     contentType : "application/json",
-                    url : `http://localhost:8080/app/eventEvaluation/add/${id}}/student/${localStorage.getItem('userId')}`,
+                    url : `http://localhost:8080/app/eventEvaluation/add/${id}/student/${localStorage.getItem('userId')}`,
                     data : JSON.stringify(posted),
                     dataType : 'json',
                     success : function(result) {
@@ -185,8 +184,7 @@ function goToEvent(id) {
         dataType: 'json',
         success: function(response) {
           console.log(response);
-       //   $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
-          function showEvents(r, i){
+                function showEvents(r, i){
               table.row.add([
                 r[i].eventName,
                 r[i].clubName,
@@ -199,7 +197,7 @@ function goToEvent(id) {
                 "<p></p>"
                 ]).draw();
 
-              $(table.row( ':last').node()).addClass('future');
+              $(table.row( 'last').node()).addClass('future');
              //,  alert($(newRow).hasClass("future") + "+++++");
           };
 
@@ -234,8 +232,7 @@ function goToEvent(id) {
 `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
             `<button class=\"review-b\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
             ]).draw();
-              $(table.row( ':last').node()).addClass('past');
-// alert($(newRow).hasClass("past"));
+              $(table.row( 'last').node()).addClass('past');
           };
 
           for (let i = 0; i < response.length; i++) {
@@ -269,7 +266,7 @@ function goToEvent(id) {
 `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
               "<p></p>"
             ]).draw(false);
-              $(table.row( ':last').node()).addClass('ongoing');
+              $(table.row( 'last').node()).addClass('ongoing');
           };
 
           for (let i = 0; i < response.length; i++) {
