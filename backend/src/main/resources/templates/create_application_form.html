@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Create a new event</title>
+</head>
+<body>
+<div class="nav_bar" ></div>
+<div class="">
+    <h2 class="d-flex justify-content-center pt-6 my-5">Create Application Form</h2>
+    <form style="width: 50%; margin: auto" class="pb-5">
+
+        <div class="form-group q1">
+            <label for="1">Question 1</label>
+            <input type="text" class="form-control form-control-lg" id="1" placeholder="Question 1">
+            <div class="mx-auto "><button type="button" class="btn btn-danger mx-5 p-2 deleted" id="d1">delete</button></div>
+
+        </div>
+
+
+    </form>
+    <div class="form-group">
+        <div class="justify-content-left mt-2 mx-5"> <button class=" btn-info text-dark  m-2 p-2" id="add"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Add Question</button></div>
+    </div>
+
+    <div class="form-group">
+        <div class="justify-content-left mt-2 mx-auto row">
+
+                    <button class=" btn-info text-dark  m-2 p-2" id="create"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Create Application Form</button>
+
+                    <button class=" btn-info text-dark  m-2 p-2" id="cancel"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Cancel</button>
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+
+    /*function swap(deleted){
+        if(deleted == question_number)
+        {
+        console.log(deleted)
+        //    $(`.q${deleted}}`).remove();
+            question_number--;
+
+        }
+
+
+    }*/
+    $(document).ready(function(){
+    var question_number = 1;
+     $(".nav_bar").load("http://localhost:8080/club_director.html");
+    $("#events_nav").addClass("active");
+     $("#create").click(function(){
+        var questions=[]
+        for(var i = 1; i<=question_number;i++)
+        {
+            if($(`#${i}`).val()=="")
+            {
+                alert("Question cannot be null")
+                break;
+            }
+            else{
+                questions.push($(`#${i}`).val());
+            }
+        }
+        console.log(questions)
+    })
+    $("#add").click(function(){
+        question_number++
+        var newQuestion = `<div class=\"form-group delete- q${question_number} \"><label for=\"${question_number}\">Question ${question_number}</label><input type=\"text\" class="form-control form-control-lg\" id=\"${question_number}\" placeholder=\"Question ${question_number}\"><div class=\"mx-auto \"><button class=\"btn btn-danger mx-5 p-2 deleted ss\" id=\"d${question_number}\">delete</button></div></div>`
+        $("form").append(newQuestion)
+    })
+
+   $(".deleted").click(function(){
+   alert($(this).attr("id"))
+      //  id = $(this).attr("id")
+        //id = parseInt(id.slice(1,-1))
+      //  swap(id)
+
+    })
+  })
+</script>
+
+</html>
