@@ -31,34 +31,47 @@
     </thead>
     <tbody>
   </table>
-  <div class="modal-body">
-
-    <form>
-      <div class="form-group">
-        <label for="directorName">Amount</n></label>
-        <input type="text" class="form-control" id="directorName">
-      </div>
-      <div class="form-group">
-        <label for="directorSurname">Date</n></label>
-        <input type="text" class="form-control" id="directorSurname">
-      </div>
-      <div class="form-group">
-        <label for="clubName">Status</label>
-        <input type="text" class="form-control" id="clubName">
-      </div>
-      <div class="form-group">
-        <label for="clubEmail">Explanation</label>
-        <input type="email" class="form-control" id="clubEmail" aria-describedby="emailHelp">
-      </div>
-
-
-    </form>
+  <div class="modal" tabindex="-1" role="dialog" id="add_transaction_dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-light">
+          <h5 class="modal-title">Add Transaction</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="amount">Amount</n></label>
+                <input type="number" class="form-control" id="amount">
+              </div>
+              <div class="form-group">
+                <label for="date"> Date</label>
+                <input type="date" class="form-control " id="date">
+              </div>
+              <div class="form-group">
+                <label >Explanation</label>
+                <div class="select">
+                  <select>
+                    <option>INCOME</option>
+                    <option>OUTCOME</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="explanation">Explanation</label>
+                <input type="email" class="form-control" id="explanation" aria-describedby="emailHelp">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id = "addTransaction">Create Transaction</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+    </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" id = "createClub">Create Transaction</button>
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-  </div>
-</div>
 </div>
 
 </body>
@@ -67,9 +80,36 @@
 
 });</script>
 <script>
+  $("#addTransaction").click( function () {
+    $.ajax({
+      type: "PUT",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization : localStorage.getItem('Authorization')
+      },
+      crossDomain: true,
+      contentType: "application/json",
+      url: "http://localhost:8080/club/create-club",
+      data: JSON.stringify(formData),
+      dataType: 'json',
+      success: function (response) {
+        if (response.messageType == "ERROR") {
+          alert(response.message)
+        } else if (response.messageType == "SUCCESS") {
+          window.location.href = window.location.href;
+        }
+      },
+      error: function (e) {
+        alert("Error!")
+        console.log("ERROR: ", e);
+      }
+    })
+
+          }
+  )
   function openDialogFinanceAdd()
   {
-    $('#addTransaction').modal('show');
+    $('#add_transaction_dialog').modal('show');
   }
   $(document).ready(function () {
 
@@ -120,6 +160,7 @@
     });
 
   });
+
 </script>
 
 </html>
