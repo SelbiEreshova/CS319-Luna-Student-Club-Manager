@@ -21,6 +21,7 @@ public class EventListQueryResponse {
     private LocalTime startTime;
 
     private int quota;
+    private int remainingQuota;
     private String location;
 
 
@@ -32,6 +33,7 @@ public class EventListQueryResponse {
         this.startDate = event.getStartDateTime().toLocalDate();
         this.startTime = event.getStartDateTime().toLocalTime();
         this.quota = event.getQuota();
+        this.remainingQuota = event.getRemainingQuota();
         this.location = event.getLocation().description();
     }
 

@@ -26,9 +26,15 @@ public class EventEvaluationRestController {
     }
 
     @CrossOrigin
-    @PostMapping("/add/{event_id}/{student_id}")
-    public MessageResponse addEventEvaluation(@Valid @RequestBody  EventEvaluation eventEvaluation, @PathVariable Long event_id, @PathVariable Long student_id) {
+    @PostMapping("/add/{event_id}/student/{student_id}")
+    public MessageResponse addEventEvaluationForStudent(@Valid @RequestBody  EventEvaluation eventEvaluation, @PathVariable Long event_id, @PathVariable Long student_id) {
          return eventEvaluationService.addEventEvaluationForStudent(eventEvaluation,event_id,student_id);
+    }
+
+    @CrossOrigin
+    @PostMapping("/add/{event_id}/faculty_advisor/{faculty_advisor_id}")
+    public MessageResponse addEventEvaluationForFacultyAdvisor(@Valid @RequestBody  EventEvaluation eventEvaluation, @PathVariable Long event_id, @PathVariable Long faculty_advisor_id) {
+        return eventEvaluationService.addEventEvaluationForFacultyAdvisor(eventEvaluation,event_id,faculty_advisor_id);
     }
 
 
