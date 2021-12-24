@@ -131,6 +131,24 @@
     }
 
     function deleteClub(id) {
+        $.ajax({
+            type: "DELETE",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/club/delete/${id}`,
+            dataType: 'json',
+            success: function (response) {
+                if (response.messageType == "ERROR") {
+                    alert(response.message)
+                }
+                alert(response.message)
+                // refresh eklenecek
+            }
+        });
 
     }
 
@@ -156,8 +174,7 @@
                         r[i].clubEmail,
                         r[i].clubFacultyAdvisor,
                         `<button class="btn-info text-dark" style="background-color: #2ed3db" onclick='goToClub(${r[i].clubId})'>Go to club home page</button>`,
-                        "delete button gelecek"
-                        //`<button class="btn-danger" onclick='deleteClub(${r[i].clubId})'>Delete Club</button>`
+                        `<button class="btn-danger" onclick='deleteClub(${r[i].clubId})'>Delete Club</button>`
                     ]).draw(false);
                 };
                 for (let i = 0; i < response.length; i++) {

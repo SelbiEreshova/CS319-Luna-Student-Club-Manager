@@ -47,6 +47,12 @@ public class ClubRestController {
     }
 
     @CrossOrigin
+    @DeleteMapping("/delete/{clubId}")
+    public MessageResponse deleteClub(@PathVariable Long clubId) {
+        return clubService.deleteClub(clubId);
+    }
+
+    @CrossOrigin
     @GetMapping("/get/{id}")
     public ClubQueryResponse getClub(@PathVariable Long id) {
         return new ClubQueryResponse(clubService.getClub(id));
