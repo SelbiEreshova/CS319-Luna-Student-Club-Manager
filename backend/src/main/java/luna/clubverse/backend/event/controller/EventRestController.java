@@ -117,8 +117,7 @@ public class EventRestController {
             return new MessageResponse(MessageType.ERROR,errorMessage);
         }
 
-        eventService.addEventToClub(clubId,addEventRequest.toEvent());
-        return new MessageResponse(MessageType.SUCCESS,"New Event is created successfully");
+        return  eventService.addEventToClub(clubId,addEventRequest.toEvent());
     }
 
 

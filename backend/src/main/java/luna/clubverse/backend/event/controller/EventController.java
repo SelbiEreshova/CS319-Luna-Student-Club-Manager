@@ -34,10 +34,11 @@ public class EventController {
     }
 
     @RequestMapping("/app/open_edit_event/{eventId}")
-    public String getEditEvent( @PathVariable Long eventId) {
+    public String getEditEvent( Model model, @PathVariable Long eventId) {
 
         //Event event = eventService.getEvent(eventId);
         //model.addAttribute("event", event);
+        model.addAttribute("eventId",eventId);
         return "edit_event";
     }
 
@@ -86,7 +87,7 @@ public class EventController {
 
     }
 
-    @RequestMapping("/app/CLUB_DIRECTOR_event_homepage/{id}")
+    @RequestMapping("/app/club_director_event_homepage/{id}")
     public String directorEventPage(Model model,@PathVariable Long id) {
         model.addAttribute("eventId", id);
         return "clubdirector_event_homepage";

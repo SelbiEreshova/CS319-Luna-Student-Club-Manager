@@ -106,13 +106,18 @@
 </body>
 
 <script>
+    var id = [[${eventId}]];
+
+
     document.getElementById("editEventButton").style.visibility="hidden";
     document.getElementById("cancelEventButton").style.visibility="hidden";
     document.getElementById("deleteEventButton").style.visibility="hidden";
     document.getElementById("publishEventButton").style.visibility="hidden";
     document.getElementById("editAttendanceButton").style.visibility="hidden";
 
-    var id = [[${eventId}]];
+    $("#editEventButton").on("click", function (event) {
+        window.location.href = `http://localhost:8080/app/open_edit_event/${id}`
+    });
 
     // get button status
     $.ajax({

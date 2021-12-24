@@ -151,6 +151,9 @@
 </div>
 </body>
 <script>
+
+    var eventId = [[${eventId}]];
+
     $(document).ready(
         function() {
 
@@ -163,7 +166,7 @@
                 },
                 crossDomain: true,
                 contentType : "application/json",
-                url : "http://localhost:8080/event/get/1",
+                url : `http://localhost:8080/event/get/${eventId}`,
                 success: function(res) {
                     console.log(res.name);
                     $('#event_title').val(res.name);
@@ -213,7 +216,6 @@
             $(".create_event").submit(function(event) {
 
                 // Prevent the form from submitting via the browser.
-                alert("clicked");
                 event.preventDefault();
                 ajaxPost(published);
 
@@ -235,7 +237,7 @@
 
                 // PREPARE FORM DATA
                 var formData = {
-                    eventID: 5,
+                    eventID: eventId,
                     name: $("#event_title").val(),
                     description: $("#event_description").val(),
                     eventStatus:  eventStatus,
@@ -272,8 +274,7 @@
                         if (result.messageType == "ERROR") {
                             alert(result.message)
                         } else if (result.messageType == "SUCCESS") {
-                            // add href
-                            alert(result.message)
+                            window.location.href = `http://localhost:8080/app/club_director_event_homepage/${eventId}`
                         }
                         console.log(result);
                     },

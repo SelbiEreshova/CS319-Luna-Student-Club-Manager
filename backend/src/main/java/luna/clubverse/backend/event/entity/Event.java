@@ -130,6 +130,8 @@ public class Event extends BaseEntity {
         this.memberOnly = event.memberOnly;
         this.totalPoint = event.totalPoint;
         this.numberEvaluation = event.numberEvaluation;
+        this.financeData.update(event.financeData);
+        this.location = event.location;
     }
 
 
