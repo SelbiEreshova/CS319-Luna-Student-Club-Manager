@@ -5,6 +5,7 @@ import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.user.controller.response.ClubDirectorQueryResponse;
 import luna.clubverse.backend.user.controller.response.FacultyAdvisorQueryResponse;
 import luna.clubverse.backend.user.controller.response.StudentQueryResponse;
+import luna.clubverse.backend.user.entity.User;
 import luna.clubverse.backend.user.service.CustomUserService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
