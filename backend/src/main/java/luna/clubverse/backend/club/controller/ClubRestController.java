@@ -11,6 +11,7 @@ import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.user.service.AuthenticationService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,13 +28,16 @@ public class ClubRestController {
         this.authenticationService = authenticationService;
     }
 
+    /*
     @CrossOrigin
     @PostMapping("/add")
     public String addClub(@RequestBody @Valid final AddClubRequest addClubRequest) {
         clubService.addClub(addClubRequest.toClub());
         return "success"; // return type will be changed, except from get requests, there will be same type of response
     }
+     */
 
+    /*
     @CrossOrigin
     @PutMapping("/update/{id}")
     public String updateClub(@PathVariable Long id, @RequestBody @Valid final UpdateClubRequest updateClubRequest) {
@@ -41,7 +45,10 @@ public class ClubRestController {
         return "success"; // return type will be changed, except from get requests, there will be same type of response
     }
 
+     */
+
     @CrossOrigin
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{clubId}")
     public MessageResponse deleteClub(@PathVariable Long clubId) {
         return clubService.deleteClub(clubId);
@@ -67,6 +74,7 @@ public class ClubRestController {
     }
 
     @CrossOrigin
+    @PreAuthorize("hasAuthority('STUDENT')")
     @PutMapping("/{clubId}/applyToClub/{studentId}")
     public String applyToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
         clubService.applyToClub(clubId,studentId);
@@ -74,6 +82,7 @@ public class ClubRestController {
     }
 
     @CrossOrigin
+    @PreAuthorize("hasAuthority('STUDENT')")
     @PutMapping("/{clubId}/directApplicationToClub/{studentId}")
     public String directApplicationToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
         clubService.directApplicationToClub(clubId,studentId);
@@ -81,6 +90,7 @@ public class ClubRestController {
     }
 
     @CrossOrigin
+    @PreAuthorize("@authorizationLuna.authorize(authentication,'REVIEW_MEMBER_APPLICATION', #clubId)")
     @PutMapping("/{clubId}/approveAppliedStudent/{studentId}")
     public String approveAppliedStudent(@PathVariable Long clubId,@PathVariable Long studentId ) {
         clubService.removeFromAppliedStudent(clubId,studentId, true);
@@ -88,6 +98,7 @@ public class ClubRestController {
     }
 
     @CrossOrigin
+    @PreAuthorize("@authorizationLuna.authorize(authentication,'REVIEW_MEMBER_APPLICATION', #clubId)")
     @PutMapping("/{clubId}/disapproveAppliedStudent/{studentId}")
     public String disapproveFromAppliedStudent(@PathVariable Long clubId,@PathVariable Long studentId ) {
         clubService.removeFromAppliedStudent(clubId,studentId, false);
@@ -96,6 +107,7 @@ public class ClubRestController {
 
     //Message Response için dön************************************
     @CrossOrigin
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/create-club")
     public MessageResponse createClub(@Valid @RequestBody AddClubRequest request) {
         Club club = clubService.addClub(request.toClub() );
@@ -121,6 +133,7 @@ public class ClubRestController {
 
     @CrossOrigin
     @PutMapping("/photo")
+    //@PreAuthorize("@authorizationLuna.authorize(authentication,'DIRECTOR', #clubId)")
     public MessageResponse uploadPhoto(@Valid @RequestBody UploadPhotoRequest request) {
         System.out.println( request.getFile() );
         return new MessageResponse(MessageType.SUCCESS,"success");
@@ -134,6 +147,8 @@ public class ClubRestController {
 
 
     @CrossOrigin
+    @PreAuthorize("@authorizationLuna.authorize(authentication,'FINANCE_MANAGEMENT', #clubId)" +
+            "or @authorizationLuna.authorize(authentication,'ADVISOR', #clubId)")
     @GetMapping("/finance_table/{clubId}")
     public FinanceTableResponse getFinanceTable(@PathVariable Long clubId){
         return new FinanceTableResponse(clubService.getClub(clubId).getFinanceTable());

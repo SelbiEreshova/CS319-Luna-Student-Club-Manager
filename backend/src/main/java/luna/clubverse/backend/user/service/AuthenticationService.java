@@ -128,7 +128,7 @@ public class AuthenticationService {
         }
 
         clubDirector.setClub(club);
-        clubDirector.addAuthority("PERMISSION_MANAGEMENT", club.id());
+        clubDirector.addAuthority("DIRECTOR", club.id());
         clubDirector.addAuthority("EVENT_MANAGEMENT", club.id());
         clubDirector.addAuthority("FINANCE_MANAGEMENT", club.id());
         clubDirector.addAuthority("REVIEW_MEMBER_APPLICATION", club.id());

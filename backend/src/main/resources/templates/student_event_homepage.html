@@ -232,7 +232,9 @@
             success: function (response) {
                 console.log(response);
 
-                if (response.result) {
+                if(response.errorExist) {
+                    alert(response.errorReason)
+                } else if (response.result) {
                     document.getElementById("enroll").style.visibility="hidden";
                     document.getElementById("cancelEnrollment").style.visibility="visible";
                 } else {

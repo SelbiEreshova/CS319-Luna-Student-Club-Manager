@@ -165,10 +165,6 @@ public class EventService {
         Student studentFromDB = (Student) userRepository.findById(userId)
                 .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
 
-        //event canceled sa
-        // member only ise ve member kayıtlı değilse
-        // reg deadline geçtiyse
-
         boolean result = eventFromDB.isEnrolled(studentFromDB);
 
         String errorReason = checkErrorEventStudent(eventFromDB,studentFromDB);
