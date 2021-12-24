@@ -73,7 +73,7 @@ public class EventRestController {
     @PutMapping("/update")
     public MessageResponse updateEvent(@RequestBody @Valid final UpdateEventRequest updateEventRequest) {
 
-        String errorMessage = checkEventRequestDates(updateEventRequest.getStartDate(),updateEventRequest.getEndDate(),updateEventRequest.getStartTime(),updateEventRequest.getEndTime(),updateEventRequest.getRegistrationDeadline(),updateEventRequest.getReviewDeadline());
+        String errorMessage = checkEventRequestDates(updateEventRequest.getQuota(),updateEventRequest.getGePoint(), updateEventRequest.getAmountOfMoney(),updateEventRequest.getStartDate(),updateEventRequest.getEndDate(),updateEventRequest.getStartTime(),updateEventRequest.getEndTime(),updateEventRequest.getRegistrationDeadline(),updateEventRequest.getReviewDeadline());
 
         if(!errorMessage.equals("")){
             return new MessageResponse(MessageType.ERROR,errorMessage);
@@ -130,7 +130,7 @@ public class EventRestController {
             "or @authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
     public MessageResponse addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
 
-        String errorMessage = checkEventRequestDates(addEventRequest.getStartDate(),addEventRequest.getEndDate(),addEventRequest.getStartTime(),addEventRequest.getEndTime(),addEventRequest.getRegistrationDeadline(),addEventRequest.getReviewDeadline());
+        String errorMessage = checkEventRequestDates(addEventRequest.getQuota(),addEventRequest.getGePoint(), addEventRequest.getAmountOfMoney(),addEventRequest.getStartDate(),addEventRequest.getEndDate(),addEventRequest.getStartTime(),addEventRequest.getEndTime(),addEventRequest.getRegistrationDeadline(),addEventRequest.getReviewDeadline());
 
         if(!errorMessage.equals("")){
             return new MessageResponse(MessageType.ERROR,errorMessage);
@@ -179,7 +179,19 @@ public class EventRestController {
         return smallDate.compareTo(bigDate) > 0;
     }
 
-    public String checkEventRequestDates(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, LocalDate registeredDeadline, LocalDate reviewDeadline){
+    public String checkEventRequestDates(int quota ,int gePoint,Double finance,LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, LocalDate registeredDeadline, LocalDate reviewDeadline){
+
+        if(quota<0){
+            return "Quota cannot be negative";
+        }
+
+        if( gePoint<0){
+            return "Ge Point cannot be negative";
+        }
+
+        if(finance<0){
+            return "Finance cannot be negative";
+        }
 
         LocalDateTime startDateTime = LocalDateTime.of(startDate,startTime);
         LocalDateTime endDateTime = LocalDateTime.of(endDate,endTime);

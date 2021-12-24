@@ -26,29 +26,44 @@ public class UpdateEventRequest {
     @NotNull
     private Long eventID;
 
-    @NotBlank
+    @NotNull(message = "The name of the event cannot be blank")
     private String name;
 
     private String description;
 
+    @NotNull(message = "The status of the event cannot be blank")
     private EventStatus eventStatus;
 
+    @NotNull(message = "The gePoint of the event cannot be blank")
     private int gePoint;
 
+    @NotNull(message = "The startDate of the event cannot be blank")
     private LocalDate startDate;
+
+    @NotNull(message = "The startTime of the event cannot be blank")
     private LocalTime startTime;
+
+    @NotNull(message = "The endDate of the event cannot be blank")
     private LocalDate endDate;
+
+    @NotNull(message = "The endTime of the event cannot be blank")
     private LocalTime endTime;
 
+    @NotNull(message = "The registrationDeadline of the event cannot be blank")
     private LocalDate registrationDeadline;
 
+    @NotNull(message = "The reviewDeadline of the event cannot be blank")
     private LocalDate reviewDeadline;
 
+
+    @NotNull(message = "The quota of the event cannot be blank")
     private int quota;
 
+    @NotNull(message = "The memberOnly of the event cannot be blank")
     private boolean memberOnly;
 
     //finance data
+    @NotNull(message = "The amountOfMoney of the event cannot be blank")
     private double amountOfMoney;
     private String explanation;
 
