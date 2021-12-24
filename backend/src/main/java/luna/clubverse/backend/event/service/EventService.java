@@ -170,24 +170,6 @@ public class EventService {
 
     }
 
-    public EventHomePageResponse getButtonsStatus(Long eventId) {
-        Event eventFromDB = eventRepository.findById(eventId)
-                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
-
-        if(eventFromDB.getEventStatus().equals(EventStatus.DRAFT)) {
-            return new EventHomePageResponse("visible","hidden","visible","visible", "hidden");
-        } else if (eventFromDB.getEventStatus().equals(EventStatus.PUBLISHED)) {
-            if(eventFromDB.getEndDateTime().compareTo(LocalDateTime.now()) < 0) {
-                return new EventHomePageResponse("hidden","hidden","hidden","hidden", "visible");
-            } else if (eventFromDB.getStartDateTime().compareTo(LocalDateTime.now()) <= 0) {
-                return new EventHomePageResponse("visible","hidden","hidden","hidden", "visible");
-            }
-            return new EventHomePageResponse("visible","visible","hidden","hidden", "hidden");
-        } else {
-            return new EventHomePageResponse("hidden","hidden","hidden","hidden", "visible");
-        }
-    }
-
 
     public MessageResponse addEnrolledFacultyAdvisor(Long eventId, Long userId) {
         Event eventFromDB = eventRepository.findById(eventId)
@@ -247,12 +229,63 @@ public class EventService {
 
     }
 
-    public void cancelEvent(Long eventId) {
+    public EventHomePageResponse getButtonsStatus(Long eventId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        if(eventFromDB.getEventStatus().equals(EventStatus.DRAFT)) {
+            return new EventHomePageResponse("visible","hidden","visible","visible", "hidden");
+        } else if (eventFromDB.getEventStatus().equals(EventStatus.PUBLISHED)) {
+            if(eventFromDB.getEndDateTime().compareTo(LocalDateTime.now()) < 0) {
+                return new EventHomePageResponse("hidden","hidden","hidden","hidden", "visible");
+            } else if (eventFromDB.getStartDateTime().compareTo(LocalDateTime.now()) <= 0) {
+                return new EventHomePageResponse("visible","hidden","hidden","hidden", "visible");
+            }
+            return new EventHomePageResponse("visible","visible","hidden","hidden", "hidden");
+        } else {
+            return new EventHomePageResponse("hidden","hidden","hidden","hidden", "hidden");
+        }
+    }
+
+    public MessageResponse cancelEvent(Long eventId) {
         Event eventFromDB = eventRepository.findById(eventId)
                 .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
 
         eventFromDB.setEventStatus(EventStatus.CANCELED);
-        //eventFromDB.
+        FinanceData dataOfEvent = eventFromDB.getFinanceData();
+        FinanceData balancedData = new FinanceData(dataOfEvent.amountOfMoney(), FinanceDataStatus.INCOME, "The event with name " + eventFromDB.getName() + " has canceled. Therefore, money is deposited", LocalDate.now());
+        balancedData.setFinanceTable(eventFromDB.getFinanceData().financeTable());
+        eventFromDB.getFinanceData().financeTable().addTransaction(balancedData);
 
+        financeDataRepository.save(balancedData);
+        eventRepository.save(eventFromDB);
+
+        return new MessageResponse(MessageType.SUCCESS, "Event is canceled successfully");
+
+    }
+
+    public MessageResponse deleteEvent(Long eventId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        FinanceData dataOfEvent = eventFromDB.getFinanceData();
+        FinanceData balancedData = new FinanceData(dataOfEvent.amountOfMoney(), FinanceDataStatus.INCOME, "The event with name " + eventFromDB.getName() + " has deleted. Therefore, money is deposited", LocalDate.now());
+        balancedData.setFinanceTable(eventFromDB.getFinanceData().financeTable());
+        eventFromDB.getFinanceData().financeTable().addTransaction(balancedData);
+
+        financeDataRepository.save(balancedData);
+        eventRepository.delete(eventFromDB);
+
+        return new MessageResponse(MessageType.SUCCESS, "Event is deleted successfully");
+    }
+
+    public MessageResponse publishEvent(Long eventId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        eventFromDB.setEventStatus(EventStatus.PUBLISHED);
+        eventRepository.save(eventFromDB);
+
+        return new MessageResponse(MessageType.SUCCESS, "Event is published successfully");
     }
 }

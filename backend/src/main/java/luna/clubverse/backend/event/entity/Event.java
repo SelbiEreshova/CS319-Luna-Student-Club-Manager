@@ -61,7 +61,7 @@ public class Event extends BaseEntity {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "club_id")
     private Club club;
 

@@ -125,23 +125,65 @@
             type: "PUT",
             headers: {
                 "Access-Control-Allow-Origin": "*",
-                Authorization : localStorage.getItem('Authorization')
+                Authorization: localStorage.getItem('Authorization')
             },
             crossDomain: true,
             contentType: "application/json",
-            url: `http://localhost:8080/event/takeAttendance`,
-            data: JSON.stringify(fd),
+            url: `http://localhost:8080/event/cancelEvent/${id}`,
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 if (response.messageType == "ERROR") {
                     alert(response.message)
                 }
-
+                alert(response.message)
                 // refresh eklenecek
             }
         });
-
     });
+
+        $("#deleteEventButton").on("click", function (event) {
+
+            $.ajax({
+                type: "DELETE",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization: localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: `http://localhost:8080/event/deleteEvent/${id}`,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.messageType == "ERROR") {
+                        alert(response.message)
+                    }
+                    alert(response.message)
+                    // refresh eklenecek
+                }
+            });
+        });
+
+            $("#publishEventButton").on("click", function (event) {
+
+                $.ajax({
+                    type: "PUT",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        Authorization: localStorage.getItem('Authorization')
+                    },
+                    crossDomain: true,
+                    contentType: "application/json",
+                    url: `http://localhost:8080/event/publishEvent/${id}`,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.messageType == "ERROR") {
+                            alert(response.message)
+                        }
+                        alert(response.message)
+                        // refresh eklenecek
+                    }
+                });
+            });
 
     // get button status
     $.ajax({
