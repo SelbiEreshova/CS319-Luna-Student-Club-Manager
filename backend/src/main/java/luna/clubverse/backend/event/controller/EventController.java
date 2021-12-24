@@ -68,7 +68,7 @@ public class EventController {
     @RequestMapping("/app/student_club_event_list/{id}")
     public String welcome4(Model model,@PathVariable Long id) {
         List<EventListQueryResponse> eventsForClub = eventService.getEventsForClub(id);
-        model.addAttribute("eventsForClub", eventsForClub);
+        model.addAttribute("events", eventsForClub);
         return "student_club_event_list";
     }
 

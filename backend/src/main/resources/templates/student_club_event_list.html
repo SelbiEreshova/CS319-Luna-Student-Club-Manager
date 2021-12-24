@@ -29,7 +29,6 @@
 
             <th>Event Name</th>
             <th>Date</th>
-            <th>Time</th>
             <th>Ge Points</th>
             <th>Location</th>
             <th>Quota</th>
@@ -39,13 +38,11 @@
         </thead>
         <tbody>
         <tr th:each="event:${events}">
-            <td th:text="${event.clubName}"></td>
             <td th:text="${event.eventName}"></td>
             <td th:text="${event.startDate}"></td>
-            <td th:text="${event.time}">Time</td>
             <td th:text="${event.gePoint}"></td>
-
             <td th:text="${event.location}"></td>
+            <td th:text="${event.quota}">Time</td>
             <td><button type="button" class="btn btn-info text-light">See Details</button></td>
         </tr>
         </tbody>
@@ -57,26 +54,6 @@
 </body>
 
 
-<script>
-    window.onload = function () {
-    console.log("in onload");
-    $.ajax({
-      type: "GET",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Authorization : localStorage.getItem('Authorization')
-      },
-      crossDomain: true,
-      contentType: "application/json",
-      url: `http://localhost:8080/${club_id}/event_list`,
-      dataType: 'json',
-      success: function(response) {
-        $("#name").text(response.message);
-        console.log(response);
-      }
-    });
-  };
-</script>
 
 
 <script>
