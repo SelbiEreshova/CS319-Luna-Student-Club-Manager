@@ -94,6 +94,13 @@ public class EventController {
 
     }
 
+    @RequestMapping("/app/faculty_advisor_event_homepage/{id}")
+    public String advisorEventPage(Model model,@PathVariable Long id) {
+        model.addAttribute("eventId", id);
+        return "facultyadvisor_event_homepage";
+
+    }
+
     @RequestMapping("/app/ADMIN_event_homepage/{id}")
     public String adminEventPage(Model model,@PathVariable Long id) {
         model.addAttribute("eventId", id);
