@@ -26,24 +26,24 @@ public class AddClubRequest {
     private String logo;
     private String description;
 
-    @NotBlank
+    @NotBlank(message = "1")
     private String directorName;
-    @NotBlank
+    @NotBlank(message = "2")
     private String directorSurname;
-    @Email
+    @Email(message = "3")
     private String clubEmail;
-    @NotBlank
+    @NotBlank(message = "4")
     private String clubPassword;
 
-    @NotBlank
+    @NotBlank(message = "5")
     private String advisorUsername;
-    @NotBlank
+    @NotBlank(message = "6")
     private String advisorPassword;
-    @NotBlank
+    @NotBlank(message = "7")
     private String advisorName;
-    @NotBlank
+    @NotBlank(message = "8")
     private String advisorSurname;
-    @Email
+    @Email(message = "9")
     private String advisorMail;
 
     public Club toClub() {

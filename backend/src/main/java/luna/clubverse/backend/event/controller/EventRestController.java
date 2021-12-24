@@ -101,10 +101,10 @@ public class EventRestController {
     }
 
     @CrossOrigin
-    @PutMapping("/cancelEvent/{id}")
-    public String cancelEvent(@PathVariable Long id) throws Exception {
+    @PutMapping("/cancelEvent/{eventId}")
+    public String cancelEvent(@PathVariable Long eventId) throws Exception {
 
-        //eventService.cancelEvent(id);
+        eventService.cancelEvent(eventId);
         return "success";
     }
 

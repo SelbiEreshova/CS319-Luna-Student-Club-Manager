@@ -246,4 +246,13 @@ public class EventService {
         return new MessageResponse(MessageType.SUCCESS, "Attendance is taken successfully");
 
     }
+
+    public void cancelEvent(Long eventId) {
+        Event eventFromDB = eventRepository.findById(eventId)
+                .orElseThrow(() ->new EntityNotFoundException("Event with id " + eventId + "is not found"));
+
+        eventFromDB.setEventStatus(EventStatus.CANCELED);
+        //eventFromDB.
+
+    }
 }
