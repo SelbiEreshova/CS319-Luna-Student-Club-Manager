@@ -47,12 +47,6 @@
         alert( "Handler for .click() called." );
     });
 
-    $( "#manageEventBtn" ).click(function() {
-        window.location.href = "http://localhost:8080/app/manager_event_list"
-    });
-
-
-
     $(document).ready(function () {
         //get method
         clubId = [[${clubId}]]
@@ -82,7 +76,7 @@
                 {
                     if(response.permissions[i] === 1)
                     {
-                        $(".manager_buttons").append("        <button type=\"button\" href=\"\"class=\"btn btn-primary m-1 for_manager\" id ='manageEventBtn' >Manage events</button>")
+                        $(".manager_buttons").append(`<button type='button' class='btn btn-primary m-1 for_manager' id='manageEventBtn'>Manage events</button>`)
                     }
                     else if(response.permissions[i] === 2)
                     {
@@ -109,6 +103,11 @@
                 "                            </div>")
 
         }
+
+        /*$( "#manageEventBtn" ).click(function() {
+            console.log("in go to manage events");
+            window.location.href = "http://localhost:8080/app/manager_event_list";
+        });*/
     })
 </script>
 </html>
