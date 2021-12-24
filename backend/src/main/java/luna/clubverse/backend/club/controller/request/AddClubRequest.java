@@ -10,6 +10,8 @@ import luna.clubverse.backend.user.entity.Authority;
 import luna.clubverse.backend.user.entity.ClubDirector;
 import luna.clubverse.backend.user.entity.FacultyAdvisor;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 
@@ -18,20 +20,31 @@ import java.util.HashSet;
 @ToString
 public class AddClubRequest {
 
-    @NotNull(message = "The name of the club cannot be blank")
+    @NotBlank(message = "The name of the club cannot be blank")
     private String clubName;
+    @NotBlank
     private String logo;
+    @NotBlank
     private String description;
 
+    @NotBlank
     private String directorName;
+    @NotBlank
     private String directorSurname;
+    @Email
     private String clubEmail;
+    @NotBlank
     private String clubPassword;
 
+    @NotBlank
     private String advisorUsername;
+    @NotBlank
     private String advisorPassword;
+    @NotBlank
     private String advisorName;
+    @NotBlank
     private String advisorSurname;
+    @Email
     private String advisorMail;
 
     public Club toClub() {

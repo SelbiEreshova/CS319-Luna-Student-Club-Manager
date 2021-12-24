@@ -119,6 +119,30 @@
         window.location.href = `http://localhost:8080/app/open_edit_event/${id}`
     });
 
+    $("#cancelEventButton").on("click", function (event) {
+       /*
+        $.ajax({
+            type: "PUT",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/takeAttendance`,
+            data: JSON.stringify(fd),
+            dataType: 'json',
+            success: function(response) {
+                if (response.messageType == "ERROR") {
+                    alert(response.message)
+                }
+
+                // refresh eklenecek
+            }
+        });
+        */
+    });
+
     // get button status
     $.ajax({
         type: "GET",
@@ -173,8 +197,6 @@
                         if (response.messageType == "ERROR") {
                             alert(response.message)
                         }
-
-
                     }
                 });
             }
