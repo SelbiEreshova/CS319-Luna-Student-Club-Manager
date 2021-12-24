@@ -37,6 +37,8 @@
             </div>
         </div>
         <div class="col pt-5 manager_buttons">
+            <button type="button" class="btn btn-primary m-1 for_manager" id="apply" style="visibility: hidden">Apply for club</button>
+            <button type="button" class="btn btn-danger m-1 for_manager" id="cancel" style="visibility: hidden">Cancel membership</button>
             <button type="button" class="btn btn-primary m-1 for_student" id="events">Events</button>
             <button type="button" class="btn btn-primary m-1 for_student" id="contactUs">Contact us</button>
         </div>
@@ -49,64 +51,60 @@
 
     $(document).ready(function ()
     {
-        /*
-    if( club.isMember)
-    {
-        console.log("yes a member")
-    }
-    });
 
-         */
-    clubId =  [[${clubId}]]
-    $.ajax({
-        type: "GET",
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-            Authorization: localStorage.getItem('Authorization')
-        },
-        crossDomain: true,
-        contentType: "application/json",
-        url:"http://localhost:8080/club/getForStudent/"+clubId+"/"+ localStorage.getItem("userId"),
-        dataType: 'json',
-        success: function (response) {
-            console.log(response);
-            $("#club_name").text(response.name);
-            $("#club_discription").text(response.description);
+        clubId =  [[${clubId}]]
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url:"http://localhost:8080/club/getForStudent/"+clubId+"/"+ localStorage.getItem("userId"),
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+                $("#club_name").text(response.name);
+                $("#club_discription").text(response.description);
 
 
-            for(let i = 0; i < response.boardMembers.length; i++)
-            {
-                showMember(response.boardMembers, i)
+                for(let i = 0; i < response.boardMembers.length; i++)
+                {
+                    showMember(response.boardMembers, i)
+                }
+
+                //SHow cancel or apply button
+                if( response.member === true)
+                {
+                    $("#cancel").css("visibility", "visible")
+                    $("#apply").remove()
+                }
+                else
+                {
+                    $("#apply").css("visibility", "visible")
+                    $("#cancel").remove()
+                }
+
             }
+         });
 
-            //SHow cancel or apply button
-            if( response.member === true)
-            {
-                $(".manager_buttons").append("            <button type=\"button\" class=\"btn btn-danger m-1 for_manager\">Cancel membership</button>\n")
-            }
-            else
-            {
-                $(".manager_buttons").append("            <button type=\"button\" class=\"btn btn-primary m-1 for_student\" id=\"apply\">Apply for Membership</button>\n")
-            }
+        function showMember(mem, i)
+        {
+                $("#list_members").append("<div class=\"card border-0\">\n" +
+                    "                                <div class=\"position-relative rounded-circle overflow-hidden mx-auto custom-circle-image\" style=\"height: 200px; width: 200px\">\n" +
+                    "                                    <img class=\"w-100 h-100 rounded-circle\" src=\"https://source.unsplash.com/794x794\" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"card-body text-center mt-4\">\n" +
+                    "                                    <h3 class=\"text-uppercase card-title\">"+ mem[i].userFullName +"</h3>\n" +
+                    "                                    <p class=\"card-text\">"+ mem[i].title +"</p>\n" +
+                    "                                </div>\n" +
+                    "                            </div>")
 
         }
-    });
-
-    function showMember(mem, i)
-    {
-            $("#list_members").append("<div class=\"card border-0\">\n" +
-                "                                <div class=\"position-relative rounded-circle overflow-hidden mx-auto custom-circle-image\" style=\"height: 200px; width: 200px\">\n" +
-                "                                    <img class=\"w-100 h-100 rounded-circle\" src=\"https://source.unsplash.com/794x794\" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
-                "                                </div>\n" +
-                "                                <div class=\"card-body text-center mt-4\">\n" +
-                "                                    <h3 class=\"text-uppercase card-title\">"+ mem[i].userFullName +"</h3>\n" +
-                "                                    <p class=\"card-text\">"+ mem[i].title +"</p>\n" +
-                "                                </div>\n" +
-                "                            </div>")
-
-    }
                     //On clicks
-    $( "#apply" ).click(function() {
+
+        $( "#apply" ).on("click", function() {
         $.ajax({
             type : "PUT",
             headers: {
@@ -137,6 +135,7 @@
             }
         });
     });
+
     $( "#events" ).click(function() {
         window.location.replace("http://localhost:8080/app/student_club_event_list/"+clubId);
     });
