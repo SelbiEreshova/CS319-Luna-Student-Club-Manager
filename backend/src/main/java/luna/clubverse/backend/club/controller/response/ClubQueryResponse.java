@@ -55,7 +55,7 @@ public class ClubQueryResponse {
 
         for(Title title : titles){
             if( !title.getTitle().equals("") && Objects.equals(title.getClubId(), clubId)){
-                String fullname = student.getName() + " "+student.getLastname();
+                String fullname = student.getName() + " " + student.getLastname();
                 return new BoardMemberQueryResponse(fullname,title.getTitle(),student.getId());
             }
         }
