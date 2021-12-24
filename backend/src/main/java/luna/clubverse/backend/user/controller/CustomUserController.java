@@ -63,7 +63,7 @@ public class CustomUserController {
         return "club_profile";
     }
 
-    @PutMapping("/about_us")
+    @RequestMapping("/app/about_us")
     public String openAboutUs() {
         return "about_us";
     }
