@@ -1,6 +1,7 @@
 package luna.clubverse.backend.user.service;
 
 
+import luna.clubverse.backend.club.controller.response.ClubManagerCheckQueryResponse;
 import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
@@ -92,13 +93,13 @@ public class CustomUserService {
 
 
 
-    public List<ClubQueryResponse> getClubsOfStudent(Long userId) {
+    public List<ClubManagerCheckQueryResponse> getClubsOfStudent(Long userId) {
         Student userFromDB = (Student) userRepository.findById(userId)
                 .orElseThrow(()->new EntityNotFoundException("The user with the id " + userId + " could not be found."));
 
         return userFromDB.getRegisteredClubs()
                 .stream()
-                .map(ClubQueryResponse::new)
+                .map(club -> new ClubManagerCheckQueryResponse(club,userId))
                 .toList();
     }
 

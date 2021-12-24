@@ -6,9 +6,11 @@ import lombok.Getter;
 public class BoardMemberQueryResponse {
     private String userFullName;
     private String title;
-    public BoardMemberQueryResponse(String userFullName, String title) {
+    private Long userId;
+    public BoardMemberQueryResponse(String userFullName, String title, Long userId) {
         this.title = title;
         this.userFullName = userFullName;
+        this.userId = userId;
     }
 
 }

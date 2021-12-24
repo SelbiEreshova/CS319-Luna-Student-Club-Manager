@@ -38,9 +38,14 @@
 
 });</script>
 <script>
-  function goToClub2(e)
+  function goToClub2(manager,id)
   {
-    console.log(e) //Need url here
+    if(manager){
+      window.location.href = "http://localhost:8080/app/club_home_page_manager/"+id;
+    }else{
+      window.location.href = "http://localhost:8080/app/club_home_page_student/"+id;
+    }
+
   }
   $(document).ready(function () {
 
@@ -64,9 +69,12 @@
       dataType: 'json',
       success: function (response) {
        function showClubs(r, i) {
+
+         console.log("manager: "+r[i].manager)
+
          tbl.row.add([
            r[i].name,
-           "<button id='${r[i].clubId}' onclick='goToClub2("+r[i].clubId+")' class='home_page_club'>Go to club home page</button>",
+           "<button id='${r[i].clubId}' onclick='goToClub2("+r[i].manager+","+r[i].clubId+")' class='home_page_club'>Go to club home page</button>",
            "delete button gelecek"
            //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
          ]).draw(false);
