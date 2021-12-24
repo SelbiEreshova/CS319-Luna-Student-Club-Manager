@@ -84,8 +84,7 @@
         <div class="modal-body">
           <form>
             <div class="form-group">
-              <label for="explanation">Explanation</label>
-              <input type="email" class="form-control" id="explanation_see" aria-describedby="emailHelp">
+              <p id="explanation_see"></p>
             </div>
           </form>
         </div>
@@ -145,7 +144,9 @@
   }
   function openDialogExplanation(i)
   {
+    console.log(financeData);
     $('#explanation_dialog').modal('show');
+    $('#explanation_see').text(financeData[i].explanation);
   }
 
   //Variables
@@ -173,13 +174,13 @@
       dataType: 'json',
       success: function (response) {
         console.log(response);
-        financeData = response;
+        financeData = response.financeData;
         function showClubs(r, i) {
           tbl.row.add([
             r[i].amountOfMoney,
             r[i].status,
             r[i].date,
-            `<button onclick='openDialogExplanation(i)' >See explanation</button>`,
+            "<button onclick='openDialogExplanation("+i+")' >See explanation</button>",
             "delete button gelecek"
             //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
           ]).draw(false);
