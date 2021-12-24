@@ -36,47 +36,47 @@
         </tr>
         </thead>
         <tbody>
-
         </tbody>
     </table>
 </div>
 
 </body>
 <script>
- $(".nav_bar").load("http://localhost:8080/admin.html");
+        $(".nav_bar").load("http://localhost:8080/admin.html");
        $("#events_nav").addClass("active");
         // Attach Button click event listener
        $("#events_nav").addClass("active");
+
         $(document).ready(function () {
-      var table = $(".student-list").DataTable();
-      $.ajax({
-        type: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Authorization : localStorage.getItem('Authorization')
-        },
-        crossDomain: true,
-        contentType: "application/json",
-        url: "http://localhost:8080/getAllStudents",
-        dataType: 'json',
-        success: function(response) {
-          console.log(response);
-          function showEvents(r, i){
-              table.row.add([
-                r[i].bilkentId,
-                r[i].username,
-                r[i].name,
-                r[i].surname,
-                r[i].email,
-                `<button>Delete</button>`
-                ]).draw();
-          };
-          for (let i = 0; i < response.length; i++) {
-            showEvents(response, i);
-          }
-        }
-      });
-    });
+          var table = $(".student-list").DataTable();
+          $.ajax({
+            type: "GET",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: "http://localhost:8080/getAllStudents",
+            dataType: 'json',
+            success: function(response) {
+              console.log(response);
+              function showEvents(r, i){
+                  table.row.add([
+                    r[i].bilkentId,
+                    r[i].username,
+                    r[i].name,
+                    r[i].surname,
+                    r[i].email,
+                    `<button>Delete</button>`
+                    ]).draw();
+              };
+              for (let i = 0; i < response.length; i++) {
+                showEvents(response, i);
+              }
+            }
+          });
+        });
 
 
 
