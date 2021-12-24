@@ -9,9 +9,11 @@
     <title>Admin event home page</title>
 </head>
 <body>
+<div class="nav_bar"></div>
+
 <div class="row justify-content-around" style="margin-top: 3%">
     <img src="ing-amblem.jpg" alt="Club logo" style="width: 250px; margin-bottom: 3%">
-    <h2 style="margin-top: 8%" id="event-name">Event name</h2>
+    <h2 style="margin-top: 8%" id="event-name"></h2>
     <!--<div class="d-flex flex-column align-self-center">
         <div id = "edit" ><button type="button" class="btn btn-primary" style="width: 200px; background-color: #20B5BDFF; margin-bottom: 20px" id="editEventButton"><a class="text-dark font-weight-bold">Edit Event</a></button></div>
         <div id = "publish" ><button type="button" class="btn" style="width: 200px; background-color: #63b3b7; margin-bottom: 20px" id="publishEventButton"><a class="text-dark font-weight-bold">Publish Event</a></button></div>
@@ -104,6 +106,9 @@
 </body>
 
 <script>
+    $(".nav_bar").load("http://localhost:8080/admin.html");
+    $("#events_nav").addClass("active");
+
     /*document.getElementById("editEventButton").style.visibility="hidden";
     document.getElementById("cancelEventButton").style.visibility="hidden";
     document.getElementById("deleteEventButton").style.visibility="hidden";

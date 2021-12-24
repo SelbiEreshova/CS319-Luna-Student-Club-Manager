@@ -9,9 +9,12 @@
     <title>Club director event home page</title>
 </head>
 <body>
+
+<div class="nav_bar"></div>
+
 <div class="row justify-content-around" style="margin-top: 3%">
     <img src="ing-amblem.jpg" alt="Club logo" style="width: 250px; margin-bottom: 3%">
-    <h2 style="margin-top: 8%" id="event-name">Event name</h2>
+    <h2 style="margin-top: 8%" id="event-name"></h2>
     <div class="d-flex flex-column align-self-center">
         <div id = "edit" ><button type="button" class="btn btn-primary" style="width: 200px; background-color: #20B5BDFF; margin-bottom: 20px" id="editEventButton"><a class="text-dark font-weight-bold">Edit Event</a></button></div>
         <div id = "publish" ><button type="button" class="btn" style="width: 200px; background-color: #63b3b7; margin-bottom: 20px" id="publishEventButton"><a class="text-dark font-weight-bold">Publish Event</a></button></div>
@@ -106,8 +109,10 @@
 </body>
 
 <script>
-    var id = [[${eventId}]];
+    $(".nav_bar").load("http://localhost:8080/club_director.html");
+    $("#events_nav").addClass("active");
 
+    var id = [[${eventId}]];
 
     document.getElementById("editEventButton").style.visibility="hidden";
     document.getElementById("cancelEventButton").style.visibility="hidden";
@@ -135,8 +140,9 @@
                 if (response.messageType == "ERROR") {
                     alert(response.message)
                 }
-                alert(response.message)
-                // refresh eklenecek
+                else {
+                    window.location.href = window.location.href;
+                }
             }
         });
     });
@@ -157,8 +163,9 @@
                     if (response.messageType == "ERROR") {
                         alert(response.message)
                     }
-                    alert(response.message)
-                    // refresh eklenecek
+                    else {
+                        window.location.href = `http://localhost:8080/app/club_director_event_list`;
+                    }
                 }
             });
         });
@@ -179,8 +186,9 @@
                         if (response.messageType == "ERROR") {
                             alert(response.message)
                         }
-                        alert(response.message)
-                        // refresh eklenecek
+                        else {
+                            window.location.href = window.location.href;
+                        }
                     }
                 });
             });
@@ -205,8 +213,6 @@
                 document.getElementById("publishEventButton").style.visibility = `${response.publishEvent}`;
                 document.getElementById("editAttendanceButton").style.visibility = `${response.editAttendance}`;
             }
-
-            // refresh etmek için bir şey eklenmeli
         },
         error: function (e) {
             alert("Error!")
@@ -214,9 +220,9 @@
         }
     })
 
-    function addAttendee(list, input) {
+    /*function addAttendee(list, input) {
         list.prepend('<li> ' + input + '</li>');
-    };
+    };*/
 
 
     $(document).ready(function() {
@@ -257,6 +263,7 @@
                     var attendees = response.participants;
                     if (attendees.length == 0) {
                         $("#attendee-list").append('<li> ' + "Nobody enrolled." + '</li>');
+                        $("#editAttendanceButton").prop("disabled", true);
                     }
 
                     for (let i = 0; i < attendees.length; i++) {
@@ -349,73 +356,6 @@
                     console.log("ERROR: ", e);
                 }
             });
-
-        /*
-                    var dummyEvent1 = {eventId: 1,
-                        name: "event 1",
-                        status: "PUBLISHED",
-                        description: "event 1 desc",
-                        //club: "club amazing",
-                        startDate: "2021-12-26",
-                        endDate:"2021-12-26",
-                        startTime: "10:00:00",
-                        endTime: "13:00:00",
-                        quota: 50,
-                        remainingQuota: 20,
-                        gePoint: 15,
-                        registrationDeadline: "2021-12-25",
-                        inBilkent: true,
-                        memberOnly: false,
-                        amountOfMoney: 100,
-                        explanation: "for buying balloons",
-                        descriptionLocation: "BZ04 (B building, first floor)"
-                    };
-
-                    //filling out the table
-                    $('#event-name').text(dummyEvent1.name.toUpperCase());
-                    $('#status').text(dummyEvent1.status.toLowerCase());
-                    $('#description').text(dummyEvent1.description);
-                    //$('#club').text(dummyEvent1.club);
-
-                    if (dummyEvent1.memberOnly) {
-                        $('#member-only').prop("checked", true);
-                    } else {
-                        $('#member-only').prop("checked", false);
-                    }
-
-                    var startDate = new Date(dummyEvent1.startDate);
-                    $('#start-date').text(startDate.toLocaleDateString());
-
-                    var endDate = new Date(dummyEvent1.endDate);
-                    $('#end-date').text(endDate.toLocaleDateString());
-
-                    var dummyDate = "1111-11-11";
-                    var startTime = new Date(dummyDate + " " + dummyEvent1.startTime);
-                    $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
-
-                    var endTime = new Date(dummyDate + " " + dummyEvent1.endTime);
-                    $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
-
-                    $('#quota').text(dummyEvent1.quota);
-                    $('#available-quota').text(dummyEvent1.remainingQuota);
-                    $('#ge-point').text(dummyEvent1.gePoint);
-
-                    if (dummyEvent1.inBilkent) {
-                        $('#in-bilkent').prop("checked", true);
-                    } else {
-                        $('#in-bilkent').prop("checked", false);
-                    }
-
-                    $('#location-description').text(dummyEvent1.descriptionLocation);
-
-                    $('#allocated-money').text(dummyEvent1.amountOfMoney);
-
-                    $('#financial-description').text(dummyEvent1.explanation);
-
-                    var regDate = new Date(dummyEvent1.registrationDeadline);
-                    $('#reg-deadline').text(regDate.toLocaleDateString());
-                    */
-                }
-    );
+    });
 </script>
 </html>
