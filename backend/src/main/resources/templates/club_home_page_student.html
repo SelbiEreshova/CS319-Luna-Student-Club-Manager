@@ -9,6 +9,9 @@
     <title>Club_home_page</title>
 </head>
 <body>
+
+<div class="nav_bar"></div>
+
 <div style="height:400px; background: url(https://bootstrapious.com/i/snippets/sn-static-header/background.jpg)" class=" bg-cover text-white">
 </div>
 
@@ -42,6 +45,9 @@
 </div>
 </body>
 <script>
+    $(".nav_bar").load("http://localhost:8080/student.html");
+    $("#events_nav").addClass("active");
+
     $(document).ready(function ()
     {
         /*

@@ -9,6 +9,9 @@
     <title>Student event home page</title>
 </head>
 <body>
+
+<div class="nav_bar"></div>
+
 <div class="row justify-content-around" style="margin-top: 3%">
     <img src="ing-amblem.jpg" alt="Club logo" style="width: 250px; margin-bottom: 3%">
     <h2 style="margin-top: 8%" id="event-name">Event name</h2>
@@ -87,6 +90,10 @@
 </body>
 
 <script>
+
+    $(".nav_bar").load("http://localhost:8080/student.html");
+    $("#events_nav").addClass("active");
+
     document.getElementById("enroll").style.visibility="hidden";
     document.getElementById("cancelEnrollment").style.visibility="hidden";
 
