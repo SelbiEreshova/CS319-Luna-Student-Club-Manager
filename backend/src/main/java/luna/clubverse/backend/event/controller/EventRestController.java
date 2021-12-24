@@ -63,8 +63,8 @@ public class EventRestController {
 
     // club id eklenecek
     @CrossOrigin
-    @PreAuthorize("hasAuthority('ADMIN')" +
-            "or @authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
+    //@PreAuthorize("hasAuthority('ADMIN')" +
+    //        "or @authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
     @GetMapping("/getWithParticipants/{id}")
     public EventAndParticipantQueryResponse getWithParticipants(@PathVariable Long id) {
         EventAndParticipantQueryResponse response = new EventAndParticipantQueryResponse(eventService.getEvent(id));
@@ -72,7 +72,7 @@ public class EventRestController {
     }
 
     @CrossOrigin
-    @PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
+    //@PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
     @PutMapping("/update")
     public MessageResponse updateEvent(@RequestBody @Valid final UpdateEventRequest updateEventRequest) {
 
@@ -88,7 +88,7 @@ public class EventRestController {
 
 
     @CrossOrigin
-    @PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
+    //@PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
     @PutMapping("/status/{status}/{id}")
     public String changeStatusEvent(@PathVariable Long id, @PathVariable String status) throws Exception {
 
@@ -105,21 +105,21 @@ public class EventRestController {
     }
 
     @CrossOrigin
-    @PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
+    //@PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
     @PutMapping("/cancelEvent/{eventId}")
     public MessageResponse cancelEvent(@PathVariable Long eventId) {
         return eventService.cancelEvent(eventId);
     }
 
     @CrossOrigin
-    @PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
+    //@PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
     @PutMapping("/publishEvent/{eventId}")
     public MessageResponse publishEvent(@PathVariable Long eventId) {
         return eventService.publishEvent(eventId);
     }
 
     @CrossOrigin
-    @PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
+    //@PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
     @DeleteMapping("/deleteEvent/{eventId}")
     public MessageResponse deleteEvent(@PathVariable Long eventId) {
         return eventService.deleteEvent(eventId);
@@ -247,14 +247,14 @@ public class EventRestController {
         return eventService.isEnrolledFacultyAdvisor(eventId, userId);
     }
 
-    @PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
+    //@PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
     @GetMapping("/{eventId}/getButtons")
     public EventHomePageResponse getButtons(@PathVariable Long eventId) {
         return eventService.getButtonsStatus(eventId);
     }
 
 
-    @PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
+    //@PreAuthorize("@authorizationLuna.authorizeEvent(authentication, 'EVENT_MANAGEMENT', #eventId)")
     @PutMapping("/takeAttendance")
     public MessageResponse takeAttendance(@RequestBody Attendance attendance) {
         return eventService.takeAttendance(attendance.getEventId(), attendance.getAttendance());
