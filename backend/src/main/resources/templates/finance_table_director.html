@@ -72,8 +72,27 @@
         </div>
     </div>
   </div>
+  <div class="modal" tabindex="-1" role="dialog" id="explanation_dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-light">
+          <h5 class="modal-title">Explanation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="explanation">Explanation</label>
+              <input type="email" class="form-control" id="explanation_see" aria-describedby="emailHelp">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 </div>
-
+</div>
 </body>
 <script>$(document).ready(function () {
   $(".nav_bar").load("http://localhost:8080/club_director.html");
@@ -84,7 +103,7 @@
   //Add transaction
   $("#addTransaction").click( function () {
     console.log($("#status").find(":selected").text())
-    formData = {
+    var formData = {
       amountOfMoney: $("#amount").val(),
       status:  $("#status").find(":selected").text(),
       explanation: $("#explanation").val(),
@@ -118,10 +137,21 @@
 
           }
   )
+
+  //Dialogs
   function openDialogFinanceAdd()
   {
     $('#add_transaction_dialog').modal('show');
   }
+  function openDialogExplanation(i)
+  {
+    $('#explanation_dialog').modal('show');
+  }
+
+  //Variables
+ var financeData = [];
+
+
   $(document).ready(function () {
 
     var tbl = $("#club-list").DataTable({
@@ -143,12 +173,13 @@
       dataType: 'json',
       success: function (response) {
         console.log(response);
+        financeData = response;
         function showClubs(r, i) {
           tbl.row.add([
             r[i].amountOfMoney,
             r[i].status,
             r[i].date,
-            `<button onclick='' >See explanation</button>`,
+            `<button onclick='openDialogExplanation(i)' >See explanation</button>`,
             "delete button gelecek"
             //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
           ]).draw(false);
