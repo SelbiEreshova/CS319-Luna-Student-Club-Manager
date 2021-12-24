@@ -31,7 +31,34 @@
     </thead>
     <tbody>
   </table>
+  <div class="modal-body">
 
+    <form>
+      <div class="form-group">
+        <label for="directorName">Amount</n></label>
+        <input type="text" class="form-control" id="directorName">
+      </div>
+      <div class="form-group">
+        <label for="directorSurname">Date</n></label>
+        <input type="text" class="form-control" id="directorSurname">
+      </div>
+      <div class="form-group">
+        <label for="clubName">Status</label>
+        <input type="text" class="form-control" id="clubName">
+      </div>
+      <div class="form-group">
+        <label for="clubEmail">Explanation</label>
+        <input type="email" class="form-control" id="clubEmail" aria-describedby="emailHelp">
+      </div>
+
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" id = "createClub">Create Transaction</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+  </div>
+</div>
 </div>
 
 </body>
@@ -40,6 +67,10 @@
 
 });</script>
 <script>
+  function openDialogFinanceAdd()
+  {
+    $('#addTransaction').modal('show');
+  }
   $(document).ready(function () {
 
     var tbl = $("#club-list").DataTable({
@@ -81,7 +112,7 @@
           "Total Amount:",
           response.totalMoney,
           "",
-          "<button onclick='' >Add Transaction</button>",
+          "<button onclick='openDialogFinanceAdd()' >Add Transaction</button>",
           "delete button gelecek"
           //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
         ]).draw(false);
