@@ -33,7 +33,7 @@
             <th class="filtered">Time</th>
             <th>Ge Points</th>
             <th>Location</th>
-            <th>Quota</th>
+            <th>Remaining Quota</th>
             <th>Details</th>
 
         </tr>
@@ -46,15 +46,11 @@
             <td th:text="${event.startTime}"></td>
             <td th:text="${event.gePoint}"></td>
             <td th:text="${event.location}"></td>
-            <td th:text="${event.quota}"></td>
+            <td th:text="${event.remainingQuota}"></td>
             <td><button type="button" class="btn btn-info text-light details" th:id="${event.eventId}">See Details</button></td>
         </tr>
-
-
         </tbody>
-
     </table>
-
 </div>
 
 </body>
