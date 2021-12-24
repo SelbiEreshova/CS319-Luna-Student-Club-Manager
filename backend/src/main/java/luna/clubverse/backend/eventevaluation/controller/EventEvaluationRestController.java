@@ -37,5 +37,13 @@ public class EventEvaluationRestController {
         return eventEvaluationService.addEventEvaluationForFacultyAdvisor(eventEvaluation,event_id,faculty_advisor_id);
     }
 
+    @CrossOrigin
+    @GetMapping("/get/{eventId}/{userId}")
+    public EventEvaluation getEventEvaluationWithId(@PathVariable Long eventId, @PathVariable Long userId) {
+        return eventEvaluationService.getEventEvaluationWithId( eventId,  userId);
+
+    }
+
+
 
 }

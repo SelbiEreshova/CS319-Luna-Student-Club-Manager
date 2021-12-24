@@ -20,7 +20,7 @@ public class EventEvaluation extends BaseEntity {
     long userId;
 
 
-    public EventEvaluation( int point, long eventId, long userId )
+    public EventEvaluation( int point , long eventId, long userId )
     {
         this.point = point;
         this.eventId = eventId;
