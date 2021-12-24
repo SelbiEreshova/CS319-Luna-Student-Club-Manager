@@ -48,6 +48,27 @@
     $(document).ready(function () {
       var table = $("#student-home-table").DataTable();
 
+      $.ajax(
+              {
+                type : "GET",
+                headers: {
+                  'Access-Control-Allow-Origin':'*',
+                  Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType : "application/json",
+                url : `http://localhost:8080/getProfileOfStudent/${localStorage.getItem('userId')}`,
+                dataType : 'json',
+                success : function(result) {
+                  console.log(result);
+                  $("#name").text(result.username);
+
+                },
+                error : function(e) {
+                  console.log("ERROR: ", e);
+                }
+              });
+
       $.ajax({
         type: "GET",
         headers: {
@@ -60,7 +81,7 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
+          //$("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
               var startDate = new Date(r[i].startDate);
               var dummyDate = "1111-11-11";
@@ -93,7 +114,7 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
+          //$("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
             var startDate = new Date(r[i].startDate);
             var dummyDate = "1111-11-11";
@@ -129,7 +150,7 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
+          //$("#name").text(`${localStorage.getItem('userId')}`);
           function showEvents(r, i){
             var startDate = new Date(r[i].startDate);
             var dummyDate = "1111-11-11";

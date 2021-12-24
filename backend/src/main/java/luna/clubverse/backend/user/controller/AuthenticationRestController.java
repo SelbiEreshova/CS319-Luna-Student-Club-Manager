@@ -8,6 +8,7 @@ import luna.clubverse.backend.user.controller.request.SignupStudentRequest;
 import luna.clubverse.backend.user.controller.request.UpdatePermissionRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
 import luna.clubverse.backend.user.service.AuthenticationService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,6 +41,7 @@ public class AuthenticationRestController {
         //return authenticationService.login(loginRequest);
     }
 
+    //@PreAuthorize("hasAuthority('DIRECTOR')")
     @PutMapping("/student/updatePermission")
     public MessageResponse updatePermission(@Valid @RequestBody UpdatePermissionRequest request) {
 
