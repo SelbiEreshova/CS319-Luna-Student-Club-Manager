@@ -418,7 +418,7 @@ $(document).ready(function(){
         },
         crossDomain: true,
         contentType: "application/json",
-        url: `http://localhost:8080/getPastEventsOffaculty_advisor/${localStorage.getItem('userId')}`,
+        url: `http://localhost:8080/getPastEventsOfFA/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
       $.ajax({
@@ -429,7 +429,7 @@ $(document).ready(function(){
             },
             crossDomain: true,
             contentType: "application/json",
-            url: `http://localhost:8080/event/attendedEventsForfaculty_advisor/${localStorage.getItem('userId')}`,
+            url: `http://localhost:8080/event/attendedEventsForFA/${localStorage.getItem('userId')}`,
             dataType: 'json',
             success: function(response) {
             var attended;
@@ -526,7 +526,7 @@ $(document).ready(function(){
         },
         crossDomain: true,
         contentType: "application/json",
-        url: `http://localhost:8080/getOnGoingEventsOffaculty_advisor/${localStorage.getItem('userId')}`,
+        url: `http://localhost:8080/getOnGoingEventsOfFA/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
           console.log(response);
