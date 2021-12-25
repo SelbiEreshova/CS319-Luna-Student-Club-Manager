@@ -26,7 +26,7 @@
       <p class="font-italic text-muted" id="club_description"></p>
     </div>
     <div class="col">
-      <img  src="https://source.unsplash.com/910x592" class="rounded-circle float-right border border-success" alt="Cinque Terre" width="300" height="300" style="margin-top:-30%; float: right; margin-right: 10%">
+      <img  id="logo" src="" class="rounded-circle float-right border border-success" alt="Cinque Terre" width="300" height="300" style="margin-top:-30%; float: right; margin-right: 10%">
     </div>
   </div>
 
@@ -144,7 +144,7 @@
     reader.onloadend = function() {
 
       $("#convertImg").attr("href",reader.result);
-      imageLogo= reader.result;
+      imageLogo= /base64,(.+)/.exec(reader.result)[1];
       $("#displayImg").attr("src", reader.result);
 
     }
@@ -174,6 +174,7 @@
             alert(result.message)
           }
           console.log(result);
+          window.location.href = window.location.href;
         },
         error: function (e) {
           alert("Error!")
@@ -206,6 +207,7 @@
         console.log(response);
         $("#club_name").text(response.name);
         $("#club_description").text(response.description);
+        $("#logo").attr("src", "data:image/png;base64," +response.logoImage);
 
 
         for (let i = 0; i < response.boardMembers.length; i++) {
@@ -264,6 +266,7 @@
           //    alert("oh nooo smthhh");
           //}
           console.log(result);
+          window.location.href = window.location.href;
         },
         error: function (e) {
           alert("Error!")
