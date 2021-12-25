@@ -36,7 +36,7 @@ public class DatabasePopulator {
         this.mailManager = MailManager.getMailManager();
     }
 
-
+    /**
     @Bean
     @Transactional
     public void populateDatabase() {
@@ -77,7 +77,7 @@ public class DatabasePopulator {
 
     }
 
-
+    */
 
 
 
