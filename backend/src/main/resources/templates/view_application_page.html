@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Edit event</title>
+</head>
+<body>
+
+<div class="card w-75">
+    <h2 class="d-flex justify-content-center pt-6" id="name-surname">name surname</h2>
+    <form style="width: 50%; margin: auto" class="pb-5" id="application">
+        <div class="form-group">
+            <label for="a1" id="q1">Question 1 text</label>
+            <p type="text" class="form-control form-control-lg" id="a1">Question 1 answer</p>
+        </div>
+    </form>
+    <div class="d-flex justify-content-around">
+        <button type="button" class="btn btn-secondary" onclick="history.back()" id="cancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="reject">Reject</button>
+        <button type="button" class="btn btn-primary" id="accept">Accept</button>
+    </div>
+</div>
+
+</body>
+<script>
+
+    var userId = [[${userId}]];
+
+    $(document).ready( function() {
+            var dummyForm = {
+                name_surname: "sena genç",
+                application: ["q1", "a1", "q2", "a2", "q3", "a3"]
+            };
+
+
+            $("#name-surname").text(dummyForm.name_surname); //isim soyisim almam lazım
+
+            for (let i = 0; (i+1) < dummyForm.application.length; i += 2) { //soru-cevap arrayi lazım
+                console.log("in appending entries");
+                var newQandA = `<div class=\"form-group\">
+                            <label for=\"a${i}\" id=\"q${i}\">${dummyForm[i]}</label>
+                            <p type=\"text\" class=\"form-control form-control-lg\" id=\"a${i}\">${dummyForm[i+1]}</p>
+                        </div>`
+                $("#application").append(newQandA);
+            }
+
+
+            $( "#accept" ).click(function() {
+                acceptApplication();
+            });
+
+
+
+            $("#reject").click(function() {
+                rejectApplication();
+            });
+
+</script>
+
+</html>

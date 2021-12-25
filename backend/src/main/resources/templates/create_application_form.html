@@ -59,22 +59,22 @@ $(document).ready(function() {
                 console.log(response);
                 edited= response.questions
                     for(var i =0;i<edited.length-1;i++){
-        addNewQuestion();
-        console.log(i)
-         $(".deleted").click(function(){
+                            addNewQuestion();
+                            console.log(i)
+                             $(".deleted").click(function(){
 
-         if(ids.length>1){
-            id = $(this).attr("id")
-            swap(id)
-            delete ids[id]
-        }
-    })
-    }
-    x=0;
-    $("input").each(function(){
-        $(this).val([x]);
-        x++;
-    });
+                                 if(ids.length>1){
+                                    id = $(this).attr("id")
+                                    swap(id)
+                                    delete ids[id]
+                                 }
+                            })
+                    }
+                    x=0;
+                    $("input").each(function(){
+                        $(this).val([edited[x]]);
+                        x++;
+                    });
             }
         });
     var ids=[1]
