@@ -47,9 +47,9 @@
             <td th:text="${event.startDate}">Date</td>
             <td th:text="${event.startDate}">Time</td>
             <td th:text="${event.gePoint}">Ge Points</td>
-            <td>loc</td>
-            <td>quota</td>
-            <td><button type="button" class="btn btn-info text-light">See Details</button></td>
+            <td th:text="${event.location}">loc</td>
+            <td th:text="${event.quota}"></td>
+            <td><button type="button" class="btn btn-info text-light details" th:id="${event.eventId}">See Details</button></td>
         </tr>
 
 
@@ -68,6 +68,13 @@
  $(".nav_bar").load("http://localhost:8080/admin.html");
        $("#events_nav").addClass("active");
         // Attach Button click event listener
+            function goToEvent(id) {
+        window.location.href= `http://localhost:8080/app/admin_event_homepage/${id}`;
+      }
+      $('.details').click(function(){
+          var id = $(this).attr('id');
+          goToEvent(id)
+      });
     $('.club-list').DataTable(
                     { language: {
                             searchPlaceholder: "Search",
