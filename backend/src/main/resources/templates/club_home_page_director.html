@@ -41,6 +41,7 @@
       <button type="button" id="edit_description" class="btn btn-primary m-1 for_director">Edit description</button><br>
       <button type="button" id="edit_logo" class="btn btn-primary m-1 for_director">Change logo</button><br>
       <button type="button" id="edit_background" class="btn btn-primary m-1 for_director">Change background</button><br>
+      <button type="button" id="edit_application" class="btn btn-primary m-1 for_director">Create/Edit application</button><br>
     </div>
   </div>
 </div>
@@ -228,37 +229,10 @@
     }
 
     //On clicks
-    $("#apply").click(function () {
-      $.ajax({
-        type: "PUT",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Authorization: localStorage.getItem('Authorization')
-        },
-        crossDomain: true,
-        contentType: "application/json",
-        url: "http://localhost:8080/club/" + clubId + "/directApplicationToClub/" + localStorage.getItem('userId'),
-        success: function (result) {
-          if (result.messageType == "ERROR") {
-            alert(result.message)
-          } else if (result.messageType == "SUCCESS") {
-            // add href
-            alert(result.message)
-          }
-          //if (result.messageType === "SUCCESS") {
-          //    alert("You are now a member");
-          //} else {
-          //    alert("oh nooo smthhh");
-          //}
-          console.log(result);
-        },
-        error: function (e) {
-          alert("Error!")
-          console.log("ERROR: ", e);
-        }
-      });
-    });
+    $( "#edit_application" ).click(function() {
+      window.location.href = 'http://localhost:8080/app/club_form';
 
+    });
 
     $( "#save_description" ).click(function() {
       var newDescription ={

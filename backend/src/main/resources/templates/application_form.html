@@ -15,8 +15,10 @@
     <form style="width: 50%; margin: auto" class="pb-5">
 
         <div class="form-group qd1">
-            <label for="a1" id="q1"></label>
-            <input type="text" class="form-control form-control-lg" id="a1" placeholder="Answer the question">
+            <input type="text" class="form-control" placeholder="Answer the question" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Delete</button>
+            </div>
         </div>
 
     </form>
@@ -35,94 +37,104 @@
 </body>
 <script>
 
+    //Variable
     var clubId = [[${clubId}]];
 
+    //Functions
     function swap(deleted){
            $(`.q${deleted}`).remove();
     }
-$(document).ready(function() {
 
-     $.ajax({
-            type: "GET",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                Authorization : localStorage.getItem('Authorization')
-            },
-            crossDomain: true,
-            contentType: "application/json",
-            url: `http://localhost:8080/form/getForm/${clubId}`,
-            dataType: 'json',
-            success: function(response) {
-                console.log(response);
-                questions= response.questions
+    $(document).ready(function() {
 
-    $("#q1").text(questions[0])
-   for(var i=1; i<questions.length;i++)
-   {
-        var newQuestion = `<div class=\"form-group\"><label for=\"a${i}\" id=\"q${i}\">${questions[i]}</label><input type=\"text\" class=\"form-control form-control-lg\" id=\"a${i}\" placeholder=\"Answer the question\"></div>`
-        $("form").append(newQuestion)
-   }
-    post = true;
+        //Get questions
+         $.ajax({
+                type: "GET",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: `http://localhost:8080/form/getForm/${clubId}`,
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+                    questions= response.questions
 
-            }
-        });
+        $("#q1").text(questions[0])
+       for(var i=1; i<questions.length;i++)
+       {
+           var question = "   <div class=\"form-group qd1\">\n" +
+               "            <input type=\"text\" class=\"form-control\" placeholder=\"Answer the question\" aria-label=\"Recipient's username\" aria-describedby=\"basic-addon2\">\n" +
+               "            <div class=\"input-group-append\">\n" +
+               "                <button class=\"btn btn-outline-secondary\" type=\"button\">Delete</button>\n" +
+               "            </div>\n" +
+               "        </div>"
+            var newQuestion = `<div class=\"form-group\"><label for=\"a${i}\" id=\"q${i}\">${questions[i]}</label><input type=\"text\" class=\"form-control form-control-lg\" id=\"a${i}\" placeholder=\"Answer the question\"></div>`
+            $("form").append(newQuestion)
+       }
+        post = true;
 
-     $(".nav_bar").load("http://localhost:8080/club_director.html");
-    $("#events_nav").addClass("active");
-     $("#submit").click(function(){
-        var answers = []
-        questions=[]
-        $("input").each(function(){
-            var input = $(this).val();
-            answers.push(input)
-            if(input=="")
+                }
+            });
+
+         $(".nav_bar").load("http://localhost:8080/club_director.html");
+        $("#events_nav").addClass("active");
+         $("#submit").click(function(){
+            var answers = []
+            questions=[]
+            $("input").each(function(){
+                var input = $(this).val();
+                answers.push(input)
+                if(input=="")
+                {
+                    post = false;
+                }
+            })
+            if(!post)
             {
-                post = false;
+                alert("Questions cannot be null")
+                post = true;
+            }
+            else{
+            post =true;
+                formData={
+                    answers:answers,
+                    clubId : localStorage.getItem("clubId")
+                }
+                console.log(formData)
+
+
+                $.ajax({
+                        type : "POST",
+                        headers: {
+                            "Access-Control-Allow-Origin":"*",
+                            Authorization : localStorage.getItem('Authorization')
+                        },
+                        crossDomain: true,
+                        contentType : "application/json",
+                        url : `http://localhost:8080/filledForm/${clubId}/createFilledForm/${localStorage.getItem('userId')}`,
+                        data : JSON.stringify(formData),
+                        dataType : 'json',
+                        success : function(result) {
+                            if (result.messageType == "ERROR") {
+
+                            } else if (result.messageType == "SUCCESS") {
+
+                            }
+                            console.log(result);
+                        },
+                        error : function(e) {
+                            alert("Error!")
+                            console.log("eventStatus", eventStatus);
+                            console.log("ERROR: ", e);
+                        }
+                    });
             }
         })
-        if(!post)
-        {
-            alert("Questions cannot be null")
-            post = true;
-        }
-        else{
-        post =true;
-            formData={
-                answers:answers,
-                clubId : localStorage.getItem("clubId")
-            }
-            console.log(formData)
 
-
-            $.ajax({
-                    type : "POST",
-                    headers: {
-                        "Access-Control-Allow-Origin":"*",
-                        Authorization : localStorage.getItem('Authorization')
-                    },
-                    crossDomain: true,
-                    contentType : "application/json",
-                    url : `http://localhost:8080/filledForm/${clubId}/createFilledForm/${localStorage.getItem('userId')}`,
-                    data : JSON.stringify(formData),
-                    dataType : 'json',
-                    success : function(result) {
-                        if (result.messageType == "ERROR") {
-
-                        } else if (result.messageType == "SUCCESS") {
-
-                        }
-                        console.log(result);
-                    },
-                    error : function(e) {
-                        alert("Error!")
-                        console.log("eventStatus", eventStatus);
-                        console.log("ERROR: ", e);
-                    }
-                });
-        }
-    })
-
-  })
+      })
 </script>
 
 </html>
