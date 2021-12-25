@@ -7,10 +7,12 @@ public class BoardMemberQueryResponse {
     private String userFullName;
     private String title;
     private Long userId;
-    public BoardMemberQueryResponse(String userFullName, String title, Long userId) {
+    private String profileImage;
+    public BoardMemberQueryResponse(String userFullName, String title, Long userId, String profileImage) {
         this.title = title;
         this.userFullName = userFullName;
         this.userId = userId;
+        this.profileImage = profileImage;
     }
 
 }
