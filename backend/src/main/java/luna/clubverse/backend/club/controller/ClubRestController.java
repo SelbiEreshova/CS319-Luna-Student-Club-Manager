@@ -12,6 +12,7 @@ import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.user.service.AuthenticationService;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -154,11 +155,11 @@ public class ClubRestController {
     }
 
     @CrossOrigin
-    @PutMapping("/photo")
+    @PutMapping("/uploadPhotoForClubLogo/{clubId}")
     //@PreAuthorize("@authorizationLuna.authorize(authentication,'DIRECTOR', #clubId)")
-    public MessageResponse uploadPhoto(@Valid @RequestBody UploadPhotoRequest request) {
+    public MessageResponse uploadPhotoForClubLogo(@PathVariable Long clubId,@Valid @RequestBody UploadPhotoRequest request) {
         System.out.println( request.getFile() );
-        return new MessageResponse(MessageType.SUCCESS,"success");
+        return clubService.changeLogo(clubId, request.getFile());
     }
 
     @CrossOrigin

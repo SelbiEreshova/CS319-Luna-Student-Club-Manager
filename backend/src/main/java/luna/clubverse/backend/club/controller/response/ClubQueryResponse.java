@@ -5,10 +5,7 @@ import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.entity.Title;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 public class ClubQueryResponse {
@@ -20,6 +17,7 @@ public class ClubQueryResponse {
     private List<BoardMemberQueryResponse> boardMembers;
     private String clubDirectorMail;
     private String faultyAdvisorMail;
+    private String logoImage;
 
     public ClubQueryResponse(final Club club) {
         this.name = club.getName();
@@ -28,6 +26,7 @@ public class ClubQueryResponse {
         this.clubId = club.id();
         this.clubDirectorMail = "";
         this.faultyAdvisorMail = "";
+        this.logoImage = Base64.getEncoder().encodeToString(club.getLogoImage());
 
 
         List<BoardMemberQueryResponse> boardMemberList = new ArrayList<>();
