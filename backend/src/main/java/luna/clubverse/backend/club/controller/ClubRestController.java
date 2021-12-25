@@ -92,9 +92,8 @@ public class ClubRestController {
     @CrossOrigin
     @PreAuthorize("hasAuthority('STUDENT')")
     @PutMapping("/{clubId}/directApplicationToClub/{studentId}")
-    public String directApplicationToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
-        clubService.directApplicationToClub(clubId,studentId);
-        return "success";
+    public MessageResponse directApplicationToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
+        return clubService.directApplicationToClub(clubId,studentId);
     }
 
     @CrossOrigin
