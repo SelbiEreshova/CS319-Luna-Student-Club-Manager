@@ -102,4 +102,10 @@ public class CustomUserRestController {
     public List<ApplicationListQueryResponse> getCandidates(@PathVariable Long userId) {
         return customUserService.getApplications(userId);
     }
+    @GetMapping("/getAllFacultyAdvisors")
+    public List<FacultyAdvisorQueryResponse> getFacultyAdvisors() {
+        return customUserService.getAllFacultyAdvisors();
+
+    }
+
 }
