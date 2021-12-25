@@ -1,17 +1,17 @@
 package luna.clubverse.backend.user.controller;
 
+import luna.clubverse.backend.club.controller.request.UploadPhotoRequest;
 import luna.clubverse.backend.club.controller.response.ClubManagerCheckQueryResponse;
+import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.user.controller.response.ClubDirectorQueryResponse;
 import luna.clubverse.backend.user.controller.response.FacultyAdvisorQueryResponse;
 import luna.clubverse.backend.user.controller.response.StudentQueryResponse;
 import luna.clubverse.backend.user.entity.User;
 import luna.clubverse.backend.user.service.CustomUserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -88,5 +88,11 @@ public class CustomUserRestController {
     @GetMapping("/getAllStudents")
     public List<StudentQueryResponse> getStudents() {
         return customUserService.getAllStudents();
+    }
+
+    @CrossOrigin
+    @PutMapping("/uploadPhotoForUser/{userId}")
+    public MessageResponse uploadPhotoForClubBackground(@PathVariable Long userId, @Valid @RequestBody UploadPhotoRequest request) {
+        return customUserService.changeProfileImage(userId, request.getFile());
     }
 }

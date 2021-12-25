@@ -10,6 +10,9 @@ import luna.clubverse.backend.emptyform.entity.EmptyForm;
 import luna.clubverse.backend.emptyform.repository.EmptyFormRepository;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
+import luna.clubverse.backend.filledform.entity.FilledForm;
+import luna.clubverse.backend.filledform.enums.FormStatus;
+import luna.clubverse.backend.filledform.repository.FilledFormRepository;
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.StudentRepository;
@@ -37,15 +40,20 @@ public class ClubService {
     private final AuthorityRepository authorityRepository;
     private final UserRepository userRepository;
     private final EmptyFormRepository emptyFormRepository;
+    private final FilledFormRepository filledFormRepository;
 
-    public ClubService(ClubRepository cLubRepository, EventRepository eventRepository, StudentRepository studentRepository, AuthorityRepository authorityRepository, UserRepository userRepository, EmptyFormRepository emptyFormRepository) {
+
+    public ClubService(ClubRepository cLubRepository, EventRepository eventRepository, StudentRepository studentRepository, AuthorityRepository authorityRepository, UserRepository userRepository, EmptyFormRepository emptyFormRepository, FilledFormRepository filledFormRepository) {
+
         this.cLubRepository = cLubRepository;
         this.eventRepository = eventRepository;
         this.studentRepository = studentRepository;
         this.authorityRepository = authorityRepository;
         this.userRepository = userRepository;
+        this.filledFormRepository = filledFormRepository;
 
         this.emptyFormRepository = emptyFormRepository;
+
     }
 
     /**
@@ -319,5 +327,46 @@ public class ClubService {
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
 
         return clubFromDB.getAppliedStudents().stream().map(MemberCandidateQueryResponse::new).toList();
+    }
+
+    public MessageResponse approveStudent(Long clubId, Long studentId) {
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        Student studentFromDB = studentRepository.findById(studentId)
+                .orElseThrow(()->new EntityNotFoundException("The student with the id " + studentId + " could not be found."));
+
+        clubFromDB.removeAppliedStudents(studentFromDB);
+        clubFromDB.addMembers(studentFromDB);
+
+        FilledForm filledForm = filledFormRepository.findByClubAndStudentId(clubFromDB, studentId)
+                .orElseThrow(()->new EntityNotFoundException("Form is not found"));
+
+        filledForm.setStatus(FormStatus.ACCEPTED);
+        filledFormRepository.save(filledForm);
+
+        cLubRepository.save(clubFromDB);
+
+        return new MessageResponse(MessageType.SUCCESS, "The application has been accepted successfully");
+    }
+
+    public MessageResponse disapproveStudent(Long clubId, Long studentId) {
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        Student studentFromDB = studentRepository.findById(studentId)
+                .orElseThrow(()->new EntityNotFoundException("The student with the id " + studentId + " could not be found."));
+
+        clubFromDB.removeAppliedStudents(studentFromDB);
+
+        FilledForm filledForm = filledFormRepository.findByClubAndStudentId(clubFromDB, studentId)
+                .orElseThrow(()->new EntityNotFoundException("Form is not found"));
+
+        filledForm.setStatus(FormStatus.REJECTED);
+        filledFormRepository.save(filledForm);
+
+        cLubRepository.save(clubFromDB);
+
+        return new MessageResponse(MessageType.SUCCESS, "The application has been rejected");
     }
 }

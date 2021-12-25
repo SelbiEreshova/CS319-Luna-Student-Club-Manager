@@ -90,6 +90,20 @@ public class ClubRestController {
     }
 
     @CrossOrigin
+    //@PreAuthorize("hasAuthority('STUDENT')")
+    @PutMapping("/{clubId}/approveStudent/{studentId}")
+    public MessageResponse approveStudent(@PathVariable Long clubId,@PathVariable Long studentId ) {
+        return clubService.approveStudent(clubId,studentId);
+    }
+
+    @CrossOrigin
+    //@PreAuthorize("hasAuthority('STUDENT')")
+    @PutMapping("/{clubId}/disapproveStudent/{studentId}")
+    public MessageResponse disapproveStudent(@PathVariable Long clubId,@PathVariable Long studentId ) {
+        return  clubService.disapproveStudent(clubId,studentId);
+    }
+
+    @CrossOrigin
     @PreAuthorize("hasAuthority('STUDENT')")
     @PutMapping("/{clubId}/directApplicationToClub/{studentId}")
     public MessageResponse directApplicationToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
