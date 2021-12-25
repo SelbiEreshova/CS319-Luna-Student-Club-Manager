@@ -11,17 +11,6 @@
   <title>Club_home_page</title>
 </head>
 <script>
-  //Uploading images
-  var imagebase64 = "";
-  function readURL(element) {
-    var file = element.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function() {
-      imagebase64 = reader.result;
-    }
-    reader.readAsDataURL(file);
-
-  }
 
   </script>
 <body>
@@ -70,8 +59,10 @@
           <div class="form-group">
             <label for="form1">Upload image</n></label>
             <form id="form1" runat="server">
-              <input type='file' id="imgInp" />
-              <img id="logo_img" src="#" alt="your image" onchange="readURL(this)" />
+              <input type="file" name="img" id="image" onchange="encodeImgtoBase64(this)">
+              <a id="convertImg" href=""></a>
+              <img src="" alt="" id="displayImg" style="width: 100px; height: 100px">
+
             </form>
           </div>
 
@@ -99,8 +90,9 @@
           <div class="form-group">
             <label for="form1">Upload image</n></label>
             <form id="form2" runat="server">
-              <input type='file' id="imgInp2" />
-              <img id="background_img" src="#" alt="your image" onchange="readURL(this)" />
+              <input type='file' id="imgInp2"  onchange="encodeImageFileAsURL(this)" />
+              <p id="b64"></p>
+              <img id="background_img" src="" alt="your image"  style="width: 100px; height: 100px" />
             </form>
           </div>
 
@@ -139,14 +131,66 @@
 </div>
 </body>
 <script>
+  //Image
+  //image
+  var imageLogo;
+  function encodeImgtoBase64(element) {
+
+    var img = element.files[0];
+
+    var reader = new FileReader();
+
+    reader.onloadend = function() {
+
+      $("#convertImg").attr("href",reader.result);
+      imageLogo= reader.result;
+      $("#displayImg").attr("src", reader.result);
+
+    }
+    reader.readAsDataURL(img);
+  }
+  $("#saveLogo").click( function () {
+   var imageLogoJson = {
+     file:  imageLogo
+    }
+    alert(imageLogo);
+      $.ajax({
+        type: "PUT",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization: localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: "http://localhost:8080/club/photo",
+        dataType: "json",
+        data: JSON.stringify(imageLogoJson),
+        success: function (result) {
+          if (result.messageType == "ERROR") {
+            alert(result.message)
+          } else if (result.messageType == "SUCCESS") {
+            // add href
+            alert(result.message)
+          }
+          console.log(result);
+        },
+        error: function (e) {
+          alert("Error!")
+          console.log("ERROR: ", e);
+        }
+      });
+    });
+
+
   $(".nav_bar").load("http://localhost:8080/club_director.html");
   $("#events_nav").addClass("active");
   //Need to fix this
   $(document).ready(function () {
 
 
+
     //get method
-    clubId =  [[${clubId}]]
+    clubId = [[${clubId}]]
     $.ajax({
       type: "GET",
       headers: {
@@ -155,7 +199,7 @@
       },
       crossDomain: true,
       contentType: "application/json",
-      url:"http://localhost:8080/club/get/"+clubId,
+      url: "http://localhost:8080/club/get/" + clubId,
       dataType: 'json',
       success: function (response) {
         console.log(response);
@@ -163,39 +207,38 @@
         $("#club_discription").text(response.description);
 
 
-        for(let i = 0; i < response.boardMembers.length; i++)
-        {
+        for (let i = 0; i < response.boardMembers.length; i++) {
           showMember(response.boardMembers, i)
         }
 
       }
     });
 
-    function showMember(mem, i)
-    {
+    function showMember(mem, i) {
       $("#list_members").append("<div class='col'> <div class=\"card border-0\">\n" +
               "                                <div class=\"position-relative rounded-circle overflow-hidden mx-auto custom-circle-image\" style=\"height: 200px; width: 200px\">\n" +
               "                                    <img class=\"w-100 h-100 rounded-circle\" src=\"https://source.unsplash.com/794x794\" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
               "                                </div>\n" +
               "                                <div class=\"card-body text-center mt-4\">\n" +
-              "                                    <h3 class=\"text-uppercase card-title\">"+ mem[i].userFullName +"</h3>\n" +
-              "                                    <p class=\"card-text\">"+ mem[i].title +"</p>\n" +
+              "                                    <h3 class=\"text-uppercase card-title\">" + mem[i].userFullName + "</h3>\n" +
+              "                                    <p class=\"card-text\">" + mem[i].title + "</p>\n" +
               "                                </div>\n" +
               "                            </div> </div>")
 
     }
+
     //On clicks
-    $( "#apply" ).click(function() {
+    $("#apply").click(function () {
       $.ajax({
-        type : "PUT",
+        type: "PUT",
         headers: {
-          "Access-Control-Allow-Origin":"*",
-          Authorization : localStorage.getItem('Authorization')
+          "Access-Control-Allow-Origin": "*",
+          Authorization: localStorage.getItem('Authorization')
         },
         crossDomain: true,
-        contentType : "application/json",
-        url : "http://localhost:8080/club/"+clubId+"/directApplicationToClub/"+ localStorage.getItem('userId'),
-        success : function(result) {
+        contentType: "application/json",
+        url: "http://localhost:8080/club/" + clubId + "/directApplicationToClub/" + localStorage.getItem('userId'),
+        success: function (result) {
           if (result.messageType == "ERROR") {
             alert(result.message)
           } else if (result.messageType == "SUCCESS") {
@@ -209,29 +252,29 @@
           //}
           console.log(result);
         },
-        error : function(e) {
+        error: function (e) {
           alert("Error!")
           console.log("ERROR: ", e);
         }
       });
     });
-    $( "#save_description" ).click(function() {
+    $("#save_description").click(function () {
       console.log($("#explanation_edit").val())
-      var newDescription ={
+      var newDescription = {
         newDescription: $("#explanation_edit").val()
       };
       $.ajax({
-        type : "PUT",
+        type: "PUT",
         headers: {
-          "Access-Control-Allow-Origin":"*",
-          Authorization : localStorage.getItem('Authorization')
+          "Access-Control-Allow-Origin": "*",
+          Authorization: localStorage.getItem('Authorization')
         },
         crossDomain: true,
-        contentType : "application/json",
-        url : "http://localhost:8080/club/changeDescription/"+clubId,
+        contentType: "application/json",
+        url: "http://localhost:8080/club/changeDescription/" + clubId,
         dataType: JSON,
         data: JSON.stringify(newDescription),
-        success : function(result) {
+        success: function (result) {
           if (result.messageType == "ERROR") {
             alert(result.message)
           } else if (result.messageType == "SUCCESS") {
@@ -245,7 +288,7 @@
           //}
           console.log(result);
         },
-        error : function(e) {
+        error: function (e) {
           alert("Error!")
           console.log("ERROR: ", e);
         }
@@ -253,20 +296,22 @@
     });
 
     //Dialog for changing logo
-    $("#edit_logo").click(function(){
+    $("#edit_logo").click(function () {
 
       // show Modal
       $('#edit_logo_dialog').modal('show');
     });
 
     //Dialog for changing description
-    $("#edit_description").click(function(){
+    $("#edit_description").click(function () {
 
       // show Modal
       $('#edit_description_dialog').modal('show');
     });
+  });
 
     //Dialog for changing background
+    /*
     $("#edit_background").click(function(){
 
       // show Modal
@@ -275,17 +320,16 @@
     $("#imgInp").change(function(){
       $('#logo_img').width(100); // Units are assumed to be pixels
       $('#logo_img').height(100);
-      readURL(this);
+      readFile();
       console.log("imagebase64",imagebase64)
 
     });
 
+     */
 
 
-    //Convert images to 64 bit
 
 
-  });
 
 
 </script>
