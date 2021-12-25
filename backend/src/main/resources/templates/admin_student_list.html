@@ -45,7 +45,6 @@
         $(".nav_bar").load("http://localhost:8080/admin.html");
        $("#events_nav").addClass("active");
         // Attach Button click event listener
-       $("#events_nav").addClass("active");
 
         $(document).ready(function () {
           var table = $(".student-list").DataTable();
@@ -68,7 +67,7 @@
                     r[i].name,
                     r[i].surname,
                     r[i].email,
-                    `<button>Delete</button>`
+                    `<button class="btn-danger">Delete</button>`
                     ]).draw();
               };
               for (let i = 0; i < response.length; i++) {

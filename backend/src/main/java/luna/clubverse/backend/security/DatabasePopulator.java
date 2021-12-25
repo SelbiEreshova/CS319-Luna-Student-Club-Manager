@@ -73,7 +73,7 @@ public class DatabasePopulator {
 
         //Club club = clubRepository.findById(1L).orElseThrow();
 
-        //FinanceData financeData = new FinanceData(0, FinanceDataStatus.OUTCOME, "none",LocalDate.now().minusDays(10));
+        //FinanceData financeData = new FinanceData(0, FinanceDataStatus.EXPENSE, "none",LocalDate.now().minusDays(10));
         //Location location = new luna.clubverse.backend.location.entity.Location(true,"b", "hksjdfsd","102");
         //Event event = new Event("past event","past", EventStatus.PUBLISHED, 0, LocalDate.now().minusDays(10), LocalTime.now().minusHours(10),LocalDate.now().minusDays(7),LocalTime.now().minusHours(3),LocalDate.now().minusDays(12),LocalDate.now().plusDays(2),50,false, financeData, location);
 

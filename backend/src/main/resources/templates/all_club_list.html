@@ -17,7 +17,7 @@
 
 <div class="nav_bar" ></div>
 
-<h2 class="d-flex justify-content-center mt-4 pt-6">All Club List</h2>
+<h2 class="d-flex justify-content-center mt-4 pt-6">All Clubs</h2>
 
 <div class="container table-responsive mx-auto my-2 p-3 ">
     <table class="table display table-striped" id="club-list">
@@ -35,7 +35,7 @@
 </body>
 <script>$(document).ready(function () {
     $(".nav_bar").load("http://localhost:8080/student.html");
-
+    $("#events_nav").addClass("active");
 });</script>
 <script>
     function goToClub(id)
@@ -67,8 +67,7 @@
                 function showClubs(r, i) {
                     tbl.row.add([
                         r[i].name,
-                        "<button onclick='goToClub("+r[i].clubId+")' >Go to club home page</button>",
-                        "delete button gelecek"
+                        "<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToClub("+r[i].clubId+")' >Go to club home page</button>",
                         //`<button onclick='deleteClub(${r[i].clubId})' >Delete Club</button>`
                     ]).draw(false);
                 };

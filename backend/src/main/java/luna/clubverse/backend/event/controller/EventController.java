@@ -60,7 +60,7 @@ public class EventController {
 
     @RequestMapping("/app/student_event_list")
     public String welcome3(Model model) {
-        List<EventListQueryResponse> events = eventService.getAllDemo();
+        List<EventListQueryResponse> events = eventService.getAllEventsForStudent();
         model.addAttribute("events", events);
         return "student_event_list";
     }
@@ -108,6 +108,13 @@ public class EventController {
 
     }
 
+    @RequestMapping("/app/manager_event_homepage/{id}")
+    public String managerEventPage(Model model,@PathVariable Long id) {
+        model.addAttribute("eventId", id);
+        return "manager_event_homepage";
+
+    }
+
 
     @RequestMapping("/app/student_my_event_list")
     public String studentEventPage() {
@@ -119,6 +126,12 @@ public class EventController {
     public String facultyAdvisorEventPage() {
         // model.addAttribute("eventId", id);
         return "faculty_event_list";
+    }
+
+    @RequestMapping("/app/manager_event_list/{clubId}")
+    public String managerEventList(Model model,@PathVariable Long clubId) {
+        model.addAttribute("clubId", clubId);
+        return "manager_event_list";
     }
 
 }

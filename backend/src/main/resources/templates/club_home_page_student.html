@@ -116,18 +116,25 @@
             url : "http://localhost:8080/club/"+clubId+"/directApplicationToClub/"+ localStorage.getItem('userId'),
             success : function(result) {
                 if (result.messageType == "ERROR") {
-                    alert(result.message)
-                } else if (result.messageType == "SUCCESS") {
-                    // add href
-                    alert(result.message)
+                    alert(result.message);
                 }
+                /*else if (result.messageType == "SUCCESS") {
+                    console.log("member now");
+                    window.location.href = window.location.href;
+                } I guess there is no error message as SUCCESS in here, because
+                enrollment is possible it never gets into the else if*/
+
+                console.log("member now");
+                window.location.href = window.location.href;
+
+
                 //if (result.messageType === "SUCCESS") {
                 //    alert("You are now a member");
                 //} else {
                 //    alert("oh nooo smthhh");
                 //}
-                console.log(result);
-                alert("Now you are a member! Hurray!")
+                //console.log(result);
+                //alert("Now you are a member! Hurray!")
             },
             error : function(e) {
                 alert("Error!")
