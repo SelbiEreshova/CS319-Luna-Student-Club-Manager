@@ -201,6 +201,11 @@
             contentType: "application/json",
             url: `http://localhost:8080/event/get/${id}`,
             success: function (response) {
+                var rating = 0
+                if(response.numberEvaluation != 0 ) {
+                    rating = response.totalPoint / response.numberEvaluation
+                }
+                console.log(rating);
                 var dummyRating = 3.4;
                 $("#point").text(dummyRating + "/" + 5);
                 console.log("after assigned point");

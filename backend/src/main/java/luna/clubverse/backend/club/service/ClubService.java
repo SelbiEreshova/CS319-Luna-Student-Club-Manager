@@ -262,10 +262,21 @@ public class ClubService {
 
         studentFromDB.deletePermissions(clubId);
 
+        studentRepository.save(studentFromDB);
+
         clubFromDB.removeMembers(studentFromDB);
 
         cLubRepository.save(clubFromDB);
 
+    }
+
+    public MessageResponse changeDescription(Long clubId, String newDescription) {
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        clubFromDB.setDescription(newDescription);
+        cLubRepository.save(clubFromDB);
+        return new MessageResponse(MessageType.SUCCESS,"successfully changed");
     }
 
 

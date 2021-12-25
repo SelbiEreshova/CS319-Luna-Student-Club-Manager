@@ -51,4 +51,9 @@ public class ClubController {
         model.addAttribute("clubId", clubId);
         return "finance_table_manager";
     }
+
+    @RequestMapping("/app/clubdirector_applications")
+    public String openClubDirector() {
+        return "clubdirector_applications";
+    }
 }
