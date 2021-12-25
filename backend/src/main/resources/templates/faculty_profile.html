@@ -17,7 +17,7 @@
     <div class="card w-50 p-2" style="background-color: #eee">
         <div class="card-body flex-column align-self-center">
 
-            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" style="margin-left: 10%">
+            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" id="profile_img" alt="Admin" class="rounded-circle" width="150" style="margin-left: 10%">
 
 
             <div class="mt-3">
@@ -105,7 +105,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id = "save_background">Save Profile Picture</button>
+                <button type="button" class="btn btn-primary" id = "save_profile_pic">Save Profile Picture</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -136,7 +136,7 @@
         $('#change_profile_dialog').modal('show');
     });
 
-    $("#save_background").click( function () {
+    $("#save_profile_pic").click( function () {
         var imageJson = {
             file:  image
         }
@@ -196,6 +196,11 @@ $(document).ready(function() {
         $("#surname").html(result.surname);
         $("#email").html(result.email);
         $("#username-show").html(result.username);
+        if(result.profilePhoto !== "")
+        {
+            $("#profile_img").attr("src", "data:image/png;base64," +result.profilePhoto);
+
+        }
         var ns=result.name +" " +result.surname;
         $("#ns").html(`<h4 class="pb-3">${ns}</h4>`)
 
