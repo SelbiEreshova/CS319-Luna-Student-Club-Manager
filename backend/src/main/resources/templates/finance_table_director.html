@@ -19,14 +19,25 @@
 
 <h2 class="d-flex justify-content-center mt-4 pt-6">Finance Table</h2>
 
+<div class="card w-50" style="background-color: #edefef; margin-left: 25%; margin-top: 3%">
+  <div class="row justify-content-around">
+    <div>
+      <p>Total Amount (TL): <a id="total-amount"></a></p>
+    </div>
+    <div>
+      <button id="add-transaction-button" class="btn-info text-dark" style="background-color: #9df6f6">Add Transaction</button>
+    </div>
+  </div>
+</div>
+
 <div class="container table-responsive mx-auto my-2 p-3 ">
   <table class="table display table-striped" id="club-list">
     <thead class="bg-dark text-light">
     <tr>
-      <th class="filtered">Amount</th>
+      <th class="filtered">Amount (TL)</th>
       <th class="filtered">Status</th>
       <th class="filtered">Date</th>
-      <th>Details</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -137,10 +148,15 @@
   )
 
   //Dialogs
-  function openDialogFinanceAdd()
+  $("#add-transaction-button").click(function() {
+    $('#add_transaction_dialog').modal('show');
+  })
+
+  /*function openDialogFinanceAdd()
   {
     $('#add_transaction_dialog').modal('show');
-  }
+  }*/
+
   function openDialogExplanation(i)
   {
     console.log(financeData);
@@ -174,26 +190,30 @@
       success: function (response) {
         console.log(response);
         financeData = response.financeData;
-        function showClubs(r, i) {
+
+        function showTransactions(r, i) {
+          var date = new Date(r[i].date);
           tbl.row.add([
             r[i].amountOfMoney,
             r[i].status,
-            r[i].date,
-            "<button onclick='openDialogExplanation("+i+")' >See explanation</button>",
+            date.toLocaleDateString(),
+            "<button class=\"btn-info text-dark\" style=\"background-color: #9df6f6\" onclick='openDialogExplanation("+i+")' >See explanation</button>",
           ]).draw(false);
         };
 
-        for (let i = 0; i < response.financeData.length; i++)
-        {
-          showClubs(response.financeData, i);
-        }
-
-        tbl.row.add([
-          "Total Amount:",
+        /*tbl.row.add([
+          "Total Amount",
           response.totalMoney,
           "",
-          "<button onclick='openDialogFinanceAdd()' >Add Transaction</button>",
-        ]).draw(false);
+          "<button class=\"btn-info\" style=\"background-color: #0796c0\" onclick='openDialogFinanceAdd()' >Add Transaction</button>",
+        ]).draw(false);*/
+
+        $("#total-amount").text(response.totalMoney);
+
+        for (let i = 0; i < response.financeData.length; i++)
+        {
+          showTransactions(response.financeData, i);
+        }
       }
     });
 
