@@ -20,16 +20,16 @@
 <!-- This page can add a new club-->
 
 <div class="nav_bar" ></div>
-<h2 class="d-flex justify-content-center mt-4 pt-6">Event List of </h2>
+<h2 class="d-flex justify-content-center mt-4 pt-6">Event List</h2>
 <h2 class="d-flex justify-content-center mt-4 pt-6" id="name"></h2>
 <div class="container table-responsive mx-auto my-2 p-3 ">
-    <table class="table display table-striped club-list" id="club-list">
+    <table class="table display table-striped event-list" id="event-list">
         <thead class="bg-dark text-light">
         <tr>
             <th>Club Name</th>
-            <th class="filtered">Event Name</th>
+            <th>Event Name</th>
             <th>Date</th>
-            <th class="filtered">Time</th>
+            <th>Time</th>
             <th>Ge Points</th>
             <th>Location</th>
             <th>Quota</th>
@@ -49,6 +49,13 @@
 
 
 <script>
+        $('.event-list').DataTable(
+          { language: {
+                searchPlaceholder: "Search",
+                search: "",
+          },
+          });
+      var table = $(".event-list").DataTable();
     $.ajax({
         type: "GET",
         headers: {
