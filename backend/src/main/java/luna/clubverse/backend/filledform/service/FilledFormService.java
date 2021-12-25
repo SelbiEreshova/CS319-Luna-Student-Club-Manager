@@ -76,7 +76,7 @@ public class FilledFormService {
                 .orElseThrow(()->new EntityNotFoundException("The user is not found"));
         String name_surname = student.getName() + " " + student.getLastname();
 
-        return new ApplicationQueryResponse(name_surname, filledForm);
+        return new ApplicationQueryResponse(clubFromDB.getName(),name_surname, filledForm);
 
     }
 }

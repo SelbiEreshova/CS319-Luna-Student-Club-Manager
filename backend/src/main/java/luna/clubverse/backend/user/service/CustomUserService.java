@@ -2,19 +2,19 @@ package luna.clubverse.backend.user.service;
 
 
 import luna.clubverse.backend.club.controller.response.ClubManagerCheckQueryResponse;
-import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
+import luna.clubverse.backend.filledform.repository.FilledFormRepository;
+import luna.clubverse.backend.user.controller.response.ApplicationListQueryResponse;
 import luna.clubverse.backend.user.controller.response.StudentQueryResponse;
 import luna.clubverse.backend.user.entity.ClubDirector;
 import luna.clubverse.backend.user.entity.FacultyAdvisor;
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.entity.User;
 import luna.clubverse.backend.user.enums.UserType;
-import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
@@ -32,11 +32,13 @@ public class CustomUserService {
     private final UserRepository userRepository;
     private final ClubRepository clubRepository;
     private final EventRepository eventRepository;
+    private final FilledFormRepository filledFormRepository;
 
-    public CustomUserService(UserRepository userRepository, ClubRepository clubRepository, EventRepository eventRepository) {
+    public CustomUserService(UserRepository userRepository, ClubRepository clubRepository, EventRepository eventRepository, FilledFormRepository filledFormRepository) {
         this.userRepository = userRepository;
         this.clubRepository = clubRepository;
         this.eventRepository = eventRepository;
+        this.filledFormRepository = filledFormRepository;
     }
 
 
@@ -172,6 +174,11 @@ public class CustomUserService {
         userFromDB.setProfilePhoto(decodedByte);
         userRepository.save(userFromDB);
         return new MessageResponse(MessageType.SUCCESS,"successfully upload");
+
+    }
+
+    public List<ApplicationListQueryResponse> getApplications(Long userId) {
+            return filledFormRepository.findAllByStudentId(userId).stream().map(ApplicationListQueryResponse::new).toList();
 
     }
 }

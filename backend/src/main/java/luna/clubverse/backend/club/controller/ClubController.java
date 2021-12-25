@@ -63,4 +63,22 @@ public class ClubController {
         model.addAttribute("userId", userId);
         return "clubdirector_view_application";
     }
+
+    @RequestMapping("/app/student_applications")
+    public String openMyApplication() {
+        return "student_my_applications";
+    }
+
+    @RequestMapping("app/view_application_student/{clubId}/{userId}")
+    public String viewApplicationStudent(Model model, @PathVariable Long clubId,  @PathVariable Long userId ) {
+        model.addAttribute("clubId",clubId);
+        model.addAttribute("userId", userId);
+        return "student_view_application";
+    }
+
+    @RequestMapping("/app/manager_applications/{clubId}")
+    public String openManagerApplication(Model model, @PathVariable Long clubId) {
+        model.addAttribute("clubId",clubId);
+        return "manager_applications";
+    }
 }
