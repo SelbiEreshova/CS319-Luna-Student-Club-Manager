@@ -34,7 +34,7 @@
        </div>
         <div class="col col-lg-3 pt-5 manager_buttons">
             <button type="button" class="btn btn-primary m-1 for_student" id="Contact_us">Contact us</button> <br>
-            <button type="button" class="btn btn-danger m-1 for_manager">Cancel membership</button><br>
+            <button type="button" class="btn btn-danger m-1 for_manager" id="cancel">Cancel membership</button><br>
         </div>
     </div>
 </div>
@@ -133,6 +133,33 @@
                 "                            </div> </div>")
 
         }
+
+        //Cancel membership
+        $("#cancel").click(function () {
+            alert('here')
+            $.ajax({
+                type: "PUT",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization: localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url:"http://localhost:8080/club/"+clubId+"/cancelMembershipToClub/"+ localStorage.getItem("userId"),
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response)
+                    window.location.href = window.location.href;
+
+                },
+                error : function(e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                    window.location.href = window.location.href;
+                }
+            });
+
+        });
 
     })
 </script>

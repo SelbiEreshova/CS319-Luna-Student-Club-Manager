@@ -76,6 +76,32 @@
             $('#contact_us_dialog').modal('show');
         });
 
+        $("#cancel").click(function () {
+            alert('here')
+            $.ajax({
+                type: "PUT",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization: localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url:"http://localhost:8080/club/"+clubId+"/cancelMembershipToClub/"+ localStorage.getItem("userId"),
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response)
+                    window.location.href = window.location.href;
+
+                },
+                error : function(e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                    window.location.href = window.location.href;
+                }
+            });
+
+        });
+
         clubId =  [[${clubId}]]
         $.ajax({
             type: "GET",
@@ -86,7 +112,6 @@
             crossDomain: true,
             contentType: "application/json",
             url:"http://localhost:8080/club/getForStudent/"+clubId+"/"+ localStorage.getItem("userId"),
-            dataType: 'json',
             success: function (response) {
                 console.log(response);
                 $("#club_name").text(response.name);
@@ -172,9 +197,7 @@
     $( "#events" ).click(function() {
         window.location.replace("http://localhost:8080/app/student_club_event_list/"+clubId);
     });
-    $( "#contactUs" ).click(function() {
-        alert( "Handler for .click() called." );
-    });
+
     });
 
 </script>
