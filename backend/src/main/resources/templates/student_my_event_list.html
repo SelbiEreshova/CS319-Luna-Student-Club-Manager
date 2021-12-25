@@ -156,7 +156,7 @@
                 </div>
             </div>
             <div class="modal-footer" style="background-color:#abc">
-                <button type="button" class="btn btn-primary rev">Review</button>
+                <button type="button" class="btn btn-primary " id="rev">Review</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
         </div>
@@ -177,42 +177,13 @@
             $("#open").modal('show');
             $(".rid").attr("id", `${id}`)
             rating = -1;
+            $("#rev").on( "click", function() {
+                review();
+            })
          }
-   $(document).ready( function () {
-    $(".nav_bar").load("http://localhost:8080/student.html");
-    $("#events_nav").addClass("active");
 
+         function review(){
 
-
-    var rating = -1
-   // $(".review-m").modal("show")
-             $("#st1").click(function() {
-              $(".fa-star").css("color", "black");
-              $("#st1").css("color", "yellow");
-              rating = 1;
-          });
-
-          $("#st2").click(function() {
-              $(".fa-star").css("color", "black");
-              $("#st1, #st2").css("color", "yellow");
-              rating = 2;
-          });
-          $("#st3").click(function() {
-              $(".fa-star").css("color", "black")
-              $("#st1, #st2, #st3").css("color", "yellow");
-              rating = 3;
-          });
-          $("#st4").click(function() {
-              $(".fa-star").css("color", "black");
-              $("#st1, #st2, #st3, #st4").css("color", "yellow");
-              rating = 4;
-          });
-          $("#st5").click(function() {
-              $(".fa-star").css("color", "black");
-              $("#st1, #st2, #st3, #st4, #st5").css("color", "yellow");
-              rating = 5;
-          });
-          $(".rev").click(function(){
             id = $(".rid").attr("id");
 
             point = `${rating}`
@@ -253,10 +224,50 @@
                         //console.log("eventStatus", eventStatus);
                         console.log("ERROR: ", e);
                     }
-                });
-
+                })//ajax
             }
-          })
+                }
+
+
+   $(document).ready( function () {
+    $(".nav_bar").load("http://localhost:8080/student.html");
+    $("#events_nav").addClass("active");
+$("#open").modal('show');
+   $("#rev").on( "click", function() {
+   review();
+   alert(   "reviewww");
+            })
+
+    var rating = -1
+   // $(".review-m").modal("show")
+             $("#st1").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1").css("color", "yellow");
+              rating = 1;
+          });
+
+          $("#st2").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1, #st2").css("color", "yellow");
+              rating = 2;
+          });
+          $("#st3").click(function() {
+              $(".fa-star").css("color", "black")
+              $("#st1, #st2, #st3").css("color", "yellow");
+              rating = 3;
+          });
+          $("#st4").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1, #st2, #st3, #st4").css("color", "yellow");
+              rating = 4;
+          });
+          $("#st5").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1, #st2, #st3, #st4, #st5").css("color", "yellow");
+              rating = 5;
+          });
+
+
 
         $('.all-event-list-t').DataTable(
           { language: {
@@ -264,7 +275,7 @@
                 search: "",
           },
           });
-                  $('.future-event-list-t').DataTable(
+          $('.future-event-list-t').DataTable(
           { language: {
                 searchPlaceholder: "Search",
                 search: "",
@@ -378,8 +389,8 @@
                 var endTime = new Date(dummyDate + " " + r[i].endTime);
 
                 table.row.add([
-                r[i].eventName,
                 r[i].clubName,
+                r[i].eventName,
                     startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
                     endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
                 r[i].gePoint,
@@ -422,6 +433,7 @@
         dataType: 'json',
         success: function(response) {
         console.log(response+"pasttt")
+        past_e = response
       $.ajax({
             type: "GET",
             headers: {
@@ -494,13 +506,16 @@
                       r[i].location,
                       r[i].remainingQuota +"/" + r[i].quota,
 `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
-                      `<button class=\"review-b text-dark\" style=\"background-color: #9aefee\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
+                      `<button   class=\"review-b text-dark\" style=\"background-color: #9aefee\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
                 ]).draw();
               };
-               for (let i = 0; i < response.length; i++) {
-                isAttended = attended.find(element => element == response[i])
-                if(isAttended==undefined)
+               for (let i = 0; i < past_e.length; i++) {
+                isAttended = attended.find(element => (element.eventName == past_e[i].eventName))
+                if(!isAttended)
+{
+                    alert("frr")
                     showEventsP_n(response, i);
+}
                 else{
                         showEventsP_a(response,i)
                 }

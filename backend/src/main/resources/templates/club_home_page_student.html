@@ -171,14 +171,17 @@
                 if (result.messageType === "ERROR") {
                     alert(result.message);
                 }
-                /*else if (result.messageType == "SUCCESS") {
+                else if (result.messageType == "SUCCESS") {
                     console.log("member now");
                     window.location.href = window.location.href;
-                } I guess there is no error message as SUCCESS in here, because
-                enrollment is possible it never gets into the else if*/
+                } else if (result.messageType == "INFO") {
+                    window.location.href = `http://localhost:8080/app/fill_club_form/${clubId}`
+                }
+                //I guess there is no error message as SUCCESS in here, because
+                //enrollment is possible it never gets into the else if*/
 
-                console.log("member now");
-                window.location.href = window.location.href;
+                //console.log("member now");
+                //window.location.href = window.location.href;
 
 
                 //if (result.messageType === "SUCCESS") {

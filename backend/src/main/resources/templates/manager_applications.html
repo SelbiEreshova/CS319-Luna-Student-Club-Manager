@@ -37,7 +37,7 @@
     $(".nav_bar").load("http://localhost:8080/student.html");
     $("#events_nav").addClass("active");
 
-    //var clubId = [[${clubId}]];
+    var clubId = [[${clubId}]];
 
     function openApplicationPopup(userId) {
         window.location.href = `http://localhost:8080/app/view_application/${localStorage.getItem('clubId')}/${userId}`
@@ -55,7 +55,7 @@
             },
             crossDomain: true,
             contentType: "application/json",
-            url: `http://localhost:8080/club/candidates/${localStorage.getItem('clubId')}`,
+            url: `http://localhost:8080/club/candidates/${clubId}`,
             dataType: 'json',
             success: function(response) {
                 console.log(response);

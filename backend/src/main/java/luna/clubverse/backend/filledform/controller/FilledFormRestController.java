@@ -3,6 +3,7 @@ package luna.clubverse.backend.filledform.controller;
 
 import luna.clubverse.backend.club.controller.response.ApplicationQueryResponse;
 import luna.clubverse.backend.club.controller.response.MemberCandidateQueryResponse;
+import luna.clubverse.backend.club.service.ClubService;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.filledform.controller.request.CreateFilledFormRequest;
 import luna.clubverse.backend.filledform.controller.response.FilledFormQueryResponse;
@@ -17,15 +18,18 @@ import java.util.List;
 public class FilledFormRestController {
 
     FilledFormService filledFormService;
+     ClubService clubService;
 
-    public FilledFormRestController(FilledFormService filledFormService) {
+    public FilledFormRestController(FilledFormService filledFormService, ClubService clubService) {
         this.filledFormService = filledFormService;
+        this.clubService = clubService;
     }
 
     @CrossOrigin
     @PostMapping("/{clubId}/createFilledForm/{studentId}")
     public MessageResponse createForm(@PathVariable Long clubId, @PathVariable Long studentId,
                                       @RequestBody @Valid final CreateFilledFormRequest createFilledFormRequest) {
+        clubService.applyToClub(clubId, studentId);
         return  filledFormService.createFilledForm(clubId,studentId,createFilledFormRequest.toFilledForm());
     }
 
