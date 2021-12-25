@@ -36,7 +36,9 @@ public class EmptyFormService {
 
     public EmptyForm getForm(Long clubId)
     {
-        EmptyForm emptyForm = formRepository.findById(clubId).
+        Club club = cLubRepository.findById(clubId)
+                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));;
+        EmptyForm emptyForm = formRepository.findByClub(club).
                 orElseThrow(()->new EntityNotFoundException("The form with the id " + clubId + " could not be found."));
 
         return emptyForm;
