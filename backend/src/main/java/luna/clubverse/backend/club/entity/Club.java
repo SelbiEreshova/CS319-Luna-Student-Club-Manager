@@ -90,6 +90,9 @@ public class Club extends BaseEntity {
         }
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public void addAppliedStudents(Student student){
         appliedStudents.add(student);

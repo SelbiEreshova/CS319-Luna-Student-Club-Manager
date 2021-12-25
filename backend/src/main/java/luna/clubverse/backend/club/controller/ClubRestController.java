@@ -2,6 +2,7 @@ package luna.clubverse.backend.club.controller;
 
 
 import luna.clubverse.backend.club.controller.request.AddClubRequest;
+import luna.clubverse.backend.club.controller.request.ChangeDescriptionRequest;
 import luna.clubverse.backend.club.controller.request.UpdateClubRequest;
 import luna.clubverse.backend.club.controller.request.UploadPhotoRequest;
 import luna.clubverse.backend.club.controller.response.*;
@@ -173,6 +174,12 @@ public class ClubRestController {
     @GetMapping("/finance_table/{clubId}")
     public FinanceTableResponse getFinanceTable(@PathVariable Long clubId){
         return new FinanceTableResponse(clubService.getClub(clubId).getFinanceTable());
+    }
+
+    @CrossOrigin
+    @GetMapping("/changeDescription/{clubId}")
+    public MessageResponse changeDescription(@PathVariable Long clubId, @RequestBody @Valid final ChangeDescriptionRequest request){
+        return clubService.changeDescription(clubId,request.getNewDescription());
     }
 
 
