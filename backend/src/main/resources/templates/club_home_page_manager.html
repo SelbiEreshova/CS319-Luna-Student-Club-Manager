@@ -114,7 +114,7 @@
                     }
                     else if( response.permissions[i] === 3)
                     {
-                        $(".manager_buttons").append("       <a type=\"button\" href=\"http://localhost:8080/app/finance_table\" class=\"btn btn-primary m-1 for_manager\">Manage members</a><br>\n")
+                        $(".manager_buttons").append("       <a type=\"button\" href=\"#\" class=\"btn btn-primary m-1 for_manager\">Manage members</a><br>\n")
                     }
                 }
 
@@ -145,7 +145,7 @@
                 },
                 crossDomain: true,
                 contentType: "application/json",
-                url:"http://localhost:8080/club/"+clubId+"/cancelMembershipToClub/"+ localStorage.getItem("userId"),
+                url:"http://localhost:8080/club/"+clubId+"/cancelMembershipForManagerToClub/"+ localStorage.getItem("userId"),
                 dataType: 'json',
                 success: function (response) {
                     console.log(response)
@@ -155,7 +155,7 @@
                 error : function(e) {
                     alert("Error!")
                     console.log("ERROR: ", e);
-                    window.location.href = window.location.href;
+                    window.location.replace("http://localhost:8080/app/club_home_page_student/"+clubId);
                 }
             });
 
