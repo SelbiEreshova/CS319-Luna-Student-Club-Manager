@@ -60,7 +60,7 @@ public class EventController {
 
     @RequestMapping("/app/student_event_list")
     public String welcome3(Model model) {
-        List<EventListQueryResponse> events = eventService.getAllDemo();
+        List<EventListQueryResponse> events = eventService.getAllEventsForStudent();
         model.addAttribute("events", events);
         return "student_event_list";
     }

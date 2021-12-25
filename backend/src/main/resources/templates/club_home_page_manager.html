@@ -31,7 +31,6 @@
            </div>
        </div>
         <div class="col pt-5 manager_buttons">
-            <button type="button" class="btn btn-primary m-1 for_student">Events</button>
             <button type="button" class="btn btn-primary m-1 for_student">Contact us</button>
             <button type="button" class="btn btn-danger m-1 for_manager">Cancel membership</button>
         </div>
@@ -78,15 +77,15 @@
                 {
                     if(response.permissions[i] === 1)
                     {
-                        $(".manager_buttons").append(`<button type='button' class='btn btn-primary m-1 for_manager' id='manageEventBtn'>Manage events</button>`)
+                        $(".manager_buttons").append("        <a type=\"button\"  href=\"http://localhost:8080/app/manager_event_list/"+clubId+"\" class=\"btn btn-primary m-1 for_manager\">Manage events</a>")
                     }
                     else if(response.permissions[i] === 2)
                     {
-                        $(".manager_buttons").append("            <button type=\"button\" class=\"btn btn-primary m-1 for_manager\">Manage finance</button>\n")
+                        $(".manager_buttons").append("       <a type=\"button\" href=\"http://localhost:8080/app/finance_table_manager/"+clubId+"\" class=\"btn btn-primary m-1 for_manager\">Manage finance</a>\n")
                     }
                     else if( response.permissions[i] === 3)
                     {
-                        $(".manager_buttons").append("            <button type=\"button\" class=\"btn btn-primary m-1 for_manager\">Manage members</button>\n")
+                        $(".manager_buttons").append("       <a type=\"button\" href=\"http://localhost:8080/app/finance_table\" class=\"btn btn-primary m-1 for_manager\">Manage members</a>\n")
                     }
                 }
 
