@@ -5,13 +5,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link src="../nav_bar_club_director.html">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
     <style>
 
     .fa-star {
@@ -35,14 +34,14 @@
 
 <h2 class="d-flex justify-content-center mt-4 pt-6">My Events</h2>
 <div class=" mx-5 px-3">
-<ul>
+    <ul>
         <button class="btn-outline-dark" id="all-e"><h5>All  Events</h5></button>
         <button class="btn-outline-dark"id="future-e"><h5>Future events</h5></button>
         <button class="btn-outline-dark" id="past-e"><h5>Past events</h5></button>
         <button class="btn-outline-dark" id="ongoing-e"><h5>Ongoing events</h5></button>
 
 
-</ul>
+    </ul>
 </div>
 <div class="container table-responsive mx-auto my-2 p-3 all-event-list">
     <table class="table display table-striped all-event-list-t">
@@ -63,7 +62,7 @@
         <tbody>
 
         </tr>
-    </tbody>
+        </tbody>
 
     </table>
 </div>
@@ -92,100 +91,98 @@
 </div>
 <div class="container table-responsive mx-auto my-2 p-3 past-event-list">
     <table class="table display table-striped past-event-list-t">
-    <thead class="bg-dark text-light">
-    <tr>
-        <th>pClub Name</th>
-        <th>Event Name</th>
-        <th>Start</th>
-        <th>End</th>
-        <th>Ge Points</th>
-        <th>Location</th>
-        <th>Quota</th>
-        <th>Details</th>
-        <th>Review</th>
+        <thead class="bg-dark text-light">
+        <tr>
+            <th>pClub Name</th>
+            <th>Event Name</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Ge Points</th>
+            <th>Location</th>
+            <th>Quota</th>
+            <th>Details</th>
+            <th>Review</th>
 
-    </tr>
-    </thead>
-    <tbody>
+        </tr>
+        </thead>
+        <tbody>
 
-    </tr>
-    </tbody>
+        </tr>
+        </tbody>
 
-</table>
+    </table>
 </div>
 <div class="container table-responsive mx-auto my-2 p-3 ongoing-event-list">
     <table class="table display table-striped ongoing-event-list-t">
-    <thead class="bg-dark text-light">
-    <tr>
-        <th>oClub Name</th>
-        <th>Event Name</th>
-        <th>Start</th>
-        <th>End</th>
-        <th>Ge Points</th>
-        <th>Location</th>
-        <th>Quota</th>
-        <th>Details</th>
-        <th>Review</th>
+        <thead class="bg-dark text-light">
+        <tr>
+            <th>oClub Name</th>
+            <th>Event Name</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Ge Points</th>
+            <th>Location</th>
+            <th>Quota</th>
+            <th>Details</th>
+            <th>Review</th>
 
-    </tr>
-    </thead>
-    <tbody>
+        </tr>
+        </thead>
+        <tbody>
 
-    </tr>
-    </tbody>
+        </tr>
+        </tbody>
 
-</table>
+    </table>
 
 </div>
 
 <div class="modal review-m" tabindex="-1" role="dialog" id="open">
 
-    <div class="modal-dialog rid" role="document"><div class="modal-content">
+    <div class="modal-dialog" role="document"><div class="modal-content">
         <div class="modal-header bg-info text-light">
             <h5 class="modal-title">Add Club</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
 
-                <div class = "container my-4">
-                    <h3 style = " color: green;">Rate the event: </h3>
-                    <i class = "fa fa-star" aria-hidden = "true" id = "st1"></i>
-                    <i class = "fa fa-star" aria-hidden = "true" id = "st2"></i>
-                    <i class = "fa fa-star" aria-hidden = "true" id = "st3"></i>
-                    <i class = "fa fa-star" aria-hidden = "true" id = "st4"></i>
-                    <i class = "fa fa-star" aria-hidden = "true" id = "st5"></i>
-                </div>
-            </div>
-            <div class="modal-footer" style="background-color:#abc">
-                <button type="button" class="btn btn-primary rev">Review</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <div class = "container my-4">
+            <h3 style = " color: green;">Rate the event: </h3>
+            <i class = "fa fa-star" aria-hidden = "true" id = "st1"></i>
+            <i class = "fa fa-star" aria-hidden = "true" id = "st2"></i>
+            <i class = "fa fa-star" aria-hidden = "true" id = "st3"></i>
+            <i class = "fa fa-star" aria-hidden = "true" id = "st4"></i>
+            <i class = "fa fa-star" aria-hidden = "true" id = "st5"></i>
+        </div>
+    </div>
+        <div class="modal-footer" style="background-color:#abc">
+            <button type="button" class="btn btn-primary rev">Review</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
         </div>
     </div>
-    </div>
+</div>
 </div>
 
 
 </div></body>
 
 <script>
- function goToEvent(id) {
-                window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
-              }
-
-         function goToReview(id)
-         {
-            $("#open").modal('show');
-            $(".rid").attr("id", `${id}`)
-            rating = -1;
-         }
-   $(document).ready( function () {
-    $(".nav_bar").load("http://localhost:8080/student.html");
+    $(".nav_bar").load("http://localhost:8080/faculty_advisor.html");
     $("#events_nav").addClass("active");
 
+function goToEvent(id) {
+                window.location.href= `http://localhost:8080/app/faculty_advisor_event_homepage/${id}`;
+              }
+         function goToReview(id)
+         {
 
-
+            $(".review-m").modal('show');
+            $(".review-m").attr("id", `${id}`)
+            rating = -1;
+         }
+    $(document).ready( function () {
     var rating = -1
-    $(".review-m").modal("show")
+    $(".review-m").modal('show');
              $("#st1").click(function() {
               $(".fa-star").css("color", "black");
               $("#st1").css("color", "yellow");
@@ -213,7 +210,7 @@
               rating = 5;
           });
           $(".rev").click(function(){
-            id = $(".rid").attr("id");
+            id = $(".review-m").attr("id");
 
             point = `${rating}`
             alert("zz"+point+" - " + id)
@@ -236,7 +233,7 @@
 
                     crossDomain: true,
                     contentType : "application/json",
-                    url : `http://localhost:8080/app/eventEvaluation/add/${id}/student/${localStorage.getItem('userId')}`,
+                    url : `http://localhost:8080/app/eventEvaluation/add/${id}/faculty_advisor/${localStorage.getItem('userId')}`,
                     data : JSON.stringify(posted),
                     dataType : 'json',
                     success : function(result) {
@@ -257,7 +254,10 @@
 
             }
           })
-
+});
+</script>
+<script>
+$(document).ready(function(){
         $('.all-event-list-t').DataTable(
           { language: {
                 searchPlaceholder: "Search",
@@ -365,7 +365,7 @@
         },
         crossDomain: true,
         contentType: "application/json",
-        url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
+        url: `http://localhost:8080/faculty_advisorHomePage/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
           console.log(response);
@@ -385,7 +385,7 @@
                 r[i].gePoint,
                 r[i].location,
                     r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+              `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                 "<p></p>"
                 ]).draw();
 
@@ -397,7 +397,7 @@
                     r[i].gePoint,
                     r[i].location,
                     r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                    `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                     "<p></p>"
                 ]).draw();
           };
@@ -418,10 +418,9 @@
         },
         crossDomain: true,
         contentType: "application/json",
-        url: `http://localhost:8080/getPastEventsOfStudent/${localStorage.getItem('userId')}`,
+        url: `http://localhost:8080/getPastEventsOffaculty_advisor/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
-        console.log(response+"pasttt")
       $.ajax({
             type: "GET",
             headers: {
@@ -430,11 +429,11 @@
             },
             crossDomain: true,
             contentType: "application/json",
-            url: `http://localhost:8080/event/attendedEventsForStudent/${localStorage.getItem('userId')}`,
+            url: `http://localhost:8080/event/attendedEventsForfaculty_advisor/${localStorage.getItem('userId')}`,
             dataType: 'json',
             success: function(response) {
             var attended;
-                console.log(response)
+
                 attended = response;
                     function showEventsP_n(r, i){
                   var startDate = new Date(r[i].startDate);
@@ -451,7 +450,7 @@
                   r[i].gePoint,
                   r[i].location,
                     r[i].remainingQuota +"/" + r[i].quota,
-                `<button onclick=\"goToEvent(${r[i].eventId})\">Go to event's home page</button>`,
+                `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                 "<p></p>"
                 ]).draw();
                               pastTable.row.add([
@@ -462,8 +461,8 @@
                   r[i].gePoint,
                   r[i].location,
                     r[i].remainingQuota +"/" + r[i].quota,
-                `<button onclick="\goToEvent(${r[i].eventId})\">Go to event's home page</button>`,
-"<p></p>"
+                `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                "<p></p>"
                 ]).draw();
 
 
@@ -483,7 +482,7 @@
                   r[i].location,
                     r[i].remainingQuota +"/" + r[i].quota,
                 `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
-                      `<button class=\"review-b text-dark\" style=\"background-color: #9aefee\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
+                "<p></p>"
                 ]).draw();
                   pastTable.row.add([
                       r[i].eventName,
@@ -493,16 +492,16 @@
                       r[i].gePoint,
                       r[i].location,
                       r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
-                      `<button class=\"review-b text-dark\" style=\"background-color: #9aefee\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
+                      `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                      `<button class=\"review-b text-dark\" style=\"background-color: #9aefee\"onclick=\"goToReview(${r[i].eventId})\">Review</button>`
                 ]).draw();
               };
                for (let i = 0; i < response.length; i++) {
-                isAttended = attended.find(element => element == response[i])
+                isAttended= attended.find(response[i])
                 if(isAttended==undefined)
                     showEventsP_n(response, i);
                 else{
-                        showEventsP_a(response,i)
+                        showEventsP_a(r,i)
                 }
               }
 
@@ -518,7 +517,6 @@
         }
       });
 
-
 ////////////////////////////////////Ongoing
       $.ajax({
         type: "GET",
@@ -528,7 +526,7 @@
         },
         crossDomain: true,
         contentType: "application/json",
-        url: `http://localhost:8080/getOnGoingEventsOfStudent/${localStorage.getItem('userId')}`,
+        url: `http://localhost:8080/getOnGoingEventsOffaculty_advisor/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
           console.log(response);
@@ -548,7 +546,8 @@
               r[i].gePoint,
               r[i].location,
                 r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,              "<p></p>"
+`<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+              "<p></p>"
             ]).draw(false);
             table.row.add([
                   r[i].eventName,
@@ -558,7 +557,8 @@
               r[i].gePoint,
               r[i].location,
                 r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,              "<p></p>"
+`<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+              "<p></p>"
             ]).draw(false);
 
           };
