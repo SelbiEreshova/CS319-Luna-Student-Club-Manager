@@ -54,7 +54,7 @@ $(document).ready(function() {
             },
             crossDomain: true,
             contentType: "application/json",
-            url: `http://localhost:8080/app/form/getForm/${localStorage.getItem('clubId')}`,
+            url: `http://localhost:8080/form/getForm/${localStorage.getItem('clubId')}`,
             dataType: 'json',
             success: function(response) {
                 console.log(response);
@@ -108,7 +108,7 @@ $(document).ready(function() {
                     },
                     crossDomain: true,
                     contentType : "application/json",
-                    url : "https://localhost:8080/appform/set",
+                    url : "http://localhost:8080/form/set",
                     data : JSON.stringify(formData),
                     dataType : 'json',
                     success : function(result) {
