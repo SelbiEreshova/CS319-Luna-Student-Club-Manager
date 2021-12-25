@@ -3,6 +3,8 @@ package luna.clubverse.backend.financedata.service;
 
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
+import luna.clubverse.backend.common.MessageResponse;
+import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.financedata.entity.FinanceData;
 import luna.clubverse.backend.financedata.enumuration.FinanceDataStatus;
 import luna.clubverse.backend.financedata.repository.FinanceDataRepository;
@@ -26,7 +28,7 @@ public class FinanceDataService {
         this.clubRepository = clubRepository;
     }
 
-    public void addDataToFinanceTable(Long clubId, FinanceData financeData) {
+    public MessageResponse addDataToFinanceTable(Long clubId, FinanceData financeData) {
 
         Club club = clubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The Club with the id " + clubId + " could not be found."));
@@ -45,6 +47,8 @@ public class FinanceDataService {
 
         financeData.setFinanceTable(financeTableDB);
         financeDataRepository.save(financeData);
+
+        return new MessageResponse(MessageType.SUCCESS, "Added transaction successfully.");
     }
 
 

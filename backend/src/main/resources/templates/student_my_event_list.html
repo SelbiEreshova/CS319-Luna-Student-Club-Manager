@@ -52,8 +52,8 @@
         <tr>
             <th>Club Name</th>
             <th>Event Name</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th>Start Time</th>
+            <th>Finish Time</th>
             <th>Ge Points</th>
             <th>Location</th>
             <th>Quota</th>
@@ -189,11 +189,11 @@ function goToEvent(id) {
               table.row.add([
                 r[i].eventName,
                 r[i].clubName,
-                r[i].startDate,
-                r[i].startTime,
+                  r[i].startDate + "\n" + r[i].startTime,
+                  r[i].endDate + "\n" + r[i].endTime,
                 r[i].gePoint,
               r[i].location,
-              r[i].quota,
+                  r[i].remainingQuota +"/" + r[i].quota,
               `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                 "<p></p>"
                 ]).draw();
@@ -225,11 +225,11 @@ function goToEvent(id) {
             table.row.add([
               r[i].eventName,
               r[i].clubName,
-              r[i].startDate,
-              r[i].startTime,
+                r[i].startDate + "\n" + r[i].startTime,
+                r[i].endDate + "\n" + r[i].endTime,
               r[i].gePoint,
               r[i].location,
-              r[i].quota,
+                r[i].remainingQuota +"/" + r[i].quota,
 `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
             `<button class=\"review-b\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
             ]).draw();
@@ -259,11 +259,11 @@ function goToEvent(id) {
             table.row.add([
               r[i].eventName,
               r[i].clubName,
-              r[i].startDate,
-              r[i].startTime,
+              r[i].startDate + "\n" + r[i].startTime,
+                r[i].endDate + "\n" + r[i].endTime,
               r[i].gePoint,
               r[i].location,
-              r[i].quota,
+                r[i].remainingQuota +"/" + r[i].quota,
 `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
               "<p></p>"
             ]).draw(false);

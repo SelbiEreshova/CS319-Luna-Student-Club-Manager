@@ -128,9 +128,9 @@ public class EventController {
         return "faculty_event_list";
     }
 
-    @RequestMapping("/app/manager_event_list")
-    public String managerEventPage() {
-        // model.addAttribute("eventId", id);
+    @RequestMapping("/app/manager_event_list/{clubId}")
+    public String managerEventList(Model model,@PathVariable Long clubId) {
+        model.addAttribute("clubId", clubId);
         return "manager_event_list";
     }
 
