@@ -433,6 +433,7 @@ $("#open").modal('show');
         dataType: 'json',
         success: function(response) {
         console.log(response+"pasttt")
+        past_e = response
       $.ajax({
             type: "GET",
             headers: {
@@ -508,10 +509,13 @@ $("#open").modal('show');
                       `<button   class=\"review-b text-dark\" style=\"background-color: #9aefee\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
                 ]).draw();
               };
-               for (let i = 0; i < response.length; i++) {
-                isAttended = attended.find(element => element == response[i])
-                if(isAttended==undefined)
+               for (let i = 0; i < past_e.length; i++) {
+                isAttended = attended.find(element => (element.eventName == response[i].eventName))
+                if(!isAttended)
+{
+                    alert("frr")
                     showEventsP_n(response, i);
+}
                 else{
                         showEventsP_a(response,i)
                 }
