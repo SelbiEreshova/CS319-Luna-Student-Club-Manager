@@ -208,6 +208,8 @@
         $("#club_name").text(response.name);
         $("#club_description").text(response.description);
         $("#logo").attr("src", "data:image/png;base64," +response.logoImage);
+        $("#explanation_edit").text(response.description);
+
 
 
         for (let i = 0; i < response.boardMembers.length; i++) {
