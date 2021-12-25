@@ -156,7 +156,7 @@
                 </div>
             </div>
             <div class="modal-footer" style="background-color:#abc">
-                <button type="button" class="btn btn-primary "><a id="rev">Review</a></button>
+                <button type="button" class="btn btn-primary "><p id="rev">Review</p></button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
         </div>
@@ -214,8 +214,6 @@ var rating = -1;
                         console.log(result);
                     },
                     error : function(e) {
-                    //    alert("Error!")
-                        //console.log("eventStatus", eventStatus);
                         console.log("ERROR: ", e);
                     }
                 })//ajax
@@ -226,7 +224,7 @@ function goToReview(id)
             $("#open").modal('show');
             $(".rid").attr("id", `${id}`)
 
-            $("h5  ").on( "click", function() {
+            $("#rew").on( "click", function() {
                 review();
             })
          }
@@ -234,7 +232,7 @@ function goToReview(id)
    $(document).ready( function () {
     $(".nav_bar").load("http://localhost:8080/student.html");
     $("#events_nav").addClass("active");
-   $("#rev").on( "click", function() { alert("fffff")
+   $("#rev").on( "click", function() {
    review();
             })
 
@@ -513,7 +511,7 @@ function goToReview(id)
                 isAttended = attended.find(element => (element.eventId == past_e[i].eventId))
                 if(!isAttended)
 {
-                    alert("frr")
+
                     showEventsP_n(past_e, i);
 }
                 else{
