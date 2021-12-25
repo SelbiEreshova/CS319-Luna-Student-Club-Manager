@@ -45,17 +45,32 @@
            $(`.q${deleted}`).remove();
     }
 $(document).ready(function() {
+    var edited = [];
+     $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/app/form/getForm/${localStorage.getItem('clubId')}`,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                edited= response.questions
+            }
+        });
 
 
      var ids=[1]
-        var dummydata =[];
-    for(var i =0;i<dummydata.length-1;i++){
+    for(var i =0;i<edited.length-1;i++){
         addNewQuestion();
         console.log(i)
     }
     x=0;
     $("input").each(function(){
-        $(this).val(dummydata[x]);
+        $(this).val([x]);
         x++;
     });
 
