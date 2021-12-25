@@ -14,11 +14,10 @@ public class UpdateClubRequest {
 
     @NotNull(message = "The name of the club cannot be blank")
     private String name;
-    private String logo;
     private String description;
 
     public Club toClub() {
-        return new Club(name,logo,description);
+        return new Club(name,description);
 
     }
 

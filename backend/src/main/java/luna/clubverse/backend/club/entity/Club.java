@@ -3,6 +3,7 @@ package luna.clubverse.backend.club.entity;
 
 import lombok.Getter;
 import luna.clubverse.backend.common.entity.BaseEntity;
+import luna.clubverse.backend.emptyform.entity.EmptyForm;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
 import luna.clubverse.backend.user.entity.ClubDirector;
@@ -19,11 +20,11 @@ public class Club extends BaseEntity {
 
     private String name;
 
-    private String logo;
-
     private String description;
 
     private byte[] logoImage;
+
+    private byte[] backgroundImage;
 
     @OneToOne(mappedBy = "club")
     @JoinColumn(name = "club_director_id")
@@ -56,27 +57,23 @@ public class Club extends BaseEntity {
     private FinanceTable financeTable;
 
     // ekli değil
-    //private EmptyForm applicationForm = null
 
     protected Club() {
     }
 
-    public Club(String name, String logo, String description, FinanceTable financeTable) {
+    public Club(String name, String description, FinanceTable financeTable) {
         this.name = name;
-        this.logo = logo;
         this.description = description;
         this.financeTable = financeTable;
     }
 
-    public Club(String name, String logo, String description) {
+    public Club(String name, String description) {
         this.name = name;
-        this.logo = logo;
         this.description = description;
     }
 
     public void update(Club club){
         this.name = club.name;
-        this.logo = club.logo;
         this.description = club.description;
     }
 
@@ -96,10 +93,6 @@ public class Club extends BaseEntity {
         this.description = description;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
     public void addAppliedStudents(Student student){
         appliedStudents.add(student);
     }
@@ -114,5 +107,9 @@ public class Club extends BaseEntity {
 
     public void setLogoImage(byte[] logoImage) {
         this.logoImage = logoImage;
+    }
+
+    public void setBackgroundImage(byte[] backgroundImage) {
+        this.backgroundImage = backgroundImage;
     }
 }

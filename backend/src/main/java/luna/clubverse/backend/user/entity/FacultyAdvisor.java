@@ -27,8 +27,8 @@ public class FacultyAdvisor extends User{
     @JoinColumn(name = "club_id", referencedColumnName = "id")
     private Club club;
 
-    public FacultyAdvisor(Long id, String username, String password, String name, String surname, @Email String mail, Set<Authority> authorities) {
-        super(id, username, password, name,surname, UserType.FACULTY_ADVISOR, mail, authorities);
+    public FacultyAdvisor(Long id, String username, String password, String name, String surname, byte[] profilePhoto, @Email String mail, Set<Authority> authorities) {
+        super(id, username, password, name,surname,profilePhoto, UserType.FACULTY_ADVISOR, mail, authorities);
         enrolledEvents = new HashSet<Event>();
         attendedEvents = new HashSet<Event>();
     }

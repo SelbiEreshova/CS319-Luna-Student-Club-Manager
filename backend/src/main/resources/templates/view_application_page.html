@@ -29,35 +29,53 @@
 <script>
 
     var userId = [[${userId}]];
+    var clubId = [[${clubId}]];
 
     $(document).ready( function() {
+
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/filledForm/getCandidateApplication/${clubId}/${userId}`,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                $("#name-surname").text(response.name_surname); //isim soyisim almam lazım
+
+                for (let i = 0; (i+1) < response.application.length; i += 2) { //soru-cevap arrayi lazım
+                    console.log("in appending entries");
+                    var newQandA = `<div class=\"form-group\">
+                            <label for=\"a${i}\" id=\"q${i}\">${response[i]}</label>
+                            <p type=\"text\" class=\"form-control form-control-lg\" id=\"a${i}\">${response[i+1]}</p>
+                        </div>`
+                    $("#application").append(newQandA);
+                }
+            }
+        });
             var dummyForm = {
                 name_surname: "sena genç",
                 application: ["q1", "a1", "q2", "a2", "q3", "a3"]
             };
 
 
-            $("#name-surname").text(dummyForm.name_surname); //isim soyisim almam lazım
-
-            for (let i = 0; (i+1) < dummyForm.application.length; i += 2) { //soru-cevap arrayi lazım
-                console.log("in appending entries");
-                var newQandA = `<div class=\"form-group\">
-                            <label for=\"a${i}\" id=\"q${i}\">${dummyForm[i]}</label>
-                            <p type=\"text\" class=\"form-control form-control-lg\" id=\"a${i}\">${dummyForm[i+1]}</p>
-                        </div>`
-                $("#application").append(newQandA);
-            }
-
-
             $( "#accept" ).click(function() {
-                acceptApplication();
+                console.log("in accept")
+                //acceptApplication();
             });
 
 
 
             $("#reject").click(function() {
+                console.log("in reject")
                 rejectApplication();
             });
+
+    });
 
 </script>
 

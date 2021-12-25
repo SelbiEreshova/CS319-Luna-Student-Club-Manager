@@ -33,8 +33,8 @@ public class Student extends User{
     @OneToMany( cascade = CascadeType.ALL,mappedBy = "student")
     private Set<Title> titles;
 
-    public Student(Long id, String username, String password, String name,String surname, @Email String mail, Set<Authority> authorities, int bilkentId) {
-        super(id, username, password, name, surname, UserType.STUDENT, mail, authorities);
+    public Student(Long id, String username, String password, String name,String surname, byte[] profilePhoto, @Email String mail, Set<Authority> authorities, int bilkentId) {
+        super(id, username, password, name, surname,profilePhoto, UserType.STUDENT, mail, authorities);
         this.bilkentId = bilkentId;
         registeredClubs = new HashSet<Club>();
         waitingApprovalClubs = new HashSet<Club>();

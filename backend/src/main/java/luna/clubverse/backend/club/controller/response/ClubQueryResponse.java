@@ -12,22 +12,28 @@ public class ClubQueryResponse {
 
     private Long clubId;
     private String name;
-    private String logo;
     private String description;
     private List<BoardMemberQueryResponse> boardMembers;
     private String clubDirectorMail;
     private String faultyAdvisorMail;
     private String logoImage;
+    private String backgroundImage;
 
     public ClubQueryResponse(final Club club) {
         this.name = club.getName();
-        this.logo = club.getLogo();
         this.description = club.getDescription();
         this.clubId = club.id();
         this.clubDirectorMail = "";
         this.faultyAdvisorMail = "";
-        this.logoImage = Base64.getEncoder().encodeToString(club.getLogoImage());
+        this.logoImage= "";
+        this.backgroundImage = "";
 
+        if(club.getLogoImage() != null){
+            this.logoImage = Base64.getEncoder().encodeToString(club.getLogoImage());
+        }
+        if(club.getBackgroundImage() != null){
+            this.backgroundImage = Base64.getEncoder().encodeToString(club.getBackgroundImage());
+        }
 
         List<BoardMemberQueryResponse> boardMemberList = new ArrayList<>();
 

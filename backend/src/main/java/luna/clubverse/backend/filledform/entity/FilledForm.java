@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.common.entity.BaseEntity;
+import luna.clubverse.backend.emptyform.entity.EmptyForm;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,6 +24,9 @@ public class FilledForm extends BaseEntity {
     @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "club_id")
     private Club club;
+
+    @ElementCollection
+    private List<String> questionsOfFilled;
 
 
     protected FilledForm()

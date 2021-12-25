@@ -290,5 +290,22 @@ public class ClubService {
 
     }
 
+    public MessageResponse changeBackgroundImage(Long clubId,String file){
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+        byte[] decodedByte = Base64.decodeBase64(file);
+        clubFromDB.setBackgroundImage(decodedByte);
+        cLubRepository.save(clubFromDB);
+        return new MessageResponse(MessageType.SUCCESS,"successfully upload");
 
+    }
+
+
+
+    public List<MemberCandidateQueryResponse> getCandidates(Long clubId) {
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        return clubFromDB.getAppliedStudents().stream().map(MemberCandidateQueryResponse::new).toList();
+    }
 }

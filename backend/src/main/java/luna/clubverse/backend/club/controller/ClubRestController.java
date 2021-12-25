@@ -158,8 +158,14 @@ public class ClubRestController {
     @PutMapping("/uploadPhotoForClubLogo/{clubId}")
     //@PreAuthorize("@authorizationLuna.authorize(authentication,'DIRECTOR', #clubId)")
     public MessageResponse uploadPhotoForClubLogo(@PathVariable Long clubId,@Valid @RequestBody UploadPhotoRequest request) {
-        System.out.println( request.getFile() );
         return clubService.changeLogo(clubId, request.getFile());
+    }
+
+    @CrossOrigin
+    @PutMapping("/uploadPhotoForClubBackground/{clubId}")
+    //@PreAuthorize("@authorizationLuna.authorize(authentication,'DIRECTOR', #clubId)")
+    public MessageResponse uploadPhotoForClubBackground(@PathVariable Long clubId,@Valid @RequestBody UploadPhotoRequest request) {
+        return clubService.changeBackgroundImage(clubId, request.getFile());
     }
 
     @CrossOrigin
@@ -182,6 +188,13 @@ public class ClubRestController {
     public MessageResponse changeDescription(@PathVariable Long clubId, @RequestBody @Valid final ChangeDescriptionRequest request){
         return clubService.changeDescription(clubId,request.getNewDescription());
     }
+
+    @CrossOrigin
+    @GetMapping("/candidates/{clubId}")
+    public List<MemberCandidateQueryResponse> getCandidates(@PathVariable Long clubId) {
+        return clubService.getCandidates(clubId);
+    }
+
 
 
 }
