@@ -262,6 +262,8 @@ public class ClubService {
 
         studentFromDB.deletePermissions(clubId);
 
+        studentRepository.save(studentFromDB);
+
         clubFromDB.removeMembers(studentFromDB);
 
         cLubRepository.save(clubFromDB);
