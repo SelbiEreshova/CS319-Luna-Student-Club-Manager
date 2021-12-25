@@ -1,5 +1,6 @@
 package luna.clubverse.backend.emptyform.controller;
 
+import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.emptyform.controller.request.SetEmptyFormRequest;
 import luna.clubverse.backend.emptyform.controller.response.EmptyFormQueryResponse;
 //import luna.clubverse.backend.filledform.controller.response.EmptyFormQueryResponse;
@@ -9,15 +10,16 @@ import luna.clubverse.backend.emptyform.service.EmptyFormService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-@RequestMapping("/app/form")
+
 @RestController
-public class EmptyFormController
+@RequestMapping("/form")
+public class EmptyFormRestController
 {
 
     private final EmptyFormService emptyFormService;
 
 
-    public EmptyFormController(EmptyFormService emptyFormService) {
+    public EmptyFormRestController(EmptyFormService emptyFormService) {
         this.emptyFormService = emptyFormService;
     }
 
@@ -45,8 +47,7 @@ public class EmptyFormController
 
     @CrossOrigin
     @PutMapping("/set") // post yeni şey eklemek için yapılır
-    public String setForm(@RequestBody @Valid final SetEmptyFormRequest setEmptyFormRequest) {
-        emptyFormService.setForm(setEmptyFormRequest);
-        return "success";
+    public MessageResponse setForm(@RequestBody @Valid final SetEmptyFormRequest setEmptyFormRequest) {
+        return emptyFormService.setForm(setEmptyFormRequest);
     }
 }

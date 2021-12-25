@@ -3,6 +3,8 @@ package luna.clubverse.backend.filledform.service;
 import lombok.Getter;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
+import luna.clubverse.backend.common.MessageResponse;
+import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.filledform.entity.FilledForm;
 import luna.clubverse.backend.filledform.repository.FilledFormRepository;
 import org.springframework.stereotype.Service;
@@ -24,13 +26,15 @@ public class FilledFormService {
     }
 
 
-    public void createFilledForm( Long clubId ,Long studentId, FilledForm filledForm  )
+    public MessageResponse createFilledForm(Long clubId , Long studentId, FilledForm filledForm  )
     {
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
         filledForm.setClub(clubFromDB);
         filledForm.setStudentId(studentId);
         filledFormRepository.save(filledForm);
+
+        return new MessageResponse(MessageType.SUCCESS,"Your answers are saved successfully");
 
     }
 

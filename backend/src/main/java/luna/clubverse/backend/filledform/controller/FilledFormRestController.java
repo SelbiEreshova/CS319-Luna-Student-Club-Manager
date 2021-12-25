@@ -1,6 +1,7 @@
 package luna.clubverse.backend.filledform.controller;
 
 
+import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.filledform.controller.request.CreateFilledFormRequest;
 import luna.clubverse.backend.filledform.controller.response.FilledFormQueryResponse;
 import luna.clubverse.backend.filledform.service.FilledFormService;
@@ -9,21 +10,19 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 @RequestMapping("/filledForm")
 @RestController
-public class FilledFormController {
+public class FilledFormRestController {
 
     FilledFormService filledFormService;
 
-    public FilledFormController(FilledFormService filledFormService) {
+    public FilledFormRestController(FilledFormService filledFormService) {
         this.filledFormService = filledFormService;
     }
 
     @CrossOrigin
-    @PostMapping("/{clubId}/{studentId}/createFilledForm")
-    public String createForm(@PathVariable Long clubId, @PathVariable Long studentId,
-                             @RequestBody @Valid final CreateFilledFormRequest createFilledFormRequest) {
-        System.out.println(studentId + "adaaaaaaaaaaaaaad");
-        filledFormService.createFilledForm(clubId,studentId,createFilledFormRequest.toFilledForm());
-        return "success "; // return type will be changed, except from get requests, there will be same type of response
+    @PostMapping("/{clubId}/createFilledForm/{studentId}")
+    public MessageResponse createForm(@PathVariable Long clubId, @PathVariable Long studentId,
+                                      @RequestBody @Valid final CreateFilledFormRequest createFilledFormRequest) {
+        return  filledFormService.createFilledForm(clubId,studentId,createFilledFormRequest.toFilledForm());
     }
 
 

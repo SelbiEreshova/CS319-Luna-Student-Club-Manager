@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @ToString
 public class CreateFilledFormRequest {
+
     private List<String> answers;
 
     public FilledForm toFilledForm( )
