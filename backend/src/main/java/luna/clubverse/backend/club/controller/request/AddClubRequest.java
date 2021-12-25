@@ -70,8 +70,12 @@ public class AddClubRequest {
         return new ClubDirector(null, clubName, clubPassword, directorName, directorSurname, clubEmail, new HashSet<Authority>());
     }
 
-    @AssertTrue(message = "You should signup with a Bilkent mail")
+    @AssertTrue(message = "Advisor should signup with a Bilkent mail")
     public boolean isAdvisorMailBilkentMail() {
+        if ( advisorMail.length() <= 14)
+        {
+            return false;
+        }
         String subStr = advisorMail.substring((advisorMail.length()-14));
         if (subStr.equals("bilkent.edu.tr")) {
             return true;
