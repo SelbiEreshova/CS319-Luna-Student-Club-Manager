@@ -6,31 +6,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <title>Edit event</title>
+    <title>View Application</title>
 </head>
 <body>
 
-<div class="card w-75">
-    <h2 class="d-flex justify-content-center pt-6" id="name-surname">name surname</h2>
-    <form style="width: 50%; margin: auto" class="pb-5" id="application">
-
-    </form>
+<div class="flex-column justify-content-center">
+    <h2 class="d-flex justify-content-center pt-6">For club: <a id="club-name"></a></h2>
+    <form style="width: 50%; margin: auto" class="pb-5" id="application"></form>
     <div class="d-flex justify-content-around">
-        <button type="button" class="btn btn-secondary" onclick="history.back()" id="cancel">Cancel</button>
-        <button type="button" class="btn btn-danger" id="reject">Reject</button>
-        <button type="button" class="btn btn-primary" id="accept">Accept</button>
+        <button type="button" class="btn btn-secondary" onclick="history.back()" id="go-back">Go Back</button>
     </div>
 </div>
 
 </body>
 <script>
 
-    var userId = [[${userId}]];
-    var clubId = [[${clubId}]];
+    //var userId = [[${userId}]];
+    //var clubId = [[${clubId}]];
 
     $(document).ready( function() {
 
-        $.ajax({
+        /*$.ajax({
             type: "GET",
             headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -42,7 +38,7 @@
             dataType: 'json',
             success: function(response) {
                 console.log(response);
-                $("#name-surname").text(response.name_surname); //isim soyisim almam lazım
+                $("#club-name").text(response.name_surname); //isim soyisim almam lazım
 
                 for (let i = 0; (i+1) < response.application.length; i += 2) { //soru-cevap arrayi lazım
                     console.log("in appending entries");
@@ -53,25 +49,22 @@
                     $("#application").append(newQandA);
                 }
             }
-        });
-            var dummyForm = {
-                name_surname: "sena genç",
-                application: ["q1", "a1", "q2", "a2", "q3", "a3"]
-            };
+        });*/
+        var dummyForm = {
+            club_name: "club luna",
+            application: ["q1", "a1", "q2", "a2", "q3", "a3"]
+        };
 
+        $("#club-name").text(dummyForm.club_name);
 
-            $( "#accept" ).click(function() {
-                console.log("in accept")
-                //acceptApplication();
-            });
-
-
-
-            $("#reject").click(function() {
-                console.log("in reject")
-                rejectApplication();
-            });
-
+        for (let i = 0; (i+1) < dummyForm.application.length; i += 2) {
+            console.log("in appending entries");
+            var newQandA = `<div class=\"form-group\">
+                            <label for=\"a${i}\" id=\"q${i}\">${dummyForm.application[i]}</label>
+                            <p type=\"text\" class=\"form-control form-applicationcontrol-lg\" id=\"a${i}\">${dummyForm.application[i+1]}</p>
+                        </div>`
+            $("#application").append(newQandA);
+        }
     });
 
 </script>
