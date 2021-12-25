@@ -215,6 +215,42 @@
         }
       });
     });
+    $( "#save_description" ).click(function() {
+      console.log($("#explanation_edit").val())
+      var newDescription ={
+        newDescription: $("#explanation_edit").val()
+      };
+      $.ajax({
+        type : "PUT",
+        headers: {
+          "Access-Control-Allow-Origin":"*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType : "application/json",
+        url : "http://localhost:8080/club/changeDescription/"+clubId,
+        dataType: JSON,
+        data: JSON.stringify(newDescription),
+        success : function(result) {
+          if (result.messageType == "ERROR") {
+            alert(result.message)
+          } else if (result.messageType == "SUCCESS") {
+            // add href
+            alert(result.message)
+          }
+          //if (result.messageType === "SUCCESS") {
+          //    alert("You are now a member");
+          //} else {
+          //    alert("oh nooo smthhh");
+          //}
+          console.log(result);
+        },
+        error : function(e) {
+          alert("Error!")
+          console.log("ERROR: ", e);
+        }
+      });
+    });
 
     //Dialog for changing logo
     $("#edit_logo").click(function(){

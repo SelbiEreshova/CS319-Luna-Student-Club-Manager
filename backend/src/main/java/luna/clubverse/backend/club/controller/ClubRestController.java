@@ -177,7 +177,7 @@ public class ClubRestController {
     }
 
     @CrossOrigin
-    @GetMapping("/changeDescription/{clubId}")
+    @PutMapping("/changeDescription/{clubId}")
     public MessageResponse changeDescription(@PathVariable Long clubId, @RequestBody @Valid final ChangeDescriptionRequest request){
         return clubService.changeDescription(clubId,request.getNewDescription());
     }
