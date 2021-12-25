@@ -163,7 +163,7 @@
         },
         crossDomain: true,
         contentType: "application/json",
-        url: "http://localhost:8080/club/photo",
+        url: "http://localhost:8080/club/uploadPhotoForClubLogo/"+clubId,
         dataType: "json",
         data: JSON.stringify(imageLogoJson),
         success: function (result) {

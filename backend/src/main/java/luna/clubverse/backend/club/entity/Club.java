@@ -23,6 +23,8 @@ public class Club extends BaseEntity {
 
     private String description;
 
+    private byte[] logoImage;
+
     @OneToOne(mappedBy = "club")
     @JoinColumn(name = "club_director_id")
     private ClubDirector clubDirector;
@@ -94,6 +96,10 @@ public class Club extends BaseEntity {
         this.description = description;
     }
 
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
     public void addAppliedStudents(Student student){
         appliedStudents.add(student);
     }
@@ -106,4 +112,7 @@ public class Club extends BaseEntity {
         return members.contains(student);
     }
 
+    public void setLogoImage(byte[] logoImage) {
+        this.logoImage = logoImage;
+    }
 }

@@ -12,6 +12,7 @@ import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.StudentRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -277,6 +278,16 @@ public class ClubService {
         clubFromDB.setDescription(newDescription);
         cLubRepository.save(clubFromDB);
         return new MessageResponse(MessageType.SUCCESS,"successfully changed");
+    }
+
+    public MessageResponse changeLogo(Long clubId,String file){
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+        byte[] decodedByte = Base64.decodeBase64(file);
+        clubFromDB.setLogoImage(decodedByte);
+        cLubRepository.save(clubFromDB);
+        return new MessageResponse(MessageType.SUCCESS,"successfully upload");
+
     }
 
 
