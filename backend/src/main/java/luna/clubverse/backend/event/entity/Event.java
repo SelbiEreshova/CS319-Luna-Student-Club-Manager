@@ -205,4 +205,11 @@ public class Event extends BaseEntity {
         return remainingQuota>0;
     }
 
+    public void addEttendedStudent(Student student) {
+        attendedStudents.add(student);
+    }
+
+    public void addAttendedFacultyAdvisor(FacultyAdvisor facultyAdvisor) {
+        attendedFacultyAdvisors.add(facultyAdvisor);
+    }
 }
