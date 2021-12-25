@@ -233,7 +233,7 @@ public class EventRestController {
         }
 
         if(endDateTime.compareTo(reviewDateTime) > 0 ){
-            return "End Date cannot be before than Review Deadline";
+            return "Review Deadline  cannot be before than End Date";
         }
 
         return "";
