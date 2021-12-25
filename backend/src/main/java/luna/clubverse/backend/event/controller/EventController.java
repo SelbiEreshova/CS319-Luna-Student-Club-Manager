@@ -65,6 +65,13 @@ public class EventController {
         return "student_event_list";
     }
 
+    @RequestMapping("/app/faculty_event_list")
+    public String allEventsForFacultyAdvisor(Model model) {
+        List<EventListQueryResponse> events = eventService.getAllEventsForStudent();
+        model.addAttribute("events", events);
+        return "faculty_event_list";
+    }
+
     @RequestMapping("/app/student_club_event_list/{id}")
     public String welcome4(Model model,@PathVariable Long id) {
         List<EventListQueryResponse> eventsForClub = eventService.getEventsForClub(id);
