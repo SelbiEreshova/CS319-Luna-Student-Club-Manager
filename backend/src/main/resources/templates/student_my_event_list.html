@@ -172,15 +172,7 @@
                 window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
               }
 
-         function goToReview(id)
-         {
-            $("#open").modal('show');
-            $(".rid").attr("id", `${id}`)
-            rating = -1;
-            $("#rev").on( "click", function() {
-                review();
-            })
-         }
+
 
          function review(){
 
@@ -227,13 +219,21 @@
                 })//ajax
             }
                 }
-
+function goToReview(id)
+         {
+            $("#open").modal('show');
+            $(".rid").attr("id", `${id}`)
+            rating = -1;
+            $("#rev").on( "click", function() {
+                review();
+            })
+         }
 
    $(document).ready( function () {
     $(".nav_bar").load("http://localhost:8080/student.html");
     $("#events_nav").addClass("active");
 $("#open").modal('show');
-   $("#rev").on( "click", function() {
+   $("#rev").on( "click", function() { alert("fffff")
    review();
    alert(   "reviewww");
             })
@@ -510,14 +510,14 @@ $("#open").modal('show');
                 ]).draw();
               };
                for (let i = 0; i < past_e.length; i++) {
-                isAttended = attended.find(element => (element.eventName == past_e[i].eventName))
+                isAttended = attended.find(element => (element.eventId == past_e[i].eventId))
                 if(!isAttended)
 {
                     alert("frr")
-                    showEventsP_n(response, i);
+                    showEventsP_n(past_e, i);
 }
                 else{
-                        showEventsP_a(response,i)
+                        showEventsP_a(past_e,i)
                 }
               }
 
