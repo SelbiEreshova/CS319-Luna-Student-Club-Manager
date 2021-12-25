@@ -52,7 +52,8 @@ public class EventEvaluationService {
         if(eventFromDB.getAttendedStudents().contains(student)) {
             //  if( student.getAttendedEvents().stream().map(ge))
             if (getEventEvaluationWithId(eventId, id) == null) {
-
+                eventFromDB.addEvaluation(eventEvaluation.getPoint());
+                eventRepository.save(eventFromDB);
                 eventEvaluationRepository.save(eventEvaluation);
                 return new MessageResponse(MessageType.SUCCESS, "Event evaluation is added");
             }

@@ -212,4 +212,9 @@ public class Event extends BaseEntity {
     public void addAttendedFacultyAdvisor(FacultyAdvisor facultyAdvisor) {
         attendedFacultyAdvisors.add(facultyAdvisor);
     }
+
+    public void addEvaluation(int point) {
+        numberEvaluation = numberEvaluation + 1;
+        totalPoint = totalPoint = point;
+    }
 }
