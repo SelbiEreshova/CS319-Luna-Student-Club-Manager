@@ -25,17 +25,12 @@
             </div>
         </div>
     </form>
-    <div class="form-group">
-        <div class="justify-content-left mt-2 mx-5"> <button class=" btn-info text-dark  m-2 p-2" id="add"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Add Question</button></div>
-    </div>
 
     <div class="form-group">
-        <div class="justify-content-left mt-2 mx-auto row">
-
-                    <button class=" btn-info text-dark  m-2 p-2" id="create"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Create Application Form</button>
-
-                    <button class=" btn-info text-dark  m-2 p-2" id="cancel"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Cancel</button>
-
+        <div class="justify-content-center mt-2 mx-auto row">
+            <button class=" btn-info m-2 p-2" id="add"><i class="fa fa-plus m-3 "></i>Add Question</button>
+            <button class=" btn-info  m-2 p-2" id="create">Create Application Form</button>
+            <button class="btn-danger m-2 p-2" id="cancel">Cancel</button>
         </div>
     </div>
 </div>
@@ -152,8 +147,23 @@
                     console.log(ids)
                     question_number = ids[ids.length - 1] + 1;
                     ids.push(question_number)
-                    var newQuestion = `<div class=\"form-group delete- qd${question_number} \"><label for=\"${question_number}\">Question</label><input type=\"text\" class="form-control form-control-lg\" id=\"${question_number}\" placeholder=\"Write the question\"><div class=\"mx-auto \"><button type=\"button\" class=\"btn btn-danger mx-5 p-2 deleted \" id=\"d${question_number}\">delete</button></div></div>`
+                    var newQuestion = `<div class=\"form-group delete- qd${question_number} \">
+                                        <label for=\"${question_number}\">Question</label>
+                                        <input type=\"text\" class="form-control form-control-lg\" id=\"${question_number}\" placeholder=\"Write the question\">
+                                        <div class=\"mx-auto \"><button type=\"button\" class=\"btn btn-danger mx-5 p-2 deleted \" id=\"d${question_number}\">delete</button></div>
+                                        </div>`
                     $("form").append(newQuestion)
+
+                    `<div class="form-group qd1">
+            <label for="1">Question</label>
+            <div class="input-group mb-3" id="1">
+                <input type="text" class="form-control">
+                <a class="ml-3" onclick="deleteInput()">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+
+            </div>
+        </div>`
                 }
 
                 $("#add").click(function () {
