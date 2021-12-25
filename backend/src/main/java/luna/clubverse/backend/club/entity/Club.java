@@ -79,7 +79,15 @@ public class Club extends BaseEntity {
     }
 
     public void addMembers(Student student){
-        members.add(student);
+        if(!isMember(student)){
+            members.add(student);
+        }
+    }
+
+    public void removeMembers(Student student){
+        if(isMember(student)){
+            members.remove(student);
+        }
     }
 
 
@@ -89,6 +97,10 @@ public class Club extends BaseEntity {
 
     public boolean removeAppliedStudents(Student student){
         return appliedStudents.remove(student);
+    }
+
+    public boolean isMember(Student student){
+        return members.contains(student);
     }
 
 }
