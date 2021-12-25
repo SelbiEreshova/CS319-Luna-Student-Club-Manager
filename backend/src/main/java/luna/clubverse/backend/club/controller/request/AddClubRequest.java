@@ -10,6 +10,7 @@ import luna.clubverse.backend.user.entity.Authority;
 import luna.clubverse.backend.user.entity.ClubDirector;
 import luna.clubverse.backend.user.entity.FacultyAdvisor;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -26,24 +27,33 @@ public class AddClubRequest {
     private String logo;
     private String description;
 
-    @NotBlank(message = "1")
+    @NotBlank(message = "directorName cannot be empty")
     private String directorName;
-    @NotBlank(message = "2")
+
+    @NotBlank(message = "directorSurname cannot be empty")
     private String directorSurname;
-    @Email(message = "3")
+
+    @Email(message = "Please enter a valid e-mail for clubEmail")
+    @NotBlank(message = "clubEmail cannot be empty")
     private String clubEmail;
-    @NotBlank(message = "4")
+
+    @NotBlank(message = "clubPassword cannot be empty")
     private String clubPassword;
 
-    @NotBlank(message = "5")
+    @NotBlank(message = "advisorUsername cannot be empty")
     private String advisorUsername;
-    @NotBlank(message = "6")
+
+    @NotBlank(message = "advisorPassword cannot be empty")
     private String advisorPassword;
-    @NotBlank(message = "7")
+
+    @NotBlank(message = "advisorName cannot be empty")
     private String advisorName;
-    @NotBlank(message = "8")
+
+    @NotBlank(message = "advisorSurname cannot be empty")
     private String advisorSurname;
-    @Email(message = "9")
+
+    @Email(message = "Please enter a valid e-mail for advisor")
+    @NotBlank(message = "advisorMail cannot be empty")
     private String advisorMail;
 
     public Club toClub() {
@@ -58,6 +68,15 @@ public class AddClubRequest {
 
     public ClubDirector toClubDirector() {
         return new ClubDirector(null, clubName, clubPassword, directorName, directorSurname, clubEmail, new HashSet<Authority>());
+    }
+
+    @AssertTrue(message = "You should signup with a Bilkent mail")
+    public boolean isAdvisorMailBilkentMail() {
+        String subStr = advisorMail.substring((advisorMail.length()-14));
+        if (subStr.equals("bilkent.edu.tr")) {
+            return true;
+        }
+        return false;
     }
 
     public FacultyAdvisor toFacultyAdvisor() {

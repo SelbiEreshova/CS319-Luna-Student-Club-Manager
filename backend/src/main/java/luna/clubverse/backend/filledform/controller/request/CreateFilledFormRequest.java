@@ -12,6 +12,7 @@ import java.util.List;
 public class CreateFilledFormRequest {
 
     private List<String> answers;
+    //private Long ClubId;
 
     public FilledForm toFilledForm( )
     {
