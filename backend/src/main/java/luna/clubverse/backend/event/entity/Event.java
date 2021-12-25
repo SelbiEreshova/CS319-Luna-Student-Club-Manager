@@ -119,7 +119,7 @@ public class Event extends BaseEntity {
     public void update(Event event){
         this.name = event.name;
         this.description = event.description;
-        this.eventStatus = event.eventStatus;
+
         this.gePoint = event.gePoint;
         this.startDateTime = event.startDateTime;
         this.endDateTime = event.endDateTime;
@@ -205,4 +205,11 @@ public class Event extends BaseEntity {
         return remainingQuota>0;
     }
 
+    public void addEttendedStudent(Student student) {
+        attendedStudents.add(student);
+    }
+
+    public void addAttendedFacultyAdvisor(FacultyAdvisor facultyAdvisor) {
+        attendedFacultyAdvisors.add(facultyAdvisor);
+    }
 }

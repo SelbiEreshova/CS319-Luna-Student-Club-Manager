@@ -31,22 +31,50 @@
             </div>
             <div class="col">
                 <div class="form-group ">
-                    <label for="event_date_end">End Date</label>
-                    <input type="date" class="form-control " id="event_date_end">
+                    <label for="event_time_start">Start Time</label>
+                    <input type="time" class="form-control " id="event_time_start">
                 </div>
             </div>
         </div>
         <div class="form-row">
             <div class="col">
                 <div class="form-group ">
-                    <label for="event_time_start">Start Time</label>
-                    <input type="time" class="form-control " id="event_time_start">
+                    <label for="event_date_end">End Date</label>
+                    <input type="date" class="form-control " id="event_date_end">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group ">
                     <label for="event_time_end">End Time</label>
                     <input type="time" class="form-control " id="event_time_end">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_review_date">Review Deadline Date</label>
+                    <input type="date" class="form-control " id="event_review_date">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_review_time">Review Deadline Time </label>
+                    <input type="time" class="form-control " id="event_review_time">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_registration_date">Registration Deadline Date</label>
+                    <input type="date" class="form-control " id="event_registration_date">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_registration_time">Registration Deadline Time </label>
+                    <input type="time" class="form-control " id="event_registration_time">
                 </div>
             </div>
         </div>
@@ -127,20 +155,6 @@
             <label for="event_finance_description">Financial Description</label>
             <textarea class="form-control"  rows="5" id="event_finance_description"></textarea>
         </div>
-        <div class="form-row">
-            <div class="col">
-                <div class="form-group ">
-                    <label for="event_review">Review Deadline</label>
-                    <input type="date" class="form-control " id="event_review">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group ">
-                    <label for="event_registration">Registration Deadline </label>
-                    <input type="date" class="form-control " id="event_registration">
-                </div>
-            </div>
-        </div>
         <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
         <div class="float-right">
             <button type="submit" class="btn" value="save" id="save" name="button_1">Save as Draft</button>
@@ -201,8 +215,10 @@
                     startTime: $("#event_time_start").val(),
                     endDate:  $("#event_date_end").val(),
                     endTime:  $("#event_time_end").val(),
-                    registrationDeadline: $("#event_registration").val(),
-                    reviewDeadline: $("#event_review").val(),
+                    registrationDeadlineDate: $("#event_registration_date").val(),
+                    registrationDeadlineTime: $("#event_registration_time").val(),
+                    reviewDeadlineDate: $("#event_review_date").val(),
+                    reviewDeadlineTime: $("#event_review_time").val(),
                     quota: $("#event_quota").val(),
                     memberOnly: $("#memberOnly").is(":checked"),
                     amountOfMoney: $("#event_finance_").val(),
@@ -229,6 +245,7 @@
                         if (result.messageType == "ERROR") {
                             alert(result.message)
                         } else if (result.messageType == "SUCCESS") {
+                            alert("Event created");
                             history.back();
                             //alert(result.message)
                         }

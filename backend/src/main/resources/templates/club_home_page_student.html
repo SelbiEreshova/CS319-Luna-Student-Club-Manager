@@ -27,20 +27,17 @@
     </div>
 
     <div class="row">
-        <div class="column">
-            <div class="row pt-5">
-                <div class="col-lg-10 mb-4">
-                    <h3 class="">Our Board Members</h3>
-                    <div id="list_members">
-                    </div>
-                </div>
+        <div class="col pt-5" >
+            <h3 class="">Our Board Members</h3>
+            <div id="list_members" class="row">
+
             </div>
         </div>
-        <div class="col pt-5 manager_buttons">
-            <button type="button" class="btn btn-primary m-1 for_manager" id="apply" style="visibility: hidden">Apply for club</button>
-            <button type="button" class="btn btn-danger m-1 for_manager" id="cancel" style="visibility: hidden">Cancel membership</button>
-            <button type="button" class="btn btn-primary m-1 for_student" id="events">Events</button>
-            <button type="button" class="btn btn-primary m-1 for_student" id="contactUs">Contact us</button>
+        <div class="col pt-5 col-lg-3 manager_buttons">
+            <button type="button" class="btn btn-primary m-1 for_manager" id="apply" style="visibility: hidden">Apply for club</button><br>
+            <button type="button" class="btn btn-danger m-1 for_manager" id="cancel" style="visibility: hidden">Cancel membership</button><br>
+            <button type="button" class="btn btn-primary m-1 for_student" id="events">Events</button><br>
+            <button type="button" class="btn btn-primary m-1 for_student" id="contactUs">Contact us</button><br>
         </div>
     </div>
 </div>
@@ -91,7 +88,7 @@
 
         function showMember(mem, i)
         {
-                $("#list_members").append("<div class=\"card border-0\">\n" +
+                $("#list_members").append("<div class='col'> <div class=\"card border-0\">\n" +
                     "                                <div class=\"position-relative rounded-circle overflow-hidden mx-auto custom-circle-image\" style=\"height: 200px; width: 200px\">\n" +
                     "                                    <img class=\"w-100 h-100 rounded-circle\" src=\"https://source.unsplash.com/794x794\" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
                     "                                </div>\n" +
@@ -99,7 +96,7 @@
                     "                                    <h3 class=\"text-uppercase card-title\">"+ mem[i].userFullName +"</h3>\n" +
                     "                                    <p class=\"card-text\">"+ mem[i].title +"</p>\n" +
                     "                                </div>\n" +
-                    "                            </div>")
+                    "                            </div> </div>")
 
         }
                     //On clicks
