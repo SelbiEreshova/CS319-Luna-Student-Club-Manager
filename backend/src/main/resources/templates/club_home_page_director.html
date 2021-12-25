@@ -16,7 +16,7 @@
 <body>
 <div class="nav_bar"></div>
 
-<div style="height:400px; background: url(https://bootstrapious.com/i/snippets/sn-static-header/background.jpg)" class=" bg-cover text-white">
+<div id="background" style="height:400px; " class=" bg-cover text-white">
 </div>
 
 <div class="container py-5">
@@ -60,7 +60,7 @@
           <div class="form-group">
             <label for="form1">Upload image</n></label>
             <form id="form1" runat="server">
-              <input type="file" name="img" id="image" onchange="encodeImgtoBase64(this)">
+              <input type="file" name="img" id="image" onchange="encodeImgtoBase64Logo(this)">
               <a id="convertImg" href=""></a>
               <img src="" alt="" id="displayImg" style="width: 100px; height: 100px">
 
@@ -91,16 +91,16 @@
           <div class="form-group">
             <label for="form1">Upload image</n></label>
             <form id="form2" runat="server">
-              <input type='file' id="imgInp2"  onchange="encodeImageFileAsURL(this)" />
-              <p id="b64"></p>
-              <img id="background_img" src="" alt="your image"  style="width: 100px; height: 100px" />
+              <input type="file" name="img" id="image1" onchange="encodeImgtoBase64Background(this)">
+              <a id="convertImg1" href=""></a>
+              <img src="" alt="" id="displayImg1" style="width: 100px; height: 100px">
             </form>
           </div>
 
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id = "save_background">Save logo</button>
+        <button type="button" class="btn btn-primary" id = "save_background">Save Background</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -135,7 +135,7 @@
   //Image
   //image
   var imageLogo;
-  function encodeImgtoBase64(element) {
+  function encodeImgtoBase64Logo(element) {
 
     var img = element.files[0];
 
@@ -150,6 +150,24 @@
     }
     reader.readAsDataURL(img);
   }
+  var imageBackground;
+  function encodeImgtoBase64Background(element) {
+
+    var img = element.files[0];
+
+    var reader = new FileReader();
+
+    reader.onloadend = function() {
+
+      $("#convertImg1").attr("href",reader.result);
+      imageBackground= /base64,(.+)/.exec(reader.result)[1];
+      $("#displayImg1").attr("src", reader.result);
+
+    }
+    reader.readAsDataURL(img);
+  }
+
+
   $("#saveLogo").click( function () {
    var imageLogoJson = {
      file:  imageLogo
@@ -183,13 +201,44 @@
       });
     });
 
+  $("#save_background").click( function () {
+    var imageBackgroundJson = {
+      file:  imageBackground
+    }
+    alert(imageLogo);
+    $.ajax({
+      type: "PUT",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization: localStorage.getItem('Authorization')
+      },
+      crossDomain: true,
+      contentType: "application/json",
+      url: "http://localhost:8080/club/uploadPhotoForClubBackground/"+clubId,
+      dataType: "json",
+      data: JSON.stringify(imageBackgroundJson),
+      success: function (result) {
+        if (result.messageType === "ERROR") {
+          alert(result.message)
+        } else if (result.messageType === "SUCCESS") {
+          // add href
+          alert(result.message)
+        }
+        console.log(result);
+        window.location.href = window.location.href;
+      },
+      error: function (e) {
+        alert("Error!")
+        console.log("ERROR: ", e);
+      }
+    });
+  });
+
 
   $(".nav_bar").load("http://localhost:8080/club_director.html");
   $("#events_nav").addClass("active");
   //Need to fix this
   $(document).ready(function () {
-
-
 
     //get method
     clubId = [[${clubId}]]
@@ -208,6 +257,7 @@
         $("#club_name").text(response.name);
         $("#club_description").text(response.description);
         $("#logo").attr("src", "data:image/png;base64," +response.logoImage);
+        $('#background').css('background', 'url(data:image/png;base64,' + response.backgroundImage + ')');
         $("#explanation_edit").text(response.description);
 
 
@@ -243,7 +293,6 @@
         newDescription: $("#explanation_edit").val()
       };
 
-
       $.ajax({
         type: "PUT",
         headers: {
@@ -256,9 +305,9 @@
         data: JSON.stringify(newDescription),
         dataType: 'JSON',
         success : function(result) {
-          if (result.messageType == "ERROR") {
+          if (result.messageType === "ERROR") {
             alert(result.message)
-          } else if (result.messageType == "SUCCESS") {
+          } else if (result.messageType === "SUCCESS") {
             // add href
             alert(result.message)
           }
@@ -290,24 +339,18 @@
       // show Modal
       $('#edit_description_dialog').modal('show');
     });
-  });
 
     //Dialog for changing background
-    /*
     $("#edit_background").click(function(){
 
       // show Modal
       $('#edit_background_dialog').modal('show');
     });
-    $("#imgInp").change(function(){
-      $('#logo_img').width(100); // Units are assumed to be pixels
-      $('#logo_img').height(100);
-      readFile();
-      console.log("imagebase64",imagebase64)
+  });
 
-    });
 
-     */
+
+
   
 
 </script>

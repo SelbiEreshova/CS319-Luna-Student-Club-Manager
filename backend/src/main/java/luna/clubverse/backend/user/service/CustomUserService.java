@@ -2,16 +2,21 @@ package luna.clubverse.backend.user.service;
 
 
 import luna.clubverse.backend.club.controller.response.ClubManagerCheckQueryResponse;
+import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
+import luna.clubverse.backend.common.MessageResponse;
+import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
 import luna.clubverse.backend.user.controller.response.StudentQueryResponse;
 import luna.clubverse.backend.user.entity.ClubDirector;
 import luna.clubverse.backend.user.entity.FacultyAdvisor;
 import luna.clubverse.backend.user.entity.Student;
+import luna.clubverse.backend.user.entity.User;
 import luna.clubverse.backend.user.enums.UserType;
 import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -158,5 +163,15 @@ public class CustomUserService {
                 .stream()
                 .map(user -> new StudentQueryResponse((Student) user))
                 .toList();
+    }
+
+    public MessageResponse changeProfileImage(Long userId, String file){
+        User userFromDB = userRepository.findById(userId)
+                .orElseThrow(()->new EntityNotFoundException("The User with the id " + userId + " could not be found."));
+        byte[] decodedByte = Base64.decodeBase64(file);
+        userFromDB.setProfilePhoto(decodedByte);
+        userRepository.save(userFromDB);
+        return new MessageResponse(MessageType.SUCCESS,"successfully upload");
+
     }
 }

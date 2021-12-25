@@ -67,6 +67,13 @@ public class CustomUserController {
     public String openAboutUs() {
         return "about_us";
     }
+
+    @RequestMapping("/app/admin_faculty_advisor_list")
+    public String getFacultyAdvisors() {
+        return "admin_faculty_advisor_list";
+    }
+
+
 }
 
 

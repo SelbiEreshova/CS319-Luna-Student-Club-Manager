@@ -109,6 +109,7 @@
 
 </body>
 <script>
+$(document).ready(function(){
     $(".nav_bar").load("http://localhost:8080/admin.html");
     $("#events_nav").addClass("active");
 
@@ -157,12 +158,10 @@
                 }
             });
         }
-   // })
-     //   }
+
  $(".nav_bar").load("http://localhost:8080/admin.html");
        $("#events_nav").addClass("active");
-        // Attach Button click event listener
-       $("#events_nav").addClass("active");
+
 
       var table = $(".student-list").DataTable();
       $.ajax({
@@ -173,7 +172,7 @@
         },
         crossDomain: true,
         contentType: "application/json",
-        url: "http://localhost:8080/getAllStudents",
+        url: "http://localhost:8080/getAllFacultyAdvisors",
         dataType: 'json',
         success: function(response) {
           console.log(response);
@@ -192,7 +191,7 @@
         }
       });
 
-
+});
 
 </script>
 

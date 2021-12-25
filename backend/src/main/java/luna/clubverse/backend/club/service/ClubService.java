@@ -6,6 +6,8 @@ import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
+import luna.clubverse.backend.emptyform.entity.EmptyForm;
+import luna.clubverse.backend.emptyform.repository.EmptyFormRepository;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
 import luna.clubverse.backend.filledform.entity.FilledForm;
@@ -37,15 +39,21 @@ public class ClubService {
 
     private final AuthorityRepository authorityRepository;
     private final UserRepository userRepository;
+    private final EmptyFormRepository emptyFormRepository;
     private final FilledFormRepository filledFormRepository;
 
-    public ClubService(ClubRepository cLubRepository, EventRepository eventRepository, StudentRepository studentRepository, AuthorityRepository authorityRepository, UserRepository userRepository, FilledFormRepository filledFormRepository) {
+
+    public ClubService(ClubRepository cLubRepository, EventRepository eventRepository, StudentRepository studentRepository, AuthorityRepository authorityRepository, UserRepository userRepository, EmptyFormRepository emptyFormRepository, FilledFormRepository filledFormRepository) {
+
         this.cLubRepository = cLubRepository;
         this.eventRepository = eventRepository;
         this.studentRepository = studentRepository;
         this.authorityRepository = authorityRepository;
         this.userRepository = userRepository;
         this.filledFormRepository = filledFormRepository;
+
+        this.emptyFormRepository = emptyFormRepository;
+
     }
 
     /**
@@ -207,7 +215,7 @@ public class ClubService {
      * @param clubId for the club which will be applicated
      * @param studentId for the who is going to applying It directly add student as a member
      */
-    public void directApplicationToClub(Long clubId, Long studentId) {
+    public MessageResponse directApplicationToClub(Long clubId, Long studentId) {
 
         Club clubFromDB = cLubRepository.findById(clubId)
                 .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
@@ -215,9 +223,16 @@ public class ClubService {
         Student studentFromDB = studentRepository.findById(studentId)
                 .orElseThrow(()->new EntityNotFoundException("The student with the id " + studentId + " could not be found."));
 
-        clubFromDB.addMembers(studentFromDB);
+        EmptyForm emptyForm =  emptyFormRepository.findByClub(clubFromDB).orElse(null);
 
-        cLubRepository.save(clubFromDB);
+        if(emptyForm==null){
+            clubFromDB.addMembers(studentFromDB);
+            cLubRepository.save(clubFromDB);
+            return new MessageResponse(MessageType.SUCCESS,"success");
+        }else{
+            return new MessageResponse(MessageType.INFO,"open application form");
+        }
+
     }
 
     /**
