@@ -27,6 +27,7 @@
 
     <div class="row">
        <div class="col pt-5" >
+           <h3 class="">Our Board Members</h3>
            <div id="list_members" class="row">
 
            </div>
@@ -70,18 +71,9 @@
                 $("#club_description").text(response.description);
 
                 //Show board members of the club
-                var newRow = 0;
                 for(let i = 0; i < response.boardMembers.length; i++)
                 {
-                    /*
-                    if(i%4 === 0)
-                    {
-                        $("#list_members").append(" <div class=\"row\" id=\""+newRow+"\">sjdnksjd</div>");
-                        newRow++;
-                    }
-
-                     */
-                    showMember(response.boardMembers, i, newRow);
+                    showMember(response.boardMembers, i);
                 }
 
                 //Add permission buttons
@@ -104,7 +96,7 @@
             }
         });
 
-        function showMember(mem, i, rowId) {
+        function showMember(mem, i) {
             $("#list_members").append("<div class='col'><div class=\"card border-0\">\n" +
                 "                                <div class=\"position-relative rounded-circle overflow-hidden mx-auto custom-circle-image\" style=\"height: 200px; width: 200px\">\n" +
                 "                                    <img class=\"w-100 h-100 rounded-circle\" src=\"https://source.unsplash.com/794x794\" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
