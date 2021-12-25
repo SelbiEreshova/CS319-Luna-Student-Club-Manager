@@ -5,6 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title>Admin event home page</title>
 </head>
@@ -12,8 +13,18 @@
 <div class="nav_bar"></div>
 
 <div class="row justify-content-around" style="margin-top: 3%">
-    <img src="ing-amblem.jpg" alt="Club logo" style="width: 250px; margin-bottom: 3%">
+    <img src="ing-amblem.jpg" alt="Club logo" style="width: 200px; margin-bottom: 3%">
     <h2 style="margin-top: 8%" id="event-name"></h2>
+    <div class="flex-column align-self-center" style="background-color: #4ae9e8; margin-bottom: 3%; width: 200px">
+        <p>Event Rating: <a id="point"></a></p>
+        <div class = "row" style="margin-top: 2%; margin-left: 30%">
+            <i class = "fa fa-star" aria-hidden = "false" id = "st1"></i>
+            <i class = "fa fa-star" aria-hidden = "false" id = "st2"></i>
+            <i class = "fa fa-star" aria-hidden = "false" id = "st3"></i>
+            <i class = "fa fa-star" aria-hidden = "false" id = "st4"></i>
+            <i class = "fa fa-star" aria-hidden = "false" id = "st5"></i>
+        </div>
+    </div>
     <!--<div class="d-flex flex-column align-self-center">
         <div id = "edit" ><button type="button" class="btn btn-primary" style="width: 200px; background-color: #20B5BDFF; margin-bottom: 20px" id="editEventButton"><a class="text-dark font-weight-bold">Edit Event</a></button></div>
         <div id = "publish" ><button type="button" class="btn" style="width: 200px; background-color: #63b3b7; margin-bottom: 20px" id="publishEventButton"><a class="text-dark font-weight-bold">Publish Event</a></button></div>
@@ -231,6 +242,20 @@
                             }
                         }
                     });*/
+
+                    var rating = 0
+                    if(response.numberEvaluation != 0 ) {
+                        rating = response.totalPoint / response.numberEvaluation
+                    }
+
+                    $("#point").text(rating + "/" + 5);
+                    console.log("after assigned point");
+                    var starId = Math.round(rating);
+                    console.log("rounded dummy rating");
+                    for (let i = 1; i <=starId; i++) {
+                        console.log("in star loop");
+                        $(`#st${i}`).css("color", "yellow");
+                    }
 
                     //filling out the table
                     $('#event-name').text(response.name.toUpperCase());
