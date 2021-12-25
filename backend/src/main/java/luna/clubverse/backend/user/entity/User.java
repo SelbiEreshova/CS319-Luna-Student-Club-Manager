@@ -69,6 +69,10 @@ public class User implements UserDetails {
         return authorities;
     }
 
+    public Set<Authority> getOnlyAuthorities() {
+        return authorities;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
