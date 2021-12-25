@@ -116,6 +116,10 @@ public class EventService {
         return eventRepository.findAll().stream().map(EventListQueryResponse::new).toList();
     }
 
+    public List<EventListQueryResponse> getAllEventsForStudent() {
+        return eventRepository.findAll().stream().filter(event -> event.getEventStatus() != EventStatus.DRAFT).map(EventListQueryResponse::new).toList();
+    }
+
 
     public List<EventListQueryResponse> getEventsForClub( Long id) {
         return eventRepository.findNameById(id).stream().map(EventListQueryResponse::new).toList();
