@@ -205,11 +205,10 @@
                 if(response.numberEvaluation != 0 ) {
                     rating = response.totalPoint / response.numberEvaluation
                 }
-                console.log(rating);
-                var dummyRating = 3.4;
-                $("#point").text(dummyRating + "/" + 5);
+
+                $("#point").text(rating + "/" + 5);
                 console.log("after assigned point");
-                var starId = Math.round(dummyRating);
+                var starId = Math.round(rating);
                 console.log("rounded dummy rating");
                 for (let i = 1; i <=starId; i++) {
                     console.log("in star loop");

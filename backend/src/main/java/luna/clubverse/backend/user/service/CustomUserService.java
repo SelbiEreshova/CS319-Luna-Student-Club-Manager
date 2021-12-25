@@ -9,6 +9,7 @@ import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.repository.EventRepository;
 import luna.clubverse.backend.filledform.repository.FilledFormRepository;
 import luna.clubverse.backend.user.controller.response.ApplicationListQueryResponse;
+import luna.clubverse.backend.user.controller.response.FacultyAdvisorQueryResponse;
 import luna.clubverse.backend.user.controller.response.StudentQueryResponse;
 import luna.clubverse.backend.user.entity.ClubDirector;
 import luna.clubverse.backend.user.entity.FacultyAdvisor;
@@ -180,5 +181,12 @@ public class CustomUserService {
     public List<ApplicationListQueryResponse> getApplications(Long userId) {
             return filledFormRepository.findAllByStudentId(userId).stream().map(ApplicationListQueryResponse::new).toList();
 
+    }
+
+    public List<FacultyAdvisorQueryResponse> getAllFacultyAdvisors() {
+        return userRepository.findAllByUsertypeIs(UserType.FACULTY_ADVISOR)
+                .stream()
+                .map(user -> new FacultyAdvisorQueryResponse((FacultyAdvisor) user))
+                .toList();
     }
 }

@@ -156,7 +156,7 @@
                 </div>
             </div>
             <div class="modal-footer" style="background-color:#abc">
-                <button type="button" class="btn btn-primary " id="rev">Review</button>
+                <button type="button" class="btn btn-primary "><a id="rev">Review</a></button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
         </div>
@@ -168,6 +168,7 @@
 </div></body>
 
 <script>
+var rating = -1;
  function goToEvent(id) {
                 window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
               }
@@ -179,7 +180,7 @@
             id = $(".rid").attr("id");
 
             point = `${rating}`
-            alert("zz"+point+" - " + id)
+            console.log("pp"+ rating)
             if(rating >0)
             {
             $(".fa-star").css("color", "black");
@@ -189,6 +190,7 @@
                     userId : localStorage.getItem('userId'),
                     point : point
                 }
+                console.log(posted+"p")
 
                 $.ajax({
                     type : "POST",
@@ -223,8 +225,8 @@ function goToReview(id)
          {
             $("#open").modal('show');
             $(".rid").attr("id", `${id}`)
-            rating = -1;
-            $("#rev").on( "click", function() {
+
+            $("h5  ").on( "click", function() {
                 review();
             })
          }
@@ -232,13 +234,11 @@ function goToReview(id)
    $(document).ready( function () {
     $(".nav_bar").load("http://localhost:8080/student.html");
     $("#events_nav").addClass("active");
-$("#open").modal('show');
    $("#rev").on( "click", function() { alert("fffff")
    review();
-   alert(   "reviewww");
             })
 
-    var rating = -1
+
    // $(".review-m").modal("show")
              $("#st1").click(function() {
               $(".fa-star").css("color", "black");
