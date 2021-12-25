@@ -96,6 +96,14 @@ public class ClubRestController {
     }
 
     @CrossOrigin
+    @PreAuthorize("hasAuthority('STUDENT')")
+    @PutMapping("/{clubId}/cancelMembershipToClub/{studentId}")
+    public String cancelMembershipToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
+        clubService.cancelMembership(clubId,studentId);
+        return "success";
+    }
+
+    @CrossOrigin
     @PreAuthorize("@authorizationLuna.authorize(authentication,'REVIEW_MEMBER_APPLICATION', #clubId)")
     @PutMapping("/{clubId}/approveAppliedStudent/{studentId}")
     public String approveAppliedStudent(@PathVariable Long clubId,@PathVariable Long studentId ) {

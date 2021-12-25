@@ -73,7 +73,27 @@
 
 <div class="modal review-m" tabindex="-1" role="dialog" id="open">
 
-    <div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header bg-info text-light"><h5 class="modal-title">Add Club</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class = "container rating"><h2 style="margin-top: 50px;">Review</h2><div class = "con"><h3 style = "margin-top : 80px; color: green;">Rate our product :-</h3><i class = "fa fa-star" aria-hidden = "true" id = "st1"></i><i class = "fa fa-star" aria-hidden = "true" id = "st2"></i> <i class = "fa fa-star" aria-hidden = "true" id = "st3"></i><i class = "fa fa-star" aria-hidden = "true" id = "st4"></i> <i class = "fa fa-star" aria-hidden = "true" id = "st5"></i> </div> </div>    <div class="modal-footer"> <button type="button" class="btn btn-primary rev" id = "createClub">Review</button> <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>         </div>        </div>  </div></div>
+    <div class="modal-dialog" role="document"><div class="modal-content">
+        <div class="modal-header bg-info text-light">
+            <h5 class="modal-title">Add Club</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class = "container rating"><h2 style="margin-top: 50px;">Review</h2><div class = "con">
+                <h3 style = "margin-top : 80px; color: green;">Rate our product :-</h3>
+                <i class = "fa fa-star" aria-hidden = "true" id = "st1">
+
+                </i><i class = "fa fa-star" aria-hidden = "true" id = "st2"></i>
+                <i class = "fa fa-star" aria-hidden = "true" id = "st3"></i>
+                <i class = "fa fa-star" aria-hidden = "true" id = "st4"></i>
+                <i class = "fa fa-star" aria-hidden = "true" id = "st5"></i>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary rev" id = "createClub">Review</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+        </div>
+    </div>
+    </div>
 </div>
 
 
@@ -224,12 +244,53 @@ function goToEvent(id) {
         },
         crossDomain: true,
         contentType: "application/json",
+        url: `http://localhost:8080/event/attendedEventForStudent/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+        var attended;
+        $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
         url: `http://localhost:8080/getPastEventsOfStudent/${localStorage.getItem('userId')}`,
         dataType: 'json',
         success: function(response) {
-          console.log(response);
-      //    $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
-          function showEventsP(r, i){
+            attended = response;
+        },
+                    error : function(e) {
+                    //    alert("Error!")
+                        //console.log("eventStatus", eventStatus);
+                        console.log("ERROR: ", e);
+                    }
+                });
+
+
+          function showEventsP_n(r, i){
+              var startDate = new Date(r[i].startDate);
+              var dummyDate = "1111-11-11";
+              var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+              var endDate = new Date(r[i].endDate);
+              var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+              table.row.add([
+                  r[i].eventName,
+                  r[i].clubName,
+                  startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                  endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+              r[i].gePoint,
+              r[i].location,
+                r[i].remainingQuota +"/" + r[i].quota,
+            `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+            "<p></p>"
+            ]).draw();
+              $(table.row( 'last').node()).addClass('past');
+          };
+          function showEventsP_a(r, i){
               var startDate = new Date(r[i].startDate);
               var dummyDate = "1111-11-11";
               var startTime = new Date(dummyDate + " " + r[i].startTime);
@@ -252,7 +313,12 @@ function goToEvent(id) {
           };
 
           for (let i = 0; i < response.length; i++) {
-            showEventsP(response, i);
+            isAttended= attended.find(response[i])
+            if(isAttended==undefined)
+                showEventsP_n(response, i);
+                else{
+                    showEventsP_a(r,i)
+                }
           }
         }
       });
