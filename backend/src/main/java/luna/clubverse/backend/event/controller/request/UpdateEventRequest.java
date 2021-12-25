@@ -31,8 +31,6 @@ public class UpdateEventRequest {
 
     private String description;
 
-    @NotNull(message = "The status of the event cannot be blank")
-    private EventStatus eventStatus;
 
     @NotNull(message = "The gePoint of the event cannot be blank")
     private int gePoint;
@@ -83,7 +81,6 @@ public class UpdateEventRequest {
         return new EventBuilder()
                 .name(name)
                 .description(description)
-                .eventStatus(eventStatus)
                 .gePoint(gePoint)
                 .startDateTime(LocalDateTime.of(startDate,startTime))
                 .endDateTime(LocalDateTime.of(endDate,endTime))
