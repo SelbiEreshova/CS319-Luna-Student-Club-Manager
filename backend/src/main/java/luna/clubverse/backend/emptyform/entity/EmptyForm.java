@@ -43,7 +43,7 @@ public class EmptyForm extends BaseEntity{
     public void updateForm(EmptyForm emptyForm)
     {
         this.questions = emptyForm.questions;
-        System.out.println(emptyForm.questions);
+        //System.out.println(emptyForm.questions);
     }
 }
 
