@@ -51,8 +51,4 @@ public class ClubController {
         model.addAttribute("clubId", clubId);
         return "finance_table_manager";
     }
-
-
-
-
 }

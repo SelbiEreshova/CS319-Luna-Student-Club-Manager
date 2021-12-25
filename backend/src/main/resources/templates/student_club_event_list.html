@@ -42,7 +42,7 @@
             <td th:text="${event.startDate}"></td>
             <td th:text="${event.gePoint}"></td>
             <td th:text="${event.location}"></td>
-            <td th:text="${event.quota}">Time</td>
+            <td th:text="${event.quota}">Time</td> <!--burada neden time var-->
             <td><button type="button" class="btn btn-info text-light">See Details</button></td>
         </tr>
         </tbody>
@@ -69,7 +69,7 @@
       url: `http://localhost:8080/${localStorage.getItem('clubId')}/event_list`,
       dataType: 'json',
       success: function(response) {
-        $("#name").text(response.message);
+        $("#name").text(response.message); //buraya club adı çıkması lazım
         console.log(response);
       }
     });
@@ -80,8 +80,9 @@
 
 <script>
       $(document).ready( function () {
-$(".nav_bar").load("http://localhost:8080/student.html");
+    $(".nav_bar").load("http://localhost:8080/student.html");
     $("#events_nav").addClass("active");
+
     $('.club-list').DataTable(
                     { language: {
                             searchPlaceholder: "Search",
