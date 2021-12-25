@@ -202,7 +202,7 @@ function goToEvent(id) {
                 r[i].gePoint,
                 r[i].location,
                     r[i].remainingQuota +"/" + r[i].quota,
-              `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+              `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                 "<p></p>"
                 ]).draw();
 
@@ -245,8 +245,8 @@ function goToEvent(id) {
               r[i].gePoint,
               r[i].location,
                 r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
-            `<button class=\"review-b\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
+`<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+            `<button class=\"review-b text-dark\" style=\"background-color: #9aefee\"onclick=\"goToReview(${r[i].eventId})\">Review</button>`
             ]).draw();
               $(table.row( 'last').node()).addClass('past');
           };
@@ -286,7 +286,7 @@ function goToEvent(id) {
               r[i].gePoint,
               r[i].location,
                 r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+`<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
               "<p></p>"
             ]).draw(false);
               $(table.row( 'last').node()).addClass('ongoing');
