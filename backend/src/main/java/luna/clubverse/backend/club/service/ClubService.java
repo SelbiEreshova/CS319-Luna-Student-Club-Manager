@@ -236,5 +236,19 @@ public class ClubService {
         return new ClubQueryResponseForStudent(getClub(clubId),studentFromDB);
     }
 
+    public void cancelMembership(Long clubId, Long studentId){
+
+        Club clubFromDB = cLubRepository.findById(clubId)
+                .orElseThrow(()->new EntityNotFoundException("The club with the id " + clubId + " could not be found."));
+
+        Student studentFromDB = studentRepository.findById(studentId)
+                .orElseThrow(()->new EntityNotFoundException("The student with the id " + studentId + " could not be found."));
+
+        clubFromDB.removeMembers(studentFromDB);
+
+        cLubRepository.save(clubFromDB);
+
+    }
+
 
 }
