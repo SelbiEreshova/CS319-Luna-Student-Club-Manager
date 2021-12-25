@@ -54,7 +54,7 @@ $(document).ready(function() {
             },
             crossDomain: true,
             contentType: "application/json",
-            url: `http://localhost:8080/club/getEvents/${clubId}`,
+            url: `http://localhost:8080/app/form/getForm/${localStorage.getItem('clubId')}`,
             dataType: 'json',
             success: function(response) {
                 console.log(response);
