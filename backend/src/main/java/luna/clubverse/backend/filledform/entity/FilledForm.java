@@ -17,8 +17,6 @@ public class FilledForm extends BaseEntity {
     @ElementCollection
     private List <String> answers;
 
-
-
     private Long studentId;
 
 

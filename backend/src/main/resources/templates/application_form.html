@@ -91,16 +91,17 @@ $(document).ready(function() {
                 clubId : localStorage.getItem("clubId")
             }
             console.log(formData)
+
             /*
             $.ajax({
-                    type : "PUT",
+                    type : "POST",
                     headers: {
                         "Access-Control-Allow-Origin":"*",
                         Authorization : localStorage.getItem('Authorization')
                     },
                     crossDomain: true,
                     contentType : "application/json",
-                    url : "https://localhost:8080/appform/set",
+                    url : `http://localhost:8080/filledForm/${clubId}/createFilledForm/${localStorage.getItem('userId')}`,
                     data : JSON.stringify(formData),
                     dataType : 'json',
                     success : function(result) {
@@ -118,7 +119,9 @@ $(document).ready(function() {
                     }
                 });
 
+
              */
+
 
         }
     })
