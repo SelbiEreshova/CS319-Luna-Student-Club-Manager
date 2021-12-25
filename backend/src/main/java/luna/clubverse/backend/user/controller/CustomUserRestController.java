@@ -39,6 +39,23 @@ public class CustomUserRestController {
         return customUserService.getOnGoingEventsOfStudent(userId);
     }
 
+
+
+    @GetMapping("/getFutureEventsOfFA/{userId}")
+    public List<EventListQueryResponse> getFutureEventsOfFA(@PathVariable Long userId) {
+        return customUserService.getFutureEventsOfFA(userId);
+    }
+
+    @GetMapping("/getPastEventsOfFA/{userId}")
+    public List<EventListQueryResponse> getPastEventsOfFA(@PathVariable Long userId) {
+        return customUserService.getPastEventsOfFA(userId);
+    }
+
+    @GetMapping("/getOnGoingEventsOfFA/{userId}")
+    public List<EventListQueryResponse> getOnGoingEventsOfFA(@PathVariable Long userId) {
+        return customUserService.getOnGoingEventsOfFA(userId);
+    }
+
     @CrossOrigin
     @GetMapping("/getClubsOfStudent/{studentId}")
     public List<ClubManagerCheckQueryResponse> getClubsOfUser(@PathVariable Long studentId ) {

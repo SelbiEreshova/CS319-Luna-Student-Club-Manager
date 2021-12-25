@@ -170,7 +170,22 @@ public class EventRestController {
     @CrossOrigin
     @GetMapping("/attendedEventsForStudent/{id}")
     public List<EventListQueryResponse> getAttendedEventsForStudent(@PathVariable Long id) {
-        List<EventListQueryResponse> events = (eventService.getEventsForStudent(id));
+        List<EventListQueryResponse> events = (eventService.getAttendedEventsForStudent(id));
+        return events;
+    }
+
+
+    @CrossOrigin
+    @GetMapping("/enrolledEventsForStudent/{id}")
+    public List<EventListQueryResponse> getEnrolledEventsForStudent(@PathVariable Long id) {
+        List<EventListQueryResponse> events = (eventService.getEnrolledEventsForStudent(id));
+        return events;
+    }
+
+    @CrossOrigin
+    @GetMapping("/enrolledEventsForFacultyAdvisor/{id}")
+    public List<EventListQueryResponse> getEnrolledEventsForFA(@PathVariable Long id) {
+        List<EventListQueryResponse> events = (eventService.getEnrolledEventsForFacultyAdvisor(id));
         return events;
     }
 

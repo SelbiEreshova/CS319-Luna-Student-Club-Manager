@@ -46,6 +46,17 @@ public class CustomUserService {
 
     }
 
+
+    public List<EventListQueryResponse> getFutureEventsOfFA(Long userId) {
+        FacultyAdvisor facultyAdvisor = (FacultyAdvisor) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("Faculty Advisor with id " + userId + "is not found"));
+        return facultyAdvisor.getEnrolledEvents()
+                .stream()
+                .filter(event-> checkEventInterval(event.getStartDateTime(), event.getEndDateTime()).equals(FUTURE))
+                .map(event -> new EventListQueryResponse(event))
+                .toList();
+    }
+
     public String checkEventInterval(LocalDateTime startDateTime, LocalDateTime endDateTime)
     {
         LocalDateTime now = LocalDateTime.now();
@@ -75,12 +86,34 @@ public class CustomUserService {
 
     }
 
+    public List<EventListQueryResponse> getPastEventsOfFA(Long userId) {
+        FacultyAdvisor facultyAdvisor = (FacultyAdvisor) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("FacultyAdvisor with id " + userId + "is not found"));
+        return facultyAdvisor.getEnrolledEvents()
+                .stream()
+                .filter(event-> checkEventInterval(event.getStartDateTime(), event.getEndDateTime()).equals(PAST))
+                .map(event -> new EventListQueryResponse(event))
+                .toList();
+
+    }
+
 
 
     public List<EventListQueryResponse> getOnGoingEventsOfStudent(Long userId) {
         Student studentFromDB = (Student) userRepository.findById(userId)
                 .orElseThrow(() ->new EntityNotFoundException("Student with id " + userId + "is not found"));
         return studentFromDB.getEnrolledEvents()
+                .stream()
+                .filter(event-> checkEventInterval(event.getStartDateTime(), event.getEndDateTime()).equals(ONGOING))
+                .map(event -> new EventListQueryResponse(event))
+                .toList();
+
+    }
+
+    public List<EventListQueryResponse> getOnGoingEventsOfFA(Long userId) {
+        FacultyAdvisor facultyAdvisor = (FacultyAdvisor) userRepository.findById(userId)
+                .orElseThrow(() ->new EntityNotFoundException("FacultyAdvisor with id " + userId + "is not found"));
+        return facultyAdvisor.getEnrolledEvents()
                 .stream()
                 .filter(event-> checkEventInterval(event.getStartDateTime(), event.getEndDateTime()).equals(ONGOING))
                 .map(event -> new EventListQueryResponse(event))

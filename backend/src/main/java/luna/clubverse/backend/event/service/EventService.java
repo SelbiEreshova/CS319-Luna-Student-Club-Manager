@@ -126,12 +126,30 @@ public class EventService {
         //return cLubRepository.findAll().
     }
 
-    public List<EventListQueryResponse> getEventsForStudent(Long id) {
+    public List<EventListQueryResponse> getEnrolledEventsForStudent(Long id) {
         //return eventRepository.findEventsByStudentId(id).stream().map(EventQueryResponse::new).toList();
         //return cLubRepository.findAll().
         Student student = (Student) userRepository.findById(id)
                 .orElseThrow(() ->new EntityNotFoundException("Student with id " + id + "is not found"));
         return student.getEnrolledEvents().stream().map(EventListQueryResponse::new).toList();
+
+    }
+
+    public List<EventListQueryResponse> getEnrolledEventsForFacultyAdvisor(Long id) {
+        //return eventRepository.findEventsByStudentId(id).stream().map(EventQueryResponse::new).toList();
+        //return cLubRepository.findAll().
+        FacultyAdvisor facultyAdvisor = (FacultyAdvisor) userRepository.findById(id)
+                .orElseThrow(() ->new EntityNotFoundException("FacultyAdvisor with id " + id + "is not found"));
+        return facultyAdvisor.getEnrolledEvents().stream().map(EventListQueryResponse::new).toList();
+
+    }
+
+    public List<EventListQueryResponse> getAttendedEventsForStudent(Long id) {
+        //return eventRepository.findEventsByStudentId(id).stream().map(EventQueryResponse::new).toList();
+        //return cLubRepository.findAll().
+        Student student = (Student) userRepository.findById(id)
+                .orElseThrow(() ->new EntityNotFoundException("Student with id " + id + "is not found"));
+        return student.getAttendedEvents().stream().map(EventListQueryResponse::new).toList();
 
     }
 
