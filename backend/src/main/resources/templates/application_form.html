@@ -24,7 +24,7 @@
     <div class="form-group">
         <div class="justify-content-left mt-2 mx-auto row">
 
-            <button class=" btn-info text-dark  m-2 p-2" id="submit"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Submit Application Form</button>
+            <button class=" btn-info text-dark  m-2 p-2" id="submit">Submit Application Form</button>
 
             <button class=" btn-info text-dark  m-2 p-2" id="cancel" type="cancel"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Cancel</button>
 
@@ -41,7 +41,7 @@
            $(`.q${deleted}`).remove();
     }
 $(document).ready(function() {
-    var questions = ["q1","q2","q3","q4"];
+
      $.ajax({
             type: "GET",
             headers: {
@@ -55,11 +55,6 @@ $(document).ready(function() {
             success: function(response) {
                 console.log(response);
                 questions= response.questions
-            }
-        });
-
-     $(".nav_bar").load("http://localhost:8080/club_director.html");
-    $("#events_nav").addClass("active");
 
     $("#q1").text(questions[0])
    for(var i=1; i<questions.length;i++)
@@ -68,6 +63,12 @@ $(document).ready(function() {
         $("form").append(newQuestion)
    }
     post = true;
+
+            }
+        });
+
+     $(".nav_bar").load("http://localhost:8080/club_director.html");
+    $("#events_nav").addClass("active");
      $("#submit").click(function(){
         var answers = []
         questions=[]
@@ -92,7 +93,7 @@ $(document).ready(function() {
             }
             console.log(formData)
 
-            /*
+
             $.ajax({
                     type : "POST",
                     headers: {
@@ -118,11 +119,6 @@ $(document).ready(function() {
                         console.log("ERROR: ", e);
                     }
                 });
-
-
-             */
-
-
         }
     })
 

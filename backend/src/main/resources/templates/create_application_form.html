@@ -45,7 +45,6 @@
            $(`.q${deleted}`).remove();
     }
 $(document).ready(function() {
-    var edited = [];
      $.ajax({
             type: "GET",
             headers: {
@@ -59,20 +58,27 @@ $(document).ready(function() {
             success: function(response) {
                 console.log(response);
                 edited= response.questions
-            }
-        });
-
-
-     var ids=[1]
-    for(var i =0;i<edited.length-1;i++){
+                    for(var i =0;i<edited.length-1;i++){
         addNewQuestion();
         console.log(i)
+         $(".deleted").click(function(){
+
+         if(ids.length>1){
+            id = $(this).attr("id")
+            swap(id)
+            delete ids[id]
+        }
+    })
     }
     x=0;
     $("input").each(function(){
         $(this).val([x]);
         x++;
     });
+            }
+        });
+    var ids=[1]
+
 
      $(".nav_bar").load("http://localhost:8080/club_director.html");
     $("#events_nav").addClass("active");
