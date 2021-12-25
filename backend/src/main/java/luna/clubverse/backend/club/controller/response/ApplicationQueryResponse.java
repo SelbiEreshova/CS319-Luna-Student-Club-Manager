@@ -11,10 +11,12 @@ import java.util.List;
 public class ApplicationQueryResponse {
 
     private final String name_surname;
+    private final String club_name;
 
     private final List<String> application;
 
-    public ApplicationQueryResponse (String name_surname, FilledForm filledForm) {
+    public ApplicationQueryResponse (String club_name,String name_surname, FilledForm filledForm) {
+        this.club_name = club_name;
         this.name_surname = name_surname;
         application = new ArrayList<>();
 

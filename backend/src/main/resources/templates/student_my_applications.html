@@ -37,8 +37,8 @@
 
     //var clubId = [[${clubId}]];
 
-    function openApplicationPopup(userId) {
-        //window.location.href = `http://localhost:8080/app/view_application/${localStorage.getItem('clubId')}/${userId}`
+    function openApplicationPopup(clubId) {
+        window.location.href = `http://localhost:8080/app/view_application_student/${clubId}/${localStorage.getItem('userId')}`
         //bu değişecek - student_view_application açılmalı
     }
 
@@ -46,7 +46,7 @@
         console.log("in doc ready");
         var table = $('#applications').DataTable();
 
-        /*$.ajax({
+        $.ajax({
             type: "GET",
             headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -54,18 +54,15 @@
             },
             crossDomain: true,
             contentType: "application/json",
-            url: `http://localhost:8080/club/candidates/${localStorage.getItem('clubId')}`, //bu doğru mu burası için de?
+            url: `http://localhost:8080/applications/${localStorage.getItem('userId')}`, //bu doğru mu burası için de?
             dataType: 'json',
             success: function(response) {
                 console.log(response);
-                function showApplications(r, i){
-                    console.log("in show applications");
+                function showApplications(r, i) {
                     table.row.add([
                         r[i].club_name,
                         r[i].applicationStatus,
                         `<button class="button-info text-dark" style="background-color: #2ed3db" onclick='openApplicationPopup(${r[i].clubId})'>See Application</button>`
-                        //userId mi olacak buradaki parametre, clubId mi? Bence clubId çünkü sonra bana club adı lazım
-
                     ]).draw(false);
                 };
 
@@ -73,7 +70,7 @@
                     showApplications(response, i);
                 }
             }
-        });*/
+        });
 
         console.log("before dummy input");
         var dummyInput = [
@@ -88,17 +85,7 @@
                 applicationStatus: "Rejected"}
         ]
 
-        function showApplications(r, i) {
-            table.row.add([
-                r[i].club_name,
-                r[i].applicationStatus,
-                `<button class="button-info text-dark" style="background-color: #2ed3db" onclick='openApplicationPopup(${r[i].clubId})'>See Application</button>`
-            ]).draw(false);
-        };
 
-        for (let i = 0; i < dummyInput.length; i++) {
-            showApplications(dummyInput, i);
-        }
 
         console.log("end of doc ready");
     });

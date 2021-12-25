@@ -4,6 +4,7 @@ import luna.clubverse.backend.club.controller.request.UploadPhotoRequest;
 import luna.clubverse.backend.club.controller.response.ClubManagerCheckQueryResponse;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
+import luna.clubverse.backend.user.controller.response.ApplicationListQueryResponse;
 import luna.clubverse.backend.user.controller.response.ClubDirectorQueryResponse;
 import luna.clubverse.backend.user.controller.response.FacultyAdvisorQueryResponse;
 import luna.clubverse.backend.user.controller.response.StudentQueryResponse;
@@ -94,5 +95,11 @@ public class CustomUserRestController {
     @PutMapping("/uploadPhotoForUser/{userId}")
     public MessageResponse uploadPhotoForClubBackground(@PathVariable Long userId, @Valid @RequestBody UploadPhotoRequest request) {
         return customUserService.changeProfileImage(userId, request.getFile());
+    }
+
+    @CrossOrigin
+    @GetMapping("/applications/{userId}")
+    public List<ApplicationListQueryResponse> getCandidates(@PathVariable Long userId) {
+        return customUserService.getApplications(userId);
     }
 }
