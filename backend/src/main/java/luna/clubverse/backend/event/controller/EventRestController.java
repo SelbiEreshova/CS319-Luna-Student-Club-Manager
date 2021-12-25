@@ -76,7 +76,7 @@ public class EventRestController {
     @PutMapping("/update")
     public MessageResponse updateEvent(@RequestBody @Valid final UpdateEventRequest updateEventRequest) {
 
-        String errorMessage = checkEventRequestDates(updateEventRequest.getQuota(),updateEventRequest.getGePoint(), updateEventRequest.getAmountOfMoney(),updateEventRequest.getStartDate(),updateEventRequest.getEndDate(),updateEventRequest.getStartTime(),updateEventRequest.getEndTime(),updateEventRequest.getRegistrationDeadline(),updateEventRequest.getReviewDeadline());
+        String errorMessage = checkEventRequestDates(updateEventRequest.getQuota(),updateEventRequest.getGePoint(), updateEventRequest.getAmountOfMoney(),updateEventRequest.getStartDate(),updateEventRequest.getEndDate(),updateEventRequest.getStartTime(),updateEventRequest.getEndTime(),updateEventRequest.getRegistrationDeadlineDate(),updateEventRequest.getReviewDeadlineDate());
 
         if(!errorMessage.equals("")){
             return new MessageResponse(MessageType.ERROR,errorMessage);
@@ -136,7 +136,7 @@ public class EventRestController {
     @PreAuthorize("@authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
     public MessageResponse addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
 
-        String errorMessage = checkEventRequestDates(addEventRequest.getQuota(),addEventRequest.getGePoint(), addEventRequest.getAmountOfMoney(),addEventRequest.getStartDate(),addEventRequest.getEndDate(),addEventRequest.getStartTime(),addEventRequest.getEndTime(),addEventRequest.getRegistrationDeadline(),addEventRequest.getReviewDeadline());
+        String errorMessage = checkEventRequestDates(addEventRequest.getQuota(),addEventRequest.getGePoint(), addEventRequest.getAmountOfMoney(),addEventRequest.getStartDate(),addEventRequest.getEndDate(),addEventRequest.getStartTime(),addEventRequest.getEndTime(),addEventRequest.getRegistrationDeadlineDate(),addEventRequest.getReviewDeadlineDate());
 
         if(!errorMessage.equals("")){
             return new MessageResponse(MessageType.ERROR,errorMessage);
