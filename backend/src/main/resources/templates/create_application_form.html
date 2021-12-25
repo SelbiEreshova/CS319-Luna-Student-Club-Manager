@@ -6,8 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
     <title>Create a new event</title>
 </head>
 <body>
@@ -19,7 +18,10 @@
             <label for="1">Question</label>
             <div class="input-group mb-3" id="1">
                 <input type="text" class="form-control">
-                <i class="fas fa-trash"></i>
+                <a class="ml-3" onclick="deleteInput()">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+
             </div>
         </div>
     </form>
@@ -40,129 +42,145 @@
 </div>
 </body>
 <script>
+    var ids = [1]
 
     function swap(deleted){
            $(`.q${deleted}`).remove();
     }
-$(document).ready(function() {
-     $.ajax({
-            type: "GET",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                Authorization : localStorage.getItem('Authorization')
-            },
-            crossDomain: true,
-            contentType: "application/json",
-            url: `http://localhost:8080/form/getForm/${localStorage.getItem('clubId')}`,
-            dataType: 'json',
-            success: function(response) {
-                console.log(response);
-                edited= response.questions
-                    for(var i =0;i<edited.length-1;i++){
+    function deleteInput()
+    {
+        $(".deleted").click(function() {
+            if (question_number > 1) {
+                id = $(this).attr("id")
+                swap(id)
+                ids.pop();
+
+            }
+        });
+
+    }
+
+            $(document).ready(function () {
+                $.ajax({
+                    type: "GET",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        Authorization: localStorage.getItem('Authorization')
+                    },
+                    crossDomain: true,
+                    contentType: "application/json",
+                    url: `http://localhost:8080/form/getForm/${localStorage.getItem('clubId')}`,
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+                        edited = response.questions
+                        for (var i = 0; i < edited.length - 1; i++) {
                             addNewQuestion();
                             console.log(i)
-                             $(".deleted").click(function(){
+                            $(".deleted").click(function () {
 
-                                 if(ids.length>1){
+                                if (ids.length > 1) {
                                     id = $(this).attr("id")
                                     swap(id)
                                     delete ids[id]
-                                 }
+                                }
                             })
-                    }
-                    x=0;
-                    $("input").each(function(){
-                        $(this).val([edited[x]]);
-                        x++;
-                    });
-            }
-        });
-    var ids=[1]
-
-
-     $(".nav_bar").load("http://localhost:8080/club_director.html");
-    $("#events_nav").addClass("active");
-    var post = true;
-     $("#create").click(function(){
-
-        questions=[]
-        $("input").each(function(){
-            var input = $(this).val();
-            questions.push(input)
-            if(input=="")
-            {
-
-                post = false;
-            }
-        })
-        if(!post)
-        {
-            alert("Questions cannot be null")
-            post = true;
-        }
-        else{
-            formData={
-                questions:questions,
-                clubId : localStorage.getItem("clubId")
-            }
-            console.log(formData)
-           $.ajax({
-                    type : "PUT",
-                    headers: {
-                        "Access-Control-Allow-Origin":"*",
-                        Authorization : localStorage.getItem('Authorization')
-                    },
-                    crossDomain: true,
-                    contentType : "application/json",
-                    url : "http://localhost:8080/form/set",
-                    data : JSON.stringify(formData),
-                    dataType : 'json',
-                    success : function(result) {
-                        if (result.messageType == "ERROR") {
-
-                        } else if (result.messageType == "SUCCESS") {
-
                         }
-                        console.log(result);
-                    },
-                    error : function(e) {
-                        alert("Error!")
-                        console.log("eventStatus", eventStatus);
-                        console.log("ERROR: ", e);
+                        x = 0;
+                        $("input").each(function () {
+                            $(this).val([edited[x]]);
+                            x++;
+                        });
                     }
                 });
 
-        }
-    })
-    function addNewQuestion()
-    {
-    console.log(ids)
-        question_number = ids[ids.length-1]+1;
-        ids.push(question_number)
-        var newQuestion = `<div class=\"form-group delete- qd${question_number} \"><label for=\"${question_number}\">Question</label><input type=\"text\" class="form-control form-control-lg\" id=\"${question_number}\" placeholder=\"Write the question\"><div class=\"mx-auto \"><button type=\"button\" class=\"btn btn-danger mx-5 p-2 deleted \" id=\"d${question_number}\">delete</button></div></div>`
-        $("form").append(newQuestion)
-        }
-    $("#add").click(function(){
-        addNewQuestion()
-         $(".deleted").click(function(){
 
-         if(ids.length>1){
-            id = $(this).attr("id")
-            swap(id)
-            delete ids[id]
-        }
-    })
-    })
 
-   $(".deleted").click(function(){
-       if(question_number>1){
-        id = $(this).attr("id")
-        swap(id)
-        ids.pop();
+                $(".nav_bar").load("http://localhost:8080/club_director.html");
+                $("#events_nav").addClass("active");
+                var post = true;
+                $("#create").click(function () {
 
-       }
-    })
-  })
+                    questions = []
+                    $("input").each(function () {
+                        var input = $(this).val();
+                        questions.push(input)
+                        if (input == "") {
+
+                            post = false;
+                        }
+                    })
+                    if (!post) {
+                        alert("Questions cannot be null")
+                        post = true;
+                    } else {
+                        formData = {
+                            questions: questions,
+                            clubId: localStorage.getItem("clubId")
+                        }
+                        console.log(formData)
+                        $.ajax({
+                            type: "PUT",
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                Authorization: localStorage.getItem('Authorization')
+                            },
+                            crossDomain: true,
+                            contentType: "application/json",
+                            url: "http://localhost:8080/form/set",
+                            data: JSON.stringify(formData),
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result.messageType == "ERROR") {
+
+                                } else if (result.messageType == "SUCCESS") {
+
+                                }
+                                console.log(result);
+                            },
+                            error: function (e) {
+                                alert("Error!")
+                                console.log("eventStatus", eventStatus);
+                                console.log("ERROR: ", e);
+                            }
+                        });
+
+                    }
+                })
+
+                function addNewQuestion() {
+                    console.log(ids)
+                    question_number = ids[ids.length - 1] + 1;
+                    ids.push(question_number)
+                    var newQuestion = `<div class=\"form-group delete- qd${question_number} \"><label for=\"${question_number}\">Question</label><input type=\"text\" class="form-control form-control-lg\" id=\"${question_number}\" placeholder=\"Write the question\"><div class=\"mx-auto \"><button type=\"button\" class=\"btn btn-danger mx-5 p-2 deleted \" id=\"d${question_number}\">delete</button></div></div>`
+                    $("form").append(newQuestion)
+                }
+
+                $("#add").click(function () {
+                    addNewQuestion()
+                    $(".deleted").click(function () {
+
+                        if (ids.length > 1) {
+                            id = $(this).attr("id")
+                            swap(id)
+                            delete ids[id]
+                        }
+                    })
+                })
+
+                function deleteInput() {
+                    $(".deleted").click(function () {
+                        if (question_number > 1) {
+                            id = $(this).attr("id")
+                            swap(id)
+                            ids.pop();
+
+                        }
+                    })
+                }
+
+            });
+
 </script>
 
 </html>
