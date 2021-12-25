@@ -2,9 +2,167 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
 </head>
 <body>
 
+<div class="nav_bar"></div>
+
+<h2 class="d-flex justify-content-center mt-4 pt-6">Applications</h2>
+
+<div class="container table-responsive my-4  p-2">
+    <table class="table display table-striped club-list" id="applications">
+        <thead class="bg-dark text-light">
+        <tr>
+            <th >Bilkent ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="application-form">
+    <div class="modal-dialog bg-dark" role="document">
+        <div class="modal-content ">
+            <div class="modal-header bg-info text-light">
+                <h5 class="modal-title">Application by <a id="name-surname"></a></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="QandA"></form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="accept">Accept</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="reject">Reject</button>
+                <!--need onclick for reject as well-->
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
+
+<script>
+    $(".nav_bar").load("http://localhost:8080/club_director.html");
+    $("#events_nav").addClass("active");
+
+    //var clubId = [[${clubId}]];
+
+    function openApplicationPopup(name, surname, ...QandAList) {
+        $("#accept").off().click(function() {
+            console.log("clicked accept");
+            /*var formData = {
+                clubId: clubId,
+                memberId: memberId,
+                memberRole: $("#member-role").val(),
+                memberPermissions: []
+            }
+
+            for (let i = 1; i <= 3; i++) {
+                formData.memberPermissions.push($(`#permission${i}`).is(":checked"));
+            }
+
+            console.log(formData);
+
+
+            $.ajax({
+                type: "PUT",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                //url: `http://localhost:8080/student/updatePermission`,
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.messageType == "ERROR") {
+                        alert(response.message)
+                    } else if (response.messageType == "SUCCESS") {
+                        window.location.href = window.location.href;
+                    }
+
+
+                }
+            });*/
+
+
+        });
+
+        $("#name-surname").text(name + " " + surname);
+
+        for (let i = 0; i < QandAList.length; i++) {
+            var newQandA = `<div class=\"form-group\">
+                            <label for=\"a${i}\" id=\"q${i}\">${QandAList[i].question}: </label>
+                            <p type=\"text\" class=\"form-control form-control-lg\" id=\"a${i}\">${QandAList[i].answer}</p>
+                        </div>`
+            $("#QandA").append(newQandA);
+        }
+
+        $('#application-form').modal('show');
+    };
+
+
+
+    $(document).ready(function() {
+        var table = $('#applications').DataTable();
+
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            //url: `http://localhost:8080/club/get_club_director_members/${clubId}`,
+            dataType: 'json',
+            success: function(response) {
+                var dummyInput = [
+                    {memberBilkentId: "21212121",
+                     memberName: "Eray",
+                     memberSurname: "Tüzün",
+                     memberEmail: "eray@bilkent.edu.tr",
+                     memberApplication: [{"q1", "a1"}, {"q2", "a2"}]},
+                    {memberBilkentId: "13131313",
+                        memberName: "Erdem",
+                        memberSurname: "Tuna",
+                        memberEmail: "erdem@bilkent.edu.tr",
+                        memberApplication: [{question: "q11", answer: "a11"}, {question: "q22", answer: "a22"}]}
+                ]
+                function showApplications(r, i){
+                    var applications = r[i].memberApplication;
+
+                    console.log(applications);
+                    table.row.add([
+                        r[i].memberBilkentId, //bu ID ama student ID olacak, backend'de tutulan ID farklı, onu düzenleriz
+                        r[i].memberName,
+                        r[i].memberSurname,
+                        r[i].memberEmail,
+                        `<button class="button-info text-dark" style="background-color: #2ed3db" onclick='openApplicationPopup(${r[i].memberName}, ${r[i].memberSurname}, ${applications})'>See Application</button>`
+                    ]).draw(false);
+                };
+
+                for (let i = 0; i < response.length; i++) {
+                    showApplications(response, i);
+                }
+
+
+            }
+        });
+    });
+</script>
 </html>
