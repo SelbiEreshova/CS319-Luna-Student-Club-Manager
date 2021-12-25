@@ -52,8 +52,8 @@
         <tr>
             <th>Club Name</th>
             <th>Event Name</th>
-            <th>Start Time</th>
-            <th>Finish Time</th>
+            <th>Start</th>
+            <th>End</th>
             <th>Ge Points</th>
             <th>Location</th>
             <th>Quota</th>
@@ -80,6 +80,9 @@
 </div></body>
 
 <script>
+    $(".nav_bar").load("http://localhost:8080/student.html");
+    $("#events_nav").addClass("active");
+
 function goToEvent(id) {
                 window.location.href= `http://localhost:8080/app/STUDENT_event_homepage/${id}`;
               }
@@ -162,8 +165,6 @@ function goToEvent(id) {
             }
           })
 
-        $(".nav_bar").load("http://localhost:8080/student.html");
-        $("#events_nav").addClass("active");
         $('.club-list').DataTable(
           { language: {
                 searchPlaceholder: "Search",
@@ -185,15 +186,22 @@ function goToEvent(id) {
         dataType: 'json',
         success: function(response) {
           console.log(response);
-                function showEvents(r, i){
-              table.row.add([
+            function showEvents(r, i){
+                var startDate = new Date(r[i].startDate);
+                var dummyDate = "1111-11-11";
+                var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+                var endDate = new Date(r[i].endDate);
+                var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+                table.row.add([
                 r[i].eventName,
                 r[i].clubName,
-                  r[i].startDate + "\n" + r[i].startTime,
-                  r[i].endDate + "\n" + r[i].endTime,
+                    startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                    endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
                 r[i].gePoint,
-              r[i].location,
-                  r[i].remainingQuota +"/" + r[i].quota,
+                r[i].location,
+                    r[i].remainingQuota +"/" + r[i].quota,
               `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                 "<p></p>"
                 ]).draw();
@@ -222,11 +230,18 @@ function goToEvent(id) {
           console.log(response);
       //    $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEventsP(r, i){
-            table.row.add([
-              r[i].eventName,
-              r[i].clubName,
-                r[i].startDate + "\n" + r[i].startTime,
-                r[i].endDate + "\n" + r[i].endTime,
+              var startDate = new Date(r[i].startDate);
+              var dummyDate = "1111-11-11";
+              var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+              var endDate = new Date(r[i].endDate);
+              var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+              table.row.add([
+                  r[i].eventName,
+                  r[i].clubName,
+                  startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                  endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
               r[i].gePoint,
               r[i].location,
                 r[i].remainingQuota +"/" + r[i].quota,
@@ -256,11 +271,18 @@ function goToEvent(id) {
         success: function(response) {
           console.log(response);
           function showEventsO(r, i){
-            table.row.add([
-              r[i].eventName,
-              r[i].clubName,
-              r[i].startDate + "\n" + r[i].startTime,
-                r[i].endDate + "\n" + r[i].endTime,
+              var startDate = new Date(r[i].startDate);
+              var dummyDate = "1111-11-11";
+              var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+              var endDate = new Date(r[i].endDate);
+              var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+              table.row.add([
+                  r[i].eventName,
+                  r[i].clubName,
+                  startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                  endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
               r[i].gePoint,
               r[i].location,
                 r[i].remainingQuota +"/" + r[i].quota,
