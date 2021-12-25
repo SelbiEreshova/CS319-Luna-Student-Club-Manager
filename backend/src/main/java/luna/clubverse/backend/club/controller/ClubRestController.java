@@ -98,9 +98,16 @@ public class ClubRestController {
     @CrossOrigin
     @PreAuthorize("hasAuthority('STUDENT')")
     @PutMapping("/{clubId}/cancelMembershipToClub/{studentId}")
-    public String cancelMembershipToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
+    public MessageResponse cancelMembershipToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
         clubService.cancelMembership(clubId,studentId);
-        return "success";
+        return new MessageResponse(MessageType.SUCCESS,"success");
+    }
+
+    @CrossOrigin
+    @PutMapping("/{clubId}/cancelMembershipForManagerToClub/{studentId}")
+    public MessageResponse cancelMembershipForManagerToClub(@PathVariable Long clubId,@PathVariable Long studentId ) {
+        clubService.cancelMembershipForManager(clubId,studentId);
+        return new MessageResponse(MessageType.SUCCESS,"success");
     }
 
     @CrossOrigin
