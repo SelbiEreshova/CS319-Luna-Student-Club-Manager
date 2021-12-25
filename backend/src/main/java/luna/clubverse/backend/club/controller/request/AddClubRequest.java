@@ -24,7 +24,6 @@ public class AddClubRequest {
     @NotBlank(message = "The name of the club cannot be blank")
     private String clubName;
 
-    private String logo;
     private String description;
 
     @NotBlank(message = "directorName cannot be empty")
@@ -57,7 +56,7 @@ public class AddClubRequest {
     private String advisorMail;
 
     public Club toClub() {
-        return new Club(clubName,logo,description, toFinanceTable());
+        return new Club(clubName,description, toFinanceTable());
 
     }
 
@@ -67,7 +66,7 @@ public class AddClubRequest {
 
 
     public ClubDirector toClubDirector() {
-        return new ClubDirector(null, clubName, clubPassword, directorName, directorSurname, clubEmail, new HashSet<Authority>());
+        return new ClubDirector(null, clubName, null,clubPassword, directorName, directorSurname, clubEmail, new HashSet<Authority>());
     }
 
     @AssertTrue(message = "Advisor should signup with a Bilkent mail")
@@ -84,6 +83,6 @@ public class AddClubRequest {
     }
 
     public FacultyAdvisor toFacultyAdvisor() {
-        return new FacultyAdvisor(null, advisorUsername, advisorPassword, advisorName, advisorSurname,advisorMail, new HashSet<Authority>());
+        return new FacultyAdvisor(null, advisorUsername, advisorPassword, advisorName, advisorSurname,null,advisorMail, new HashSet<Authority>());
     }
 }

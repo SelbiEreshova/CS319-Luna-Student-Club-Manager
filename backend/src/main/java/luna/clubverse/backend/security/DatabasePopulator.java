@@ -38,10 +38,7 @@ public class DatabasePopulator {
 
 
 
-
-
-
-    /*
+/*
 
     @Bean
     @Transactional
@@ -51,13 +48,14 @@ public class DatabasePopulator {
         //Authority adminAuthority = authorityRepository.save(new Authority(null, "ADMIN",2L, new HashSet<>()));
 
 
-        User admin = new Admin(null, "admin", passwordEncoder.encode("admin"), "admin", "admin", "abc@gmail.com", new HashSet<>());
+
+        User admin = new Admin(null, "admin", passwordEncoder.encode("admin"), "admin", "admin",null, "abc@gmail.com", new HashSet<Authority>());
         admin.addAuthority("ADMIN");
         userRepository.save(admin);
 
 
 
-        User manager1 = new Student(null, "manager1", passwordEncoder.encode("manager1"), "name","lastname", "abc@gmail.com", new HashSet<Authority>(), 11111111);
+        User manager1 = new Student(null, "manager1", passwordEncoder.encode("manager1"), "name","lastname", null,"abc@gmail.com",new HashSet<Authority>(), 11111111);
         manager1.addAuthority("STUDENT");
 
         //manager1.addAuthority("EVENT_MANAGEMENT", 2L);
@@ -82,8 +80,7 @@ public class DatabasePopulator {
 
     }
 
-     */
-
+ */
 
 
 

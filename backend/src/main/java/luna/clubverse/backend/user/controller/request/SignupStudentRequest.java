@@ -48,6 +48,6 @@ public class SignupStudentRequest {
 
 
     public Student toStudent(){
-        return new Student(null,username.trim(),password , name.trim(), lastname.trim(), email.trim(), new HashSet<>(),bilkentId);
+        return new Student(null,username.trim(),password , name.trim(), lastname.trim(),null, email.trim(), new HashSet<>(),bilkentId);
     }
 }

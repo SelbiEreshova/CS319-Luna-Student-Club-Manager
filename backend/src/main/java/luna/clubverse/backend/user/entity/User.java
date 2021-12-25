@@ -31,6 +31,8 @@ public class User implements UserDetails {
     private String name;
     private String lastname;
 
+    private byte[] profilePhoto;
+
     @Enumerated(value = EnumType.STRING)
     private UserType usertype;
 
@@ -93,5 +95,9 @@ public class User implements UserDetails {
         authorities.stream().map(authority -> {return authority.getClubId();});
 
         return true;
+    }
+
+    public void setProfilePhoto(byte[] profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 }

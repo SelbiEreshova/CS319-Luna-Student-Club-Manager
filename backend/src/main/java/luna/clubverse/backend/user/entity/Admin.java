@@ -17,8 +17,8 @@ import java.util.Set;
 @DiscriminatorValue("admin")
 public class Admin extends User{
 
-    public Admin(Long id, String username, String password, String name, String surname, @Email String mail, Set<Authority> authorities) {
-        super(id, username, password, name, surname, UserType.ADMIN, mail, authorities);
+    public Admin(Long id, String username, String password, String name, String surname,byte[] profilePhoto, @Email String mail, Set<Authority> authorities) {
+        super(id, username, password, name, surname,profilePhoto, UserType.ADMIN, mail, authorities);
     }
 
     public Admin() {
