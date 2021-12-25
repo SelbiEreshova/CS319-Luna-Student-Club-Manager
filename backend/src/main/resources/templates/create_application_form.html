@@ -14,14 +14,14 @@
 <div class="">
     <h2 class="d-flex justify-content-center pt-6 my-5">Create Application Form</h2>
     <form style="width: 50%; margin: auto" class="pb-5">
-    <div class="form-group qd1">
-            <label for="1">Question</label>
-            <div class="input-group mb-3" id="1">
-                <input type="text" class="form-control">
-                <a class="ml-3" onclick="deleteInput()">
-                    <i class="far fa-trash-alt"></i>
-                </a>
-
+        <div class="form-group qd1">
+            <div class="row">
+                <div class="col col-lg-8">
+                <input type="text" class="form-control form-control-lg" id="1" placeholder="Write the question">
+                </div>
+                <div class="col">
+                <div class="mx-auto "><button type="button" class="btn btn-danger mx-5 p-2 deleted" id="d1">delete</button></div>
+                </div>
             </div>
         </div>
     </form>
@@ -44,6 +44,7 @@
     }
     function deleteInput()
     {
+        alert("alert")
         $(".deleted").click(function() {
             if (question_number > 1) {
                 id = $(this).attr("id")
@@ -149,21 +150,17 @@
                     ids.push(question_number)
                     var newQuestion = `<div class=\"form-group delete- qd${question_number} \">
                                         <label for=\"${question_number}\">Question</label>
-                                        <input type=\"text\" class="form-control form-control-lg\" id=\"${question_number}\" placeholder=\"Write the question\">
-                                        <div class=\"mx-auto \"><button type=\"button\" class=\"btn btn-danger mx-5 p-2 deleted \" id=\"d${question_number}\">delete</button></div>
+                                           <div class="row">
+                                                <div class="col col-lg-8">
+                                                    <input type=\"text\" class="form-control form-control-lg\" id=\"${question_number}\" placeholder=\"Write the question\">
+                                                </div>
+                                                <div class="col">
+                                                    <div class=\"mx-auto \"><button type=\"button\" class=\"btn btn-danger mx-5 p-2 deleted \" id=\"d${question_number}\">delete</button></div>
+                                                </div>
+                                           </div>
                                         </div>`
                     $("form").append(newQuestion)
 
-                    `<div class="form-group qd1">
-            <label for="1">Question</label>
-            <div class="input-group mb-3" id="1">
-                <input type="text" class="form-control">
-                <a class="ml-3" onclick="deleteInput()">
-                    <i class="far fa-trash-alt"></i>
-                </a>
-
-            </div>
-        </div>`
                 }
 
                 $("#add").click(function () {
@@ -178,16 +175,6 @@
                     })
                 })
 
-                function deleteInput() {
-                    $(".deleted").click(function () {
-                        if (question_number > 1) {
-                            id = $(this).attr("id")
-                            swap(id)
-                            ids.pop();
-
-                        }
-                    })
-                }
 
             });
 
