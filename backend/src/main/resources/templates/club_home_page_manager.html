@@ -149,13 +149,12 @@
                 dataType: 'json',
                 success: function (response) {
                     console.log(response)
-                    window.location.href = window.location.href;
+                    window.location.replace("http://localhost:8080/app/club_home_page_student/"+clubId);
 
                 },
                 error : function(e) {
                     alert("Error!")
                     console.log("ERROR: ", e);
-                    window.location.replace("http://localhost:8080/app/club_home_page_student/"+clubId);
                 }
             });
 
