@@ -510,7 +510,7 @@ $("#open").modal('show');
                 ]).draw();
               };
                for (let i = 0; i < past_e.length; i++) {
-                isAttended = attended.find(element => (element.eventName == response[i].eventName))
+                isAttended = attended.find(element => (element.eventName == past_e[i].eventName))
                 if(!isAttended)
 {
                     alert("frr")
