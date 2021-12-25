@@ -131,8 +131,7 @@
 </div>
 </body>
 <script>
-  //Image
-  //image
+  //Convert image to 64 for logo image
   var imageLogo;
   function encodeImgtoBase64Logo(element) {
 
@@ -149,6 +148,7 @@
     }
     reader.readAsDataURL(img);
   }
+  //Convert image to 64 for logo backgrouond
   var imageBackground;
   function encodeImgtoBase64Background(element) {
 
@@ -167,6 +167,7 @@
   }
 
 
+ //Save logo button clicked
   $("#saveLogo").click( function () {
    var imageLogoJson = {
      file:  imageLogo
@@ -200,6 +201,7 @@
       });
     });
 
+  //Save backgeound image
   $("#save_background").click( function () {
     var imageBackgroundJson = {
       file:  imageBackground
@@ -234,6 +236,7 @@
   });
 
 
+  //Navabr loaded
   $(".nav_bar").load("http://localhost:8080/club_director.html");
   $("#events_nav").addClass("active");
   //Need to fix this
@@ -307,12 +310,13 @@
 
     }
 
-    //On clicks
+    //On clicks for mananager buttons
     $( "#edit_application" ).click(function() {
       window.location.href = 'http://localhost:8080/app/club_form';
 
     });
 
+    //Save new description
     $( "#save_description" ).click(function() {
       var newDescription ={
         newDescription: $("#explanation_edit").val()

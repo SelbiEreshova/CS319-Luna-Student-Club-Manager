@@ -66,16 +66,19 @@
 </div>
 </body>
 <script>
+    //Add nav bar
     $(".nav_bar").load("http://localhost:8080/student.html");
     $("#events_nav").addClass("active");
 
     $(document).ready(function ()
     {
 
+        //On clicks contact us
         $("#Contact_us").click(function () {
             $('#contact_us_dialog').modal('show');
         });
 
+        //Cancel membership
         $("#cancel").click(function () {
             alert('here')
             $.ajax({
@@ -102,6 +105,7 @@
 
         });
 
+        //Get method
         clubId =  [[${clubId}]]
         $.ajax({
             type: "GET",
@@ -170,19 +174,20 @@
                 imageLink = "https://source.unsplash.com/794x794";
 
             }
-                $("#list_members").append("<div class='col'> <div class=\"card border-0\">\n" +
-                    "                                <div class=\"position-relative rounded-circle overflow-hidden mx-auto custom-circle-image\" style=\"height: 200px; width: 200px\">\n" +
-                    "                                    <img class=\"w-100 h-100 rounded-circle\" src="+imageLink+" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
-                    "                                </div>\n" +
-                    "                                <div class=\"card-body text-center mt-4\">\n" +
-                    "                                    <h3 class=\"text-uppercase card-title\">"+ mem[i].userFullName +"</h3>\n" +
-                    "                                    <p class=\"card-text\">"+ mem[i].title +"</p>\n" +
-                    "                                </div>\n" +
-                    "                            </div> </div>")
+            //Append list of members
+            $("#list_members").append("<div class='col'> <div class=\"card border-0\">\n" +
+                "                                <div class=\"position-relative rounded-circle overflow-hidden mx-auto custom-circle-image\" style=\"height: 200px; width: 200px\">\n" +
+                "                                    <img class=\"w-100 h-100 rounded-circle\" src="+imageLink+" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
+                "                                </div>\n" +
+                "                                <div class=\"card-body text-center mt-4\">\n" +
+                "                                    <h3 class=\"text-uppercase card-title\">"+ mem[i].userFullName +"</h3>\n" +
+                "                                    <p class=\"card-text\">"+ mem[i].title +"</p>\n" +
+                "                                </div>\n" +
+                "                            </div> </div>")
 
         }
-                    //On clicks
 
+        //Apply for club
         $( "#apply" ).on("click", function() {
         $.ajax({
             type : "PUT",
@@ -203,20 +208,6 @@
                 } else if (result.messageType == "INFO") {
                     window.location.href = `http://localhost:8080/app/fill_club_form/${clubId}`
                 }
-                //I guess there is no error message as SUCCESS in here, because
-                //enrollment is possible it never gets into the else if*/
-
-                //console.log("member now");
-                //window.location.href = window.location.href;
-
-
-                //if (result.messageType === "SUCCESS") {
-                //    alert("You are now a member");
-                //} else {
-                //    alert("oh nooo smthhh");
-                //}
-                //console.log(result);
-                //alert("Now you are a member! Hurray!")
             },
             error : function(e) {
                 alert("Error!")
@@ -225,6 +216,7 @@
         });
     });
 
+        //Go to events page
     $( "#events" ).click(function() {
         window.location.replace("http://localhost:8080/app/student_club_event_list/"+clubId);
     });
