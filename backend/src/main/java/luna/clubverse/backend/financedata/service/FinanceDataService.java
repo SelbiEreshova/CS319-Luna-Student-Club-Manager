@@ -37,7 +37,7 @@ public class FinanceDataService {
 
         double change = financeData.amountOfMoney();
 
-        if(financeData.status()== FinanceDataStatus.OUTCOME){
+        if(financeData.status()== FinanceDataStatus.EXPENSE){
             change=-change;
         }
         double newTotal = financeTableDB.totalMoney()+change;

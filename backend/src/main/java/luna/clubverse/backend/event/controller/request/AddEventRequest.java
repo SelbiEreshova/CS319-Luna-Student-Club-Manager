@@ -88,7 +88,7 @@ public class AddEventRequest {
     }
 
     public FinanceData toFinanceData() {
-        return new FinanceData(amountOfMoney, FinanceDataStatus.OUTCOME, explanation, LocalDate.now());
+        return new FinanceData(amountOfMoney, FinanceDataStatus.EXPENSE, explanation, LocalDate.now());
     }
 
     public Location toLocation() {
