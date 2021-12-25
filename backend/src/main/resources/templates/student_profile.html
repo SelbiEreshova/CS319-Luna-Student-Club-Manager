@@ -14,23 +14,22 @@
     <div class="nav_bar" ></div>
 
     <div class="row" style="margin-top: 7%; margin-left: 3%; margin-right: 3%">
-        <div class="card w-50" style="background-color: #eee">
+        <div class="card w-50 p-2" style="background-color: #eee">
             <div class="card-body flex-column align-self-center">
 
                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" style="margin-left: 10%">
 
 
                 <div class="mt-3">
-                    <div id="name-surname"></div>
+                    <div id="ns"></div>
                     <button class="btn btn-dark text-light col-8 m-2" id="change-password">Change password</button>
-                    <button class="btn btn-dark text-light  m-2 col-8" id="edit">Edit profile</button>
                 </div>
             </div>
         </div>
 
 
 
-        <div class="card w-50" style="background-color: #eee">
+        <div class="card w-50 p-2" style="background-color: #eee">
             <div class="card-body m-3">
                 <div class="d-flex flex-column align-items-center text-center">
                     <div class="mt-3 container-fluid table-responsive align-items-start text-left ">
@@ -47,7 +46,6 @@
                             <tr>
                                 <th>Username: </th>
                                 <td id="username-show"></td>
-                                <td id="username-change"><input type="" name="" placeholder="new Username" id="new-username"> </td>
                             </tr>
                             <tr>
                                 <th>Bilkent ID:</th>
@@ -125,65 +123,6 @@ $(document).ready(function() {
     </script>
 <script>
 $(document).ready(function() {
-    $("#edit").click(function()
-    {
-        $("#username-change").show();
-        $("#username-show").hide();
-        $(this).css("visibility", "hidden");
-        $("#change-password").css("visibility" , "hidden")
-        $("#show-in-edit").show()
-        $("#submit").click(function() {
-            var newUsername = $("#new-username").val()
-            console.log(newUsername)
-            if(! newUsername || newUsername.length<4 )
-            {
-                alert("Username is not valid\nUsername cannot be null\nUsername should be at least 4 characters long")
-            }
-            else{
-            $("#username-show").text(newUsername);
-            $("#username-change").hide();
-            $("#username-show").show();
-            $("#show-in-edit").hide()
-            $("#edit").css("visibility" , "visible")
-            $("#change-password").css("visibility" , "visible")
-
-            var newa = {
-                username : newUsername
-            }
-            $.ajax(
-            {
-                type : "POST",
-                headers: {
-                    "Access-Control-Allow-Origin":"*",
-                    Authorization : localStorage.getItem('Authorization')
-                },
-                crossDomain: true,
-                contentType : "application/json",
-                url : "http://localhost:8080/profile",
-                data : JSON.stringify(newa),
-                dataType : 'json',
-                success : function(result) {
-                console.log(result);
-                },
-                error : function(e) {
-                console.log("ERROR: ", e);
-                }
-            });
-            }
-})
-$("#cancel").click(function(){
-$("#username-change").hide();
- $("#username-show").show();
-$("#show-in-edit").hide()
-$("#edit").css("visibility" , "visible")
-$("#change-password").css("visibility" , "visible")
-
-})
-});
-});
-</script>
-<script>
-$(document).ready(function() {
     $("#change-password").click(function(){
     $("#edit").css("visibility" , "hidden")
     $("#change-password").css("visibility" , "hidden")
@@ -222,7 +161,7 @@ $(document).ready(function() {
             $("#show").show();
             $("#change-pass").hide();
             $("#show-in-c-p").hide();
-   $("#edit").css("visibility" , "visible")
+            $("#message").hide();
     $("#change-password").css("visibility" , "visible")
         });
     });

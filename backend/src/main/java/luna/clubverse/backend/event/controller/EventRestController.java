@@ -76,7 +76,7 @@ public class EventRestController {
     @PutMapping("/update")
     public MessageResponse updateEvent(@RequestBody @Valid final UpdateEventRequest updateEventRequest) {
 
-        String errorMessage = checkEventRequestDates(updateEventRequest.getQuota(),updateEventRequest.getGePoint(), updateEventRequest.getAmountOfMoney(),updateEventRequest.getStartDate(),updateEventRequest.getEndDate(),updateEventRequest.getStartTime(),updateEventRequest.getEndTime(),updateEventRequest.getRegistrationDeadline(),updateEventRequest.getReviewDeadline());
+        String errorMessage = checkEventRequestDates(updateEventRequest.getQuota(),updateEventRequest.getGePoint(), updateEventRequest.getAmountOfMoney(),updateEventRequest.getStartDate(),updateEventRequest.getEndDate(),updateEventRequest.getStartTime(),updateEventRequest.getEndTime(),updateEventRequest.getRegistrationDeadlineDate(),updateEventRequest.getReviewDeadlineTime(), updateEventRequest.getReviewDeadlineDate(),updateEventRequest.getReviewDeadlineTime() );
 
         if(!errorMessage.equals("")){
             return new MessageResponse(MessageType.ERROR,errorMessage);
@@ -136,7 +136,7 @@ public class EventRestController {
     @PreAuthorize("@authorizationLuna.authorize(authentication, 'EVENT_MANAGEMENT' , #clubId )" )
     public MessageResponse addEvent(@PathVariable Long clubId, @RequestBody @Valid final AddEventRequest addEventRequest) {
 
-        String errorMessage = checkEventRequestDates(addEventRequest.getQuota(),addEventRequest.getGePoint(), addEventRequest.getAmountOfMoney(),addEventRequest.getStartDate(),addEventRequest.getEndDate(),addEventRequest.getStartTime(),addEventRequest.getEndTime(),addEventRequest.getRegistrationDeadline(),addEventRequest.getReviewDeadline());
+        String errorMessage = checkEventRequestDates(addEventRequest.getQuota(),addEventRequest.getGePoint(), addEventRequest.getAmountOfMoney(),addEventRequest.getStartDate(),addEventRequest.getEndDate(),addEventRequest.getStartTime(),addEventRequest.getEndTime(),addEventRequest.getRegistrationDeadlineDate(),addEventRequest.getRegistrationDeadlineTime(), addEventRequest.getReviewDeadlineDate(), addEventRequest.getReviewDeadlineTime());
 
         if(!errorMessage.equals("")){
             return new MessageResponse(MessageType.ERROR,errorMessage);
@@ -195,11 +195,7 @@ public class EventRestController {
         return eventService.addEnrolledFacultyAdvisor(eventId, userId);
     }
 
-    public boolean checkDate(LocalDate smallDate, LocalDate bigDate){
-        return smallDate.compareTo(bigDate) > 0;
-    }
-
-    public String checkEventRequestDates(int quota ,int gePoint,Double finance,LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, LocalDate registeredDeadline, LocalDate reviewDeadline){
+    public String checkEventRequestDates(int quota ,int gePoint,Double finance,LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, LocalDate registeredDeadline, LocalTime  registeredDeadlineTime, LocalDate reviewDeadline, LocalTime reviewDeadlineTime ){
 
         if(quota<0){
             return "Quota cannot be negative";
@@ -215,6 +211,8 @@ public class EventRestController {
 
         LocalDateTime startDateTime = LocalDateTime.of(startDate,startTime);
         LocalDateTime endDateTime = LocalDateTime.of(endDate,endTime);
+        LocalDateTime registeredDateTime = LocalDateTime.of(registeredDeadline,registeredDeadlineTime);
+        LocalDateTime reviewDateTime = LocalDateTime.of(reviewDeadline,registeredDeadlineTime);
 
         // testi engellediği için şimdilik yorum
         /*
@@ -230,14 +228,12 @@ public class EventRestController {
            return "Start Date cannot be before than End Date";
         }
 
-       // eşit olabilirler mi?
-
-        if( checkDate(registeredDeadline, startDate)){
-            return  "Start Date cannot be before than Registration Deadline";
+        if(registeredDateTime.compareTo(startDateTime) > 0){
+            return "Start Date cannot be before than Registration Deadline";
         }
 
-        if( checkDate(endDate, reviewDeadline)){
-            return  "End Date cannot be before than Review Deadline";
+        if(endDateTime.compareTo(reviewDateTime) > 0 ){
+            return "Review Deadline  cannot be before than End Date";
         }
 
         return "";

@@ -27,31 +27,34 @@
 
     <div class="row">
        <div class="col pt-5" >
-           <div id="list_members">
+           <div id="list_members" class="row">
+
            </div>
        </div>
-        <div class="col pt-5 manager_buttons">
-            <button type="button" class="btn btn-primary m-1 for_student">Events</button>
-            <button type="button" class="btn btn-primary m-1 for_student">Contact us</button>
-            <button type="button" class="btn btn-danger m-1 for_manager">Cancel membership</button>
+        <div class="col col-lg-3 pt-5 manager_buttons">
+            <button type="button" class="btn btn-primary m-1 for_student">Contact us</button> <br>
+            <button type="button" class="btn btn-danger m-1 for_manager">Cancel membership</button><br>
         </div>
     </div>
 </div>
 </body>
 <script>
+    //Load navbar for student
     $(".nav_bar").load("http://localhost:8080/student.html");
     $("#events_nav").addClass("active");
 
-    $( "#events" ).click(function() {
-        window.location.replace("http://localhost:8080/app/student_club_event_list/1"); //Need to change this
-    });
+    //Button on click for contact us
     $( "#contactUs" ).click(function() {
         alert( "Handler for .click() called." );
     });
 
+    //When page is ready
     $(document).ready(function () {
-        //get method
+
+        //The club id the student is managing
         clubId = [[${clubId}]]
+
+        //get method
         $.ajax({
             type: "GET",
             headers: {
@@ -63,14 +66,22 @@
             url: "http://localhost:8080/club/getWithPermissions/" + clubId +"/"+localStorage.getItem('userId'),
             dataType: 'json',
             success: function (response) {
-                console.log(response);
                 $("#club_name").text(response.name);
                 $("#club_description").text(response.description);
 
-                console.log(response.boardMembers);
+                //Show board members of the club
+                var newRow = 0;
                 for(let i = 0; i < response.boardMembers.length; i++)
                 {
-                    showMember(response.boardMembers, i)
+                    /*
+                    if(i%4 === 0)
+                    {
+                        $("#list_members").append(" <div class=\"row\" id=\""+newRow+"\">sjdnksjd</div>");
+                        newRow++;
+                    }
+
+                     */
+                    showMember(response.boardMembers, i, newRow);
                 }
 
                 //Add permission buttons
@@ -78,23 +89,23 @@
                 {
                     if(response.permissions[i] === 1)
                     {
-                        $(".manager_buttons").append(`<button type='button' class='btn btn-primary m-1 for_manager' id='manageEventBtn'>Manage events</button>`)
+                        $(".manager_buttons").append("        <a type=\"button\"  href=\"http://localhost:8080/app/manager_event_list/"+clubId+"\" class=\"btn btn-primary m-1 for_manager\">Manage events</a><br>")
                     }
                     else if(response.permissions[i] === 2)
                     {
-                        $(".manager_buttons").append("            <button type=\"button\" class=\"btn btn-primary m-1 for_manager\">Manage finance</button>\n")
+                        $(".manager_buttons").append("       <a type=\"button\" href=\"http://localhost:8080/app/finance_table_manager/"+clubId+"\" class=\"btn btn-primary m-1 for_manager\">Manage finance</a><br>\n")
                     }
                     else if( response.permissions[i] === 3)
                     {
-                        $(".manager_buttons").append("            <button type=\"button\" class=\"btn btn-primary m-1 for_manager\">Manage members</button>\n")
+                        $(".manager_buttons").append("       <a type=\"button\" href=\"http://localhost:8080/app/finance_table\" class=\"btn btn-primary m-1 for_manager\">Manage members</a><br>\n")
                     }
                 }
 
             }
         });
 
-        function showMember(mem, i) {
-            $("#list_members").append("<div class=\"card border-0\">\n" +
+        function showMember(mem, i, rowId) {
+            $("#list_members").append("<div class='col'><div class=\"card border-0\">\n" +
                 "                                <div class=\"position-relative rounded-circle overflow-hidden mx-auto custom-circle-image\" style=\"height: 200px; width: 200px\">\n" +
                 "                                    <img class=\"w-100 h-100 rounded-circle\" src=\"https://source.unsplash.com/794x794\" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
                 "                                </div>\n" +
@@ -102,14 +113,10 @@
                 "                                    <h3 class=\"text-uppercase card-title\">" + mem[i].userFullName + "</h3>\n" +
                 "                                    <p class=\"card-text\">" + mem[i].title + "</p>\n" +
                 "                                </div>\n" +
-                "                            </div>")
+                "                            </div> </div>")
 
         }
 
-        /*$( "#manageEventBtn" ).click(function() {
-            console.log("in go to manage events");
-            window.location.href = "http://localhost:8080/app/manager_event_list";
-        });*/
     })
 </script>
 </html>
