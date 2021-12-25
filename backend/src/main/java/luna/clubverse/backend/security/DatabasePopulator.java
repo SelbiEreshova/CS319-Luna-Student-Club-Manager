@@ -4,8 +4,7 @@ import luna.clubverse.backend.club.repository.ClubRepository;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.event.repository.EventRepository;
 import luna.clubverse.backend.mail.MailManager;
-import luna.clubverse.backend.user.entity.FacultyAdvisor;
-import luna.clubverse.backend.user.entity.Student;
+import luna.clubverse.backend.user.entity.*;
 import luna.clubverse.backend.user.repository.AuthorityRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.HashSet;
 
 @Service
 @Component
@@ -40,7 +40,8 @@ public class DatabasePopulator {
 
 
 
-/*
+
+    /*
 
     @Bean
     @Transactional
@@ -50,7 +51,7 @@ public class DatabasePopulator {
         //Authority adminAuthority = authorityRepository.save(new Authority(null, "ADMIN",2L, new HashSet<>()));
 
 
-        User admin = new Admin(null, "admin", passwordEncoder.encode("admin"), "admin", "admin", "abc@gmail.com", new HashSet<Authority>());
+        User admin = new Admin(null, "admin", passwordEncoder.encode("admin"), "admin", "admin", "abc@gmail.com", new HashSet<>());
         admin.addAuthority("ADMIN");
         userRepository.save(admin);
 
@@ -81,7 +82,9 @@ public class DatabasePopulator {
 
     }
 
- */
+     */
+
+
 
 
 

@@ -40,12 +40,41 @@
     //var clubId = [[${clubId}]];
 
     function openApplicationPopup(userId) {
-        //window.location.href =
+        window.location.href = `http://localhost:8080app/view_application/${localStorage.getItem('clubId')}/${userId}`
     }
 
     $(document).ready(function() {
         console.log("in doc ready");
         var table = $('#applications').DataTable();
+
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/club/candidates/${localStorage.getItem('clubId')}`,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                function showApplications(r, i){
+                    console.log("in show applications");
+                    table.row.add([
+                        r[i].memberBilkentId, //bu ID ama student ID olacak, backend'de tutulan ID farklı, onu düzenleriz
+                        r[i].memberName,
+                        r[i].memberSurname,
+                        r[i].memberEmail,
+                        `<button class="button-info text-dark" style="background-color: #2ed3db" onclick='openApplicationPopup(${r[i].userId})'>See Application</button>`
+                    ]).draw(false);
+                };
+
+                for (let i = 0; i < response.length; i++) {
+                    showApplications(response, i);
+                }
+            }
+        });
 
         console.log("before dummy input");
         var dummyInput = [
@@ -62,26 +91,7 @@
                 memberEmail: "erdem@bilkent.edu.tr",
                 memberApplication: [{question: "q11", answer: "a11"}, {question: "q22", answer: "a22"}]}
         ]
-        function showApplications(r, i){
-            console.log("in show applications");
-            var application = r[i].memberApplication;
-            var name = r[i].memberName;
-            var surname = r[i].memberSurname;
 
-            console.log(application);
-            table.row.add([
-                r[i].memberBilkentId, //bu ID ama student ID olacak, backend'de tutulan ID farklı, onu düzenleriz
-                name,
-                surname,
-                r[i].memberEmail,
-                `<button class="button-info text-dark" style="background-color: #2ed3db" onclick='openApplicationPopup(${r[i].userId})'>See Application</button>`
-            ]).draw(false);
-        };
-
-        for (let i = 0; i < dummyInput.length; i++) {
-            console.log("in for loop for table");
-            showApplications(dummyInput, i);
-        }
 
         console.log("end of doc ready");
     });

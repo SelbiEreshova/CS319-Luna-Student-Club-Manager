@@ -182,5 +182,12 @@ public class ClubRestController {
         return clubService.changeDescription(clubId,request.getNewDescription());
     }
 
+    @CrossOrigin
+    @GetMapping("/candidates/{clubId}")
+    public List<MemberCandidateQueryResponse> getCandidates(@PathVariable Long clubId) {
+        return clubService.getCandidates(clubId);
+    }
+
+
 
 }

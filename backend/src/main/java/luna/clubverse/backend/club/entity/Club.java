@@ -3,6 +3,7 @@ package luna.clubverse.backend.club.entity;
 
 import lombok.Getter;
 import luna.clubverse.backend.common.entity.BaseEntity;
+import luna.clubverse.backend.emptyform.entity.EmptyForm;
 import luna.clubverse.backend.event.entity.Event;
 import luna.clubverse.backend.financetable.entity.FinanceTable;
 import luna.clubverse.backend.user.entity.ClubDirector;
@@ -54,7 +55,8 @@ public class Club extends BaseEntity {
     private FinanceTable financeTable;
 
     // ekli değil
-    //private EmptyForm applicationForm = null
+
+    private byte[] logoImage;
 
     protected Club() {
     }
