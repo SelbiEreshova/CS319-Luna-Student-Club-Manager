@@ -109,6 +109,8 @@
 
 </body>
 <script>
+    $(".nav_bar").load("http://localhost:8080/admin.html");
+    $("#events_nav").addClass("active");
 
        $("#add").click(function(){
 
@@ -181,7 +183,7 @@
                 r[i].surname,
                 r[i].username,
                 r[i].email,
-                `<button class="btn btn-danger  delete">Delete</button>`
+                `<button class="btn btn-danger delete">Delete</button>`
                 ]).draw();
           };
           for (let i = 0; i < response.length; i++) {

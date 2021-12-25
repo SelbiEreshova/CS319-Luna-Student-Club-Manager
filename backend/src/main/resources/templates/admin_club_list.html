@@ -145,8 +145,9 @@
                 if (response.messageType == "ERROR") {
                     alert(response.message)
                 }
-                alert(response.message)
-                // refresh eklenecek
+                else {
+                    window.location.href = window.location.href;
+                }
             }
         });
 

@@ -29,12 +29,12 @@
         <tr>
             <th>Club Name</th>
             <th class="filtered">Event Name</th>
-            <th>Date</th>
-            <th class="filtered">Time</th>
+            <th>Start Date</th>
+            <th class="filtered">Start Time</th>
             <th>Ge Points</th>
             <th>Location</th>
             <th>Quota</th>
-            <th>Details</th>
+            <th></th>
 
         </tr>
         </thead>
@@ -44,17 +44,13 @@
             <!--/*@thymesVar id="event" type=""*/-->
             <td th:text="${event.clubName}">Club</td>
             <td th:text="${event.eventName}">Event Name</td>
-            <td th:text="${event.startDate}">Date</td>
-            <td th:text="${event.startDate}">Time</td>
+            <td th:text="${event.startDate}">Start Date</td>
+            <td th:text="${event.startDate}">Start Time</td>
             <td th:text="${event.gePoint}">Ge Points</td>
-            <td th:text="${event.location}">loc</td>
+            <td th:text="${event.location}">location</td>
             <td th:text="${event.quota}"></td>
             <td><button type="button" class="btn btn-info text-light details" th:id="${event.eventId}">See Details</button></td>
         </tr>
-
-
-
-
         </tbody>
 
     </table>
@@ -64,24 +60,25 @@
 </body>
 
 <script>
+    $(".nav_bar").load("http://localhost:8080/admin.html");
+    $("#events_nav").addClass("active");
+
     $(document).ready( function () {
- $(".nav_bar").load("http://localhost:8080/admin.html");
-       $("#events_nav").addClass("active");
-        // Attach Button click event listener
-            function goToEvent(id) {
-        window.location.href= `http://localhost:8080/app/admin_event_homepage/${id}`;
-      }
-      $('.details').click(function(){
-          var id = $(this).attr('id');
-          goToEvent(id)
-      });
-    $('.club-list').DataTable(
-                    { language: {
-                            searchPlaceholder: "Search",
-                            search: "",
-                        },
-                         });
-    });
+        function goToEvent(id) {
+            window.location.href= `http://localhost:8080/app/admin_event_homepage/${id}`;
+        }
+        $('.details').click(function(){
+              var id = $(this).attr('id');
+              goToEvent(id)
+        });
+
+        $('.club-list').DataTable(
+                        { language: {
+                                searchPlaceholder: "Search",
+                                search: "",
+                            },
+                             });
+        });
 </script>
 
 
