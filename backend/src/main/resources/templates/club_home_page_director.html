@@ -160,7 +160,7 @@
       success: function (response) {
         console.log(response);
         $("#club_name").text(response.name);
-        $("#club_discription").text(response.description);
+        $("#club_description").text(response.description);
 
 
         for(let i = 0; i < response.boardMembers.length; i++)
@@ -215,11 +215,14 @@
         }
       });
     });
+
+
     $( "#save_description" ).click(function() {
-      console.log($("#explanation_edit").val())
       var newDescription ={
         newDescription: $("#explanation_edit").val()
       };
+
+
       $.ajax({
         type : "PUT",
         headers: {
@@ -229,8 +232,8 @@
         crossDomain: true,
         contentType : "application/json",
         url : "http://localhost:8080/club/changeDescription/"+clubId,
-        dataType: JSON,
         data: JSON.stringify(newDescription),
+        dataType: 'JSON',
         success : function(result) {
           if (result.messageType == "ERROR") {
             alert(result.message)
