@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import luna.clubverse.backend.filledform.entity.FilledForm;
+import luna.clubverse.backend.filledform.enums.FormStatus;
 
 import java.util.List;
 @RequiredArgsConstructor // her türlü constract oluşturur yazmaya gerek yok
@@ -16,7 +17,10 @@ public class CreateFilledFormRequest {
 
     public FilledForm toFilledForm( )
     {
-        return new FilledForm(answers);
+        FilledForm filledForm = new FilledForm(answers);
+        filledForm.setStatus(FormStatus.PANDING);
+
+        return filledForm;
     }
 }
 
