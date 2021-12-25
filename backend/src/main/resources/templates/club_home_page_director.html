@@ -255,8 +255,24 @@
         console.log(response);
         $("#club_name").text(response.name);
         $("#club_description").text(response.description);
-        $("#logo").attr("src", "data:image/png;base64," +response.logoImage);
-        $('#background').css('background', 'url(data:image/png;base64,' + response.backgroundImage + ')');
+        if(response.logoImage !== "")
+        {
+          $("#logo").attr("src", "data:image/png;base64," +response.logoImage); //Actual image
+
+        }
+        else
+        {
+          $("#logo").attr("src", "https://source.unsplash.com/910x592"); //Default image
+        }
+
+        if(response.backgroundImage !== "")
+        {
+          $('#background').css('background', 'url(data:image/png;base64,' + response.backgroundImage + ')');
+        }
+        else
+        {
+          $('#background').css('background', 'url(https://bootstrapious.com/i/snippets/sn-static-header/background.jpg)'); //Default image
+        }
         $("#explanation_edit").text(response.description);
 
 
@@ -269,9 +285,19 @@
     });
 
     function showMember(mem, i) {
+      var imageLink;
+      if(mem[i].profileImage !== "")
+      {
+        imageLink = "data:image/png;base64,"+mem[i].profileImage;
+      }
+      else
+      {
+        imageLink = "https://source.unsplash.com/794x794";
+
+      }
       $("#list_members").append("<div class='col'> <div class=\"card border-0\">\n" +
               "                                <div class=\"position-relative rounded-circle overflow-hidden mx-auto custom-circle-image\" style=\"height: 200px; width: 200px\">\n" +
-              "                                    <img class=\"w-100 h-100 rounded-circle\" src=\"data:image/png;base64,"+mem[i].profileImage+"\" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
+              "                                    <img class=\"w-100 h-100 rounded-circle\" src="+imageLink+" style=\"height: 100px; width: 100px\" alt=\"Card image cap\">\n" +
               "                                </div>\n" +
               "                                <div class=\"card-body text-center mt-4\">\n" +
               "                                    <h3 class=\"text-uppercase card-title\">" + mem[i].userFullName + "</h3>\n" +
