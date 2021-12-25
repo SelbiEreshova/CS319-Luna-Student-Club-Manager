@@ -35,9 +35,32 @@
     </div>
     <div class="col pt-5 col-lg-3 manager_buttons">
       <button type="button" class="btn btn-primary m-1 for_student" id="events">Events</button><br>
-      <button type="button" class="btn btn-primary m-1 for_student">Contact us</button><br>
+      <button type="button" class="btn btn-primary m-1 for_student" id="Contact_us">Contact us</button><br>
     </div>
   </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="contact_us_dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-light">
+        <h5 class="modal-title">Contact us</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <h3 class="label" >Club Director </h3>
+            <p id="club_director_email" class="pb-2"></p>
+            <h3 class="label">Faculty Advisor </h3>
+            <p id="faculty_advisor_email" class="pb-2"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 </body>
 <script>
@@ -48,8 +71,13 @@
     $("#events").click(function () {
       window.location.replace("http://localhost:8080/app/admin_club_event_list/"+clubId);
     });
+    $("#Contact_us").click(function () {
+      $('#contact_us_dialog').modal('show');
+    });
 
     clubId = [[${clubId}]]
+    var club_director_email;
+    var faculty_advisor_email;
     $.ajax({
       type: "GET",
       headers: {
@@ -64,6 +92,8 @@
         console.log(response);
         $("#club_name").text(response.name);
         $("#club_description").text(response.description);
+        $("#club_director_email").text(response.clubDirectorMail);
+        $("#faculty_advisor_email").text(response.faultyAdvisorMail);
 
 
         for (let i = 0; i < response.boardMembers.length; i++) {
