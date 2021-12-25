@@ -27,8 +27,8 @@
     <tr>
       <th>Event</th>
       <th>Club</th>
-      <th>Start Date</th>
-      <th>Start Time</th>
+      <th>Start </th>
+      <th>End</th>
       <th>GE Point</th>
       <th></th>
     </tr>
@@ -83,16 +83,21 @@
           console.log(response);
           //$("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
-              var startDate = new Date(r[i].startDate);
-              var dummyDate = "1111-11-11";
-              var startTime = new Date(dummyDate + " " + r[i].startTime);
+            var startDate = new Date(r[i].startDate);
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + r[i].startTime);
 
-              table.row.add([
-                r[i].eventName,
-                r[i].clubName,
-                startDate.toLocaleDateString(),
-                (startTime.toLocaleTimeString()).substr(0,5),
-                r[i].gePoint,
+            var endDate = new Date(r[i].endDate);
+            var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+            table.row.add([
+              r[i].eventName,
+              r[i].clubName,
+              startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+              endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+              r[i].gePoint,
+              r[i].location,
+              r[i].remainingQuota +"/" + r[i].quota,
                 `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
                 ]).draw(false);
           };
@@ -120,12 +125,17 @@
             var dummyDate = "1111-11-11";
             var startTime = new Date(dummyDate + " " + r[i].startTime);
 
+            var endDate = new Date(r[i].endDate);
+            var endTime = new Date(dummyDate + " " + r[i].endTime);
+
             table.row.add([
               r[i].eventName,
               r[i].clubName,
-              startDate.toLocaleDateString(),
-              (startTime.toLocaleTimeString()).substr(0,5),
+              startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+              endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
               r[i].gePoint,
+              r[i].location,
+              r[i].remainingQuota +"/" + r[i].quota,
               `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
             ]).draw(false);
           };
@@ -156,12 +166,17 @@
             var dummyDate = "1111-11-11";
             var startTime = new Date(dummyDate + " " + r[i].startTime);
 
+            var endDate = new Date(r[i].endDate);
+            var endTime = new Date(dummyDate + " " + r[i].endTime);
+
             table.row.add([
               r[i].eventName,
               r[i].clubName,
-              startDate.toLocaleDateString(),
-              (startTime.toLocaleTimeString()).substr(0,5),
+              startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+              endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
               r[i].gePoint,
+              r[i].location,
+              r[i].remainingQuota +"/" + r[i].quota,
               `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
             ]).draw(false);
           };

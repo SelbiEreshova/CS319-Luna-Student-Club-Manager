@@ -22,12 +22,15 @@ public class EventListQueryResponse {
     private LocalTime startTime;
     private LocalDate endDate;
     private LocalTime endTime;
-    private LocalDateTime start;
-    private LocalDateTime finish;
+    private String start;
+    private String end;
+    private String endDateString;
+    private String endTimeString;
+    private String startTimeString;
+    private String startDateString;
     private int quota;
     private int remainingQuota;
     private String location;
-
 
     public EventListQueryResponse(Event event) {
         this.eventId = event.id();
@@ -40,6 +43,12 @@ public class EventListQueryResponse {
         this.endTime = event.getEndDateTime().toLocalTime();
         //this.start = LocalDateTime.of(startDate,startTime);
         //this.finish = LocalDateTime.of(endDate,endTime);
+        this.start = event.getStartDateTime().toLocalDate().toString() +" \n "+ event.getStartDateTime().toLocalTime().toString();
+        this.startDateString = event.getStartDateTime().toLocalDate().toString();
+        this.startTimeString = event.getStartDateTime().toLocalTime().toString();
+        this.end = event.getEndDateTime().toLocalDate().toString() +" \n "+ event.getEndDateTime().toLocalTime().toString();
+        this.endDateString = event.getEndDateTime().toLocalDate().toString();
+        this.endTimeString = event.getEndDateTime().toLocalTime().toString();
         this.quota = event.getQuota();
         this.remainingQuota = event.getRemainingQuota();
         this.location = event.getLocation().description();

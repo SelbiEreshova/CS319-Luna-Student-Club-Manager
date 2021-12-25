@@ -28,7 +28,8 @@
         <tr>
 
             <th>Event Name</th>
-            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
             <th>Ge Points</th>
             <th>Location</th>
             <th>Quota</th>
@@ -39,7 +40,8 @@
         <tbody>
         <tr th:each="event:${events}">
             <td th:text="${event.eventName}"></td>
-            <td th:text="${event.startDate}"></td>
+            <td th:text="${event.start }"></td>
+            <td th:text="${event.end}"></td>
             <td th:text="${event.gePoint}"></td>
             <td th:text="${event.location}"></td>
             <td th:text="${event.quota}">Time</td> <!--burada neden time var-->
