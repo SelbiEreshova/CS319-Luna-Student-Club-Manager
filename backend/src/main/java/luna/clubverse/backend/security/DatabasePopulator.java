@@ -37,9 +37,6 @@ public class DatabasePopulator {
     }
 
 
-
-/*
-
     @Bean
     @Transactional
     public void populateDatabase() {
@@ -80,7 +77,7 @@ public class DatabasePopulator {
 
     }
 
- */
+
 
 
 

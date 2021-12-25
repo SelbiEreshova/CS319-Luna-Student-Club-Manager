@@ -5,6 +5,7 @@ import lombok.Setter;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.common.entity.BaseEntity;
 import luna.clubverse.backend.emptyform.entity.EmptyForm;
+import luna.clubverse.backend.filledform.enums.FormStatus;
 
 import javax.persistence.*;
 import java.util.List;
@@ -28,6 +29,8 @@ public class FilledForm extends BaseEntity {
     @ElementCollection
     private List<String> questionsOfFilled;
 
+    @JoinColumn(name = "status")
+    private FormStatus status;
 
     protected FilledForm()
     {

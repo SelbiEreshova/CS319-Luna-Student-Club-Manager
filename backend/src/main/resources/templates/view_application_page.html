@@ -13,10 +13,7 @@
 <div class="card w-75">
     <h2 class="d-flex justify-content-center pt-6" id="name-surname">name surname</h2>
     <form style="width: 50%; margin: auto" class="pb-5" id="application">
-        <div class="form-group">
-            <label for="a1" id="q1">Question 1 text</label>
-            <p type="text" class="form-control form-control-lg" id="a1">Question 1 answer</p>
-        </div>
+
     </form>
     <div class="d-flex justify-content-around">
         <button type="button" class="btn btn-secondary" onclick="history.back()" id="cancel">Cancel</button>
@@ -50,8 +47,8 @@
                 for (let i = 0; (i+1) < response.application.length; i += 2) { //soru-cevap arrayi lazım
                     console.log("in appending entries");
                     var newQandA = `<div class=\"form-group\">
-                            <label for=\"a${i}\" id=\"q${i}\">${response[i]}</label>
-                            <p type=\"text\" class=\"form-control form-control-lg\" id=\"a${i}\">${response[i+1]}</p>
+                            <label for=\"a${i}\" id=\"q${i}\">${response.application[i]}</label>
+                            <p type=\"text\" class=\"form-control form-applicationcontrol-lg\" id=\"a${i}\">${response.application[i+1]}</p>
                         </div>`
                     $("#application").append(newQandA);
                 }
