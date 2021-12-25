@@ -50,11 +50,16 @@ public class UpdateEventRequest {
     private LocalTime endTime;
 
     @NotNull(message = "The registrationDeadline of the event cannot be blank")
-    private LocalDate registrationDeadline;
+    private LocalDate registrationDeadlineDate;
 
-    @NotNull(message = "The reviewDeadline of the event cannot be blank")
-    private LocalDate reviewDeadline;
+    @NotNull(message = "The registrationDeadlineTime of the event cannot be blank")
+    private LocalTime registrationDeadlineTime;
 
+    @NotNull(message = "The review Deadline Date of the event cannot be blank")
+    private LocalDate reviewDeadlineDate;
+
+    @NotNull(message = "The reviewDeadlineTime of the event cannot be blank")
+    private LocalTime reviewDeadlineTime;
 
     @NotNull(message = "The quota of the event cannot be blank")
     private int quota;
@@ -82,8 +87,8 @@ public class UpdateEventRequest {
                 .gePoint(gePoint)
                 .startDateTime(LocalDateTime.of(startDate,startTime))
                 .endDateTime(LocalDateTime.of(endDate,endTime))
-                .registrationDeadline(LocalDateTime.of(registrationDeadline,LocalTime.of(0,0)))
-                .reviewDeadline(LocalDateTime.of(reviewDeadline,LocalTime.of(0,0)))
+                .registrationDeadline(LocalDateTime.of(registrationDeadlineDate,registrationDeadlineTime))
+                .reviewDeadline(LocalDateTime.of(reviewDeadlineDate,reviewDeadlineTime))
                 .quota(quota)
                 .memberOnly(memberOnly)
                 .financeData(toFinanceData())
