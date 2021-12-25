@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="nav_bar" ></div>
-<div style="height:400px; background: url(https://bootstrapious.com/i/snippets/sn-static-header/background.jpg)" class=" bg-cover text-white">
+<div id="background" style="height:400px; " class=" bg-cover text-white">
 </div>
 
 <div class="container py-5">
@@ -20,7 +20,7 @@
       <p class="font-italic text-muted" id="club_description"></p>
     </div>
     <div class="col">
-      <img  src="https://source.unsplash.com/910x592" class="rounded-circle float-right border border-success" alt="Cinque Terre" width="300" height="300" style="margin-top:-30%; float: right; margin-right: 10%">
+      <img  id="logo" src="" class="rounded-circle float-right border border-success" alt="Cinque Terre" width="300" height="300" style="margin-top:-30%; float: right; margin-right: 10%">
     </div>
   </div>
 
@@ -91,6 +91,8 @@
         $("#club_discription").text(response.description);
         $("#club_director_email").text(response.clubDirectorMail);
         $("#faculty_advisor_email").text(response.faultyAdvisorMail);
+        $("#logo").attr("src", "data:image/png;base64," +response.logoImage);
+        $('#background').css('background', 'url(data:image/png;base64,' + response.backgroundImage + ')');
 
 
         for (let i = 0; i < response.boardMembers.length; i++) {
