@@ -18,7 +18,7 @@ public class CreateFilledFormRequest {
     public FilledForm toFilledForm( )
     {
         FilledForm filledForm = new FilledForm(answers);
-        filledForm.setStatus(FormStatus.PANDING);
+        filledForm.setStatus(FormStatus.PENDING);
 
         return filledForm;
     }
