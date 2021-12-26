@@ -98,7 +98,7 @@
                         if (response.messageType == "ERROR") {
                             alert(response.message)
                         } else if (response.messageType == "SUCCESS") {
-                            window.location.href = window.history.back()
+                            window.location.href = history.back()
                         }
                     },
                     error: function (e) {
