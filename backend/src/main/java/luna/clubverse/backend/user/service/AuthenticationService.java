@@ -3,6 +3,7 @@ package luna.clubverse.backend.user.service;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.common.MessageType;
+import luna.clubverse.backend.mail.MailManager;
 import luna.clubverse.backend.security.JwtUtil;
 import luna.clubverse.backend.user.controller.request.ChangePasswordRequest;
 import luna.clubverse.backend.user.controller.request.LoginRequest;
@@ -10,6 +11,7 @@ import luna.clubverse.backend.user.controller.request.UpdatePermissionRequest;
 import luna.clubverse.backend.user.controller.response.LoginResponse;
 import luna.clubverse.backend.user.entity.*;
 import luna.clubverse.backend.user.repository.AuthorityRepository;
+import luna.clubverse.backend.user.repository.StudentRepository;
 import luna.clubverse.backend.user.repository.TitleRepository;
 import luna.clubverse.backend.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,17 +42,22 @@ public class AuthenticationService {
 
 
     private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
     private final AuthenticationManager authenticationManager;
     private final AuthorityRepository authorityRepository;
     private final TitleRepository titleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MailManager mailManager;
 
-    public AuthenticationService(UserRepository userRepository, AuthenticationManager authenticationManager, AuthorityRepository authorityRepository, TitleRepository titleRepository, PasswordEncoder passwordEncoder) {
+
+    public AuthenticationService(UserRepository userRepository, StudentRepository studentRepository, AuthenticationManager authenticationManager, AuthorityRepository authorityRepository, TitleRepository titleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.studentRepository = studentRepository;
         this.authenticationManager = authenticationManager;
         this.authorityRepository = authorityRepository;
         this.titleRepository = titleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mailManager = MailManager.getMailManager();
     }
 
     public LoginResponse login(LoginRequest loginRequest) {
@@ -83,6 +90,10 @@ public class AuthenticationService {
         MessageResponse response= isUsernameAndMailUnique(student);
         if(response.getMessageType().equals(MessageType.ERROR)) {
             return response;
+        }
+
+        if (studentRepository.existsByBilkentId(student.getBilkentId())) {
+            return new MessageResponse(MessageType.ERROR, "A user with Bilkent ID " + student.getBilkentId() +" is registered already.");
         }
 
         Authority authorityFromDB = authorityRepository.findByAuthority("STUDENT")
@@ -120,15 +131,29 @@ public class AuthenticationService {
         }
 
         clubDirector.setClub(club);
-        clubDirector.addAuthority("PERMISSION_MANAGEMENT", club.id());
+        clubDirector.addAuthority("DIRECTOR", club.id());
         clubDirector.addAuthority("EVENT_MANAGEMENT", club.id());
         clubDirector.addAuthority("FINANCE_MANAGEMENT", club.id());
         clubDirector.addAuthority("REVIEW_MEMBER_APPLICATION", club.id());
         clubDirector.addAuthority("REMOVE_MEMBER", club.id());
 
+        /*
+
+
+        mailManager.sendSimpleMessage(clubDirector.getMail(), "New Account", "Hello, \n \n Your account for Clubverse has been created  \n \n " +
+                "Username: " + clubDirector.getUsername() + " \n" +
+                "Password:" + clubDirector.getPassword() +  " \n" +
+                "\n \n" +
+                "Please change your password"
+        );
+
+         */
+
+
         clubDirector.setPassword(passwordEncoder.encode(clubDirector.getPassword()));
 
         userRepository.save(clubDirector);
+
 
         return new MessageResponse(MessageType.SUCCESS, "Accounts are created successfully");
     }
@@ -141,9 +166,25 @@ public class AuthenticationService {
 
         facultyAdvisor.setClub(club);
         facultyAdvisor.addAuthority("ADVISOR", club.id());
+
+
+        /*
+        mailManager.sendSimpleMessage(facultyAdvisor.getMail(), "New Account", "Hello, \n \n Your account for Clubverse has been created \n \n " +
+                "Username: " + facultyAdvisor.getUsername()  + "\n" +
+                "Password:" + facultyAdvisor.getPassword() + "\n" +
+                "\n \n" +
+                "Please change your password"
+        );
+
+         */
+
+
+
         facultyAdvisor.setPassword(passwordEncoder.encode(facultyAdvisor.getPassword()));
 
         userRepository.save(facultyAdvisor);
+
+
         return new MessageResponse(MessageType.SUCCESS, "Account is created successfully");
     }
 

@@ -26,29 +26,47 @@ public class UpdateEventRequest {
     @NotNull
     private Long eventID;
 
-    @NotBlank
+    @NotNull(message = "The name of the event cannot be blank")
     private String name;
 
     private String description;
 
-    private EventStatus eventStatus;
 
+    @NotNull(message = "The gePoint of the event cannot be blank")
     private int gePoint;
 
+    @NotNull(message = "The startDate of the event cannot be blank")
     private LocalDate startDate;
+
+    @NotNull(message = "The startTime of the event cannot be blank")
     private LocalTime startTime;
+
+    @NotNull(message = "The endDate of the event cannot be blank")
     private LocalDate endDate;
+
+    @NotNull(message = "The endTime of the event cannot be blank")
     private LocalTime endTime;
 
-    private LocalDate registrationDeadline;
+    @NotNull(message = "The registrationDeadline of the event cannot be blank")
+    private LocalDate registrationDeadlineDate;
 
-    private LocalDate reviewDeadline;
+    @NotNull(message = "The registrationDeadlineTime of the event cannot be blank")
+    private LocalTime registrationDeadlineTime;
 
+    @NotNull(message = "The review Deadline Date of the event cannot be blank")
+    private LocalDate reviewDeadlineDate;
+
+    @NotNull(message = "The reviewDeadlineTime of the event cannot be blank")
+    private LocalTime reviewDeadlineTime;
+
+    @NotNull(message = "The quota of the event cannot be blank")
     private int quota;
 
+    @NotNull(message = "The memberOnly of the event cannot be blank")
     private boolean memberOnly;
 
     //finance data
+    @NotNull(message = "The amountOfMoney of the event cannot be blank")
     private double amountOfMoney;
     private String explanation;
 
@@ -63,12 +81,11 @@ public class UpdateEventRequest {
         return new EventBuilder()
                 .name(name)
                 .description(description)
-                .eventStatus(eventStatus)
                 .gePoint(gePoint)
                 .startDateTime(LocalDateTime.of(startDate,startTime))
                 .endDateTime(LocalDateTime.of(endDate,endTime))
-                .registrationDeadline(LocalDateTime.of(registrationDeadline,LocalTime.of(0,0)))
-                .reviewDeadline(LocalDateTime.of(reviewDeadline,LocalTime.of(0,0)))
+                .registrationDeadline(LocalDateTime.of(registrationDeadlineDate,registrationDeadlineTime))
+                .reviewDeadline(LocalDateTime.of(reviewDeadlineDate,reviewDeadlineTime))
                 .quota(quota)
                 .memberOnly(memberOnly)
                 .financeData(toFinanceData())
@@ -81,7 +98,7 @@ public class UpdateEventRequest {
     }
 
     public FinanceData toFinanceData() {
-        return new FinanceData(amountOfMoney, FinanceDataStatus.OUTCOME, explanation, LocalDate.now()) ;
+        return new FinanceData(amountOfMoney, FinanceDataStatus.EXPENSE, explanation, LocalDate.now()) ;
     }
 
     public Location toLocation() {

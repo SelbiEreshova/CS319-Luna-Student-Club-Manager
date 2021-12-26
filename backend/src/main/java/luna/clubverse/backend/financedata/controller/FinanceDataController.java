@@ -1,6 +1,8 @@
 package luna.clubverse.backend.financedata.controller;
 
 
+import luna.clubverse.backend.common.MessageResponse;
+import luna.clubverse.backend.common.MessageType;
 import luna.clubverse.backend.financedata.controller.request.AddFinanceDataRequest;
 import luna.clubverse.backend.financedata.service.FinanceDataService;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,7 @@ public class FinanceDataController {
 
     @CrossOrigin
     @PutMapping("/{clubId}/addToFinanceTable")
-    public String addFinanceDataToFinanceTable(@PathVariable Long clubId, @RequestBody @Valid final AddFinanceDataRequest addFinanceDataRequest) {
-        financeDataService.addDataToFinanceTable(clubId,addFinanceDataRequest.toFinanceData());
-        return "success ";
+    public MessageResponse addFinanceDataToFinanceTable(@PathVariable Long clubId, @RequestBody @Valid final AddFinanceDataRequest addFinanceDataRequest) {
+        return financeDataService.addDataToFinanceTable(clubId,addFinanceDataRequest.toFinanceData());
     }
 }

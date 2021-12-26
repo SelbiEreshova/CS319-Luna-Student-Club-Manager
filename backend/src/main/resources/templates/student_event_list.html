@@ -21,7 +21,7 @@
 
 <div class="nav_bar" ></div>
 
-<h2 class="d-flex justify-content-center mt-4 pt-6">Event List</h2>
+<h2 class="d-flex justify-content-center mt-4 pt-6">All Events</h2>
 
 <div class="container table-responsive mx-auto my-2 p-3 ">
     <table class="table display table-striped club-list">
@@ -33,7 +33,7 @@
             <th class="filtered">Time</th>
             <th>Ge Points</th>
             <th>Location</th>
-            <th>Quota</th>
+            <th>Remaining Quota</th>
             <th>Details</th>
 
         </tr>
@@ -43,22 +43,14 @@
             <td th:text="${event.clubName}"></td>
             <td th:text="${event.eventName}"></td>
             <td th:text="${event.startDate}"></td>
-            <td >Time</td>
+            <td th:text="${event.startTime}"></td>
             <td th:text="${event.gePoint}"></td>
-            <td>loc</td>
-            <td th:text="${event.quota}"></td>
+            <td th:text="${event.location}"></td>
+            <td th:text="${event.remainingQuota}"></td>
             <td><button type="button" class="btn btn-info text-light details" th:id="${event.eventId}">See Details</button></td>
         </tr>
-
-
-<button class="details" id="x"></button>
-<button class="details" id="y"></button>
-<button class="details" id="z"></button>
-
         </tbody>
-
     </table>
-
 </div>
 
 </body>
@@ -81,15 +73,8 @@
                             searchPlaceholder: "Search",
                             search: "",
                         },
-                         });
+                    });
     });
-
-
-
-
-</script>
-
-<script>
 </script>
 
 </html>

@@ -20,7 +20,7 @@
 <!-- This page can add a new club-->
 
 <div class="nav_bar" ></div>
-<h2 class="d-flex justify-content-center mt-4 pt-6">Event List of </h2>
+<h2 class="d-flex justify-content-center mt-4 pt-6 ">Event List</h2>
 <h2 class="d-flex justify-content-center mt-4 pt-6" id="name"></h2>
 <div class="container table-responsive mx-auto my-2 p-3 ">
     <table class="table display table-striped club-list" id="club-list">
@@ -28,8 +28,8 @@
         <tr>
 
             <th>Event Name</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th>Start Time</th>
+            <th>End Time</th>
             <th>Ge Points</th>
             <th>Location</th>
             <th>Quota</th>
@@ -39,13 +39,12 @@
         </thead>
         <tbody>
         <tr th:each="event:${events}">
-            <td th:text="${event.clubName}"></td>
             <td th:text="${event.eventName}"></td>
-            <td th:text="${event.startDate}"></td>
-            <td th:text="${event.time}">Time</td>
+            <td th:text="${event.start }"></td>
+            <td th:text="${event.end}"></td>
             <td th:text="${event.gePoint}"></td>
-
             <td th:text="${event.location}"></td>
+            <td th:text="${event.quota}">Time</td> <!--burada neden time var-->
             <td><button type="button" class="btn btn-info text-light">See Details</button></td>
         </tr>
         </tbody>
@@ -55,6 +54,7 @@
 </div>
 
 </body>
+
 
 
 <script>
@@ -68,10 +68,10 @@
       },
       crossDomain: true,
       contentType: "application/json",
-      url: `http://localhost:8080/${club_id}/event_list`,
+      url: `http://localhost:8080/${localStorage.getItem('clubId')}/event_list`,
       dataType: 'json',
       success: function(response) {
-        $("#name").text(response.message);
+        $("#name").text(response.message); //buraya club adı çıkması lazım
         console.log(response);
       }
     });
@@ -79,10 +79,12 @@
 </script>
 
 
+
 <script>
       $(document).ready( function () {
-$(".nav_bar").load("http://localhost:8080/student.html");
+    $(".nav_bar").load("http://localhost:8080/student.html");
     $("#events_nav").addClass("active");
+
     $('.club-list').DataTable(
                     { language: {
                             searchPlaceholder: "Search",

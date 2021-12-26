@@ -17,14 +17,14 @@ public class EventEvaluation extends BaseEntity {
 
     long eventId;
 
-    long studentId;
+    long userId;
 
 
-    public EventEvaluation( int point, long eventId, long studentId )
+    public EventEvaluation( int point , long eventId, long userId )
     {
         this.point = point;
         this.eventId = eventId;
-        this.studentId = studentId;
+        this.userId = userId;
     }
 
     public EventEvaluation() {

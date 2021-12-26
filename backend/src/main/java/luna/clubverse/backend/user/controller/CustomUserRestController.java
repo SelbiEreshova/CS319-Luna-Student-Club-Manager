@@ -1,16 +1,18 @@
 package luna.clubverse.backend.user.controller;
 
-import luna.clubverse.backend.club.controller.response.ClubQueryResponse;
+import luna.clubverse.backend.club.controller.request.UploadPhotoRequest;
+import luna.clubverse.backend.club.controller.response.ClubManagerCheckQueryResponse;
+import luna.clubverse.backend.common.MessageResponse;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
+import luna.clubverse.backend.user.controller.response.ApplicationListQueryResponse;
 import luna.clubverse.backend.user.controller.response.ClubDirectorQueryResponse;
 import luna.clubverse.backend.user.controller.response.FacultyAdvisorQueryResponse;
 import luna.clubverse.backend.user.controller.response.StudentQueryResponse;
+import luna.clubverse.backend.user.entity.User;
 import luna.clubverse.backend.user.service.CustomUserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,9 +40,26 @@ public class CustomUserRestController {
         return customUserService.getOnGoingEventsOfStudent(userId);
     }
 
+
+
+    @GetMapping("/getFutureEventsOfFA/{userId}")
+    public List<EventListQueryResponse> getFutureEventsOfFA(@PathVariable Long userId) {
+        return customUserService.getFutureEventsOfFA(userId);
+    }
+
+    @GetMapping("/getPastEventsOfFA/{userId}")
+    public List<EventListQueryResponse> getPastEventsOfFA(@PathVariable Long userId) {
+        return customUserService.getPastEventsOfFA(userId);
+    }
+
+    @GetMapping("/getOnGoingEventsOfFA/{userId}")
+    public List<EventListQueryResponse> getOnGoingEventsOfFA(@PathVariable Long userId) {
+        return customUserService.getOnGoingEventsOfFA(userId);
+    }
+
     @CrossOrigin
     @GetMapping("/getClubsOfStudent/{studentId}")
-    public List<ClubQueryResponse> getClubsOfUser(@PathVariable Long studentId ) {
+    public List<ClubManagerCheckQueryResponse> getClubsOfUser(@PathVariable Long studentId ) {
         return customUserService.getClubsOfStudent(studentId);
     }
 
@@ -71,4 +90,22 @@ public class CustomUserRestController {
     public List<StudentQueryResponse> getStudents() {
         return customUserService.getAllStudents();
     }
+
+    @CrossOrigin
+    @PutMapping("/uploadPhotoForUser/{userId}")
+    public MessageResponse uploadPhotoForClubBackground(@PathVariable Long userId, @Valid @RequestBody UploadPhotoRequest request) {
+        return customUserService.changeProfileImage(userId, request.getFile());
+    }
+
+    @CrossOrigin
+    @GetMapping("/applications/{userId}")
+    public List<ApplicationListQueryResponse> getCandidates(@PathVariable Long userId) {
+        return customUserService.getApplications(userId);
+    }
+    @GetMapping("/getAllFacultyAdvisors")
+    public List<FacultyAdvisorQueryResponse> getFacultyAdvisors() {
+        return customUserService.getAllFacultyAdvisors();
+
+    }
+
 }

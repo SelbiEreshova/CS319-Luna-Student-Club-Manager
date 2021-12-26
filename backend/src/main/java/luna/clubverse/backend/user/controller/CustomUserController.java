@@ -1,16 +1,19 @@
 package luna.clubverse.backend.user.controller;
 
+import luna.clubverse.backend.club.controller.response.MemberCandidateQueryResponse;
 import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.club.service.ClubService;
+import luna.clubverse.backend.common.MessageResponse;
+import luna.clubverse.backend.event.controller.request.Attendance;
 import luna.clubverse.backend.event.controller.response.EventListQueryResponse;
 import luna.clubverse.backend.event.service.EventService;
+import luna.clubverse.backend.user.controller.response.ApplicationListQueryResponse;
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.service.CustomUserService;
 import luna.clubverse.backend.user.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Controller
@@ -58,6 +61,19 @@ public class CustomUserController {
         //Student student = customUserService.getStudent(studentId);
         return "club_profile";
     }
+
+    @RequestMapping("/app/about_us")
+    public String openAboutUs() {
+        return "about_us";
+    }
+
+    @RequestMapping("/app/admin_faculty_advisor_list")
+    public String getFacultyAdvisors() {
+        return "admin_faculty_advisor_list";
+    }
+
+
+
 }
 
 

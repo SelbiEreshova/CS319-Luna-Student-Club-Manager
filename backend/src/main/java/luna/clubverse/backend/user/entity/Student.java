@@ -8,10 +8,7 @@ import luna.clubverse.backend.user.enums.UserType;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -36,8 +33,8 @@ public class Student extends User{
     @OneToMany( cascade = CascadeType.ALL,mappedBy = "student")
     private Set<Title> titles;
 
-    public Student(Long id, String username, String password, String name,String surname, @Email String mail, Set<Authority> authorities, int bilkentId) {
-        super(id, username, password, name, surname, UserType.STUDENT, mail, authorities);
+    public Student(Long id, String username, String password, String name,String surname, byte[] profilePhoto, @Email String mail, Set<Authority> authorities, int bilkentId) {
+        super(id, username, password, name, surname,profilePhoto, UserType.STUDENT, mail, authorities);
         this.bilkentId = bilkentId;
         registeredClubs = new HashSet<Club>();
         waitingApprovalClubs = new HashSet<Club>();
@@ -114,5 +111,19 @@ public class Student extends User{
         }
 
         return  null;
+    }
+
+    public void deleteTitles(Long clubId){
+
+        Title title = titleFoundByClub(clubId);
+
+        if (title!=null){
+            titles.remove(title);
+        }
+
+    }
+
+    public void deletePermissions(Long clubId){
+        setAuthorities(new HashSet<>(getOnlyAuthorities().stream().filter(it -> !Objects.equals(it.getClubId(), clubId)).toList()));
     }
 }

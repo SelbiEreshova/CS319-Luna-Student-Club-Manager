@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link src="../nav_bar_club_director.html">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <style>
+
+    .fa-star {
+        font-size : 50px;
+        align-content: center;
+    }
+    modal {
+        height: 100px;
+        width: 600px;
+        margin: auto;
+    }
+    </style>
+</head>
+<body>
+<!-- This page requires all clubs including their name email and faculty advisor-->
+<!-- This page directs to club home page for admnis-->
+<!-- This page delete a club-->
+<!-- This page can add a new club-->
+
+<div class="nav_bar" ></div>
+
+<h2 class="d-flex justify-content-center mt-4 pt-6">My Events</h2>
+<div class=" mx-5 px-3">
+    <ul>
+        <button class="btn-outline-dark" id="all-e"><h5>All  Events</h5></button>
+        <button class="btn-outline-dark"id="future-e"><h5>Future events</h5></button>
+        <button class="btn-outline-dark" id="past-e"><h5>Past events</h5></button>
+        <button class="btn-outline-dark" id="ongoing-e"><h5>Ongoing events</h5></button>
+
+
+    </ul>
+</div>
+<div class="container table-responsive mx-auto my-2 p-3 all-event-list">
+    <table class="table display table-striped all-event-list-t">
+        <thead class="bg-dark text-light">
+        <tr>
+            <th>aClub Name</th>
+            <th>Event Name</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Ge Points</th>
+            <th>Location</th>
+            <th>Quota</th>
+            <th>Details</th>
+            <th>Review</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<div class="container table-responsive mx-auto my-2 p-3 future-event-list">
+    <table class="table display table-striped future-event-list-t">
+        <thead class="bg-dark text-light">
+        <tr>
+            <th>fClub Name</th>
+            <th>Event Name</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Ge Points</th>
+            <th>Location</th>
+            <th>Quota</th>
+            <th>Details</th>
+            <th>Review</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<div class="container table-responsive mx-auto my-2 p-3 past-event-list">
+    <table class="table display table-striped past-event-list-t">
+        <thead class="bg-dark text-light">
+        <tr>
+            <th>pClub Name</th>
+            <th>Event Name</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Ge Points</th>
+            <th>Location</th>
+            <th>Quota</th>
+            <th>Details</th>
+            <th>Review</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<div class="container table-responsive mx-auto my-2 p-3 ongoing-event-list">
+    <table class="table display table-striped ongoing-event-list-t">
+        <thead class="bg-dark text-light">
+        <tr>
+            <th>oClub Name</th>
+            <th>Event Name</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Ge Points</th>
+            <th>Location</th>
+            <th>Quota</th>
+            <th>Details</th>
+            <th>Review</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
+
+<div class="modal review-m" tabindex="-1" role="dialog" id="open">
+
+    <div class="modal-dialog" role="document"><div class="modal-content">
+        <div class="modal-header bg-info text-light">
+            <h5 class="modal-title">Add Club</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+        <div class = "container my-4">
+            <h3 style = " color: green;">Rate the event: </h3>
+            <i class = "fa fa-star" aria-hidden = "true" id = "st1"></i>
+            <i class = "fa fa-star" aria-hidden = "true" id = "st2"></i>
+            <i class = "fa fa-star" aria-hidden = "true" id = "st3"></i>
+            <i class = "fa fa-star" aria-hidden = "true" id = "st4"></i>
+            <i class = "fa fa-star" aria-hidden = "true" id = "st5"></i>
+        </div>
+    </div>
+        <div class="modal-footer" style="background-color:#abc">
+            <button type="button" class="btn btn-primary rev">Review</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+</div></body>
+
+<script>
+    $(".nav_bar").load("http://localhost:8080/faculty_advisor.html");
+    $("#events_nav").addClass("active");
+
+function goToEvent(id) {
+                window.location.href= `http://localhost:8080/app/faculty_advisor_event_homepage/${id}`;
+              }
+         function goToReview(id)
+         {
+
+            $(".review-m").modal('show');
+            $(".review-m").attr("id", `${id}`)
+            rating = -1;
+         }
+    $(document).ready( function () {
+    var rating = -1
+    $(".review-m").modal('show');
+             $("#st1").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1").css("color", "yellow");
+              rating = 1;
+          });
+
+          $("#st2").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1, #st2").css("color", "yellow");
+              rating = 2;
+          });
+          $("#st3").click(function() {
+              $(".fa-star").css("color", "black")
+              $("#st1, #st2, #st3").css("color", "yellow");
+              rating = 3;
+          });
+          $("#st4").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1, #st2, #st3, #st4").css("color", "yellow");
+              rating = 4;
+          });
+          $("#st5").click(function() {
+              $(".fa-star").css("color", "black");
+              $("#st1, #st2, #st3, #st4, #st5").css("color", "yellow");
+              rating = 5;
+          });
+          $(".rev").click(function(){
+            id = $(".review-m").attr("id");
+
+            point = `${rating}`
+            alert("zz"+point+" - " + id)
+            if(rating >0)
+            {
+            $(".fa-star").css("color", "black");
+
+                var posted = {
+                    eventId : id,
+                    userId : localStorage.getItem('userId'),
+                    point : point
+                }
+
+                $.ajax({
+                    type : "POST",
+                    headers: {
+                        "Access-Control-Allow-Origin":"*",
+                        Authorization : localStorage.getItem('Authorization')
+                    },
+
+                    crossDomain: true,
+                    contentType : "application/json",
+                    url : `http://localhost:8080/app/eventEvaluation/add/${id}/faculty_advisor/${localStorage.getItem('userId')}`,
+                    data : JSON.stringify(posted),
+                    dataType : 'json',
+                    success : function(result) {
+                        if (result.messageType == "ERROR") {
+                            alert(result.message)
+                        } else if (result.messageType == "SUCCESS") {
+                            $("#review-open").attr("disabled", "disabled");
+                            window.location.href = window.location.href;
+                        }
+                        console.log(result);
+                    },
+                    error : function(e) {
+                    //    alert("Error!")
+                        //console.log("eventStatus", eventStatus);
+                        console.log("ERROR: ", e);
+                    }
+                });
+
+            }
+          })
+});
+</script>
+<script>
+$(document).ready(function(){
+        $('.all-event-list-t').DataTable(
+          { language: {
+                searchPlaceholder: "Search",
+                search: "",
+          },
+          });
+                  $('.future-event-list-t').DataTable(
+          { language: {
+                searchPlaceholder: "Search",
+                search: "",
+          },
+          });
+                  $('.past-event-list-t').DataTable(
+          { language: {
+                searchPlaceholder: "Search",
+                search: "",
+          },
+          });
+          $('.ongoing-event-list-t').DataTable(
+          { language: {
+                searchPlaceholder: "Search",
+                search: "",
+          },
+          });
+      var table = $(".all-event-list-t").DataTable();
+      var futureTable = $(".future-event-list-t").DataTable();
+      var pastTable = $(".past-event-list-t").DataTable();
+      var ongoingTable = $(".ongoing-event-list-t").DataTable();
+       clicked = 4
+          $(".all-event-list").show();
+          $(".future-event-list").hide();
+          $(".past-event-list").hide();
+          $(".ongoing-event-list").hide();
+      $("all-e").addClass("active");
+      function selectAll(){
+          $("#past-e").removeClass("active");
+          $("#ongoing-e").removeClass("active");
+          $("#future-e").removeClass("active");
+          $("all-e").addClass("active");
+          $(".all-event-list").show();
+          $(".future-event-list").hide();
+          $(".past-event-list").hide();
+          $(".ongoing-event-list").hide();
+          clicked = 4;
+      }
+      $("#all-e").click(function () {
+          selectAll();
+    });
+    $("#past-e").click(function () {
+          $("#all-e").removeClass("active");
+          $("#ongoing-e").removeClass("active");
+          $("#future-e").removeClass("active");
+
+
+
+             $(".future-event-list").hide();
+             $(".ongoing-event-list").hide();
+             $(".all-event-list").hide();
+             $("#all-e").removeClass("active");
+
+
+        $(this).addClass('active');
+        $(".past-event-list").show();
+
+
+    });
+
+    $("#future-e").click(function () {
+          $("#past-e").removeClass("active");
+          $("#ongoing-e").removeClass("active");
+          $("#all-e").removeClass("active");
+
+
+             $(".past-event-list").hide();
+             $(".ongoing-event-list").hide();
+              $(".all-event-list").hide();
+               console.log("1 ----> "+clicked)
+
+        $(this).addClass('active');
+        $(".future-event-list").show();
+
+    });
+
+
+    $("#ongoing-e").click(function () {
+          $("#past-e").removeClass("active");
+          $("#all-e").removeClass("active");
+          $("#future-e").removeClass("active");
+
+             $(".past-event-list").hide();
+             $(".future-event-list").hide();
+              $(".all-event-list").hide();
+
+        $(this).addClass('active');
+        $(".ongoing-event-list").show();
+        })
+
+
+      //Get future events
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/faculty_advisorHomePage/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+            function showEvents(r, i){
+                var startDate = new Date(r[i].startDate);
+                var dummyDate = "1111-11-11";
+                var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+                var endDate = new Date(r[i].endDate);
+                var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+                table.row.add([
+                r[i].eventName,
+                r[i].clubName,
+                    startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                    endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+                r[i].gePoint,
+                r[i].location,
+                    r[i].remainingQuota +"/" + r[i].quota,
+              `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                "<p></p>"
+                ]).draw();
+
+                futureTable.row.add([
+                    r[i].eventName,
+                    r[i].clubName,
+                    startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                    endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+                    r[i].gePoint,
+                    r[i].location,
+                    r[i].remainingQuota +"/" + r[i].quota,
+                    `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                    "<p></p>"
+                ]).draw();
+          };
+
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
+/////////////////////////////////////////////////////////////////////////////////////////
+//Past Events
+
+        $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/getPastEventsOfFA/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+      $.ajax({
+            type: "GET",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/attendedEventsForFA/${localStorage.getItem('userId')}`,
+            dataType: 'json',
+            success: function(response) {
+            var attended;
+
+                attended = response;
+                    function showEventsP_n(r, i){
+                  var startDate = new Date(r[i].startDate);
+                  var dummyDate = "1111-11-11";
+                  var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+                  var endDate = new Date(r[i].endDate);
+                  var endTime = new Date(dummyDate + " " + r[i].endTime);
+                                table.row.add([
+                      r[i].eventName,
+                      r[i].clubName,
+                      startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                      endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+                  r[i].gePoint,
+                  r[i].location,
+                    r[i].remainingQuota +"/" + r[i].quota,
+                `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                "<p></p>"
+                ]).draw();
+                              pastTable.row.add([
+                      r[i].eventName,
+                      r[i].clubName,
+                      startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                      endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+                  r[i].gePoint,
+                  r[i].location,
+                    r[i].remainingQuota +"/" + r[i].quota,
+                `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                "<p></p>"
+                ]).draw();
+
+
+              };
+              function showEventsP_a(r, i){
+                  var startDate = new Date(r[i].startDate);
+                  var dummyDate = "1111-11-11";
+                  var startTime = new Date(dummyDate + " " + r[i].startTime);
+                  var endDate = new Date(r[i].endDate);
+                  var endTime = new Date(dummyDate + " " + r[i].endTime);
+                                table.row.add([
+                      r[i].eventName,
+                      r[i].clubName,
+                      startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                      endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+                  r[i].gePoint,
+                  r[i].location,
+                    r[i].remainingQuota +"/" + r[i].quota,
+                `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                "<p></p>"
+                ]).draw();
+                  pastTable.row.add([
+                      r[i].eventName,
+                      r[i].clubName,
+                      startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                      endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+                      r[i].gePoint,
+                      r[i].location,
+                      r[i].remainingQuota +"/" + r[i].quota,
+                      `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                      `<button class=\"review-b text-dark\" style=\"background-color: #9aefee\"onclick=\"goToReview(${r[i].eventId})\">Review</button>`
+                ]).draw();
+              };
+               for (let i = 0; i < response.length; i++) {
+                isAttended= attended.find(response[i])
+                if(isAttended==undefined)
+                    showEventsP_n(response, i);
+                else{
+                        showEventsP_a(r,i)
+                }
+              }
+
+            },
+                        error : function(e) {
+                            console.log("ERROR: ", e);
+                        }
+                });
+
+
+
+
+        }
+      });
+
+////////////////////////////////////Ongoing
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/getOnGoingEventsOfFA/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          function showEventsO(r, i){
+              var startDate = new Date(r[i].startDate);
+              var dummyDate = "1111-11-11";
+              var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+              var endDate = new Date(r[i].endDate);
+              var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+              ongoingTable.row.add([
+                  r[i].eventName,
+                  r[i].clubName,
+                  startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                  endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+              r[i].gePoint,
+              r[i].location,
+                r[i].remainingQuota +"/" + r[i].quota,
+`<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+              "<p></p>"
+            ]).draw(false);
+            table.row.add([
+                  r[i].eventName,
+                  r[i].clubName,
+                  startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                  endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+              r[i].gePoint,
+              r[i].location,
+                r[i].remainingQuota +"/" + r[i].quota,
+`<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+              "<p></p>"
+            ]).draw(false);
+
+          };
+
+          for (let i = 0; i < response.length; i++) {
+            showEventsO(response, i);
+          }
+        }
+      });
+
+    });
+
+</script>
+
+<script>
+
+</script>
+</html>

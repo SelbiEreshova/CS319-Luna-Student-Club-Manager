@@ -20,15 +20,15 @@
   <h2 class="mt-4 pt-6" style="margin-right: 10px">Welcome,</h2>
   <h2 class="mt-4 pt-6" id="name"></h2>
 </div>
-
+<p class="text-lg-center" style="margin-top: 3%; font-size: larger">Here are your upcoming events.</p>
 <div class="container table-responsive mx-auto my-2 p-3 ">
   <table class="table display table-striped student-home-table" id="student-home-table">
     <thead class="bg-dark text-light">
     <tr>
       <th>Event</th>
       <th>Club</th>
-      <th>Date</th>
-      <th>Time</th>
+      <th>Start </th>
+      <th>End</th>
       <th>GE Point</th>
       <th></th>
     </tr>
@@ -37,8 +37,6 @@
 </div>
 </body>
 
-<div class="d-flex justify-content-center"><button type="button" class="btn btn-info text-light">Go to All Events</button></div>
-
 <script>
   $(".nav_bar").load("http://localhost:8080/student.html");
   $("#events_nav").addClass("active");
@@ -46,8 +44,30 @@
   function goToEvent(id) {
     window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`;
   }
+
     $(document).ready(function () {
       var table = $("#student-home-table").DataTable();
+
+      $.ajax(
+              {
+                type : "GET",
+                headers: {
+                  'Access-Control-Allow-Origin':'*',
+                  Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType : "application/json",
+                url : `http://localhost:8080/getProfileOfStudent/${localStorage.getItem('userId')}`,
+                dataType : 'json',
+                success : function(result) {
+                  console.log(result);
+                  $("#name").text(result.username);
+
+                },
+                error : function(e) {
+                  console.log("ERROR: ", e);
+                }
+              });
 
       $.ajax({
         type: "GET",
@@ -61,14 +81,22 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
-              table.row.add([
-                r[i].eventName,
-                r[i].clubName,
-                r[i].startDate,
-                r[i].startTime,
-                r[i].gePoint,
+            var startDate = new Date(r[i].startDate);
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+            var endDate = new Date(r[i].endDate);
+            var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+            table.row.add([
+              r[i].eventName,
+              r[i].clubName,
+              startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+              endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+              r[i].gePoint,
+              r[i].location,
+              r[i].remainingQuota +"/" + r[i].quota,
                 `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
                 ]).draw(false);
           };
@@ -90,14 +118,22 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
+            var startDate = new Date(r[i].startDate);
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+            var endDate = new Date(r[i].endDate);
+            var endTime = new Date(dummyDate + " " + r[i].endTime);
+
             table.row.add([
               r[i].eventName,
               r[i].clubName,
-              r[i].startDate,
-              r[i].startTime,
+              startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+              endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
               r[i].gePoint,
+              r[i].location,
+              r[i].remainingQuota +"/" + r[i].quota,
               `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
             ]).draw(false);
           };
@@ -122,14 +158,22 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          $("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
+            var startDate = new Date(r[i].startDate);
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+            var endDate = new Date(r[i].endDate);
+            var endTime = new Date(dummyDate + " " + r[i].endTime);
+
             table.row.add([
               r[i].eventName,
               r[i].clubName,
-              r[i].startDate,
-              r[i].startTime,
+              startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+              endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
               r[i].gePoint,
+              r[i].location,
+              r[i].remainingQuota +"/" + r[i].quota,
               `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
             ]).draw(false);
           };

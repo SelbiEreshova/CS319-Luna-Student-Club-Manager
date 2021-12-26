@@ -47,4 +47,16 @@ public class FinanceData extends BaseEntity {
     public void setFinanceTable(FinanceTable financeTable) {
         this.financeTable = financeTable;
     }
+
+    public void update(FinanceData financeData) {
+
+        this.financeTable().updateTransaction(this, financeData);
+
+        this.amountOfMoney = financeData.amountOfMoney;
+        this.status = financeData.status;
+        this.explanation = financeData.explanation;
+        this.date = financeData.date;
+
+
+    }
 }

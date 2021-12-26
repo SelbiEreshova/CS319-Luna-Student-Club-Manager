@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+</head>
+<body>
+
+<div class="nav_bar"></div>
+
+<h2 class="d-flex justify-content-center mt-4 pt-6">Applications</h2>
+
+<div class="container table-responsive my-4  p-2">
+    <table class="table display table-striped club-list" id="applications">
+        <thead class="bg-dark text-light">
+        <tr>
+            <th >Bilkent ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        </thead>
+    </table>
+</div>
+</body>
+
+<script>
+    $(".nav_bar").load("http://localhost:8080/student.html");
+    $("#events_nav").addClass("active");
+
+    var clubId = [[${clubId}]];
+
+    function openApplicationPopup(userId) {
+        window.location.href = `http://localhost:8080/app/view_application/${localStorage.getItem('clubId')}/${userId}`
+    }
+
+    $(document).ready(function() {
+        console.log("in doc ready");
+        var table = $('#applications').DataTable();
+
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/club/candidates/${clubId}`,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                function showApplications(r, i){
+                    console.log("in show applications");
+                    table.row.add([
+                        r[i].memberBilkentId, //bu ID ama student ID olacak, backend'de tutulan ID farklı, onu düzenleriz
+                        r[i].memberName,
+                        r[i].memberSurname,
+                        r[i].memberEmail,
+                        `<button class="button-info text-dark" style="background-color: #2ed3db" onclick='openApplicationPopup(${r[i].userId})'>See Application</button>`
+                    ]).draw(false);
+                };
+
+                for (let i = 0; i < response.length; i++) {
+                    showApplications(response, i);
+                }
+            }
+        });
+
+        console.log("before dummy input");
+        var dummyInput = [
+            {userId: "1",
+                memberBilkentId: "21212121",
+                memberName: "Eray",
+                memberSurname: "Tüzün",
+                memberEmail: "eray@bilkent.edu.tr",
+                memberApplication: [{question:"q1", answer:"a1"}, {question:"q2", answer:"a2"}]},
+            {userId: "2",
+                memberBilkentId: "13131313",
+                memberName: "Erdem",
+                memberSurname: "Tuna",
+                memberEmail: "erdem@bilkent.edu.tr",
+                memberApplication: [{question: "q11", answer: "a11"}, {question: "q22", answer: "a22"}]}
+        ]
+
+
+        console.log("end of doc ready");
+    });
+</script>
+</html>

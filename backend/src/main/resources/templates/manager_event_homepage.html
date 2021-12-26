@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Manager event home page</title>
+</head>
+<body>
+
+<div class="nav_bar"></div>
+
+<div class="row justify-content-around" style="margin-top: 3%">
+    <img src="ing-amblem.jpg" alt="Club logo" style="width: 250px; margin-bottom: 3%">
+    <h2 style="margin-top: 8%" id="event-name"></h2>
+    <div class="d-flex flex-column align-self-center">
+        <div id = "edit" ><button type="button" class="btn btn-primary" style="width: 200px; background-color: #20B5BDFF; margin-bottom: 20px" id="editEventButton"><a class="text-dark font-weight-bold">Edit Event</a></button></div>
+        <div id = "publish" ><button type="button" class="btn" style="width: 200px; background-color: #63b3b7; margin-bottom: 20px" id="publishEventButton"><a class="text-dark font-weight-bold">Publish Event</a></button></div>
+        <div id = "cancel" ><button type="button" class="btn btn-secondary" style="width: 200px; background-color: #ccd3d3; margin-bottom: 20px" id="cancelEventButton"><a class="text-dark">Cancel Event</a></button></div>
+        <div id = "delete" ><button type="button" class="btn btn-danger" style="width: 200px; margin-bottom: 20px" id="deleteEventButton"><a class="text-light">Delete Event</a></button></div>
+        <div class="d-flex row justify-content-around" style="background-color: #4ae9e8; margin-bottom: 3%">
+            <p>Event Rating: <a id="point"></a></p>
+            <div class = "row" style="margin-top: 2%">
+                <i class = "fa fa-star" aria-hidden = "false" id = "st1"></i>
+                <i class = "fa fa-star" aria-hidden = "false" id = "st2"></i>
+                <i class = "fa fa-star" aria-hidden = "false" id = "st3"></i>
+                <i class = "fa fa-star" aria-hidden = "false" id = "st4"></i>
+                <i class = "fa fa-star" aria-hidden = "false" id = "st5"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-around" id="even-info" style="margin-left: 3%; margin-right: 3%">
+    <table class="table w-50" id="event-info-part1">
+        <tbody>
+        <tr>
+            <th scope="row" style="background-color: #c5c7c7; width: 25%">Status</th>
+            <td style="background-color: #c0efef" id="status"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #c5c7c7">Description</th>
+            <td style="background-color: #eafafa" id="description"></td>
+        </tr>
+        <!--<tr>
+            <th scope="row" style="background-color: #c5c7c7; width: 15%">Club</th>
+            <td style="background-color: #eafafa" id="club"></td>
+        </tr>
+        this is not necessary since club director knows their club
+        -->
+        <tr>
+            <th scope="row" style="background-color: #c5c7c7">Member Exclusive</th>
+            <td style="background-color: #c0efef"><input style="width: 20px; height: 20px" type="checkbox" class="form-check" disabled="disabled" id="member-only"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Start Date</th>
+            <td style="background-color: #eafafa" id="start-date"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">End Date</th>
+            <td style="background-color: #eafafa" id="end-date"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Start Time</th>
+            <td style="background-color: #c0efef" id="start-time"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">End Time</th>
+            <td style="background-color: #c0efef" id="end-time"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Total Quota</th>
+            <td style="background-color: #eafafa" id="quota"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Available Quota</th>
+            <td style="background-color: #eafafa" id="available-quota"></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table w-50" id="event-info-part2">
+        <tbody>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF; width: 30%">GE Points</th>
+            <td style="background-color: #c0efef" id="ge-point"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">In Bilkent</th>
+            <td style="background-color: #eafafa"><input style="width: 20px; height: 20px" type="checkbox" class="form-check" disabled="disabled" id="in-bilkent"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Location</th>
+            <td style="background-color: #eafafa" id="location-description"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Allocated Money (TL)</th>
+            <td style="background-color: #c0efef" id="allocated-money"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Financial Description</th>
+            <td style="background-color: #c0efef" id="financial-description"></td>
+        </tr>
+        <tr>
+            <th scope="row" style="background-color: #C5C7C7FF">Registration Deadline</th>
+            <td style="background-color: #eafafa" id="reg-deadline"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="d-flex justify-content-end" id = "edit-attendance"  style="width: 100%; margin-top: 5%">
+    <button type="button" class="btn" style="width: 200px; background-color: #20B5BDFF; margin-right: 3%" id="editAttendanceButton"><a>Take Attendance</a></button>
+</div>
+<div class="d-flex flex-column">
+    <h2 style="align-self: center">Attendee List</h2>
+    <ul class="list-group" style="align-self: center" id="attendee-list"></ul>
+</div>
+
+</body>
+
+<script>
+    $(".nav_bar").load("http://localhost:8080/student.html");
+    $("#events_nav").addClass("active");
+
+    var id = [[${eventId}]];
+
+    document.getElementById("editEventButton").style.visibility="hidden";
+    document.getElementById("cancelEventButton").style.visibility="hidden";
+    document.getElementById("deleteEventButton").style.visibility="hidden";
+    document.getElementById("publishEventButton").style.visibility="hidden";
+    document.getElementById("editAttendanceButton").style.visibility="hidden";
+
+    $("#editEventButton").on("click", function (event) {
+        window.location.href = `http://localhost:8080/app/open_edit_event/${id}`
+    });
+
+    $("#cancelEventButton").on("click", function (event) {
+
+        $.ajax({
+            type: "PUT",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/cancelEvent/${id}`,
+            dataType: 'json',
+            success: function (response) {
+                if (response.messageType == "ERROR") {
+                    alert(response.message)
+                }
+                else {
+                    window.location.href = window.location.href;
+                }
+            }
+        });
+    });
+
+    $("#deleteEventButton").on("click", function (event) {
+
+        $.ajax({
+            type: "DELETE",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/deleteEvent/${id}`,
+            dataType: 'json',
+            success: function (response) {
+                if (response.messageType == "ERROR") {
+                    alert(response.message)
+                }
+                else {
+                    window.location.href = `http://localhost:8080/app/manager_event_list`;
+                }
+            }
+        });
+    });
+
+    $("#publishEventButton").on("click", function (event) {
+
+        $.ajax({
+            type: "PUT",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/publishEvent/${id}`,
+            dataType: 'json',
+            success: function (response) {
+                if (response.messageType == "ERROR") {
+                    alert(response.message)
+                }
+                else {
+                    window.location.href = window.location.href;
+                }
+            }
+        });
+    });
+
+    // get button status
+    $.ajax({
+        type: "GET",
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/event/${id}/getButtons`,
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            if (response) {
+                document.getElementById("editEventButton").style.visibility = `${response.editEvent}`;
+                document.getElementById("cancelEventButton").style.visibility = `${response.cancelEvent}`;
+                document.getElementById("deleteEventButton").style.visibility = `${response.deleteEvent}`;
+                document.getElementById("publishEventButton").style.visibility = `${response.publishEvent}`;
+                document.getElementById("editAttendanceButton").style.visibility = `${response.editAttendance}`;
+            }
+        },
+        error: function (e) {
+            alert("Error!")
+            console.log("ERROR: ", e);
+        }
+    })
+
+    /*function addAttendee(list, input) {
+        list.prepend('<li> ' + input + '</li>');
+    };*/
+
+
+    $(document).ready(function() {
+
+        function sendAttandence(fd) {
+            console.log(fd);
+
+            $.ajax({
+                type: "PUT",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: `http://localhost:8080/event/takeAttendance`,
+                data: JSON.stringify(fd),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.messageType == "ERROR") {
+                        alert(response.message)
+                    }
+                }
+            });
+        }
+
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/getWithParticipants/${id}`,
+            success: function (response) {
+                console.log(response);
+                var attendees = response.participants;
+                if (attendees.length == 0) {
+                    $("#attendee-list").append('<li> ' + "Nobody enrolled." + '</li>');
+                    $("#editAttendanceButton").prop("disabled", true);
+                }
+
+                for (let i = 0; i < attendees.length; i++) {
+                    var item = `<div className="form-check" type="checkbox">
+                        <input id='${i}' className="form-check-input" type="checkbox">
+                        <label className="form-check-label">${attendees[i].name} - ${attendees[i].bilkentId}</label>
+                    </div>`;
+
+                    $("#attendee-list").append(`<li>` + item + `</li>`);
+                    //$(`#${i}`).prop("checked", attendees[i].present);
+                    $(`#${i}`).prop("disabled", "disabled");
+                    if(attendees[i].attended) {
+                        console.log("here")
+                        $(`#${i}`).prop("checked", "checked");
+                    }
+                }
+
+                $("#editAttendanceButton").click(function() {
+                    console.log($("#editAttendanceButton").text());
+                    if ($("#editAttendanceButton").text() == "Save Changes") {
+                        $("#editAttendanceButton").html("Take Attendance");
+                        $("#editAttendanceButton").css("background-color", "#20B5BDFF");
+                        var formData = {
+                            eventId: id,
+                            attendance: []
+                        }
+                        for (let i = 0; i < attendees.length; i++) {
+                            $(`#${i}`).prop("disabled", "disabled");
+                            if ($(`#${i}`).is(":checked")) {
+                                formData.attendance.push(attendees[i].userId);
+                            }
+                        }
+                        sendAttandence(formData);
+                    }
+                    else {
+                        $("#editAttendanceButton").html("Save Changes");
+                        $("#editAttendanceButton").css("background-color", "#A2C5C7FF");
+                        for (let i = 0; i < attendees.length; i++) {
+                            $(`#${i}`).prop("disabled", "");
+                        }
+                    }
+                });
+
+                var rating = 0
+                if(response.numberEvaluation != 0 ) {
+                    rating = (response.totalPoint / response.numberEvaluation).toFixed(1);
+                }
+
+                $("#point").text(rating + "/" + 5);
+                console.log("after assigned point");
+                var starId = Math.round(rating);
+                console.log("rounded dummy rating");
+                for (let i = 1; i <=starId; i++) {
+                    console.log("in star loop");
+                    $(`#st${i}`).css("color", "yellow");
+                }
+
+                //filling out the table
+                $('#event-name').text(response.name.toUpperCase());
+                $('#status').text(response.eventStatus.toLowerCase());
+                $('#description').text(response.description);
+
+                if (response.memberOnly) {
+                    $('#member-only').prop("checked", true);
+                } else {
+                    $('#member-only').prop("checked", false);
+                }
+
+                var startDate = new Date(response.startDate);
+                $('#start-date').text(startDate.toLocaleDateString());
+
+                var endDate = new Date(response.endDate);
+                $('#end-date').text(endDate.toLocaleDateString());
+
+                var dummyDate = "1111-11-11";
+                var startTime = new Date(dummyDate + " " + response.startTime);
+                $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
+
+                var endTime = new Date(dummyDate + " " + response.endTime);
+                $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
+
+                $('#quota').text(response.quota);
+                $('#available-quota').text(response.remainingQuota);
+                $('#ge-point').text(response.gePoint);
+
+                if (response.inBilkent) {
+                    $('#in-bilkent').prop("checked", true);
+                } else {
+                    $('#in-bilkent').prop("checked", false);
+                }
+
+                $('#location-description').text(response.descriptionLocation);
+
+                $('#allocated-money').text(response.amountOfMoney);
+
+                $('#financial-description').text(response.explanation);
+
+                var regDate = new Date(response.registrationDeadline);
+                $('#reg-deadline').text(regDate.toLocaleDateString());
+
+            },
+            error: function (e) {
+                alert("Error!")
+                console.log("ERROR: ", e);
+            }
+        });
+    });
+</script>
+</html>

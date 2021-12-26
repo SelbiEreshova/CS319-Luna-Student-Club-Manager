@@ -5,36 +5,56 @@ import luna.clubverse.backend.club.entity.Club;
 import luna.clubverse.backend.user.entity.Student;
 import luna.clubverse.backend.user.entity.Title;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 public class ClubQueryResponse {
 
     private Long clubId;
     private String name;
-    private String logo;
     private String description;
     private List<BoardMemberQueryResponse> boardMembers;
+    private String clubDirectorMail;
+    private String faultyAdvisorMail;
+    private String logoImage;
+    private String backgroundImage;
 
     public ClubQueryResponse(final Club club) {
         this.name = club.getName();
-        this.logo = club.getLogo();
         this.description = club.getDescription();
         this.clubId = club.id();
+        this.clubDirectorMail = "";
+        this.faultyAdvisorMail = "";
+        this.logoImage= "";
+        this.backgroundImage = "";
+
+        if(club.getLogoImage() != null){
+            this.logoImage = twoDToString(club.getLogoImage());
+        }
+        if(club.getBackgroundImage() != null){
+            this.backgroundImage = twoDToString(club.getBackgroundImage());
+        }
 
         List<BoardMemberQueryResponse> boardMemberList = new ArrayList<>();
 
         if(club.getClubDirector() != null){
             String clubDirectorFullName = club.getClubDirector().getName() + " " + club.getClubDirector().getLastname();
-            boardMemberList.add(new BoardMemberQueryResponse(clubDirectorFullName,"Club Director"));
+            String image = "";
+            if(club.getClubDirector().getProfilePhoto()!=null){
+                image = twoDToString(club.getClubDirector().getProfilePhoto());
+            }
+            boardMemberList.add(new BoardMemberQueryResponse(clubDirectorFullName,"Club Director", club.getClubDirector().getId(),image));
+            this.clubDirectorMail = club.getClubDirector().getMail();
         }
 
         if(club.getFacultyAdvisor() != null){
             String facultyAdvisorFullName =  club.getFacultyAdvisor().getName() + " " + club.getFacultyAdvisor().getLastname();
-            boardMemberList.add(new BoardMemberQueryResponse(facultyAdvisorFullName,"Faculty Advisor"));
+            String image = "";
+            if(club.getFacultyAdvisor().getProfilePhoto()!=null){
+                image = twoDToString(club.getFacultyAdvisor().getProfilePhoto());
+            }
+            boardMemberList.add(new BoardMemberQueryResponse(facultyAdvisorFullName,"Faculty Advisor", club.getFacultyAdvisor().getId(),image));
+            this.faultyAdvisorMail = club.getFacultyAdvisor().getMail();
         }
 
         List<Student> boardMembersStudentList = club.getMembers().stream().toList();
@@ -55,12 +75,20 @@ public class ClubQueryResponse {
 
         for(Title title : titles){
             if( !title.getTitle().equals("") && Objects.equals(title.getClubId(), clubId)){
-                String fullname = student.getName() + " "+student.getLastname();
-                return new BoardMemberQueryResponse(fullname,title.getTitle());
+                String fullname = student.getName() + " " + student.getLastname();
+                String image = "";
+                if(student.getProfilePhoto() !=null){
+                    image = twoDToString(student.getProfilePhoto());
+                }
+                return new BoardMemberQueryResponse(fullname,title.getTitle(),student.getId(),image);
             }
         }
         return null;
 
+    }
+
+    private String twoDToString(byte[] array){
+        return Base64.getEncoder().encodeToString(array);
     }
 
 }

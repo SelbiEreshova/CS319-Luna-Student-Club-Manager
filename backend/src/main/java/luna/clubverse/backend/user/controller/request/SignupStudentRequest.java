@@ -35,6 +35,10 @@ public class SignupStudentRequest {
 
     @AssertTrue(message = "You should signup with a Bilkent mail")
     public boolean isMailBilkentMail() {
+        if ( email.length() <= 14)
+        {
+            return false;
+        }
         String subStr = email.substring((email.length()-14));
         if (subStr.equals("bilkent.edu.tr")) {
             return true;
@@ -44,6 +48,6 @@ public class SignupStudentRequest {
 
 
     public Student toStudent(){
-        return new Student(null,username,password , name, lastname, email, new HashSet<>(),bilkentId);
+        return new Student(null,username.trim(),password , name.trim(), lastname.trim(),null, email.trim(), new HashSet<>(),bilkentId);
     }
 }

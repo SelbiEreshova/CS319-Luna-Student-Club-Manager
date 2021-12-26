@@ -67,10 +67,6 @@
                     <label for="signUpPassword">Password</label>
                     <input type="password" class="form-control" id="signUpPassword" placeholder="Your password should be at most 10 characters">
                 </div>
-                <div class="form-group">
-                    <label for="signUpPassword">Password Again</label>
-                    <input type="password" class="form-control" id="signUpPasswordRepeat" placeholder="Enter your password again">
-                </div>
                 <div class="d-flex justify-content-around">
                     <button style="margin-bottom: 3%; background-color: #2ED3DB" type="button" class="btn btn-primary" id = "signup" ><a class="text-dark">Sign Up</a></button>
                     <button style="margin-bottom: 3%; background-color: #5FFBF1" type="button" class="btn btn-primary" id="back-to-main"><a class="text-dark">Go To Main Page</a></button>
@@ -86,17 +82,11 @@
         window.location.href = `http://localhost:8080/login`;
     };
     
-    $(document).ready(
-        function () {
+    $(document).ready(function() {
 
             $("#signup").click(function() {
                 // Prevent the form from submitting via the browser.
-                alert("save");
                 //event.preventDefault();
-                signup();
-            });
-
-            function signup() {
                 var formData = {
                     name: $("#signUpName").val(),
                     lastname: $("#signUpSurname").val(),
@@ -128,8 +118,7 @@
                         console.log("ERROR: ", e);
                     }
                 })
-            }
-        }
-    )
+            });
+        })
 </script>
 </html>

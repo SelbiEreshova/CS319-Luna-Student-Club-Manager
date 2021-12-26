@@ -5,18 +5,32 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title>Club director event home page</title>
 </head>
 <body>
+
+<div class="nav_bar"></div>
+
 <div class="row justify-content-around" style="margin-top: 3%">
     <img src="ing-amblem.jpg" alt="Club logo" style="width: 250px; margin-bottom: 3%">
-    <h2 style="margin-top: 8%" id="event-name">Event name</h2>
+    <h2 style="margin-top: 8%" id="event-name"></h2>
     <div class="d-flex flex-column align-self-center">
         <div id = "edit" ><button type="button" class="btn btn-primary" style="width: 200px; background-color: #20B5BDFF; margin-bottom: 20px" id="editEventButton"><a class="text-dark font-weight-bold">Edit Event</a></button></div>
         <div id = "publish" ><button type="button" class="btn" style="width: 200px; background-color: #63b3b7; margin-bottom: 20px" id="publishEventButton"><a class="text-dark font-weight-bold">Publish Event</a></button></div>
         <div id = "cancel" ><button type="button" class="btn btn-secondary" style="width: 200px; background-color: #ccd3d3; margin-bottom: 20px" id="cancelEventButton"><a class="text-dark">Cancel Event</a></button></div>
-        <div id = "delete" ><button type="button" class="btn btn-danger" style="width: 200px" id="deleteEventButton"><a class="text-light">Delete Event</a></button></div>
+        <div id = "delete" ><button type="button" class="btn btn-danger" style="width: 200px; margin-bottom: 20px" id="deleteEventButton"><a class="text-light">Delete Event</a></button></div>
+        <div class="d-flex row justify-content-around" style="background-color: #4ae9e8; margin-bottom: 3%">
+            <p>Event Rating: <a id="point"></a></p>
+            <div class = "row" style="margin-top: 2%">
+                <i class = "fa fa-star" aria-hidden = "false" id = "st1"></i>
+                <i class = "fa fa-star" aria-hidden = "false" id = "st2"></i>
+                <i class = "fa fa-star" aria-hidden = "false" id = "st3"></i>
+                <i class = "fa fa-star" aria-hidden = "false" id = "st4"></i>
+                <i class = "fa fa-star" aria-hidden = "false" id = "st5"></i>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row justify-content-around" id="even-info" style="margin-left: 3%; margin-right: 3%">
@@ -106,12 +120,89 @@
 </body>
 
 <script>
+    $(".nav_bar").load("http://localhost:8080/club_director.html");
+    $("#events_nav").addClass("active");
+
+    var id = [[${eventId}]];
+
     document.getElementById("editEventButton").style.visibility="hidden";
     document.getElementById("cancelEventButton").style.visibility="hidden";
     document.getElementById("deleteEventButton").style.visibility="hidden";
     document.getElementById("publishEventButton").style.visibility="hidden";
+    document.getElementById("editAttendanceButton").style.visibility="hidden";
 
-    var id = [[${eventId}]];
+    $("#editEventButton").on("click", function (event) {
+        window.location.href = `http://localhost:8080/app/open_edit_event/${id}`
+    });
+
+    $("#cancelEventButton").on("click", function (event) {
+
+        $.ajax({
+            type: "PUT",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/event/cancelEvent/${id}`,
+            dataType: 'json',
+            success: function (response) {
+                if (response.messageType == "ERROR") {
+                    alert(response.message)
+                }
+                else {
+                    window.location.href = window.location.href;
+                }
+            }
+        });
+    });
+
+        $("#deleteEventButton").on("click", function (event) {
+
+            $.ajax({
+                type: "DELETE",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization: localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: `http://localhost:8080/event/deleteEvent/${id}`,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.messageType == "ERROR") {
+                        alert(response.message)
+                    }
+                    else {
+                        window.location.href = `http://localhost:8080/app/club_director_event_list`;
+                    }
+                }
+            });
+        });
+
+            $("#publishEventButton").on("click", function (event) {
+
+                $.ajax({
+                    type: "PUT",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        Authorization: localStorage.getItem('Authorization')
+                    },
+                    crossDomain: true,
+                    contentType: "application/json",
+                    url: `http://localhost:8080/event/publishEvent/${id}`,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.messageType == "ERROR") {
+                            alert(response.message)
+                        }
+                        else {
+                            window.location.href = window.location.href;
+                        }
+                    }
+                });
+            });
 
     // get button status
     $.ajax({
@@ -131,9 +222,8 @@
                 document.getElementById("cancelEventButton").style.visibility = `${response.cancelEvent}`;
                 document.getElementById("deleteEventButton").style.visibility = `${response.deleteEvent}`;
                 document.getElementById("publishEventButton").style.visibility = `${response.publishEvent}`;
+                document.getElementById("editAttendanceButton").style.visibility = `${response.editAttendance}`;
             }
-
-            // refresh etmek için bir şey eklenmeli
         },
         error: function (e) {
             alert("Error!")
@@ -141,9 +231,9 @@
         }
     })
 
-    function addAttendee(list, input) {
+    /*function addAttendee(list, input) {
         list.prepend('<li> ' + input + '</li>');
-    };
+    };*/
 
 
     $(document).ready(function() {
@@ -166,8 +256,6 @@
                         if (response.messageType == "ERROR") {
                             alert(response.message)
                         }
-
-
                     }
                 });
             }
@@ -185,7 +273,8 @@
                     console.log(response);
                     var attendees = response.participants;
                     if (attendees.length == 0) {
-                        $("#attendee-list").append('<li> ' + "Nobody enrolled yet." + '</li>');
+                        $("#attendee-list").append('<li> ' + "Nobody enrolled." + '</li>');
+                        $("#editAttendanceButton").prop("disabled", true);
                     }
 
                     for (let i = 0; i < attendees.length; i++) {
@@ -228,6 +317,20 @@
                             }
                         }
                     });
+
+                    var rating = 0
+                    if(response.numberEvaluation != 0 ) {
+                        rating = (response.totalPoint / response.numberEvaluation).toFixed(1);
+                    }
+
+                    $("#point").text(rating + "/" + 5);
+                    console.log("after assigned point");
+                    var starId = Math.round(rating);
+                    console.log("rounded dummy rating");
+                    for (let i = 1; i <=starId; i++) {
+                        console.log("in star loop");
+                        $(`#st${i}`).css("color", "yellow");
+                    }
 
                     //filling out the table
                     $('#event-name').text(response.name.toUpperCase());
@@ -278,73 +381,6 @@
                     console.log("ERROR: ", e);
                 }
             });
-
-        /*
-                    var dummyEvent1 = {eventId: 1,
-                        name: "event 1",
-                        status: "PUBLISHED",
-                        description: "event 1 desc",
-                        //club: "club amazing",
-                        startDate: "2021-12-26",
-                        endDate:"2021-12-26",
-                        startTime: "10:00:00",
-                        endTime: "13:00:00",
-                        quota: 50,
-                        remainingQuota: 20,
-                        gePoint: 15,
-                        registrationDeadline: "2021-12-25",
-                        inBilkent: true,
-                        memberOnly: false,
-                        amountOfMoney: 100,
-                        explanation: "for buying balloons",
-                        descriptionLocation: "BZ04 (B building, first floor)"
-                    };
-
-                    //filling out the table
-                    $('#event-name').text(dummyEvent1.name.toUpperCase());
-                    $('#status').text(dummyEvent1.status.toLowerCase());
-                    $('#description').text(dummyEvent1.description);
-                    //$('#club').text(dummyEvent1.club);
-
-                    if (dummyEvent1.memberOnly) {
-                        $('#member-only').prop("checked", true);
-                    } else {
-                        $('#member-only').prop("checked", false);
-                    }
-
-                    var startDate = new Date(dummyEvent1.startDate);
-                    $('#start-date').text(startDate.toLocaleDateString());
-
-                    var endDate = new Date(dummyEvent1.endDate);
-                    $('#end-date').text(endDate.toLocaleDateString());
-
-                    var dummyDate = "1111-11-11";
-                    var startTime = new Date(dummyDate + " " + dummyEvent1.startTime);
-                    $('#start-time').text((startTime.toLocaleTimeString()).substr(0,5));
-
-                    var endTime = new Date(dummyDate + " " + dummyEvent1.endTime);
-                    $('#end-time').text((endTime.toLocaleTimeString()).substr(0,5));
-
-                    $('#quota').text(dummyEvent1.quota);
-                    $('#available-quota').text(dummyEvent1.remainingQuota);
-                    $('#ge-point').text(dummyEvent1.gePoint);
-
-                    if (dummyEvent1.inBilkent) {
-                        $('#in-bilkent').prop("checked", true);
-                    } else {
-                        $('#in-bilkent').prop("checked", false);
-                    }
-
-                    $('#location-description').text(dummyEvent1.descriptionLocation);
-
-                    $('#allocated-money').text(dummyEvent1.amountOfMoney);
-
-                    $('#financial-description').text(dummyEvent1.explanation);
-
-                    var regDate = new Date(dummyEvent1.registrationDeadline);
-                    $('#reg-deadline').text(regDate.toLocaleDateString());
-                    */
-                }
-    );
+    });
 </script>
 </html>

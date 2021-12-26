@@ -61,7 +61,7 @@ public class Event extends BaseEntity {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "club_id")
     private Club club;
 
@@ -119,7 +119,7 @@ public class Event extends BaseEntity {
     public void update(Event event){
         this.name = event.name;
         this.description = event.description;
-        this.eventStatus = event.eventStatus;
+
         this.gePoint = event.gePoint;
         this.startDateTime = event.startDateTime;
         this.endDateTime = event.endDateTime;
@@ -130,22 +130,35 @@ public class Event extends BaseEntity {
         this.memberOnly = event.memberOnly;
         this.totalPoint = event.totalPoint;
         this.numberEvaluation = event.numberEvaluation;
+        this.financeData.update(event.financeData);
+        this.location = event.location;
     }
 
 
 
-    public void addEnrolledStudent(Student student){
+    public MessageResponse addEnrolledStudent(Student student)  {
+        if(isAvailable()){
+            remainingQuota--;
 
-        if(enrolledStudents.contains(student)){
-           // throws exception
+            if(enrolledStudents.contains(student)){
+                // throws exception
+                return new MessageResponse(MessageType.ERROR,"Already enrolled");
+            }
+
+            enrolledStudents.add(student);
+        }else{
+            // throws exception
+            return new MessageResponse(MessageType.ERROR,"No empty quota");
         }
+        return new MessageResponse(MessageType.SUCCESS,"Success");
 
-        enrolledStudents.add(student);
+
     }
 
     public void deleteEnrolledStudent(Student student) {
         if(enrolledStudents.contains(student)) {
             enrolledStudents.remove(student);
+            remainingQuota++;
         } else {
             // throws exception
         }
@@ -156,18 +169,28 @@ public class Event extends BaseEntity {
         return result;
     }
 
-    public void addEnrolledFacultyAdvisor(FacultyAdvisor facultyAdvisor){
+    public MessageResponse addEnrolledFacultyAdvisor(FacultyAdvisor facultyAdvisor){
 
-        if(enrolledFacultyAdvisors.contains(facultyAdvisor)){
+        if(isAvailable()){
+            remainingQuota--;
+
+            if(enrolledFacultyAdvisors.contains(facultyAdvisor)){
+                // throws exception
+                return new MessageResponse(MessageType.ERROR,"Already enrolled");
+            }
+            enrolledFacultyAdvisors.add(facultyAdvisor);
+        }else{
             // throws exception
+            return new MessageResponse(MessageType.ERROR,"No empty quota");
         }
 
-        enrolledFacultyAdvisors.add(facultyAdvisor);
+        return new MessageResponse(MessageType.SUCCESS,"Success");
     }
 
     public void deleteEnrolledFacultyAdvisor(FacultyAdvisor facultyAdvisor) {
         if(enrolledFacultyAdvisors.contains(facultyAdvisor)) {
             enrolledFacultyAdvisors.remove(facultyAdvisor);
+            remainingQuota++;
         } else {
             // throws exception
         }
@@ -178,4 +201,20 @@ public class Event extends BaseEntity {
         return result;
     }
 
+    public boolean isAvailable(){
+        return remainingQuota>0;
+    }
+
+    public void addEttendedStudent(Student student) {
+        attendedStudents.add(student);
+    }
+
+    public void addAttendedFacultyAdvisor(FacultyAdvisor facultyAdvisor) {
+        attendedFacultyAdvisors.add(facultyAdvisor);
+    }
+
+    public void addEvaluation(int point) {
+        numberEvaluation = numberEvaluation + 1;
+        totalPoint = totalPoint + point;
+    }
 }
