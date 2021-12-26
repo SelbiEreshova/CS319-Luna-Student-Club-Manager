@@ -1,4 +1,4 @@
-# Importand note
+# Important note
 Please consider 'backend' as the default branch for now. (Tentative)
 
 # Student Club Manager
