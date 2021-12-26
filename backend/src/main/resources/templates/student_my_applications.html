@@ -34,12 +34,8 @@
 <script>
     $(".nav_bar").load("http://localhost:8080/student.html");
     $("#events_nav").addClass("active");
-
-    //var clubId = [[${clubId}]];
-
     function openApplicationPopup(clubId) {
         window.location.href = `http://localhost:8080/app/view_application_student/${clubId}/${localStorage.getItem('userId')}`
-        //bu değişecek - student_view_application açılmalı
     }
 
     $(document).ready(function() {
@@ -84,10 +80,6 @@
                 club_name: "clubdeneme3",
                 applicationStatus: "Rejected"}
         ]
-
-
-
-        console.log("end of doc ready");
     });
 </script>
 </html>

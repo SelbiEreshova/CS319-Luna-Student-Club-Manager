@@ -237,7 +237,7 @@ function goToReview(id)
             })
 
 
-   // $(".review-m").modal("show")
+
              $("#st1").click(function() {
               $(".fa-star").css("color", "black");
               $("#st1").css("color", "yellow");
@@ -394,7 +394,7 @@ function goToReview(id)
                 r[i].gePoint,
                 r[i].location,
                     r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                 "<p></p>"
                 ]).draw();
 
@@ -406,7 +406,7 @@ function goToReview(id)
                     r[i].gePoint,
                     r[i].location,
                     r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                    `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                     "<p></p>"
                 ]).draw();
           };
@@ -416,7 +416,7 @@ function goToReview(id)
           }
         }
       });
-/////////////////////////////////////////////////////////////////////////////////////////
+
 //Past Events
 
         $.ajax({
@@ -472,8 +472,8 @@ function goToReview(id)
                   r[i].gePoint,
                   r[i].location,
                     r[i].remainingQuota +"/" + r[i].quota,
-                `<button onclick="\goToEvent(${r[i].eventId})\">Go to event's home page</button>`,
-"<p></p>"
+                    `<button onclick="\goToEvent(${r[i].eventId})\">Go to event's home page</button>`,
+                    "<p></p>"
                 ]).draw();
 
 
@@ -484,15 +484,15 @@ function goToReview(id)
                   var startTime = new Date(dummyDate + " " + r[i].startTime);
                   var endDate = new Date(r[i].endDate);
                   var endTime = new Date(dummyDate + " " + r[i].endTime);
-                                table.row.add([
+                  table.row.add([
                       r[i].eventName,
                       r[i].clubName,
                       startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
                       endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
-                  r[i].gePoint,
-                  r[i].location,
-                    r[i].remainingQuota +"/" + r[i].quota,
-                `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                      r[i].gePoint,
+                      r[i].location,
+                      r[i].remainingQuota +"/" + r[i].quota,
+                       `<button class=\"btn-info text-dark\" style=\"background-color: #4ae9e8\" onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                       `<button class=\"review-b text-dark\" style=\"background-color: #9aefee\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
                 ]).draw();
                   pastTable.row.add([
@@ -503,36 +503,31 @@ function goToReview(id)
                       r[i].gePoint,
                       r[i].location,
                       r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
+                      `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,
                       `<button   class=\"review-b text-dark\" style=\"background-color: #9aefee\" onclick=\"goToReview(${r[i].eventId})\">Review</button>`
                 ]).draw();
               };
                for (let i = 0; i < past_e.length; i++) {
                 isAttended = attended.find(element => (element.eventId == past_e[i].eventId))
                 if(!isAttended)
-{
+                {
 
                     showEventsP_n(past_e, i);
-}
+                }
                 else{
                         showEventsP_a(past_e,i)
                 }
               }
 
             },
-                        error : function(e) {
+            error : function(e) {
                             console.log("ERROR: ", e);
                         }
-                });
-
-
-
+             });
 
         }
       });
-
-
-////////////////////////////////////Ongoing
+//////Ongoing
       $.ajax({
         type: "GET",
         headers: {
@@ -558,22 +553,21 @@ function goToReview(id)
                   r[i].clubName,
                   startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
                   endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
-              r[i].gePoint,
-              r[i].location,
-                r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,              "<p></p>"
+                  r[i].gePoint,
+                  r[i].location,
+                  r[i].remainingQuota +"/" + r[i].quota,
+                   `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,              "<p></p>"
             ]).draw(false);
             table.row.add([
-                  r[i].eventName,
-                  r[i].clubName,
-                  startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
-                  endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
-              r[i].gePoint,
-              r[i].location,
+                r[i].eventName,
+                r[i].clubName,
+                startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+                endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+                r[i].gePoint,
+                r[i].location,
                 r[i].remainingQuota +"/" + r[i].quota,
-`<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,              "<p></p>"
+                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`,              "<p></p>"
             ]).draw(false);
-
           };
 
           for (let i = 0; i < response.length; i++) {
@@ -586,7 +580,4 @@ function goToReview(id)
 
 </script>
 
-<script>
-
-</script>
 </html>
