@@ -1,3 +1,6 @@
+# Importand note
+Please consider 'backend' as the default branch for now. (Tentative)
+
 # Student Club Manager
 Student club manager is a web based application project for CS319. This project is designed for students and club managers at university. This project aims at to provide an effective implementation of a club manager for both sides of user, students and clubs and makes it far easier to arrange and attend the club activities and follow a particular club.
 
@@ -39,6 +42,7 @@ The main objective of our project is to allow student club managers of Bilkent U
 - Club managers can take attendance. Maybe by generating QR code for the activity and making participants scan it.
 - Students can review, and give feedback for the activities. 
 - Students have the option to be reminded about an activity via Bilkent email.
+
 
 
 # Team 
