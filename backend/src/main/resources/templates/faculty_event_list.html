@@ -49,6 +49,12 @@
 
 
 <script>
+             function goToEvent(id) {
+                window.location.href= `http://localhost:8080/app/faculty_advisor_event_homepage/${id}`;
+              }
+        $(document).ready(function(){
+         $(".nav_bar").load("http://localhost:8080/faculty_advisor.html");
+    $("#events_nav").addClass("active");
         $('.event-list').DataTable(
           { language: {
                 searchPlaceholder: "Search",
@@ -74,15 +80,13 @@
                     r[i].eventName,
                     r[i].startDate,
                     r[i].startTime,
-                    r[i].gePoints,
+                    r[i].gePoint,
                     r[i].location,
-                    r[i].quota
+                    r[i].quota,
                       `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
                 ]).draw();
             };
-             function goToEvent(id) {
-                window.location.href= `http://localhost:8080/app/faculty_advisor_event_homepage/${id}`;
-              }
+
               $('.details').click(function(){
                   var id = $(this).attr('id');
                   goToEvent(id)
@@ -92,6 +96,7 @@
                 showEvents(response, i);
             }
         }
+    });
     });
 </script>
 
