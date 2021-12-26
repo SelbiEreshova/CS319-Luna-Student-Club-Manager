@@ -215,6 +215,6 @@ public class Event extends BaseEntity {
 
     public void addEvaluation(int point) {
         numberEvaluation = numberEvaluation + 1;
-        totalPoint = totalPoint = point;
+        totalPoint = totalPoint + point;
     }
 }

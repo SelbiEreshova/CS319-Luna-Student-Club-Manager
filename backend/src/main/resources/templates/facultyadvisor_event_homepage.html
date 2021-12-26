@@ -180,7 +180,7 @@
             success: function (response) {
                 var rating = 0
                 if(response.numberEvaluation != 0 ) {
-                    rating = response.totalPoint / response.numberEvaluation
+                    rating = (response.totalPoint / response.numberEvaluation).toFixed(1);
                 }
 
                 $("#point").text(rating + "/" + 5);
