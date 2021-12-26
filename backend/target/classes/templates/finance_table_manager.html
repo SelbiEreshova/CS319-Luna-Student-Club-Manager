@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link src="nav_bar/admin.html">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+</head>
+<body>
+
+
+<div class="nav_bar" ></div>
+
+<h2 class="d-flex justify-content-center mt-4 pt-6">Finance Table</h2>
+
+<div class="card w-50" style="background-color: #edefef; margin-left: 25%; margin-top: 3%">
+    <div class="row justify-content-around">
+        <div>
+            <p>Total Amount (TL): <a id="total-amount"></a></p>
+        </div>
+        <div>
+            <button id="add-transaction-button" class="btn-info text-dark" style="background-color: #9df6f6">Add Transaction</button>
+        </div>
+    </div>
+</div>
+
+<div class="container table-responsive mx-auto my-2 p-3 ">
+    <table class="table display table-striped" id="club-list">
+        <thead class="bg-dark text-light">
+        <tr>
+            <th class="filtered">Amount (TL)</th>
+            <th class="filtered">Status</th>
+            <th class="filtered">Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+    </table>
+    <div class="modal" tabindex="-1" role="dialog" id="add_transaction_dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-light">
+                    <h5 class="modal-title">Add Transaction</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="amount">Amount</n></label>
+                            <input type="number" class="form-control" id="amount">
+                        </div>
+                        <div class="form-group">
+                            <label for="date"> Date</label>
+                            <input type="date" class="form-control " id="date">
+                        </div>
+                        <div class="form-group">
+                            <label >Status</label>
+                            <div class="select" id="status">
+                                <select>
+                                    <option>INCOME</option>
+                                    <option>EXPENSE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="explanation">Explanation</label>
+                            <input type="email" class="form-control" id="explanation" aria-describedby="emailHelp">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id = "addTransaction">Create Transaction</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="explanation_dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-light">
+                    <h5 class="modal-title">Explanation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <p id="explanation_see"></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        $(".nav_bar").load("http://localhost:8080/student.html");
+        $("#events_nav").addClass("active");
+    });
+</script>
+<script>
+    var clubId = [[${clubId}]];
+
+    //Add transaction
+    $("#addTransaction").click( function () {
+            console.log($("#status").find(":selected").text())
+            var formData = {
+                amountOfMoney: $("#amount").val(),
+                status:  $("#status").find(":selected").text(),
+                explanation: $("#explanation").val(),
+                date: $("#date").val()
+            }
+            $.ajax({
+                type: "PUT",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: "http://localhost:8080/financeData/"+ clubId +"/addToFinanceTable",
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.messageType == "ERROR") {
+                        alert(response.message)
+                    } else if (response.messageType == "SUCCESS") {
+                        window.location.href = window.location.href;
+                    }
+                },
+                error: function (e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+            })
+
+        }
+    )
+
+    //Dialogs
+    $("#add-transaction-button").click(function() {
+        $('#add_transaction_dialog').modal('show');
+    })
+
+    /*function openDialogFinanceAdd()
+    {
+      $('#add_transaction_dialog').modal('show');
+    }*/
+
+    function openDialogExplanation(i)
+    {
+        console.log(financeData);
+        $('#explanation_dialog').modal('show');
+        $('#explanation_see').text(financeData[i].explanation);
+    }
+
+    //Variables
+    var financeData = [];
+
+
+    $(document).ready(function () {
+
+        var tbl = $("#club-list").DataTable({
+            columnDefs: [{
+                "defaultContent": "-",
+                "targets": "_all"
+            }]
+        });
+
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url:"http://localhost:8080/club/finance_table/"+ clubId,
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+                financeData = response.financeData;
+
+                function showTransactions(r, i) {
+                    var date = new Date(r[i].date);
+                    tbl.row.add([
+                        r[i].amountOfMoney,
+                        r[i].status,
+                        date.toLocaleDateString(),
+                        "<button class=\"btn-info text-dark\" style=\"background-color: #9df6f6\" onclick='openDialogExplanation("+i+")' >See explanation</button>",
+                    ]).draw(false);
+                };
+
+                $("#total-amount").text(response.totalMoney);
+
+                for (let i = 0; i < response.financeData.length; i++)
+                {
+                    showTransactions(response.financeData, i);
+                }
+
+                /*tbl.row.add([
+                    "Total Amount:",
+                    response.totalMoney,
+                    "",
+                    "<button onclick='openDialogFinanceAdd()' >Add Transaction</button>",
+                ]).draw(false);*/
+            }
+        });
+
+    });
+
+</script>
+
+</html>

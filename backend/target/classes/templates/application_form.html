@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Create a new event</title>
+</head>
+<body>
+<div class="nav_bar" ></div>
+<div class="">
+    <h2 class="d-flex justify-content-center pt-6 my-5">Application Form</h2>
+    <form style="width: 50%; margin: auto" class="pb-5">
+
+        <div class="form-group qd1">
+            <label for="a1" id="q1"></label>
+            <input type="text" class="form-control form-control-lg" id="a1" placeholder="Answer the question">
+        </div>
+
+    </form>
+
+    <div class="form-group">
+        <div class="justify-content-left mt-2 mx-auto row">
+
+            <button class=" btn-info text-dark  m-2 p-2" id="submit">Submit Application Form</button>
+
+            <button class=" btn-info text-dark  m-2 p-2" id="cancel" type="cancel"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Cancel</button>
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+
+    var clubId = [[${clubId}]];
+
+    function swap(deleted){
+           $(`.q${deleted}`).remove();
+    }
+$(document).ready(function() {
+
+     $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/form/getForm/${clubId}`,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                questions= response.questions
+
+    $("#q1").text(questions[0])
+   for(var i=1; i<questions.length;i++)
+   {
+        var newQuestion = `<div class=\"form-group\"><label for=\"a${i}\" id=\"q${i}\">${questions[i]}</label><input type=\"text\" class=\"form-control form-control-lg\" id=\"a${i}\" placeholder=\"Answer the question\"></div>`
+        $("form").append(newQuestion)
+   }
+    post = true;
+
+            }
+        });
+
+     $(".nav_bar").load("http://localhost:8080/club_director.html");
+    $("#events_nav").addClass("active");
+     $("#submit").click(function(){
+        var answers = []
+        questions=[]
+        $("input").each(function(){
+            var input = $(this).val();
+            answers.push(input)
+            if(input=="")
+            {
+                post = false;
+            }
+        })
+        if(!post)
+        {
+            alert("Questions cannot be null")
+            post = true;
+        }
+        else{
+        post =true;
+            formData={
+                answers:answers,
+                clubId : localStorage.getItem("clubId")
+            }
+            console.log(formData)
+
+
+            $.ajax({
+                    type : "POST",
+                    headers: {
+                        "Access-Control-Allow-Origin":"*",
+                        Authorization : localStorage.getItem('Authorization')
+                    },
+                    crossDomain: true,
+                    contentType : "application/json",
+                    url : `http://localhost:8080/filledForm/${clubId}/createFilledForm/${localStorage.getItem('userId')}`,
+                    data : JSON.stringify(formData),
+                    dataType : 'json',
+                    success : function(result) {
+                        if (result.messageType == "ERROR") {
+
+                        } else if (result.messageType == "SUCCESS") {
+
+                        }
+                        console.log(result);
+                    },
+                    error : function(e) {
+                        alert("Error!")
+                        console.log("eventStatus", eventStatus);
+                        console.log("ERROR: ", e);
+                    }
+                });
+        }
+    })
+
+  })
+</script>
+
+</html>

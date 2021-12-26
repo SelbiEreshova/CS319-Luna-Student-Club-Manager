@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Edit event</title>
+</head>
+<body>
+<div class="nav_bar" ></div>
+<div class="">
+    <h2 class="d-flex justify-content-center pt-6">Edit event</h2>
+    <form style="width: 50%; margin: auto" class="pb-5 create_event">
+        <div class="form-group ">
+            <label for="event_title">Title</label>
+            <input type="text" class="form-control form-control-lg" id="event_title" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <label for="event_description">Description</label>
+            <textarea class="form-control"  rows="5" id="event_description"></textarea>
+        </div>
+        <div class="form-row">
+            <div class="col">
+
+                <div class="form-group ">
+                    <label for="event_date_start">Start Date</label>
+                    <input type="date" class="form-control " id="event_date_start">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_time_start">Start Time</label>
+                    <input type="time" class="form-control " id="event_time_start">
+                </div>
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_date_end">End Date</label>
+                    <input type="date" class="form-control " id="event_date_end">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_time_end">End Time</label>
+                    <input type="time" class="form-control " id="event_time_end">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_review_date">Review Deadline Date</label>
+                    <input type="date" class="form-control " id="event_review_date">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_review_time">Review Deadline Time </label>
+                    <input type="time" class="form-control " id="event_review_time">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_registration_date">Registration Deadline Date</label>
+                    <input type="date" class="form-control " id="event_registration_date">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_registration_time">Registration Deadline Time </label>
+                    <input type="time" class="form-control " id="event_registration_time">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group ">
+                    <div class="form-group ">
+                        <label for="event_quota">Quota</label>
+                        <input type="number" class="form-control " id="event_quota" >
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group ">
+                    <label for="event_point">GE points</label>
+                    <input type="number" class="form-control " id="event_point" >
+                </div>
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group ">
+                    <div class="form-group ">
+                        <label for="event_quota">Location Description</label>
+                        <input type="text" class="form-control " id="event_location" >
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check pt-4">
+                    <input class="form-check-input" type="checkbox" value="" id="inBilkent">
+                    <label class="form-check-label" for="inBilkent">
+                        In Bilkent
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group ">
+                    <div class="form-group ">
+                        <label for="event_building">Building</label>
+                        <input type="text" class="form-control " id="event_building" >
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="event_classroom">Classroom</label>
+                    <input type="text" class="form-control " id="event_classroom" >
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col ">
+                <label for="event_finance_description">Finance</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="event_finance_">
+                    <div class="input-group-append">
+                        <span class="input-group-text">TL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check pt-4">
+                    <input class="form-check-input" type="checkbox" value="" id="memberOnly">
+                    <label class="form-check-label" for="memberOnly">
+                        Member only
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="event_finance_description">Financial Description</label>
+            <textarea class="form-control"  rows="5" id="event_finance_description"></textarea>
+        </div>
+        <button type="button" class="btn btn-secondary">Cancel</button>
+        <div class="float-right">
+            <button type="submit" class="btn" value="save" id="save" name="button_1">Save </button>
+        </div>
+    </form>
+</div>
+</div>
+</body>
+<script>
+
+    var eventId = [[${eventId}]];
+
+    $(document).ready(
+        function() {
+
+            //Get event
+            $.ajax({
+                type : "GET",
+                headers: {
+                    "Access-Control-Allow-Origin":"*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType : "application/json",
+                url : `http://localhost:8080/event/get/${eventId}`,
+                success: function(res) {
+                    console.log(res.name);
+                    $('#event_title').val(res.name);
+                    $('#event_description').val(res.description);
+                    $('#event_date_start').val(res.startDate);
+                    $('#event_date_end').val(res.endDate);
+                    $('#event_time_start').val(res.startTime);
+                    $('#event_time_end').val(res.endTime);
+                    $('#event_quota').val(res.quota);
+                    $('#event_point').val(res.gePoint);
+                    $('#event_location').val(res.descriptionLocation);
+                    if(res.inBilkent)
+                    {
+                        $('#inBilkent').prop('checked', true);
+                    }
+                    $('#event_building').val(res.building);
+                    $('#event_classroom').val(res.classroom);
+                    $('#event_finance_').val(res.amountOfMoney);
+                    $('#event_finance_description').val(res.explanation);
+                    $('#event_review_date').val(res.reviewDeadlineDate);
+                    $('#event_registration_time').val(res.registrationDeadlineTime);
+                    $('#event_review_time').val(res.reviewDeadlineTime);
+                    $('#event_registration_date').val(res.registrationDeadlineDate);
+
+
+
+
+                },
+                error : function(e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+            });
+
+            var published;
+
+
+            // SUBMIT FORM
+            $( "#save" ).click(function() {
+
+                published = false;
+            });
+
+
+
+            $(".create_event").submit(function(event) {
+
+                // Prevent the form from submitting via the browser.
+                event.preventDefault();
+                ajaxPost(published);
+
+            });
+
+
+
+            function ajaxPost(published) {
+
+
+                // PREPARE FORM DATA
+                var formData = {
+                    eventID: eventId,
+                    name: $("#event_title").val(),
+                    description: $("#event_description").val(),
+                    gePoint: $("#event_point").val(),
+                    startDate: $("#event_date_start").val(),
+                    startTime: $("#event_time_start").val(),
+                    endDate:  $("#event_date_end").val(),
+                    endTime:  $("#event_time_end").val(),
+                    registrationDeadlineDate: $("#event_registration_date").val(),
+                    registrationDeadlineTime: $("#event_registration_time").val(),
+                    reviewDeadlineDate: $("#event_review_date").val(),
+                    reviewDeadlineTime: $("#event_review_time").val(),
+                    quota: $("#event_quota").val(),
+                    memberOnly: $("#memberOnly").is(":checked"),
+                    amountOfMoney: $("#event_finance_").val(),
+                    explanation: $("#event_finance_description").val(),
+                    building: $("#event_building").val(),
+                    inBilkent: $("#inBilkent").is(":checked"),
+                    descriptionLocation: $("#event_location").val(),
+                    classroom: $("#event_classroom").val(),
+                }
+
+                // DO POST
+                $.ajax({
+                    type : "PUT",
+                    headers: {
+                        "Access-Control-Allow-Origin":"*",
+                        Authorization : localStorage.getItem('Authorization')
+                    },
+                    crossDomain: true,
+                    contentType : "application/json",
+                    url : "http://localhost:8080/event/update",
+                    data : JSON.stringify(formData),
+                    dataType : 'json',
+                    success : function(result) {
+                        if (result.messageType === "ERROR") {
+                            alert(result.message)
+                        } else if (result.messageType === "SUCCESS") {
+                            alert("Event is created")
+                            window.location.href = `http://localhost:8080/app/club_director_event_homepage/${eventId}`
+                        }
+                        console.log(result);
+                    },
+                    error : function(e) {
+                        alert("Error!")
+                        console.log("eventStatus", eventStatus);
+                        console.log("ERROR: ", e);
+                    }
+                });
+
+            }
+        })
+
+</script>
+
+</html>

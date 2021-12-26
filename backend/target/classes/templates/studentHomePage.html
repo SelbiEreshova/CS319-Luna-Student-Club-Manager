@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+  <title>Welcome</title>
+</head>
+<body>
+
+<div class="nav_bar"></div>
+
+<div class="row d-flex justify-content-center">
+  <h2 class="mt-4 pt-6" style="margin-right: 10px">Welcome,</h2>
+  <h2 class="mt-4 pt-6" id="name"></h2>
+</div>
+<p class="text-lg-center" style="margin-top: 3%; font-size: larger">Here are your upcoming events.</p>
+<div class="container table-responsive mx-auto my-2 p-3 ">
+  <table class="table display table-striped student-home-table" id="student-home-table">
+    <thead class="bg-dark text-light">
+    <tr>
+      <th>Event</th>
+      <th>Club</th>
+      <th>Start </th>
+      <th>End</th>
+      <th>GE Point</th>
+      <th></th>
+    </tr>
+    </thead>
+  </table>
+</div>
+</body>
+
+<script>
+  $(".nav_bar").load("http://localhost:8080/student.html");
+  $("#events_nav").addClass("active");
+
+  function goToEvent(id) {
+    window.location.href= `http://localhost:8080/app/${localStorage.getItem('userType')}_event_homepage/${id}`;
+  }
+
+    $(document).ready(function () {
+      var table = $("#student-home-table").DataTable();
+
+      $.ajax(
+              {
+                type : "GET",
+                headers: {
+                  'Access-Control-Allow-Origin':'*',
+                  Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType : "application/json",
+                url : `http://localhost:8080/getProfileOfStudent/${localStorage.getItem('userId')}`,
+                dataType : 'json',
+                success : function(result) {
+                  console.log(result);
+                  $("#name").text(result.username);
+
+                },
+                error : function(e) {
+                  console.log("ERROR: ", e);
+                }
+              });
+
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/studentHomePage/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          function showEvents(r, i){
+            var startDate = new Date(r[i].startDate);
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+            var endDate = new Date(r[i].endDate);
+            var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+            table.row.add([
+              r[i].eventName,
+              r[i].clubName,
+              startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+              endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+              r[i].gePoint,
+              r[i].location,
+              r[i].remainingQuota +"/" + r[i].quota,
+                `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
+                ]).draw(false);
+          };
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
+
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/getPastEventsOfStudent/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          function showEvents(r, i){
+            var startDate = new Date(r[i].startDate);
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+            var endDate = new Date(r[i].endDate);
+            var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+            table.row.add([
+              r[i].eventName,
+              r[i].clubName,
+              startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+              endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+              r[i].gePoint,
+              r[i].location,
+              r[i].remainingQuota +"/" + r[i].quota,
+              `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
+            ]).draw(false);
+          };
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
+
+
+
+
+      $.ajax({
+        type: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization : localStorage.getItem('Authorization')
+        },
+        crossDomain: true,
+        contentType: "application/json",
+        url: `http://localhost:8080/getOnGoingEventsOfStudent/${localStorage.getItem('userId')}`,
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          function showEvents(r, i){
+            var startDate = new Date(r[i].startDate);
+            var dummyDate = "1111-11-11";
+            var startTime = new Date(dummyDate + " " + r[i].startTime);
+
+            var endDate = new Date(r[i].endDate);
+            var endTime = new Date(dummyDate + " " + r[i].endTime);
+
+            table.row.add([
+              r[i].eventName,
+              r[i].clubName,
+              startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
+              endDate.toLocaleDateString() + "\n" + (endTime.toLocaleTimeString()).substr(0,5),
+              r[i].gePoint,
+              r[i].location,
+              r[i].remainingQuota +"/" + r[i].quota,
+              `<button onclick='goToEvent(${r[i].eventId})'>Go to event's home page</button>`
+            ]).draw(false);
+          };
+          for (let i = 0; i < response.length; i++) {
+            showEvents(response, i);
+          }
+        }
+      });
+    });
+
+
+</script>
+
+</html>

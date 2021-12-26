@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link src="../nav_bar_club_director.html">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+</head>
+<body>
+<!-- This page requires all clubs including their name email and faculty advisor-->
+<!-- This page directs to club home page for admnis-->
+<!-- This page delete a club-->
+<!-- This page can add a new club-->
+
+<div class="nav_bar" ></div>
+
+<h2 class="d-flex justify-content-center mt-4 pt-6">Club List</h2>
+
+<div class="justify-content-left mt-2 mx-5"> <button class=" btn-info text-dark  m-2 p-2" id="add"><i class="fa fa-plus m-3 " style="width: 20px;"></i>Add a new club</button></div>
+
+<div class="container table-responsive mx-auto my-2 p-3 ">
+    <table class="table display table-striped" id="club-list">
+        <thead class="bg-dark text-light">
+        <tr>
+            <th class="filtered">Club Name</th>
+            <th>Email</th>
+            <th class="filtered">Faculty Advisor</th>
+            <th>Home page</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+    </table>
+
+    <!--<th><div class="mx-auto"><button class="mx-auto"><i class="fa fa-link"></i></button></div></th>
+            <th><div class="dropdown ml-5 mr-1 justify-content-right">
+                <button class="btn btn-danger" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Delete Club
+                </button>-->
+
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="add_dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-light">
+                <h5 class="modal-title">Add Club</h5>
+
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <div class="form-group">
+                        <label for="directorName">Club Director Name</n></label>
+                        <input type="text" class="form-control" id="directorName">
+                    </div>
+                    <div class="form-group">
+                        <label for="directorSurname">Club Director Surname</n></label>
+                        <input type="text" class="form-control" id="directorSurname">
+                    </div>
+                    <div class="form-group">
+                        <label for="clubName">Club Name</label>
+                        <input type="text" class="form-control" id="clubName">
+                    </div>
+                    <div class="form-group">
+                        <label for="clubEmail">Club Email</label>
+                        <input type="email" class="form-control" id="clubEmail" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="clubPassword">Password</label>
+                        <input type="password" class="form-control" id="clubPassword">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="advisorName">Advisor Name</n></label>
+                        <input type="text" class="form-control" id="advisorName">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorSurname">Advisor Surname</n></label>
+                        <input type="text" class="form-control" id="advisorSurname">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorUsername">Advisor Username</label>
+                        <input type="text" class="form-control" id="advisorUsername">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorMail">Advisor Email</label>
+                        <input type="email" class="form-control" id="advisorMail" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="advisorPassword">Advisor Password</label>
+                        <input type="password" class="form-control" id="advisorPassword">
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id = "createClub">Create Club</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>$(document).ready(function () {
+ $(".nav_bar").load("http://localhost:8080/admin.html");
+       $("#events_nav").addClass("active");
+        // Attach Button click event listener
+       $("#add").click(function(){
+            // show Modal
+            $('#add_dialog').modal('show');
+       });
+   });</script>
+
+<script>
+    function goToClub(id) {
+        window.location.href= `http://localhost:8080/app/club_home_page_admin/${id}`
+        //yukarıdaki url club home page açacak şekilde değişecek
+    }
+
+    function deleteClub(id) {
+        $.ajax({
+            type: "DELETE",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/club/delete/${id}`,
+            dataType: 'json',
+            success: function (response) {
+                if (response.messageType == "ERROR") {
+                    alert(response.message)
+                }
+                else {
+                    window.location.href = window.location.href;
+                }
+            }
+        });
+
+    }
+
+    $(document).ready(function () {
+
+        var tbl = $("#club-list").DataTable();
+
+        $.ajax({
+            type: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization : localStorage.getItem('Authorization')
+            },
+            crossDomain: true,
+            contentType: "application/json",
+            url: `http://localhost:8080/club/get_club_list`,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                function showClubs(r, i){
+                    tbl.row.add([
+                        r[i].clubName,
+                        r[i].clubEmail,
+                        r[i].clubFacultyAdvisor,
+                        `<button class="btn-info text-dark" style="background-color: #2ed3db" onclick='goToClub(${r[i].clubId})'>Go to club home page</button>`,
+                        `<button class="btn-danger" onclick='deleteClub(${r[i].clubId})'>Delete Club</button>`
+                    ]).draw(false);
+                };
+                for (let i = 0; i < response.length; i++) {
+                    showClubs(response, i);
+                }
+            }
+        });
+
+
+        $("#createClub").click(function() {
+            // Prevent the form from submitting via the browser.
+            //event.preventDefault();
+            createClub();
+        });
+
+        function createClub() {
+            var formData = {
+                directorName: $("#directorName").val(),
+                directorSurname: $("#directorSurname").val(),
+                clubName: $("#clubName").val(),
+                clubEmail: $("#clubEmail").val(),
+                clubPassword: $("#clubPassword").val(),
+                advisorUsername: $("#advisorUsername").val(),
+                advisorPassword: $("#advisorPassword").val(),
+                advisorName: $("#advisorName").val(),
+                advisorSurname: $("#advisorSurname").val(),
+                advisorMail: $("#advisorMail").val()
+            }
+
+            $.ajax({
+                type: "PUT",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    Authorization : localStorage.getItem('Authorization')
+                },
+                crossDomain: true,
+                contentType: "application/json",
+                url: "http://localhost:8080/club/create-club",
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                success: function (response) {
+                    if (response.messageType == "ERROR") {
+                        alert(response.message)
+                    } else if (response.messageType == "SUCCESS") {
+                        window.location.href = window.location.href;
+                    }
+                },
+                error: function (e) {
+                    alert("Error!")
+                    console.log("ERROR: ", e);
+                }
+            })
+        }
+    });
+</script>
+
+</html>
