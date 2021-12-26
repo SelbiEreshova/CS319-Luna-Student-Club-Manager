@@ -48,8 +48,8 @@
     <table class="table display table-striped all-event-list-t">
         <thead class="bg-dark text-light">
         <tr>
-            <th>Club Name</th>
             <th>Event Name</th>
+            <th>Club Name</th>
             <th>Start</th>
             <th>End</th>
             <th>Ge Points</th>
@@ -71,9 +71,8 @@
     <table class="table display table-striped future-event-list-t">
         <thead class="bg-dark text-light">
         <tr>
-            <th>Club Name</th>
             <th>Event Name</th>
-            <th>Start</th>
+            <th>Club Name</th>           <th>Start</th>
             <th>End</th>
             <th>Ge Points</th>
             <th>Location</th>
@@ -94,8 +93,8 @@
     <table class="table display table-striped past-event-list-t">
     <thead class="bg-dark text-light">
     <tr>
-        <th>Club Name</th>
         <th>Event Name</th>
+        <th>Club Name</th>
         <th>Start</th>
         <th>End</th>
         <th>Ge Points</th>
@@ -453,7 +452,7 @@ function goToReview(id)
 
                   var endDate = new Date(r[i].endDate);
                   var endTime = new Date(dummyDate + " " + r[i].endTime);
-                                table.row.add([
+                  table.row.add([
                       r[i].eventName,
                       r[i].clubName,
                       startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
@@ -464,7 +463,7 @@ function goToReview(id)
                 `<button onclick=\"goToEvent(${r[i].eventId})\">Go to event's home page</button>`,
                 "<p></p>"
                 ]).draw();
-                              pastTable.row.add([
+                pastTable.row.add([
                       r[i].eventName,
                       r[i].clubName,
                       startDate.toLocaleDateString() + "\n" + (startTime.toLocaleTimeString()).substr(0,5),
