@@ -81,7 +81,6 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          //$("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
             var startDate = new Date(r[i].startDate);
             var dummyDate = "1111-11-11";
@@ -119,7 +118,6 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          //$("#name").text(`${localStorage.getItem('userId')}`); //buraya içeri ne yazmam lazım user id(tercihen user ismi) gelmesi için?
           function showEvents(r, i){
             var startDate = new Date(r[i].startDate);
             var dummyDate = "1111-11-11";
@@ -160,7 +158,6 @@
         dataType: 'json',
         success: function(response) {
           console.log(response);
-          //$("#name").text(`${localStorage.getItem('userId')}`);
           function showEvents(r, i){
             var startDate = new Date(r[i].startDate);
             var dummyDate = "1111-11-11";
